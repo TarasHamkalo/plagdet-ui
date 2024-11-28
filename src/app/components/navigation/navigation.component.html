@@ -1,0 +1,8 @@
+  <mat-nav-list>
+    @for (navInfo of navInfos(); track navInfo.id) {
+      <mat-list-item [activated]="navInfo.current">
+        <mat-icon>{{navInfo.icon}}</mat-icon>
+        <mat-label>{{navInfo.label}}</mat-label>
+      </mat-list-item>
+    }
+  </mat-nav-list>
