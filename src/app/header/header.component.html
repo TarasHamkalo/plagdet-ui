@@ -1,0 +1,11 @@
+<mat-toolbar class="header">
+  <button (click)="this.emitMenuButtonPressed()" mat-icon-button aria-label="Menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span>{{ this.headerText() }}</span>
+
+  <button mat-icon-button aria-label="Profile">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
