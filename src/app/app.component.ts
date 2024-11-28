@@ -1,23 +1,51 @@
 import {Component, Signal, signal} from '@angular/core';
 import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {HeaderComponent} from "./header/header.component";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent,} from "@angular/material/sidenav";
+import {RouterOutlet} from "@angular/router";
+import {NavigationComponent} from "./components/navigation/navigation.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-
-  imports: [MatSlideToggle],
+  imports: [
+    MatSlideToggle,
+    HeaderComponent,
+    MatSidenavContainer,
+    MatSidenav,
+    MatSidenavContent,
+    RouterOutlet,
+    NavigationComponent
+  ],
   template: `
-    <h1>This is header !</h1>
-    <mat-slide-toggle>Toggle me! ({{title()}})</mat-slide-toggle>
+    <app-header (menuButtonPressed)="sidenav.toggle()" [headerText]="'Plagdet'"/>
+
+    <mat-sidenav-container style="height: 100%">
+
+      <mat-sidenav #sidenav mode="push">
+        <app-navigation/>
+      </mat-sidenav>
+      
+      <mat-sidenav-content>
+        <main>
+          <router-outlet/>
+        </main>
+      </mat-sidenav-content>
+
+    </mat-sidenav-container>
+
   `,
   styles: `
-    h1 {
-      color:  var(--mat-sys-on-surface);
-      font-size: var(--mat-sys-display-large)
+    :host {
+      display: block;
+      height: 100vh;
+      width: 100vw;
     }
   `
 
 })
 export class AppComponent {
-  title: Signal<String> = signal('ux');
+
+  public title: Signal<String> = signal('ux');
+
 }
