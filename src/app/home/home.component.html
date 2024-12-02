@@ -1,0 +1,21 @@
+<mat-sidenav-container class="home">
+  <mat-sidenav #drawer>
+    <mat-nav-list>
+      <a mat-list-item>link 1</a>
+      <a mat-list-item>link 2</a>
+      <a mat-list-item>link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <button
+      type="button"
+      aria-label="toggle sidenav"
+      mat-icon-button
+      (click)="drawer.toggle()">
+
+      <mat-icon aria-label="side nav toggle icon">menu</mat-icon>
+    </button>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

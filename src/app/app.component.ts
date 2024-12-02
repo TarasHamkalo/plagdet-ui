@@ -1,42 +1,36 @@
-import {Component, Signal, signal} from '@angular/core';
-import {CardWithInput} from "./components/card-with-input/card-with-input.component";
+import {Component} from "@angular/core";
+import {HeaderComponent} from "./components/header/header.component";
+import {HomeComponent} from "./home/home.component";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   standalone: true,
   imports: [
-    CardWithInput
+    HeaderComponent,
+    HomeComponent
   ],
+  // app header will send event there will be binding to app home function
   template: `
-    <app-card-with-input/>
-<!--    <app-header (menuButtonPressed)="sidenav.toggle()" [headerText]="'Plagdet'"/>-->
-  
-<!--    <mat-sidenav-container style="height: 100%">-->
-
-<!--      <mat-sidenav #sidenav mode="push">-->
-<!--        <app-navigation/>-->
-<!--      </mat-sidenav>-->
-<!--      -->
-<!--      <mat-sidenav-content>-->
-<!--        <main>-->
-<!--          <router-outlet/>-->
-<!--        </main>-->
-<!--      </mat-sidenav-content>-->
-
-<!--    </mat-sidenav-container>-->
-
+    <div class="app-layout">
+      <app-header/>
+      <main class="content">
+        <app-home/>
+      </main>
+    </div>
   `,
+
   styles: `
-    :host {
-      display: block;
+    .app-layout {
       height: 100vh;
-      width: 100vw;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .content {
+      flex-grow: 1;
+      margin-top: 64px;
     }
   `
-
 })
 export class AppComponent {
-
-  public title: Signal<String> = signal('ux');
-
 }
