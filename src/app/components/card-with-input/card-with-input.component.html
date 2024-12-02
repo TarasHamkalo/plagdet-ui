@@ -1,17 +1,26 @@
 <div class="tour-card">
   <h1>{{ title }}</h1>
   <ul>
-    @for (hero of heros; track $index) {
+    @for (hero of heroes; track $index) {
       <li [textContent]="hero"></li>
     }
   </ul>
 
-  <form>
+  <form
+    (ngSubmit)="addHero(heroInput.value)"
+    #heroForm="ngForm"
+  >
+
     <mat-form-field appearance="outline">
-      <input matInput >
+      <input matInput #heroInput
+             (keyup.enter)="addHero(heroInput.value); heroInput.value=''">
       <mat-label>Hero name</mat-label>
     </mat-form-field>
 
-    <button mat-button type="submit">Submit</button>
+    <button mat-button
+            type="submit">
+      Submit
+    </button>
   </form>
 </div>
+<!--            (click)="addHero(heroInput.value); heroInput.value=''"-->

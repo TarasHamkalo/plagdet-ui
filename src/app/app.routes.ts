@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
-import {UploadDatasetComponent} from "./upload-dataset/upload-dataset.component";
 
 export const routes: Routes = [
-  { path: 'upload', component: UploadDatasetComponent},
-  { path: '**', redirectTo: 'upload'}
+  // { path: 'upload', component: UploadDatasetComponent},
+  // { path: '**', redirectTo: 'upload'}
 
   // {
   //   path: '',
