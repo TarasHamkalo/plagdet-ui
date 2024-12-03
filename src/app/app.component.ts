@@ -9,12 +9,12 @@ import {HomeComponent} from "./home/home.component";
     HeaderComponent,
     HomeComponent
   ],
-  // app header will send event there will be binding to app home function
+
   template: `
     <div class="app-layout">
-      <app-header/>
+      <app-header (menuToggle)="home.toggleSideNav()"/>
       <main class="content">
-        <app-home/>
+        <app-home #home/>
       </main>
     </div>
   `,
