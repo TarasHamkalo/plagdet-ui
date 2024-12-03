@@ -6,5 +6,5 @@
   flex-direction: row;
   justify-content: space-between;
 
-  background-color: red;
+  background-color: var(--mat-sys-surface-container);
 }
