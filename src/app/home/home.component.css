@@ -10,13 +10,36 @@
 }
 
 .rail {
-  width: 5rem;
+  width: 80px;
 }
 
 .expanded {
-  width: 20rem;
+  width: 320px;
 }
 
 mat-sidenav-content {
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-left: 12rem;
+  padding-right: 12rem;
+}
+
+@media (max-width: 1200px) {
+  .mat-sidenav-content {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+}
+
+@media (max-width: 840px) {
+  .mat-sidenav-content {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .mat-sidenav-content {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
 }
