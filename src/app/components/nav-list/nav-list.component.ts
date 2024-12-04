@@ -16,7 +16,6 @@ export class NavListComponent {
 
   public navItems: string[] = ['Dashboard'];
 
-  @Input()
-  public fullWidthNavItems = signal(false);
+  @Input() public fullWidthNavItems = signal(false);
 
 }
