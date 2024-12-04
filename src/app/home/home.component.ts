@@ -1,15 +1,12 @@
 import {Component, signal} from '@angular/core';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
-import {MatListItem, MatNavList} from "@angular/material/list";
-import {MatIcon} from "@angular/material/icon";
+import {NavListComponent} from "../components/nav-list/nav-list.component";
 
 // Combines side navigation-gen and content
 @Component({
   selector: 'app-home',
   imports: [
-    MatNavList, MatListItem,
-    MatSidenav, MatSidenavContainer, MatSidenavContent,
-    MatIcon
+    MatSidenav, MatSidenavContainer, MatSidenavContent, NavListComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'

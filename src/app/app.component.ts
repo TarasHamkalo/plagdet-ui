@@ -28,9 +28,10 @@ import {HomeComponent} from "./home/home.component";
     
     .content {
       flex-grow: 1;
-      margin-top: 64px;
+      padding-top: 64px; 
     }
   `
+  // TODO: change to rem ?
 })
 export class AppComponent {
 }

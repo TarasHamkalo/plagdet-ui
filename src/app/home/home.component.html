@@ -1,22 +1,12 @@
 <mat-sidenav-container class="home" autosize="true">
-  <mat-sidenav class="sidenav drawer"
-     [class.drawer]="isSidenavOpen()"
-     opened="true"
-     mode="side">
+  <mat-sidenav class="sidenav-colored expanded rail"
+               [class.rail]="!isSidenavOpen()"
+               [class.expanded]="isSidenavOpen()"
+               [opened]="true"
+               mode="side">
 
-    <mat-nav-list>
+    <app-nav-list [fullWidthNavItems]="isSidenavOpen"/>
 
-      <a mat-list-item>
-        <span class="nav-item">
-          <mat-icon>house</mat-icon>
-          @if (isSidenavOpen()) {
-            <span>Dashboard</span>
-          }
-        </span>
-
-      </a>
-
-    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>

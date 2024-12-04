@@ -1,0 +1,14 @@
+<mat-nav-list aria-label="Navigation sidebar">
+  @for (navItem of navItems; track navItem) {
+    <a mat-list-item [activated]="true">
+        <span class="nav-item nav-item-expanded"
+              [class.nav-item-expanded]="fullWidthNavItems()"
+        >
+          <mat-icon>house</mat-icon>
+          @if (fullWidthNavItems()) {
+            <span>Dashboard</span>
+          }
+        </span>
+    </a>
+  }
+</mat-nav-list>
