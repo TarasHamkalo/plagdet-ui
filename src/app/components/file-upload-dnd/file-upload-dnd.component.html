@@ -1,0 +1,12 @@
+<div class="dnd-area" appDnd (dragDrop)="onFileDrop($event)">
+  <div class="text-frame">
+    <h1 class="title-text">{{ title }}</h1>
+    <p class="subtitle-text">{{ subtitle }}</p>
+  </div>
+
+  <button (click)="filePicker.click()" mat-stroked-button>
+    <span>{{ buttonText }}</span>
+    <input #filePicker type="file" class="file-input" (change)="onFileSelect($event)"
+           style="display: none"/>
+  </button>
+</div>

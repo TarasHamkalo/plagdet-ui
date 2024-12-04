@@ -1,0 +1,59 @@
+.dnd-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /*min-width: 50px;*/
+  height: 250px;
+  max-width: 500px;
+  box-sizing: border-box;
+
+
+  margin-inline: auto;
+
+  gap: 1rem;
+  padding: 1rem;
+
+  border-radius: var(--mat-sys-corner-extra-small);
+  background-color: var(--mat-sys-surface-container-high);
+  border: 1px dashed var(--mat-sys-outline-variant);
+}
+
+.dnd-faint {
+  border: 1px dashed var(--mat-sys-primary);
+}
+
+.dnd-faint .text-frame {
+  opacity: 0.5;
+}
+
+.dnd-faint button {
+  opacity: 0.38;
+}
+
+.dnd-area button {
+  max-width: 200px;
+}
+
+.title-text {
+  text-align: center;
+  font: var(--mat-sys-title-medium);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
+
+.subtitle-text {
+  text-align: center;
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-on-surface-variant);
+  margin: 0;
+}
+
+.text-frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 0.25rem;
+}
