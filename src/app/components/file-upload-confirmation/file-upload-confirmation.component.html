@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <mat-list>
+    <mat-list-item>
+      <mat-icon svgIcon="rename-box-outline" matListItemIcon></mat-icon>
+      <p matListItemTitle>{{ dialogData.fileWrapper.file.name }}</p>
+    </mat-list-item>
+
+    <mat-list-item>
+      <mat-icon matListItemIcon>date_range</mat-icon>
+      <p>{{ dialogData.fileWrapper.dateModified | date }}</p>
+    </mat-list-item>
+
+    <mat-list-item>
+      <mat-icon matListItemIcon svgIcon="file-document-multiple-outline"/>
+      <p>{{ dialogData.fileWrapper.filesContained | number }}</p>
+    </mat-list-item>
+  </mat-list>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+
+  <button mat-button mat-dialog-close>{{ cancelText }}</button>
+  <button mat-flat-button [mat-dialog-close]="true" cdkFocusInitial>{{ confirmText }}</button>
+
+</mat-dialog-actions>
