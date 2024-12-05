@@ -3,6 +3,7 @@ import {HeaderComponent} from "./components/header/header.component";
 import {HomeComponent} from "./home/home.component";
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from "@angular/platform-browser";
+import {AnalysisContextService} from "./services/analysis-context.service";
 
 @Component({
   selector: "app-root",
@@ -36,17 +37,20 @@ import {DomSanitizer} from "@angular/platform-browser";
   // TODO: change to rem ?
 })
 export class AppComponent {
+  private icons: string[] = [
+    "file-document-multiple-outline",
+    "rename-box-outline"
+  ]
 
-  constructor(private iconRegistry: MatIconRegistry,
+  constructor(private analysisContextService: AnalysisContextService,
+              private iconRegistry: MatIconRegistry,
               private domSanitizer: DomSanitizer
   ) {
+  }
 
-    const icons: string[] = [
-      "file-document-multiple-outline",
-      "rename-box-outline"
-    ]
-
-    this.registerIcons(icons);
+  ngOnInit() {
+    this.analysisContextService.loadConfigurationOptions()
+    this.registerIcons(this.icons);
   }
 
   private registerIcons(icons: string[]) {

@@ -1,0 +1,44 @@
+[
+  {
+    "displayTitle": "Špeciálne vzory",
+    "displayDescription": "Odstránenie odkazov, emailov, spomenutí",
+    "selectByDefault": false,
+    "selected": false
+  },
+  {
+    "displayTitle": "Interpunkcia",
+    "displayDescription": "Odstránenie vonkajšej interpunkcie",
+    "selectByDefault": true,
+    "selected": true
+  },
+  {
+    "displayTitle": "Čísla",
+    "displayDescription": "Ignorovať čísla pri porovnávaní",
+    "selectByDefault": false,
+    "selected": false
+  },
+  {
+    "displayTitle": "Stop slova",
+    "displayDescription": "Odstránenie slov, ktoré nemajú veľký význam",
+    "selectByDefault": true,
+    "selected": true
+  },
+  {
+    "displayTitle": "Diakritika",
+    "displayDescription": "Odstránenie diakritických znamienok",
+    "selectByDefault": true,
+    "selected": true
+  },
+  {
+    "displayTitle": "Stemming",
+    "displayDescription": "Skrátenie slova ku koreňu",
+    "selectByDefault": false,
+    "selected": false
+  },
+  {
+    "displayTitle": "Krížové porovnanie",
+    "displayDescription": "Vzájomné porovnanie vstupných súborov",
+    "selectByDefault": true,
+    "selected": true
+  }
+]
