@@ -2,11 +2,13 @@ import {Component, inject} from '@angular/core';
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {FileUploadDndComponent} from "../../components/file-upload-dnd/file-upload-dnd.component";
 import {AnalysisContextService} from "../../services/analysis-context.service";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {
   FileUploadConfirmationComponent
 } from "../../components/file-upload-confirmation/file-upload-confirmation.component";
 import {FileWrapper} from "../../model/file-wrapper.type";
+import {Router} from "@angular/router";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-upload-dataset',
@@ -14,6 +16,7 @@ import {FileWrapper} from "../../model/file-wrapper.type";
   imports: [
     TitledSurfaceComponent,
     FileUploadDndComponent,
+    MatButton,
   ],
   templateUrl: './upload-dataset.component.html',
   styleUrl: './upload-dataset.component.css'
@@ -22,7 +25,8 @@ export class UploadDatasetComponent {
 
   private dialog: MatDialog = inject(MatDialog);
 
-  constructor(private analysisContext: AnalysisContextService) {}
+  constructor(private analysisContext: AnalysisContextService,
+              private router: Router) {}
 
   onFileUploaded(file: File): void {
     // TODO: Move to service
@@ -42,7 +46,12 @@ export class UploadDatasetComponent {
       if (success) {
         this.analysisContext.setUploadedFile(fileWrapper);
         // navigate to another page
+        this.router.navigate(['/configuration'])
       }
     })
+  }
+
+  moveToConfigPage(): void {
+    this.router.navigate(['/configuration'])
   }
 }
