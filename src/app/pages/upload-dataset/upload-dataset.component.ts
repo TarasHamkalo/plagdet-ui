@@ -46,12 +46,12 @@ export class UploadDatasetComponent {
       if (success) {
         this.analysisContext.setUploadedFile(fileWrapper);
         // navigate to another page
-        this.router.navigate(['/configuration'])
+        this.router.navigate(['/configuration']);
       }
-    })
+    });
   }
 
   moveToConfigPage(): void {
-    this.router.navigate(['/configuration'])
+    this.router.navigate(['/configuration']);
   }
 }

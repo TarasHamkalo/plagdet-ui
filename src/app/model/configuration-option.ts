@@ -1,4 +1,4 @@
-export type ConfigurationOption = {
+export interface ConfigurationOption {
   displayTitle: string;
   displayDescription: string;
   selectByDefault: boolean;

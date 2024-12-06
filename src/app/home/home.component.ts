@@ -17,7 +17,7 @@ export class HomeComponent {
   public isSidenavOpen = signal(false);
 
   toggleSideNav() {
-    this.isSidenavOpen.update(b => !b)
+    this.isSidenavOpen.update(b => !b);
   }
 
 }

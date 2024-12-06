@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {HeaderComponent} from "./components/header/header.component";
 import {HomeComponent} from "./home/home.component";
 import {MatIconRegistry} from '@angular/material/icon';
@@ -36,11 +36,11 @@ import {AnalysisContextService} from "./services/analysis-context.service";
   `
   // TODO: change to rem ?
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private icons: string[] = [
     "file-document-multiple-outline",
     "rename-box-outline"
-  ]
+  ];
 
   constructor(private analysisContextService: AnalysisContextService,
               private iconRegistry: MatIconRegistry,
@@ -49,7 +49,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.analysisContextService.loadConfigurationOptions()
+    this.analysisContextService.loadConfigurationOptions();
     this.registerIcons(this.icons);
   }
 

@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {DndDirective} from "../../directives/dnd.directive";
-import {AnalysisContextService} from "../../services/analysis-context.service";
 
 @Component({
   selector: 'app-file-upload-dnd',
@@ -14,11 +13,11 @@ import {AnalysisContextService} from "../../services/analysis-context.service";
 })
 export class FileUploadDndComponent {
 
-  @Input() public title: string = 'Vyberte súbor alebo ho sem vložte';
+  @Input() public title = 'Vyberte súbor alebo ho sem vložte';
 
-  @Input() public subtitle: string = 'Povolené formáty ZIP, TAR or TARGZ';
+  @Input() public subtitle = 'Povolené formáty ZIP, TAR or TARGZ';
 
-  @Input() public buttonText: string = 'Vyberte súbor';
+  @Input() public buttonText = 'Vyberte súbor';
 
   @Input() public supportedExtensions: Set<string> = new Set<string>(['tar', 'zip', 'targz']);
 
@@ -45,7 +44,7 @@ export class FileUploadDndComponent {
 
     const file = files[0];
     if (this.hasValidExtension(file)) {
-      this.fileUploaded.emit(file)
+      this.fileUploaded.emit(file);
     }
   }
 

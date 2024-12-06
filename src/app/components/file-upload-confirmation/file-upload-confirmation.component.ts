@@ -32,11 +32,11 @@ import {MatIcon} from "@angular/material/icon";
 })
 export class FileUploadConfirmationComponent {
 
-  @Input() public title: string = "Informácie o súbore";
+  @Input() public title = "Informácie o súbore";
 
-  @Input() public cancelText: string = "Odstraniť";
+  @Input() public cancelText = "Odstraniť";
 
-  @Input() public confirmText: string = "Potvrdiť";
+  @Input() public confirmText = "Potvrdiť";
 
   public dialogData: any = inject(MAT_DIALOG_DATA);
 }

@@ -8,10 +8,10 @@ import {Component, Input} from '@angular/core';
 })
 export class TitledSurfaceComponent {
 
-  @Input() public title: string = "Default Title";
+  @Input() public title = "Default Title";
 
-  @Input() public subtitle: string = "Default subtitle";
+  @Input() public subtitle = "Default subtitle";
 
-  @Input() public titleCentered: boolean = false;
+  @Input() public titleCentered = false;
 
 }
