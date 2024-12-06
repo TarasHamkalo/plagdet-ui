@@ -8,15 +8,15 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AnalysisContextService {
 
-  private uploadedFile = signal<Partial<FileWrapper>>({})
+  private uploadedFile = signal<Partial<FileWrapper>>({});
 
-  private configurationOptions: ConfigurationOption[] = [];
+  private configurationOptions = signal<ConfigurationOption[]>([]);
 
   constructor(private http: HttpClient) {
   }
 
   setUploadedFile(file: Partial<FileWrapper>) {
-    this.uploadedFile.set(file)
+    this.uploadedFile.set(file);
   }
 
   getUploadedFile() {
@@ -27,12 +27,12 @@ export class AnalysisContextService {
     return this.http
       .get<ConfigurationOption[]>('./assets/configuration-options.json')
       .subscribe((options) => {
-        this.configurationOptions = options;
+        this.configurationOptions.set(options);
+        // this.configurationOptions = options;
       });
   }
 
   getConfigurationOptions() {
-    console.log(this.configurationOptions);
     return this.configurationOptions;
   }
 }
