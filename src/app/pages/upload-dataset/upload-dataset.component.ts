@@ -6,9 +6,9 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   FileUploadConfirmationComponent
 } from "../../components/file-upload-confirmation/file-upload-confirmation.component";
-import {FileWrapper} from "../../model/file-wrapper.type";
 import {Router} from "@angular/router";
 import {MatButton} from "@angular/material/button";
+import {FileUtilsService} from "../../services/file-utils.service";
 
 @Component({
   selector: 'app-upload-dataset',
@@ -26,15 +26,12 @@ export class UploadDatasetComponent {
   private dialog: MatDialog = inject(MatDialog);
 
   constructor(private analysisContext: AnalysisContextService,
+              private fileUtils: FileUtilsService,
               private router: Router) {}
 
   onFileUploaded(file: File): void {
-    // TODO: Move to service
-    const fileWrapper: FileWrapper = {
-      file: file,
-      filesContained: Math.trunc(file.size / 5000),
-      dateModified: new Date(file.lastModified),
-    };
+
+    const fileWrapper = this.fileUtils.createWrapper(file)
 
     const dialogRef = this.dialog.open(FileUploadConfirmationComponent, {
       data: {
