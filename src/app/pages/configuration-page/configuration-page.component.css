@@ -16,6 +16,8 @@
   justify-content: stretch;
   align-items: stretch;
 
+  gap: 16px;
+
   padding: 16px;
 }
 

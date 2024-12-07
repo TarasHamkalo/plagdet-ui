@@ -5,19 +5,25 @@
       <mat-form-field appearance="outline">
 
         <mat-label>{{ formFieldLabel }}</mat-label>
-        <input #analysisName matInput [placeholder]="placeHolderText">
+        <input #analysisField matInput
+               [formControl]="analysisNameControl"
+               required>
 
-        <button mat-icon-button matSuffix (click)="analysisName.value = ''" appStopPropagation>
+        @if (analysisNameControl.invalid) {
+          <mat-error>{{errorMessage}}</mat-error>
+        }
+
+        <button mat-icon-button matSuffix (click)="this.analysisNameControl.setValue('')" appStopPropagation>
           <mat-icon>cancel</mat-icon>
         </button>
 
       </mat-form-field>
       <div class="actions-frame">
-        <button mat-stroked-button>
+        <button mat-stroked-button (click)="onCancel()">
           Zrušiť
         </button>
 
-        <button mat-flat-button>
+        <button mat-flat-button [disabled]="analysisNameControl.invalid" (click)="onProceed()">
           Analyzovať
         </button>
       </div>
