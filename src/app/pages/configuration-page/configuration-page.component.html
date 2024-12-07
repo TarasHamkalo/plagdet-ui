@@ -1,4 +1,26 @@
 <app-titled-surface>
-  <app-configuration-options/>
-  <h6 >Selected options {{countSelected()}}</h6>
+  <div class="wrap-frame">
+    <app-configuration-options/>
+    <div class="controls-pane">
+      <mat-form-field appearance="outline">
+
+        <mat-label>{{ formFieldLabel }}</mat-label>
+        <input #analysisName matInput [placeholder]="placeHolderText">
+
+        <button mat-icon-button matSuffix (click)="analysisName.value = ''" appStopPropagation>
+          <mat-icon>cancel</mat-icon>
+        </button>
+
+      </mat-form-field>
+      <div class="actions-frame">
+        <button mat-stroked-button>
+          Zrušiť
+        </button>
+
+        <button mat-flat-button>
+          Analyzovať
+        </button>
+      </div>
+    </div>
+  </div>
 </app-titled-surface>

@@ -7,14 +7,13 @@
   </div>
 
   <mat-selection-list>
-    <!--  <mat-list>-->
     @for (option of configurationOptions(); track option.displayTitle) {
       <mat-list-option class="option" [selected]="option.selected" (click)="toggleOption(option)">
-        <h3 matListItemLine>{{ option.displayTitle }}</h3>
+        <h3 matListItemTitle>{{ option.displayTitle }}</h3>
         <p matListItemLine>{{ option.displayDescription }}</p>
       </mat-list-option>
       @if (!$last) {
-        <mat-divider></mat-divider>
+        <mat-divider ></mat-divider>
       }
     }
 

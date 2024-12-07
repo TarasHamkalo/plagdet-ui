@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
 
-  width: fit-content;
+
+  min-width: fit-content;
+  height: fit-content;
+
   align-items: flex-start;
   padding: 16px;
   gap: 16px;
@@ -11,12 +14,18 @@
   border-radius: var(--mat-sys-corner-extra-large);
 }
 
+.configuration mat-selection-list {
+  width: 100%;
+}
+
 .option {
   display: flex;
 
   width: 100%;
+  box-sizing: border-box;
+
   padding: 8px;
-  height: 72px;
+  height: fit-content;
 
   align-items: center;
   align-self: stretch;
@@ -26,12 +35,21 @@
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-title-small);
   margin: 0;
+
+  flex-wrap: wrap;
+  white-space: normal;
+  overflow-wrap: break-word;
+  height: fit-content;
 }
 
 .option p {
   color: var(--mat-sys-on-surface-variant);
   font: var(--mat-sys-body-medium);
   margin: 0;
+  flex-wrap: wrap;
+  white-space: normal;
+  overflow-wrap: break-word;
+  height: fit-content;
 }
 
 
@@ -40,7 +58,7 @@
 
   justify-content: space-between;
   align-items: center;
-  /*padding: 8px;*/
+
   gap: 8px;
   align-self: stretch;
 }

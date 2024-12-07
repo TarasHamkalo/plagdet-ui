@@ -1,7 +1,12 @@
 import {Component, Input, OnInit, signal} from '@angular/core';
 import {AnalysisContextService} from "../../services/analysis-context.service";
 import {ConfigurationOption} from "../../model/configuration-option";
-import {MatListItemLine, MatListOption, MatSelectionList} from "@angular/material/list";
+import {
+  MatListItemLine,
+  MatListItemTitle,
+  MatListOption,
+  MatSelectionList
+} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
@@ -14,7 +19,8 @@ import {MatIconButton} from "@angular/material/button";
     MatSelectionList,
     MatDivider,
     MatIcon,
-    MatIconButton
+    MatIconButton,
+    MatListItemTitle
   ],
   templateUrl: './configuration-options.component.html',
   styleUrl: './configuration-options.component.css'
