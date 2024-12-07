@@ -27,7 +27,7 @@ export class FileUtilsService {
       extension: this.getFileExtension(file),
       filesContained: Math.trunc(file.size / 50000),
       dateModified: new Date(file.lastModified),
-    }
+    };
   }
 
   private getFileExtension(file: File) {

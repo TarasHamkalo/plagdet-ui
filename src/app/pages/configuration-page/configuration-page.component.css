@@ -19,6 +19,8 @@
   gap: 16px;
 
   padding: 16px;
+  border-radius: var(--mat-sys-corner-extra-large);
+  background-color: var(--mat-sys-surface-container-high)
 }
 
 .actions-frame {
@@ -28,5 +30,6 @@
 
   flex-direction: row;
   gap: 8px;
+
   /*padding: 8px*/
 }

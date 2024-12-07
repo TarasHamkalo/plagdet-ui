@@ -1,4 +1,4 @@
-import {Component, computed, Input, signal} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {
   ConfigurationOptionsComponent
@@ -8,7 +8,6 @@ import {MatError, MatFormField, MatLabel, MatSuffix} from "@angular/material/for
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
 import {StopPropagationDirective} from "../../directives/stop-propagation.directive";
-import {FileWrapper} from "../../model/file-wrapper.type";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {Router} from "@angular/router";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -32,22 +31,22 @@ import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
   templateUrl: './configuration-page.component.html',
   styleUrl: './configuration-page.component.css'
 })
-export class ConfigurationPageComponent {
+export class ConfigurationPageComponent implements OnInit {
 
   public readonly analysisNameControl = new FormControl(
     '', [Validators.required, Validators.minLength(3)]
   );
 
-  @Input() public formFieldLabel: string = 'Názov analýzy';
+  @Input() public formFieldLabel = 'Názov analýzy';
 
-  @Input() public errorMessage: string = 'Je potrebné nastaviť názov';
+  @Input() public errorMessage = 'Je potrebné nastaviť názov';
 
   constructor(private analysisContext: AnalysisContextService,
               private router: Router) {
   }
 
   ngOnInit() {
-    this.analysisNameControl.setValue(this.analysisContext.getAnalysisName()())
+    this.analysisNameControl.setValue(this.analysisContext.getAnalysisName()());
   }
 
   onCancel() {
@@ -55,7 +54,7 @@ export class ConfigurationPageComponent {
   }
 
   onProceed() {
-    const analysisName = this.analysisNameControl.getRawValue()
+    const analysisName = this.analysisNameControl.getRawValue();
     if (analysisName) {
       this.analysisContext.getAnalysisName().set(analysisName);
       this.router.navigate(['/analysis']);

@@ -23,7 +23,7 @@ export class AnalysisContextService {
 
   setUploadedFile(file: Partial<FileWrapper>) {
     this.uploadedFile.set(file);
-    this.analysisName.set(file.name ?? '')
+    this.analysisName.set(file.name ?? '');
   }
 
   getUploadedFile() {

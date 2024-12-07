@@ -31,7 +31,7 @@ export class UploadDatasetComponent {
 
   onFileUploaded(file: File): void {
 
-    const fileWrapper = this.fileUtils.createWrapper(file)
+    const fileWrapper = this.fileUtils.createWrapper(file);
 
     const dialogRef = this.dialog.open(FileUploadConfirmationComponent, {
       data: {
