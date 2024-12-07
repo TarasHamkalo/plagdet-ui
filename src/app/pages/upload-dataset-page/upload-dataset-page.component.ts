@@ -11,17 +11,17 @@ import {MatButton} from "@angular/material/button";
 import {FileUtilsService} from "../../services/file-utils.service";
 
 @Component({
-  selector: 'app-upload-dataset',
+  selector: 'app-upload-dataset-page',
   standalone: true,
   imports: [
     TitledSurfaceComponent,
     FileUploadDndComponent,
     MatButton,
   ],
-  templateUrl: './upload-dataset.component.html',
-  styleUrl: './upload-dataset.component.css'
+  templateUrl: './upload-dataset-page.component.html',
+  styleUrl: './upload-dataset-page.component.css'
 })
-export class UploadDatasetComponent {
+export class UploadDatasetPageComponent {
 
   private dialog: MatDialog = inject(MatDialog);
 

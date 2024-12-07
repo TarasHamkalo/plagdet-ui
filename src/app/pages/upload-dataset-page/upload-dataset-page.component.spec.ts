@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UploadDatasetComponent } from './upload-dataset.component';
+import { UploadDatasetPageComponent } from './upload-dataset-page.component';
 
 describe('UploadDatasetComponent', () => {
-  let component: UploadDatasetComponent;
-  let fixture: ComponentFixture<UploadDatasetComponent>;
+  let component: UploadDatasetPageComponent;
+  let fixture: ComponentFixture<UploadDatasetPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UploadDatasetComponent]
+      imports: [UploadDatasetPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UploadDatasetComponent);
+    fixture = TestBed.createComponent(UploadDatasetPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
