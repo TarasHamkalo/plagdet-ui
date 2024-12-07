@@ -1,5 +1,5 @@
 import {Injectable, signal} from '@angular/core';
-import {FileWrapper} from "../model/file-wrapper.type";
+import {FileWrapper} from "../model/file-wrapper";
 import {ConfigurationOption} from "../model/configuration-option";
 import {HttpClient} from "@angular/common/http";
 import {FileUtilsService} from "./file-utils.service";

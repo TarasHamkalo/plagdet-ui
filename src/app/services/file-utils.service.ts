@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FileWrapper} from "../model/file-wrapper.type";
+import {FileWrapper} from "../model/file-wrapper";
 
 @Injectable({
   providedIn: 'root'
