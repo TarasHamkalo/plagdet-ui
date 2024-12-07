@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {
   ConfigurationOptionsComponent
@@ -11,6 +11,10 @@ import {StopPropagationDirective} from "../../directives/stop-propagation.direct
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {Router} from "@angular/router";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  ViewAnalysisModalComponent
+} from "../../components/view-analysis-modal/view-analysis-modal.component";
 
 @Component({
   selector: 'app-configuration-page',
@@ -41,6 +45,12 @@ export class ConfigurationPageComponent implements OnInit {
 
   @Input() public errorMessage = 'Je potrebné nastaviť názov';
 
+  @Input() public cancelText = "Zrušiť";
+
+  @Input() public confirmText = "Analyzovať";
+
+  private dialog: MatDialog = inject(MatDialog);
+
   constructor(private analysisContext: AnalysisContextService,
               private router: Router) {
   }
@@ -54,10 +64,22 @@ export class ConfigurationPageComponent implements OnInit {
   }
 
   onProceed() {
-    const analysisName = this.analysisNameControl.getRawValue();
-    if (analysisName) {
-      this.analysisContext.getAnalysisName().set(analysisName);
-      this.router.navigate(['/analysis']);
-    }
+    const dialogRef = this.dialog.open(ViewAnalysisModalComponent, {
+      width: "50%",
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigate(['/analysis']);
+      } else {
+        this.router.navigate(['/upload']);
+      }
+
+    });
+    // const analysisName = this.analysisNameControl.getRawValue();
+    // if (analysisName) {
+    //   this.analysisContext.getAnalysisName().set(analysisName);
+    //   this.router.navigate(['/analysis']);
+    // }
   }
 }
