@@ -1,36 +1,25 @@
 import {Component} from '@angular/core';
-import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {SubmissionsService} from "../../services/submissions.service";
 import {Submission} from "../../model/submission";
-import {
-  MatCell, MatCellDef, MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable, MatTableDataSource
-} from "@angular/material/table";
+import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {TableColumnDefinition} from "../../model/table-column-definition";
-import { MatTableModule } from '@angular/material/table';
+import {Cluster} from "../../model/cluster";
+import {ClustersService} from "../../services/clusters.service";
+import {SubmissionsList} from "../../components/submissions-list/submissions-list.component";
+import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {MatButton} from "@angular/material/button";
+
 @Component({
   selector: 'app-analysis-page',
   imports: [
-    TitledSurfaceComponent,
-    // MatTable,
-    // MatHeaderRow,
-    // MatRow,
-    // MatHeaderCell,
-    // MatCell,
-    // MatHeaderRowDef,
-    // MatHeaderCellDef,
-    // MatCellDef,
-    // MatColumnDef,
     MatTableModule,
+    SubmissionsList,
+    TitledSurfaceComponent,
     MatSort,
     MatSortHeader,
     MatButton,
 
-    // MatRowDef,
   ],
   templateUrl: './analysis-page.component.html',
   styleUrl: './analysis-page.component.css'
@@ -44,11 +33,24 @@ export class AnalysisPageComponent {
     {fieldName: 'maxSimilarity', displayName: 'Maximálna podobnosť %'},
   ];
 
-  public submissionDisplayedColumns: string[] = []
+  public submissionsDisplayedColumns: string[] = []
 
   public submissionsDataSource = new MatTableDataSource<Submission>([]);
 
-  constructor(private submissionsService: SubmissionsService) {}
+  public clusterTableDefinitions: TableColumnDefinition[] = [
+    {fieldName: 'name', displayName: 'Názov zhluku'},
+    {fieldName: 'avgSimilarity', displayName: 'Priemerná podobnosť'},
+    {fieldName: 'avgEditTime', displayName: 'Priemerný čas úpravy (min)'},
+    {fieldName: 'numberOfSubmissions', displayName: 'Počet odovzdaní '},
+  ];
+
+  public clusterDisplayedColumns: string[] = []
+
+  public clustersDataSource = new MatTableDataSource<Cluster>([]);
+
+  constructor(private submissionsService: SubmissionsService,
+              private clustersService: ClustersService) {
+  }
 
   ngOnInit() {
     this.submissionsService.getSubmissions().subscribe(submissions => {
@@ -56,12 +58,20 @@ export class AnalysisPageComponent {
       this.submissionsDataSource.data = submissions;
     });
 
-    const temp = this.submissionTableDefinitions.map(col => col.fieldName)
-    this.submissionDisplayedColumns = temp.concat('moreButton')
-    console.log(this.submissionDisplayedColumns);
+    this.clustersService.getClusters().subscribe(clusters => {
+      console.log(clusters);
+      this.clustersDataSource.data = clusters;
+    })
+
+    var temp = this.submissionTableDefinitions.map(col => col.fieldName)
+    this.submissionsDisplayedColumns = temp.concat('moreButton')
+    console.log(this.submissionsDisplayedColumns);
+
+    temp = this.clusterTableDefinitions.map(col => col.fieldName)
+    this.clusterDisplayedColumns = temp.concat('submissionList')
   }
 
-  onSubmissionsSorting($event: any) {
+  onSorting($event: any) {
     console.log($event);
     console.log('Busy sorting array....');
   }
