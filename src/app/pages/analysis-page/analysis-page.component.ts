@@ -9,6 +9,8 @@ import {SubmissionsList} from "../../components/submissions-list/submissions-lis
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {MatButton} from "@angular/material/button";
+import {ImageWrapperComponent} from "../../components/image-wrapper/image-wrapper.component";
+import {StatCardComponent} from "../../components/stat-card/stat-card.component";
 
 @Component({
   selector: 'app-analysis-page',
@@ -19,6 +21,8 @@ import {MatButton} from "@angular/material/button";
     MatSort,
     MatSortHeader,
     MatButton,
+    ImageWrapperComponent,
+    StatCardComponent,
 
   ],
   templateUrl: './analysis-page.component.html',

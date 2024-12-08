@@ -4,4 +4,19 @@
 
   width: 100%;
   gap: 32px;
+  padding: 24px 0 72px 0;
+}
+
+.stat-group {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  align-self: stretch;
+
+  padding: 16px;
+  gap: 32px;
 }

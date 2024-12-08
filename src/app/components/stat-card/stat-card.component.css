@@ -1,0 +1,33 @@
+.stat-card {
+  display: flex;
+
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: fit-content;
+
+  padding: 16px;
+  gap: 24px;
+
+  background-color: var(--mat-sys-surface-container-high);
+  border-radius: var(--mat-sys-corner-large);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-value {
+  font: var(--mat-sys-title-medium);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
+
+.stat-name {
+  font: var(--mat-sys-label-small);
+  color: var(--mat-sys-on-surface-variant);
+  margin: 0;
+}
