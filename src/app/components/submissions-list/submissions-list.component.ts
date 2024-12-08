@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
@@ -9,9 +9,9 @@ import {MatTooltip} from "@angular/material/tooltip";
   templateUrl: './submissions-list.component.html',
   styleUrl: './submissions-list.component.css'
 })
-export class SubmissionsList {
+export class SubmissionsListComponent implements OnInit {
 
-  @Input() public numberOfSubmissions: number = 5;
+  @Input() public numberOfSubmissions = 5;
 
   ngOnInit(): void {
     console.log(`recieved ${this.numberOfSubmissions}`);

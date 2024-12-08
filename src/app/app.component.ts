@@ -34,12 +34,15 @@ import {AnalysisContextService} from "./services/analysis-context.service";
       padding-top: 64px;
     }
   `
-  // TODO: change to rem ?
+  // TODO: change to rem ? => 3 days later =>  no :)
 })
 export class AppComponent implements OnInit {
+
   private icons: string[] = [
     "file-document-multiple-outline",
-    "rename-box-outline"
+    "rename-box-outline",
+    "file-search-outline",
+    "compare-horizontal"
   ];
 
   constructor(private analysisContextService: AnalysisContextService,

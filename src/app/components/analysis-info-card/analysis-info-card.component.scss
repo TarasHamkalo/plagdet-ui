@@ -1,0 +1,76 @@
+@use '@angular/material' as mat;
+
+.info-card {
+  display: flex;
+
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 350px;
+  height: fit-content;
+  padding: 24px;
+  gap: 4px;
+
+  border-radius: var(--mat-sys-corner-extra-large);
+  background-color: var(--mat-sys-surface-container-high);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+
+  padding: 16px 12px 12px 24px;
+  gap: 8px;
+}
+
+.text-frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.text-frame h1 {
+  font: var(--mat-sys-title-large);
+  color: var(--mat-sys-on-surface);
+  align-self: stretch;
+  margin: 0;
+}
+
+.text-frame p {
+  font: var(--mat-sys-body-medium);
+  color: var(--mat-sys-on-surface-variant);
+  align-self: stretch;
+  margin: 0;
+}
+
+.info-groups {
+  width: 100%;
+}
+
+.info-groups p {
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-large);
+  margin: 0;
+}
+
+mat-list {
+  @include mat.list-overrides((
+          list-item-label-text-color: var(--mat-sys-on-surface-variant),
+          list-item-hover-leading-icon-color: var(--mat-sys-on-surface-variant),
+          list-item-hover-label-text-color: var(--mat-sys-on-surface-variant),
+  ));
+  @include mat.divider-overrides((
+          color: var(--mat-sys-outline-variant),
+  ));
+}
+
+.item-with-chip {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: start;
+  align-items: center;
+}

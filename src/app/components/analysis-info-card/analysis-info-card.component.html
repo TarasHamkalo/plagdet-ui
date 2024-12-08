@@ -1,0 +1,78 @@
+<div class="info-card">
+  <div class="header">
+    <div class="text-frame">
+      <h1>{{ analysis().name ?? "Name not loaded" }}</h1>
+      <p>Informácie o analýze</p>
+    </div>
+    <mat-icon>info_outlined</mat-icon>
+  </div>
+  <mat-list class="info-groups">
+    <mat-divider></mat-divider>
+
+    <mat-list>
+      <mat-list-item>
+        <mat-icon svgIcon="file-search-outline" matListItemIcon></mat-icon>
+        <p matListItemTitle>{{ analysis().analyzedFileName }}</p>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListItemIcon>date_range</mat-icon>
+        <p matListItemTitle>{{ analysis().dateAnalyzed | date }}</p>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon svgIcon="compare-horizontal" matListItemIcon></mat-icon>
+        <p matListItemTitle>{{ analysis().numberOfComparisons | number }}</p>
+      </mat-list-item>
+
+    </mat-list>
+
+    <mat-divider></mat-divider>
+
+    <mat-list>
+      <mat-list-item>
+        <div class="item-with-chip">
+          <mat-chip matTooltipPosition="right" matTooltip="Zobraziť súbory formatu docx">DOCX
+          </mat-chip>
+          <p>{{ analysis().docxFiles }} súborov</p>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item>
+        <div class="item-with-chip" matListItemTitle>
+          <mat-chip matTooltipPosition="right" matTooltip="Zobraziť súbory formatu docx">DOC
+          </mat-chip>
+          <p>{{ analysis().docFiles }} súborov</p>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item>
+        <div class="item-with-chip" matListItemTitle>
+          <mat-chip matTooltipPosition="right" matTooltip="Zobraziť súbory formatu pdf">PDF
+          </mat-chip>
+          <p>{{ analysis().pdfFiles }} súborov</p>
+        </div>
+      </mat-list-item>
+      <mat-chip>
+        <p>text</p>
+        <mat-icon matChipTrailingIcon>face</mat-icon>
+      </mat-chip>
+    </mat-list>
+    <mat-divider></mat-divider>
+
+    <app-configuration-options variant="chip"
+                               [hasToLoadFromContext]="false"
+                               [configurationOptions]="configurationUsed">
+
+    </app-configuration-options>
+    <!--    <mat-list-item>-->
+    <!--      <mat-icon matListItemIcon>date_range</mat-icon>-->
+    <!--      <p>{{ dialogData.fileWrapper.dateModified | date }}</p>-->
+    <!--    </mat-list-item>-->
+
+    <!--    <mat-list-item>-->
+    <!--      <mat-icon matListItemIcon svgIcon="file-document-multiple-outline"/>-->
+    <!--      <p>{{ dialogData.fileWrapper.filesContained | number }}</p>-->
+    <!--    </mat-list-item>-->
+  </mat-list>
+</div>

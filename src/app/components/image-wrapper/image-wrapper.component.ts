@@ -8,9 +8,9 @@ import {Component, Input} from '@angular/core';
 })
 export class ImageWrapperComponent {
 
-  @Input({required: true}) public imagePath: string = "";
+  @Input({required: true}) public imagePath = "";
 
-  @Input({required: true}) public imageDesc: string = "";
+  @Input({required: true}) public imageDesc = "";
 
   @Input() public imageWidth: number | null = null;
 

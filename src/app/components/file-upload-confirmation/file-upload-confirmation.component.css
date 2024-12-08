@@ -1,0 +1,5 @@
+p {
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-large);
+  margin: 0;
+}

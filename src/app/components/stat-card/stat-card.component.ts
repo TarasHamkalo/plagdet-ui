@@ -8,9 +8,9 @@ import {Component, Input} from '@angular/core';
 })
 export class StatCardComponent {
 
-  @Input({required: true}) public value: string = "";
+  @Input({required: true}) public value = "";
 
-  @Input({required: true}) public name: string = "";
+  @Input({required: true}) public name = "";
 
 
 }

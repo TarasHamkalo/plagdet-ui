@@ -10,6 +10,7 @@ import {
 import {MatDivider} from "@angular/material/divider";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
+import {MatChip} from "@angular/material/chips";
 
 @Component({
   selector: 'app-configuration-options',
@@ -20,22 +21,38 @@ import {MatIconButton} from "@angular/material/button";
     MatDivider,
     MatIcon,
     MatIconButton,
-    MatListItemTitle
+    MatListItemTitle,
+    MatChip,
   ],
   templateUrl: './configuration-options.component.html',
   styleUrl: './configuration-options.component.css'
 })
 export class ConfigurationOptionsComponent implements OnInit {
 
-  public configurationOptions = signal<ConfigurationOption[]>([]);
+  @Input() public title = '';
 
-  @Input() public title = "Základné možnosti";
+  @Input() public subTitle = '';
 
-  constructor(private analysisContextService: AnalysisContextService) {
-  }
+  @Input() public hasToLoadFromContext = true;
+
+  @Input() public variant: 'chip' | 'select' = 'select';
+
+  @Input() public configurationOptions = signal<ConfigurationOption[]>([]);
+
+  constructor(private analysisContextService: AnalysisContextService) {}
 
   ngOnInit() {
-    this.configurationOptions = this.analysisContextService.getConfigurationOptions();
+    if (this.hasToLoadFromContext) {
+      this.configurationOptions = this.analysisContextService.getConfigurationOptions()
+    }
+
+    this.title =
+      this.variant === 'chip' ? 'Vlastnosti analýzy' : 'Základné možnosti';
+    this.subTitle =
+      this.variant === 'chip'
+        ? 'Vlastnosti nastavené počas procesu konfigurácie'
+        : '';
+    console.log(this.configurationOptions());
   }
 
   toggleOption(targetOption: ConfigurationOption) {

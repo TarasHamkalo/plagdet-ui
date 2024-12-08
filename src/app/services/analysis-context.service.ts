@@ -20,7 +20,6 @@ export class AnalysisContextService {
     this.setUploadedFile(this.fileUtils.mockWrapper());
   }
 
-
   setUploadedFile(file: Partial<FileWrapper>) {
     this.uploadedFile.set(file);
     this.analysisName.set(file.name ?? '');
