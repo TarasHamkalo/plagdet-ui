@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {SubmissionsService} from "../../services/submissions.service";
 import {Submission} from "../../model/submission";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
@@ -19,7 +19,7 @@ import {
 import {AnalysisService} from "../../services/analysis.service";
 
 @Component({
-  selector: 'app-analysis-page',
+  selector: "app-analysis-page",
   imports: [
     MatTableModule,
     SubmissionsListComponent,
@@ -32,16 +32,16 @@ import {AnalysisService} from "../../services/analysis.service";
     AnalysisInfoCardComponent,
 
   ],
-  templateUrl: './analysis-page.component.html',
-  styleUrl: './analysis-page.component.css'
+  templateUrl: "./analysis-page.component.html",
+  styleUrl: "./analysis-page.component.css"
 })
 export class AnalysisPageComponent implements OnInit {
 
   public submissionTableDefinitions: TableColumnDefinition[] = [
-    {fieldName: 'submitter', displayName: 'Odovzdávateľ'},
-    {fieldName: 'fileName', displayName: 'Názov súboru'},
-    {fieldName: 'totalEditTime', displayName: 'Čas úpravy (min)'},
-    {fieldName: 'maxSimilarity', displayName: 'Maximálna podobnosť %'},
+    {fieldName: "submitter", displayName: "Odovzdávateľ"},
+    {fieldName: "fileName", displayName: "Názov súboru"},
+    {fieldName: "totalEditTime", displayName: "Čas úpravy (min)"},
+    {fieldName: "maxSimilarity", displayName: "Maximálna podobnosť %"},
   ];
 
   public submissionsDisplayedColumns: string[] = [];
@@ -49,10 +49,10 @@ export class AnalysisPageComponent implements OnInit {
   public submissionsDataSource = new MatTableDataSource<Submission>([]);
 
   public clusterTableDefinitions: TableColumnDefinition[] = [
-    {fieldName: 'name', displayName: 'Názov zhluku'},
-    {fieldName: 'avgSimilarity', displayName: 'Priemerná podobnosť'},
-    {fieldName: 'avgEditTime', displayName: 'Priemerný čas úpravy (min)'},
-    {fieldName: 'numberOfSubmissions', displayName: 'Počet odovzdaní '},
+    {fieldName: "name", displayName: "Názov zhluku"},
+    {fieldName: "avgSimilarity", displayName: "Priemerná podobnosť"},
+    {fieldName: "avgEditTime", displayName: "Priemerný čas úpravy (min)"},
+    {fieldName: "numberOfSubmissions", displayName: "Počet odovzdaní "},
   ];
 
   public clusterDisplayedColumns: string[] = [];
@@ -78,15 +78,15 @@ export class AnalysisPageComponent implements OnInit {
     this.analysisService.analyze();
 
     let temp = this.submissionTableDefinitions.map(col => col.fieldName);
-    this.submissionsDisplayedColumns = temp.concat('moreButton');
+    this.submissionsDisplayedColumns = temp.concat("moreButton");
     console.log(this.submissionsDisplayedColumns);
 
     temp = this.clusterTableDefinitions.map(col => col.fieldName);
-    this.clusterDisplayedColumns = temp.concat('submissionList');
+    this.clusterDisplayedColumns = temp.concat("submissionList");
   }
 
   onSorting(event: any) {
     console.log(event);
-    console.log('Busy sorting array....');
+    console.log("Busy sorting array....");
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, signal} from '@angular/core';
+import {Component, Input, OnInit, signal} from "@angular/core";
 import {MatNavList} from "@angular/material/list";
 import {NavigationEnd, Router} from "@angular/router";
 import {NavigationService} from "../../services/navigation.service";
@@ -8,14 +8,14 @@ import {NavItemViewComponent} from "../nav-item-view/nav-item-view.component";
 import {MatDivider} from "@angular/material/divider";
 
 @Component({
-  selector: 'app-nav-list',
+  selector: "app-nav-list",
   imports: [
     MatNavList,
     NavItemViewComponent,
     MatDivider
   ],
-  templateUrl: './nav-list.component.html',
-  styleUrl: './nav-list.component.css'
+  templateUrl: "./nav-list.component.html",
+  styleUrl: "./nav-list.component.css"
 })
 export class NavListComponent implements OnInit {
 

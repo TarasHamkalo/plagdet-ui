@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { UploadDatasetPageComponent } from './upload-dataset-page.component';
+import { UploadDatasetPageComponent } from "./upload-dataset-page.component";
 
-describe('UploadDatasetComponent', () => {
+describe("UploadDatasetComponent", () => {
   let component: UploadDatasetPageComponent;
   let fixture: ComponentFixture<UploadDatasetPageComponent>;
 
@@ -17,7 +17,7 @@ describe('UploadDatasetComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

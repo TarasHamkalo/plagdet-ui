@@ -1,8 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { ClustersService } from './clusters.service';
+import { ClustersService } from "./clusters.service";
 
-describe('ClustersService', () => {
+describe("ClustersService", () => {
   let service: ClustersService;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('ClustersService', () => {
     service = TestBed.inject(ClustersService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

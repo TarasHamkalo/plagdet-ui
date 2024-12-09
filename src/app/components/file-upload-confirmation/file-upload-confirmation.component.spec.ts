@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { FileUploadConfirmationComponent } from './file-upload-confirmation.component';
+import { FileUploadConfirmationComponent } from "./file-upload-confirmation.component";
 
-describe('FileUploadConfirmationComponent', () => {
+describe("FileUploadConfirmationComponent", () => {
   let component: FileUploadConfirmationComponent;
   let fixture: ComponentFixture<FileUploadConfirmationComponent>;
 
@@ -17,7 +17,7 @@ describe('FileUploadConfirmationComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

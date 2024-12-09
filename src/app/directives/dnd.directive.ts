@@ -1,11 +1,11 @@
-import {Directive, EventEmitter, HostBinding, HostListener, Output, OnInit} from '@angular/core';
+import {Directive, EventEmitter, HostBinding, HostListener, Output, OnInit} from "@angular/core";
 
 @Directive({
-  selector: '[appDnd]'
+  selector: "[appDnd]"
 })
 export class DndDirective implements OnInit {
 
-  @HostBinding('class.dnd-faint') private faintClass = false;
+  @HostBinding("class.dnd-faint") private faintClass = false;
 
   @Output() public dragDrop = new EventEmitter<DragEvent>();
 
@@ -13,7 +13,7 @@ export class DndDirective implements OnInit {
     this.faintClass = false;
   }
 
-  @HostListener('dragover', ['$event']) onDragenter(event: DragEvent) {
+  @HostListener("dragover", ["$event"]) onDragenter(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -21,7 +21,7 @@ export class DndDirective implements OnInit {
     console.log(event);
   }
 
-  @HostListener('dragleave', ['$event']) onDragLeave(event: DragEvent) {
+  @HostListener("dragleave", ["$event"]) onDragLeave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -29,7 +29,7 @@ export class DndDirective implements OnInit {
     console.log(event);
   }
 
-  @HostListener('drop', ['$event']) onDragDrop(event: DragEvent) {
+  @HostListener("drop", ["$event"]) onDragDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.faintClass = false;

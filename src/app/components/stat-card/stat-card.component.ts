@@ -1,10 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'app-stat-card',
+  selector: "app-stat-card",
   imports: [],
-  templateUrl: './stat-card.component.html',
-  styleUrl: './stat-card.component.css'
+  templateUrl: "./stat-card.component.html",
+  styleUrl: "./stat-card.component.css"
 })
 export class StatCardComponent {
 

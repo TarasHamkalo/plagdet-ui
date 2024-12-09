@@ -1,10 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'app-image-wrapper',
+  selector: "app-image-wrapper",
   imports: [],
-  templateUrl: './image-wrapper.component.html',
-  styleUrl: './image-wrapper.component.css'
+  templateUrl: "./image-wrapper.component.html",
+  styleUrl: "./image-wrapper.component.css"
 })
 export class ImageWrapperComponent {
 

@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ImageWrapperComponent } from './image-wrapper.component';
+import { ImageWrapperComponent } from "./image-wrapper.component";
 
-describe('ImageWrapperComponent', () => {
+describe("ImageWrapperComponent", () => {
   let component: ImageWrapperComponent;
   let fixture: ComponentFixture<ImageWrapperComponent>;
 
@@ -17,7 +17,7 @@ describe('ImageWrapperComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

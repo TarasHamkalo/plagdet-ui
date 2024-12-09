@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input} from "@angular/core";
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -12,7 +12,7 @@ import {MatList, MatListItem, MatListItemIcon, MatListItemTitle} from "@angular/
 import {MatIcon} from "@angular/material/icon";
 
 @Component({
-  selector: 'app-file-upload-confirmation',
+  selector: "app-file-upload-confirmation",
   imports: [
     MatDialogTitle,
     MatButton,
@@ -27,8 +27,8 @@ import {MatIcon} from "@angular/material/icon";
     MatIcon,
     MatListItemTitle
   ],
-  templateUrl: './file-upload-confirmation.component.html',
-  styleUrl: './file-upload-confirmation.component.css'
+  templateUrl: "./file-upload-confirmation.component.html",
+  styleUrl: "./file-upload-confirmation.component.css"
 })
 export class FileUploadConfirmationComponent {
 

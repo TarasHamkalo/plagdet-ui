@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, signal} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, signal} from "@angular/core";
 import {
   MatDialogActions,
   MatDialogClose,
@@ -9,7 +9,7 @@ import {MatProgressBar, ProgressBarMode} from "@angular/material/progress-bar";
 import {MatButton} from "@angular/material/button";
 
 @Component({
-  selector: 'app-view-analysis-modal',
+  selector: "app-view-analysis-modal",
   imports: [
     MatDialogContent,
     MatDialogTitle,
@@ -18,8 +18,8 @@ import {MatButton} from "@angular/material/button";
     MatButton,
     MatDialogClose
   ],
-  templateUrl: './view-analysis-modal.component.html',
-  styleUrl: './view-analysis-modal.component.css'
+  templateUrl: "./view-analysis-modal.component.html",
+  styleUrl: "./view-analysis-modal.component.css"
 })
 export class ViewAnalysisModalComponent implements OnInit, OnDestroy {
 
@@ -29,9 +29,9 @@ export class ViewAnalysisModalComponent implements OnInit, OnDestroy {
 
   @Input() public confirmText = "Načítať analýzu";
 
-  public indeterminateProgressState = signal('Extrakcia súborov');
+  public indeterminateProgressState = signal("Extrakcia súborov");
 
-  public mode = signal<ProgressBarMode>('indeterminate');
+  public mode = signal<ProgressBarMode>("indeterminate");
 
   public progressValue = signal(0);
 
@@ -39,7 +39,7 @@ export class ViewAnalysisModalComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     setTimeout(() => {
-      this.mode.set('determinate');
+      this.mode.set("determinate");
       this.startProgressAnimation();
     }, 1000);
   }
@@ -63,6 +63,6 @@ export class ViewAnalysisModalComponent implements OnInit, OnDestroy {
   }
 
   private onComplete() {
-    this.indeterminateProgressState.set('Analýza dokončená');
+    this.indeterminateProgressState.set("Analýza dokončená");
   }
 }

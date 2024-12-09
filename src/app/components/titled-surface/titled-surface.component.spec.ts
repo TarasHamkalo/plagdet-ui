@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TitledSurfaceComponent } from './titled-surface.component';
+import { TitledSurfaceComponent } from "./titled-surface.component";
 
-describe('TitledSurfaceComponent', () => {
+describe("TitledSurfaceComponent", () => {
   let component: TitledSurfaceComponent;
   let fixture: ComponentFixture<TitledSurfaceComponent>;
 
@@ -17,7 +17,7 @@ describe('TitledSurfaceComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

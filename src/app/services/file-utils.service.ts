@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {FileWrapper} from "../model/file-wrapper";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class FileUtilsService {
 
@@ -16,7 +16,7 @@ export class FileUtilsService {
   }
 
   public mockWrapper(): FileWrapper {
-    const file = new File([""], "Submissions", { type: 'text/zip' });
+    const file = new File([""], "Submissions", { type: "text/zip" });
     return this.createWrapper(file);
   }
 
@@ -31,6 +31,6 @@ export class FileUtilsService {
   }
 
   private getFileExtension(file: File) {
-    return file.type.split('/')[1];
+    return file.type.split("/")[1];
   }
 }

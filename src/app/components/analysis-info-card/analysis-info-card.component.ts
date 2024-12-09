@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, signal} from '@angular/core';
+import {Component, Input, OnInit, signal} from "@angular/core";
 import {MatIcon} from "@angular/material/icon";
 import {MatList, MatListItem, MatListItemIcon, MatListItemTitle} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";
@@ -12,7 +12,7 @@ import {
 import {AnalysisContextService} from "../../services/analysis-context.service";
 
 @Component({
-  selector: 'app-analysis-info-card',
+  selector: "app-analysis-info-card",
   imports: [
     MatIcon,
     MatList,
@@ -26,8 +26,8 @@ import {AnalysisContextService} from "../../services/analysis-context.service";
     MatTooltip,
     ConfigurationOptionsComponent
   ],
-  templateUrl: './analysis-info-card.component.html',
-  styleUrl: './analysis-info-card.component.scss'
+  templateUrl: "./analysis-info-card.component.html",
+  styleUrl: "./analysis-info-card.component.scss"
 })
 export class AnalysisInfoCardComponent implements OnInit {
 
@@ -41,12 +41,6 @@ export class AnalysisInfoCardComponent implements OnInit {
   ngOnInit() {
     console.log(this.analysisContext.getAnalysis()());
     this.analysis = this.analysisContext.getAnalysis();
-    // this.analysisService.analyze().subscribe(analysis => {
-    //   console.log(`This analysis options ${analysis.configurationUsed}`);
-    //   this.analysis.set(analysis)
-    //   this.configurationUsed.set(this.analysis().configurationUsed ?? [])
-    // })
-
   }
 
 }

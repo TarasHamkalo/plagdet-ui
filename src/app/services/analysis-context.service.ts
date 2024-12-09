@@ -1,4 +1,4 @@
-import {Injectable, signal} from '@angular/core';
+import {Injectable, signal} from "@angular/core";
 import {FileWrapper} from "../model/file-wrapper";
 import {ConfigurationOption} from "../model/configuration-option";
 import {HttpClient} from "@angular/common/http";
@@ -6,13 +6,13 @@ import {FileUtilsService} from "./file-utils.service";
 import {Analysis} from "../model/analysis";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AnalysisContextService {
 
   private uploadedFile = signal<Partial<FileWrapper>>({});
 
-  private analysisName = signal('');
+  private analysisName = signal("");
 
   private configurationOptions = signal<ConfigurationOption[]>([]);
 
@@ -25,7 +25,7 @@ export class AnalysisContextService {
 
   setUploadedFile(file: Partial<FileWrapper>) {
     this.uploadedFile.set(file);
-    this.analysisName.set(file.name ?? '');
+    this.analysisName.set(file.name ?? "");
   }
 
   getUploadedFile() {
@@ -42,7 +42,7 @@ export class AnalysisContextService {
 
   loadConfigurationOptions() {
     return this.http
-      .get<ConfigurationOption[]>('./assets/configuration-options.json')
+      .get<ConfigurationOption[]>("./assets/configuration-options.json")
       .subscribe((options) => {
         this.configurationOptions.set(options);
         // this.configurationOptions = options;

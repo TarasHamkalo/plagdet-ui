@@ -1,10 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'app-titled-surface',
+  selector: "app-titled-surface",
   imports: [],
-  templateUrl: './titled-surface.component.html',
-  styleUrl: './titled-surface.component.css'
+  templateUrl: "./titled-surface.component.html",
+  styleUrl: "./titled-surface.component.css"
 })
 export class TitledSurfaceComponent {
 

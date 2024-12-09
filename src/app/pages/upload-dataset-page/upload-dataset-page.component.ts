@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject} from "@angular/core";
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {FileUploadDndComponent} from "../../components/file-upload-dnd/file-upload-dnd.component";
 import {AnalysisContextService} from "../../services/analysis-context.service";
@@ -12,15 +12,15 @@ import {FileUtilsService} from "../../services/file-utils.service";
 import {NavigationService} from "../../services/navigation.service";
 
 @Component({
-  selector: 'app-upload-dataset-page',
+  selector: "app-upload-dataset-page",
   standalone: true,
   imports: [
     TitledSurfaceComponent,
     FileUploadDndComponent,
     MatButton,
   ],
-  templateUrl: './upload-dataset-page.component.html',
-  styleUrl: './upload-dataset-page.component.css'
+  templateUrl: "./upload-dataset-page.component.html",
+  styleUrl: "./upload-dataset-page.component.css"
 })
 export class UploadDatasetPageComponent {
 
@@ -45,7 +45,7 @@ export class UploadDatasetPageComponent {
       if (success) {
         this.analysisContext.setUploadedFile(fileWrapper);
         // navigate to another page
-        this.router.navigate(['/configuration']);
+        this.router.navigate(["/configuration"]);
       }
     });
   }

@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ViewAnalysisModalComponent } from './view-analysis-modal.component';
+import { ViewAnalysisModalComponent } from "./view-analysis-modal.component";
 
-describe('ViewAnalysisModalComponent', () => {
+describe("ViewAnalysisModalComponent", () => {
   let component: ViewAnalysisModalComponent;
   let fixture: ComponentFixture<ViewAnalysisModalComponent>;
 
@@ -17,7 +17,7 @@ describe('ViewAnalysisModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

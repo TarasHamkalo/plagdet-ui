@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { FileUploadDndComponent } from './file-upload-dnd.component';
+import { FileUploadDndComponent } from "./file-upload-dnd.component";
 
-describe('FileUploadDndComponent', () => {
+describe("FileUploadDndComponent", () => {
   let component: FileUploadDndComponent;
   let fixture: ComponentFixture<FileUploadDndComponent>;
 
@@ -17,7 +17,7 @@ describe('FileUploadDndComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

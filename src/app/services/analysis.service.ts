@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {AnalysisContextService} from "./analysis-context.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AnalysisService {
 

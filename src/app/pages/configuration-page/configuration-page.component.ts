@@ -1,4 +1,4 @@
-import {Component, computed, inject, Input, OnInit} from '@angular/core';
+import {Component, computed, inject, Input, OnInit} from "@angular/core";
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {
   ConfigurationOptionsComponent
@@ -17,7 +17,7 @@ import {
 } from "../../components/view-analysis-modal/view-analysis-modal.component";
 
 @Component({
-  selector: 'app-configuration-page',
+  selector: "app-configuration-page",
   imports: [
     TitledSurfaceComponent,
     ConfigurationOptionsComponent,
@@ -32,18 +32,18 @@ import {
     MatError,
     ReactiveFormsModule
   ],
-  templateUrl: './configuration-page.component.html',
-  styleUrl: './configuration-page.component.css'
+  templateUrl: "./configuration-page.component.html",
+  styleUrl: "./configuration-page.component.css"
 })
 export class ConfigurationPageComponent implements OnInit {
 
   public readonly analysisNameControl = new FormControl(
-    '', [Validators.required, Validators.minLength(3)]
+    "", [Validators.required, Validators.minLength(3)]
   );
 
-  @Input() public formFieldLabel = 'Názov analýzy';
+  @Input() public formFieldLabel = "Názov analýzy";
 
-  @Input() public errorMessage = 'Je potrebné nastaviť názov';
+  @Input() public errorMessage = "Je potrebné nastaviť názov";
 
   @Input() public cancelText = "Zrušiť";
 
@@ -60,7 +60,7 @@ export class ConfigurationPageComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/upload']);
+    this.router.navigate(["/upload"]);
   }
 
 
@@ -78,9 +78,9 @@ export class ConfigurationPageComponent implements OnInit {
         // always be not null after validation succeed
         this.analysisContext.getAnalysisName().set(this.analysisNameControl.value ?? "");
 
-        this.router.navigate(['/analysis']);
+        this.router.navigate(["/analysis"]);
       } else {
-        this.router.navigate(['/upload']);
+        this.router.navigate(["/upload"]);
       }
 
     });

@@ -1,4 +1,4 @@
-import {Component, computed, Input, OnInit, signal} from '@angular/core';
+import {Component, computed, Input, OnInit, signal} from "@angular/core";
 import {AnalysisContextService} from "../../services/analysis-context.service";
 import {ConfigurationOption} from "../../model/configuration-option";
 import {
@@ -14,7 +14,7 @@ import {MatChip, MatChipListbox} from "@angular/material/chips";
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
-  selector: 'app-configuration-options',
+  selector: "app-configuration-options",
   imports: [
     MatListOption,
     MatListItemLine,
@@ -27,16 +27,16 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatTooltip,
     MatChipListbox,
   ],
-  templateUrl: './configuration-options.component.html',
-  styleUrl: './configuration-options.component.css'
+  templateUrl: "./configuration-options.component.html",
+  styleUrl: "./configuration-options.component.css"
 })
 export class ConfigurationOptionsComponent implements OnInit {
 
-  @Input() public title = '';
+  @Input() public title = "";
 
-  @Input() public subTitle = '';
+  @Input() public subTitle = "";
 
-  @Input() public variant: 'chip' | 'select' = 'select';
+  @Input() public variant: "chip" | "select" = "select";
 
   public configurationOptions = signal<ConfigurationOption[]>([]);
 
@@ -51,11 +51,11 @@ export class ConfigurationOptionsComponent implements OnInit {
     this.configurationOptions = this.analysisContextService.getConfigurationOptions();
 
     this.title =
-      this.variant === 'chip' ? 'Vlastnosti analýzy' : 'Základné možnosti';
+      this.variant === "chip" ? "Vlastnosti analýzy" : "Základné možnosti";
     this.subTitle =
-      this.variant === 'chip'
-        ? 'Vlastnosti nastavené počas procesu konfigurácie'
-        : '';
+      this.variant === "chip"
+        ? "Vlastnosti nastavené počas procesu konfigurácie"
+        : "";
     console.log(this.configurationOptions());
   }
 

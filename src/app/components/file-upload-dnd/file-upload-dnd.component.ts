@@ -1,26 +1,26 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {MatButton} from "@angular/material/button";
 import {DndDirective} from "../../directives/dnd.directive";
 import {FileUtilsService} from "../../services/file-utils.service";
 
 @Component({
-  selector: 'app-file-upload-dnd',
+  selector: "app-file-upload-dnd",
   imports: [
     MatButton,
     DndDirective,
   ],
-  templateUrl: './file-upload-dnd.component.html',
-  styleUrl: './file-upload-dnd.component.css'
+  templateUrl: "./file-upload-dnd.component.html",
+  styleUrl: "./file-upload-dnd.component.css"
 })
 export class FileUploadDndComponent {
 
-  @Input() public title = 'Vyberte súbor alebo ho sem vložte';
+  @Input() public title = "Vyberte súbor alebo ho sem vložte";
 
-  @Input() public subtitle = 'Povolené formáty ZIP, TAR or TARGZ';
+  @Input() public subtitle = "Povolené formáty ZIP, TAR or TARGZ";
 
-  @Input() public buttonText = 'Vyberte súbor';
+  @Input() public buttonText = "Vyberte súbor";
 
-  @Input() public supportedExtensions: Set<string> = new Set<string>(['tar', 'zip', 'targz']);
+  @Input() public supportedExtensions: Set<string> = new Set<string>(["tar", "zip", "targz"]);
 
   @Output() public fileUploaded: EventEmitter<File> = new EventEmitter<File>();
 
@@ -40,7 +40,7 @@ export class FileUploadDndComponent {
 
   private processFiles(files: FileList): void {
     if (files.length > 1) {
-      console.log('Error number of files should be equal 1');
+      console.log("Error number of files should be equal 1");
       return;
     }
 

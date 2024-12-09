@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {HeaderComponent} from "./components/header/header.component";
 import {HomeComponent} from "./home/home.component";
-import {MatIcon, MatIconRegistry} from '@angular/material/icon';
+import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
 import {AnalysisContextService} from "./services/analysis-context.service";
 
@@ -11,7 +11,7 @@ import {AnalysisContextService} from "./services/analysis-context.service";
   imports: [
     HeaderComponent,
     HomeComponent,
-    MatIcon,
+
   ],
 
   template: `

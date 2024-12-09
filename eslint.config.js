@@ -14,6 +14,14 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
+
+      "@/quotes": [
+        "error",
+        "double",
+        {
+          "allowTemplateLiterals": true
+        }
+      ],
       // "semi": "off",
       "@/semi": ["error"],
       "@angular-eslint/directive-selector": [
