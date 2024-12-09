@@ -50,7 +50,7 @@ export class ConfigurationOptionsComponent implements OnInit {
   constructor(private analysisContextService: AnalysisContextService) {}
 
   ngOnInit() {
-    this.configurationOptions = this.analysisContextService.getConfigurationOptions()
+    this.configurationOptions = this.analysisContextService.getConfigurationOptions();
 
     this.title =
       this.variant === 'chip' ? 'Vlastnosti analýzy' : 'Základné možnosti';

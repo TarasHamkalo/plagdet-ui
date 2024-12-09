@@ -6,9 +6,9 @@
 
   /*min-width: 50px;*/
   height: 250px;
+  min-width: 400px;
   max-width: 500px;
   box-sizing: border-box;
-
 
   margin-inline: auto;
 

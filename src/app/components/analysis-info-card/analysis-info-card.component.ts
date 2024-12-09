@@ -42,7 +42,7 @@ export class AnalysisInfoCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.analysisContext.getAnalysis()())
+    console.log(this.analysisContext.getAnalysis()());
     this.analysis = this.analysisContext.getAnalysis();
     // this.analysisService.analyze().subscribe(analysis => {
     //   console.log(`This analysis options ${analysis.configurationUsed}`);

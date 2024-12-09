@@ -22,6 +22,6 @@ export class AnalysisService {
       docxFiles: 67,
       pdfFiles: 51,
       configurationUsed: this.analysisContext.getConfigurationOptions()()
-    })
+    });
   }
 }

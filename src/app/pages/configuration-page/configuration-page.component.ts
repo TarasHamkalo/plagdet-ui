@@ -75,6 +75,9 @@ export class ConfigurationPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        // always be not null after validation succeed
+        this.analysisContext.getAnalysisName().set(this.analysisNameControl.value ?? "");
+
         this.router.navigate(['/analysis']);
       } else {
         this.router.navigate(['/upload']);

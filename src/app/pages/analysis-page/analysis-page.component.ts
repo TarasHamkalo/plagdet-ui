@@ -73,7 +73,7 @@ export class AnalysisPageComponent implements OnInit {
       this.clustersDataSource.data = clusters;
     });
 
-    this.analysisService.analyze()
+    this.analysisService.analyze();
 
     let temp = this.submissionTableDefinitions.map(col => col.fieldName);
     this.submissionsDisplayedColumns = temp.concat('moreButton');

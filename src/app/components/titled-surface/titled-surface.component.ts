@@ -14,6 +14,6 @@ export class TitledSurfaceComponent {
 
   @Input() public isTitleCentered = false;
 
-  @Input() public isHorizontal = true;
+  @Input() public isHorizontal = false;
 
 }
