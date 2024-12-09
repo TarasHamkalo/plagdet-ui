@@ -2,8 +2,7 @@
 
   <mat-nav-list aria-label="Navigation sidebar">
 
-
-    @if (isFullWidth()) {
+    @if (isFullWidth() && displayHomeNav) {
       <app-nav-item-view [navItem]="homeNavItem ?? {}" [isFullWidth]="isFullWidth"></app-nav-item-view>
       <mat-divider></mat-divider>
     }

@@ -1,4 +1,4 @@
-<a mat-list-item [activated]="isActivated">
+<a mat-list-item [routerLink]="navItem.route" [activated]="isActive()">
   <span class="nav-item nav-item-expanded" [class.nav-item-expanded]="isFullWidth()">
     @if (navItem.isIconSvg) {
       <mat-icon [svgIcon]="navItem.iconPath ?? ''"/>

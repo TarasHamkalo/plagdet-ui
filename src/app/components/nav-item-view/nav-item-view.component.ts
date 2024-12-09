@@ -1,18 +1,21 @@
-import {Component, Input, signal} from "@angular/core";
+import {Component, computed, Input, OnInit, signal} from "@angular/core";
 import {NavItem} from "../../model/nav-item";
 import {MatListItem} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
+import {NavigationService} from "../../services/navigation.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: "app-nav-item-view",
   imports: [
     MatListItem,
-    MatIcon
+    MatIcon,
+    RouterLink
   ],
   templateUrl: "./nav-item-view.component.html",
   styleUrl: "./nav-item-view.component.css"
 })
-export class NavItemViewComponent {
+export class NavItemViewComponent implements OnInit {
 
   @Input() public isActivated = false;
 
@@ -20,4 +23,14 @@ export class NavItemViewComponent {
 
   @Input({required: true}) public navItem: Partial<NavItem> = {};
 
+  @Input() public isActive = computed(() =>
+    this.navItem.route === this.navigationService.getActive()()
+  );
+
+  constructor(private navigationService: NavigationService) {
+  }
+
+  ngOnInit(): void {
+    console.log(`${this.navItem.route}: ${this.isActive}`);
+  }
 }

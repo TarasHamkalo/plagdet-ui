@@ -38,8 +38,9 @@ export class NavListComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.navItems = this.navigationService.getRoutes();
-      this.activatedNavItem = this.navigationService.getActivated();
       this.homeNavItem = this.navigationService.getHome();
+      this.displayHomeNav = !this.navItems.some(item => item.route === this.homeNavItem?.route);
+      this.navigationService.updateActive()
     });
 
   }
