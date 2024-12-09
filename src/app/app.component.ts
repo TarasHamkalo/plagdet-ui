@@ -52,7 +52,8 @@ export class AppComponent implements OnInit {
     "apache-kafka",
     "email-outline",
     "frequently-asked-questions",
-    "import"
+    "import",
+    "upload-outline",
   ];
 
   constructor(private analysisContextService: AnalysisContextService,
