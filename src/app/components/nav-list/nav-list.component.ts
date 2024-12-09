@@ -40,7 +40,7 @@ export class NavListComponent implements OnInit {
       this.navItems = this.navigationService.getRoutes();
       this.homeNavItem = this.navigationService.getHome();
       this.displayHomeNav = !this.navItems.some(item => item.route === this.homeNavItem?.route);
-      this.navigationService.updateActive()
+      this.navigationService.updateActive();
     });
 
   }

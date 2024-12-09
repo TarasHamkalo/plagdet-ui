@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import {MatButton} from "@angular/material/button";
 import {FileUtilsService} from "../../services/file-utils.service";
 import {NavigationService} from "../../services/navigation.service";
+import {Routes} from "../../enum/routes";
 
 @Component({
   selector: "app-upload-dataset-page",
@@ -45,13 +46,12 @@ export class UploadDatasetPageComponent {
       if (success) {
         this.analysisContext.setUploadedFile(fileWrapper);
         // navigate to another page
-        this.router.navigate(["/configuration"]);
+        this.router.navigate([Routes.CONFIGURATION]);
       }
     });
   }
 
   moveToConfigPage(): void {
-    // this.router.navigate(['/configuration']);
     this.navigationService.getRoutes();
   }
 }

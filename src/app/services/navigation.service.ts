@@ -61,8 +61,8 @@ export class NavigationService {
 
   updateActive() {
     const url = this.router.url;
-    this.activeRoute.set(url as Routes)
-    console.log(this.activeRoute())
+    this.activeRoute.set(url as Routes);
+    console.log(this.activeRoute());
   }
 
   getHome(): NavItem | undefined {

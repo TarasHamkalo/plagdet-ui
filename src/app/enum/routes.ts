@@ -1,7 +1,8 @@
 export enum Routes {
-  HOME = "/upload",
+  NONE = "#",
   UPLOAD = "/upload",
   CONFIGURATION = "/configuration",
   ANALYSIS = "/analysis",
-  NONE = "#",
+
+  HOME = UPLOAD,
 }

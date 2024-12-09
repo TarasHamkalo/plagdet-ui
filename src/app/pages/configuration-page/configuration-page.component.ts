@@ -1,4 +1,4 @@
-import {Component, computed, inject, Input, OnInit} from "@angular/core";
+import {Component, inject, Input, OnInit} from "@angular/core";
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {
   ConfigurationOptionsComponent
@@ -15,6 +15,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   ViewAnalysisModalComponent
 } from "../../components/view-analysis-modal/view-analysis-modal.component";
+import {Routes} from "../../enum/routes";
 
 @Component({
   selector: "app-configuration-page",
@@ -59,15 +60,6 @@ export class ConfigurationPageComponent implements OnInit {
     this.analysisNameControl.setValue(this.analysisContext.getAnalysisName()());
   }
 
-  onCancel() {
-    this.router.navigate(["/upload"]);
-  }
-
-
-  selected = computed(() => this.analysisContext.getConfigurationOptions()().reduce(
-    (agg, cur) => agg + (cur.selected ? 1 : 0),
-    0
-  ));
   onProceed() {
     const dialogRef = this.dialog.open(ViewAnalysisModalComponent, {
       width: "50%",
@@ -78,17 +70,16 @@ export class ConfigurationPageComponent implements OnInit {
         // always be not null after validation succeed
         this.analysisContext.getAnalysisName().set(this.analysisNameControl.value ?? "");
 
-        this.router.navigate(["/analysis"]);
+        this.router.navigate([Routes.ANALYSIS]);
       } else {
-        this.router.navigate(["/upload"]);
+        this.onCancel();
       }
 
     });
-
-    // const analysisName = this.analysisNameControl.getRawValue();
-    // if (analysisName) {
-    //   this.analysisContext.getAnalysisName().set(analysisName);
-    //   this.router.navigate(['/analysis']);
-    // }
   }
+
+  onCancel() {
+    this.router.navigate([Routes.HOME]);
+  }
+
 }
