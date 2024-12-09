@@ -1,0 +1,14 @@
+<a mat-list-item [activated]="isActivated">
+  <span class="nav-item nav-item-expanded" [class.nav-item-expanded]="isFullWidth()">
+    @if (navItem.isIconSvg) {
+      <mat-icon [svgIcon]="navItem.iconPath ?? ''"/>
+    } @else {
+      <mat-icon>{{ navItem.iconPath }}</mat-icon>
+    }
+
+    @if (isFullWidth()) {
+      <p>{{ navItem.fullWidthName }}</p>
+    }
+
+  </span>
+</a>

@@ -1,27 +1,34 @@
-<mat-nav-list aria-label="Navigation sidebar">
-  @for (navItem of navItems; track navItem) {
-    <!--    fullWidthName: string;-->
-      <!--      iconPath: string;-->
-      <!--      isIconSvg: boolean;-->
-      <!--      isFullWidthOnly: boolean;-->
-    @if (!navItem.isFullWidthOnly) {
-      <a mat-list-item [activated]="navItem.fullWidthName === activatedNavItem?.fullWidthName">
-        <span class="nav-item nav-item-expanded"
-              [class.nav-item-expanded]="fullWidthNavItems()">
-          @if (navItem.isIconSvg) {
-            <mat-icon [svgIcon]="navItem.iconPath"/>
-          } @else {
-            <mat-icon>{{ navItem.iconPath }}</mat-icon>
-          }
+<div class="nav-group">
 
-          @if (fullWidthNavItems()) {
-            <p>{{ navItem.fullWidthName }}</p>
-          }
+  <mat-nav-list aria-label="Navigation sidebar">
 
-        </span>
-      </a>
+
+    @if (isFullWidth()) {
+      <app-nav-item-view [navItem]="homeNavItem ?? {}" [isFullWidth]="isFullWidth"></app-nav-item-view>
+      <mat-divider></mat-divider>
     }
 
+    @for (navItem of navItems; track navItem) {
+      @if (!navItem.isFullWidthOnly) {
 
+        <app-nav-item-view [navItem]="navItem"
+                           [isActivated]="navItem.fullWidthName === activatedNavItem?.fullWidthName"
+                           [isFullWidth]="isFullWidth">
+        </app-nav-item-view>
+
+      }
+    }
+
+  </mat-nav-list>
+
+  @if (isFullWidth()) {
+    <mat-nav-list>
+      @for (navItem of navItems; track navItem) {
+        @if (navItem.isFullWidthOnly) {
+          <app-nav-item-view [navItem]="navItem" [isActivated]="false"/>
+        }
+      }
+    </mat-nav-list>
   }
-</mat-nav-list>
+
+</div>
