@@ -1,24 +1,21 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {FileUploadDndComponent} from "../../components/file-upload-dnd/file-upload-dnd.component";
-import {Routes} from "../../enum/routes";
 import {UploadPageBaseComponent} from "../shared/upload-page-base/upload-page-base.component";
+import {Routes} from "../../enum/routes";
 
 @Component({
-  selector: "app-upload-dataset-page",
-  standalone: true,
+  selector: 'app-import-analysis-page',
   imports: [
     TitledSurfaceComponent,
     FileUploadDndComponent,
-
   ],
-  templateUrl: "./upload-dataset-page.component.html",
+  templateUrl: './import-analysis-page.component.html',
 })
-export class UploadDatasetPageComponent extends UploadPageBaseComponent {
+export class ImportAnalysisPageComponent extends UploadPageBaseComponent {
 
-  override onFileUploaded(file: File): void {
-    super.onFileUploaded(file, Routes.CONFIGURATION, Routes.UPLOAD);
+  override onFileUploaded(file: File) {
+    super.onFileUploaded(file, Routes.ANALYSIS, Routes.IMPORT);
   }
 
 }
-

@@ -23,7 +23,7 @@ export class NavigationService {
 
   private readonly defaultRoutes: NavItem[] = [
     {route: Routes.UPLOAD, isFullWidthOnly: false, fullWidthName: "Nahrať súbor odovzdaní", iconPath: "upload", isIconSvg: false},
-    {route: Routes.NONE, isFullWidthOnly: false, fullWidthName: "Importovať analyzu", iconPath: "import", isIconSvg: true},
+    {route: Routes.IMPORT, isFullWidthOnly: false, fullWidthName: "Importovať analyzu", iconPath: "import", isIconSvg: true},
     {route: Routes.NONE, isFullWidthOnly: false, fullWidthName: "Predošlé analýzy", iconPath: "list", isIconSvg: false}
   ];
 
