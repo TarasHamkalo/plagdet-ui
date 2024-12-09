@@ -31,6 +31,14 @@
 
   </app-titled-surface>
 
+
+  <app-titled-surface title="Teplotná mapa podobnosti" subtitle="" [isTitleCentered]="true">
+    <!-- TODO: replace https://ej2.syncfusion.com/angular/documentation/heatmap-chart/getting-started?cs-save-lang=1&cs-lang=ts-->
+    <app-image-wrapper imagePath="/assets/similarity-heat-map.png"
+                       [imageWidth]="650"
+                       imageDesc="Document similarity Heat Map"/>
+  </app-titled-surface>
+
   <app-titled-surface title="Odovzdania" subtitle="Tabuľka obsahuje top 10 prác s najväčšou podobnosťou">
 
     <!-- Submission Table -->
@@ -90,13 +98,6 @@
 
     </table>
 
-  </app-titled-surface>
-
-  <app-titled-surface title="Teplotná mapa podobnosti" subtitle="" [isTitleCentered]="true">
-    <!-- TODO: replace https://ej2.syncfusion.com/angular/documentation/heatmap-chart/getting-started?cs-save-lang=1&cs-lang=ts-->
-    <app-image-wrapper imagePath="/assets/similarity-heat-map.png"
-                       [imageWidth]="650"
-                       imageDesc="Document similarity Heat Map"/>
   </app-titled-surface>
 
 </div>

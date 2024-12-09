@@ -2,12 +2,14 @@
   display: inline-flex;
   align-items: center;
   padding: 8px;
+  width: 100%;
+  /*overflow: hidden;*/
 }
 
 .circle {
   display: flex;
-  width: 48px;
-  height: 48px;
+  width: 24px;
+  height: 24px;
   padding: 16px;
 
   flex-direction: column;
@@ -29,5 +31,10 @@
   color: var(--mat-sys-on-tertiary-container);
   font: var(--mat-sys-headline-small);
   margin: 0;
+}
 
+@media (max-width: 1200px) {
+  .overlapping-list {
+    max-width: 200px;
+  }
 }
