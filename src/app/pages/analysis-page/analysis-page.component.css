@@ -7,6 +7,30 @@
   padding: 24px 0 72px 0;
 }
 
+.histogram-container {
+  display: flex;
+
+  min-width: 600px;
+  max-width: 650px;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 16px;
+  gap: 24px;
+  flex: 1 0 0;
+
+  background-color: var(--mat-sys-surface-container-high);
+  border-radius: var(--mat-sys-corner-extra-large);
+}
+
+.histogram-container h1 {
+  font: var(--mat-sys-headline-small);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
+
 .stat-group {
   display: flex;
 
