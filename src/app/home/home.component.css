@@ -1,9 +1,14 @@
 .home {
   height: 100%;
+  overflow-y: hidden;
 }
 
 .sidenav-colored {
-  height: 100%;
+  position: fixed;
+  top: 64px;
+
+  height: calc(100% - 64px);
+
   padding: 0.25rem;
   border-radius: 0;
   background-color: var(--mat-sys-surface-container);
