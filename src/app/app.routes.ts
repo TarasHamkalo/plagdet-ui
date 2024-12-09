@@ -7,5 +7,5 @@ export const routes: Routes = [
   {path: 'upload', component: UploadDatasetPageComponent},
   {path: 'configuration', component: ConfigurationPageComponent},
   {path: 'analysis', component: AnalysisPageComponent},
-  {path: '**', redirectTo: 'analysis'}
+  {path: '**', redirectTo: 'upload'}
 ];

@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {HeaderComponent} from "./components/header/header.component";
 import {HomeComponent} from "./home/home.component";
-import {MatIconRegistry} from '@angular/material/icon';
+import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from "@angular/platform-browser";
 import {AnalysisContextService} from "./services/analysis-context.service";
 
@@ -11,6 +11,7 @@ import {AnalysisContextService} from "./services/analysis-context.service";
   imports: [
     HeaderComponent,
     HomeComponent,
+    MatIcon,
   ],
 
   template: `
@@ -42,7 +43,16 @@ export class AppComponent implements OnInit {
     "file-document-multiple-outline",
     "rename-box-outline",
     "file-search-outline",
-    "compare-horizontal"
+    "compare-horizontal",
+    "ballot-outline",
+    "book-multiple-outline",
+    "file-document-outline",
+    "list",
+    "badge-account-horizontal-outline",
+    "apache-kafka",
+    "email-outline",
+    "frequently-asked-questions",
+    "import"
   ];
 
   constructor(private analysisContextService: AnalysisContextService,
