@@ -69,3 +69,44 @@
   font: var(--mat-sys-title-large);
   margin: 0;
 }
+
+.configuration-chip {
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.configuration-chip p {
+  font: var(--mat-sys-label-small);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
+
+.mat-icon-primary {
+  color: var(--mat-sys-primary);
+}
+
+.mat-icon-tertiary {
+  color: var(--mat-sys-tertiary);
+}
+
+.text-frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.text-frame h1 {
+  font: var(--mat-sys-title-medium);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
+
+.text-frame p {
+  font: var(--mat-sys-body-medium);
+  color: var(--mat-sys-on-surface-variant);
+  margin: 0;
+}

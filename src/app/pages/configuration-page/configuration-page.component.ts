@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, computed, inject, Input, OnInit} from '@angular/core';
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {
   ConfigurationOptionsComponent
@@ -63,6 +63,11 @@ export class ConfigurationPageComponent implements OnInit {
     this.router.navigate(['/upload']);
   }
 
+
+  selected = computed(() => this.analysisContext.getConfigurationOptions()().reduce(
+    (agg, cur) => agg + (cur.selected ? 1 : 0),
+    0
+  ));
   onProceed() {
     const dialogRef = this.dialog.open(ViewAnalysisModalComponent, {
       width: "50%",
@@ -76,6 +81,7 @@ export class ConfigurationPageComponent implements OnInit {
       }
 
     });
+
     // const analysisName = this.analysisNameControl.getRawValue();
     // if (analysisName) {
     //   this.analysisContext.getAnalysisName().set(analysisName);

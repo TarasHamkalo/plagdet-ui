@@ -4,7 +4,7 @@
       <h1>{{ analysis().name ?? "Name not loaded" }}</h1>
       <p>Informácie o analýze</p>
     </div>
-    <mat-icon>info_outlined</mat-icon>
+    <mat-icon [matTooltip]="supportiveText">info_outlined</mat-icon>
   </div>
   <mat-list class="info-groups">
     <mat-divider></mat-divider>
@@ -53,18 +53,10 @@
           <p>{{ analysis().pdfFiles }} súborov</p>
         </div>
       </mat-list-item>
-      <mat-chip>
-        <p>text</p>
-        <mat-icon matChipTrailingIcon>face</mat-icon>
-      </mat-chip>
     </mat-list>
     <mat-divider></mat-divider>
 
-    <app-configuration-options variant="chip"
-                               [hasToLoadFromContext]="false"
-                               [configurationOptions]="configurationUsed">
-
-    </app-configuration-options>
+    <app-configuration-options variant="chip"/>
     <!--    <mat-list-item>-->
     <!--      <mat-icon matListItemIcon>date_range</mat-icon>-->
     <!--      <p>{{ dialogData.fileWrapper.dateModified | date }}</p>-->

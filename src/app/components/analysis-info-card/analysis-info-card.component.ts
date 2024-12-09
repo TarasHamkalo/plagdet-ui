@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, Input, OnInit, signal} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatList, MatListItem, MatListItemIcon, MatListItemTitle} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";
@@ -11,6 +11,7 @@ import {
   ConfigurationOptionsComponent
 } from "../configuration-options/configuration-options.component";
 import {ConfigurationOption} from "../../model/configuration-option";
+import {AnalysisContextService} from "../../services/analysis-context.service";
 
 @Component({
   selector: 'app-analysis-info-card',
@@ -33,19 +34,21 @@ import {ConfigurationOption} from "../../model/configuration-option";
 })
 export class AnalysisInfoCardComponent implements OnInit {
 
+  @Input() public supportiveText = "V tejto časti sa zobrazujú informácie o analýze a o tom, aké parametre sa pri nej použili";
+
   public analysis = signal<Partial<Analysis>>({});
 
-  public configurationUsed = signal<ConfigurationOption[]>([]);
-
-  constructor(private analysisService: AnalysisService) {
+  constructor(private analysisContext: AnalysisContextService) {
   }
 
   ngOnInit() {
-    this.analysisService.analyze().subscribe(analysis => {
-      console.log(`This analysis options ${analysis.configurationUsed}`);
-      this.analysis.set(analysis)
-      this.configurationUsed.set(this.analysis().configurationUsed ?? [])
-    })
+    console.log(this.analysisContext.getAnalysis()())
+    this.analysis = this.analysisContext.getAnalysis();
+    // this.analysisService.analyze().subscribe(analysis => {
+    //   console.log(`This analysis options ${analysis.configurationUsed}`);
+    //   this.analysis.set(analysis)
+    //   this.configurationUsed.set(this.analysis().configurationUsed ?? [])
+    // })
 
   }
 

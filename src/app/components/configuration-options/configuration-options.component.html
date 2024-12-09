@@ -1,13 +1,35 @@
 <div class="configuration">
   @if (variant == 'chip') {
-    <p>text</p>
-<!--    @for (option of configurationOptions(); track option.displayTitle) {-->
-<!--      <mat-chip>-->
-<!--        {{option.displayTitle}}-->
-<!--        <mat-icon>face</mat-icon>-->
-<!--      </mat-chip>-->
-<!--    }-->
+    <div class="text-frame">
+      <h1>{{ title }}</h1>
+      <p>{{ subTitle }}</p>
+    </div>
 
+    <mat-chip-listbox>
+      @if (this.selectedCount() == 0) {
+        <mat-chip color="primary" matTooltipPosition="right"
+                  matTooltip="Neboli použité žiadne možnosti konfigurácie">
+          <div class="configuration-chip">
+            <mat-icon class="mat-icon-tertiary">sentiment_dissatisfied</mat-icon>
+            <p>Žiadna konfigurácia</p>
+          </div>
+        </mat-chip>
+      }
+
+      @for (option of configurationOptions(); track option.displayTitle) {
+
+        @if (option.selected) {
+          <mat-chip color="primary" matTooltipPosition="right"
+                    [matTooltip]="option.displayDescription">
+            <div class="configuration-chip">
+              <mat-icon class="mat-icon-primary">check_outline</mat-icon>
+              <p>{{ option.displayTitle }}</p>
+            </div>
+          </mat-chip>
+        }
+      }
+      <!--      }-->
+    </mat-chip-listbox>
   } @else {
     <div class="card-header">
       <h1>{{ title }}</h1>

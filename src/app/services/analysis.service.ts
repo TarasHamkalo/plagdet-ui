@@ -11,13 +11,10 @@ export class AnalysisService {
 
   constructor(private analysisContext: AnalysisContextService) {}
 
-  analyze(): Observable<Analysis> {
+  analyze(): void {
     const analyzedFile = this.analysisContext.getUploadedFile()().name ?? "Unknown";
-    // this.analysisContext.getAnalysisName()()
-    console.log(this.analysisContext.getConfigurationOptions()());
-    return of({
-
-      name: "Super name",
+    this.analysisContext.getAnalysis().set({
+      name: this.analysisContext.getAnalysisName()(),
       analyzedFileName: analyzedFile,
       dateAnalyzed: new Date(Date.now()),
       numberOfComparisons: 100500,

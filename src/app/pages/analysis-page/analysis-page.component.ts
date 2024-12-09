@@ -14,6 +14,7 @@ import {StatCardComponent} from "../../components/stat-card/stat-card.component"
 import {
   AnalysisInfoCardComponent
 } from "../../components/analysis-info-card/analysis-info-card.component";
+import {AnalysisService} from "../../services/analysis.service";
 
 @Component({
   selector: 'app-analysis-page',
@@ -56,7 +57,8 @@ export class AnalysisPageComponent implements OnInit {
 
   public clustersDataSource = new MatTableDataSource<Cluster>([]);
 
-  constructor(private submissionsService: SubmissionsService,
+  constructor(private analysisService: AnalysisService,
+              private submissionsService: SubmissionsService,
               private clustersService: ClustersService) {
   }
 
@@ -70,6 +72,8 @@ export class AnalysisPageComponent implements OnInit {
       console.log(clusters);
       this.clustersDataSource.data = clusters;
     });
+
+    this.analysisService.analyze()
 
     let temp = this.submissionTableDefinitions.map(col => col.fieldName);
     this.submissionsDisplayedColumns = temp.concat('moreButton');

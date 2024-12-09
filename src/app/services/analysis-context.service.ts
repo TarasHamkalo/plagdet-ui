@@ -3,6 +3,7 @@ import {FileWrapper} from "../model/file-wrapper";
 import {ConfigurationOption} from "../model/configuration-option";
 import {HttpClient} from "@angular/common/http";
 import {FileUtilsService} from "./file-utils.service";
+import {Analysis} from "../model/analysis";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class AnalysisContextService {
   private analysisName = signal('');
 
   private configurationOptions = signal<ConfigurationOption[]>([]);
+
+  private analysis = signal<Partial<Analysis>>({});
 
   constructor(private http: HttpClient,
               private fileUtils: FileUtilsService) {
@@ -31,6 +34,10 @@ export class AnalysisContextService {
 
   getAnalysisName() {
     return this.analysisName;
+  }
+
+  getAnalysis() {
+    return this.analysis;
   }
 
   loadConfigurationOptions() {
