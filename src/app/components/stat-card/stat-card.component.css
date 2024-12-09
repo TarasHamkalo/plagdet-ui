@@ -10,7 +10,7 @@
   padding: 16px;
   gap: 24px;
 
-  background-color: var(--mat-sys-surface-container-high);
+  background-color: var(--mat-sys-surface-container-highest);
   border-radius: var(--mat-sys-corner-large);
 }
 
