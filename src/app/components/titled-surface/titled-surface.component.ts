@@ -12,6 +12,8 @@ export class TitledSurfaceComponent {
 
   @Input() public subtitle = "Default subtitle";
 
-  @Input() public titleCentered = false;
+  @Input() public isTitleCentered = false;
+
+  @Input() public isHorizontal = true;
 
 }

@@ -19,6 +19,25 @@
   box-sizing: border-box;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  min-width: fit-content;
+  align-items: stretch;
+  justify-content: start;
+  align-content: center;
+
+  flex-wrap: wrap;
+  gap: 24px;
+
+}
+
+.horizontal {
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+}
+
 .text-frame {
   display: flex;
   flex-direction: column;
@@ -26,6 +45,10 @@
   align-self: stretch;
 
   gap: 4px;
+}
+
+.title-centered {
+  align-items: center;
 }
 
 .title-text {
