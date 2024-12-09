@@ -8,5 +8,7 @@ export interface Analysis {
   docxFiles: number;
   docFiles: number;
   pdfFiles: number;
+  totalFilesCount: number; // shouldn't be there (but for prototype simplifies table logic)
+  status: "success" | "in-process" | "error";
   configurationUsed: ConfigurationOption[];
 }

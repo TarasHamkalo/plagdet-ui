@@ -24,7 +24,7 @@ export class NavigationService {
   private readonly defaultRoutes: NavItem[] = [
     {route: Routes.UPLOAD, isFullWidthOnly: false, fullWidthName: "Nahrať súbor odovzdaní", iconPath: "upload", isIconSvg: false},
     {route: Routes.IMPORT, isFullWidthOnly: false, fullWidthName: "Importovať analyzu", iconPath: "import", isIconSvg: true},
-    {route: Routes.NONE, isFullWidthOnly: false, fullWidthName: "Predošlé analýzy", iconPath: "list", isIconSvg: false}
+    {route: Routes.PREVIOUS_ANALYSIS, isFullWidthOnly: false, fullWidthName: "Predošlé analýzy", iconPath: "list", isIconSvg: false}
   ];
 
   private readonly supportRoutes: NavItem[] = [
@@ -52,7 +52,7 @@ export class NavigationService {
       return routes.concat(this.supportRoutes);
     }
 
-    return this.defaultRoutes;
+    return this.defaultRoutes.concat(this.supportRoutes);
   }
 
   getActive() {
