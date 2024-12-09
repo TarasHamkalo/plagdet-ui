@@ -67,6 +67,7 @@
       <tr mat-row *matRowDef="let row; columns: submissionsDisplayedColumns;"></tr>
 
     </table>
+    <button style="align-self: end" mat-flat-button>Ostatné odovzdania</button>
   </app-titled-surface>
 
   <app-titled-surface title="Zhluky" subtitle="Tabuľka zobrazuje top 10 najdených zhlukov (skupín podobných dokumentov) v odovzdanej sade">
@@ -97,7 +98,7 @@
       <tr mat-row *matRowDef="let row; columns: clusterDisplayedColumns;"></tr>
 
     </table>
-
+    <button style="align-self: end" mat-flat-button>Ostatné zhluky</button>
   </app-titled-surface>
 
 </div>

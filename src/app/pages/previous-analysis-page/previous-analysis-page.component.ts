@@ -64,7 +64,7 @@ export class PreviousAnalysisPageComponent implements OnInit {
     {
       name: "Submissions 21-22",
       totalFilesCount: 201,
-      dateAnalyzed: new Date(2023, 11, 27),
+      dateAnalyzed: new Date(2023, 11, 25),
       status: "success"
     },
     {
@@ -76,7 +76,7 @@ export class PreviousAnalysisPageComponent implements OnInit {
     {
       name: "Submissions",
       totalFilesCount: 188,
-      dateAnalyzed: new Date(2023, 11, 25),
+      dateAnalyzed: new Date(2023, 11, 27),
       status: "in-process"
     }
   ];
