@@ -1,7 +1,4 @@
-import { Injectable } from '@angular/core';
-import {Observable, of} from "rxjs";
-import {Analysis} from "../model/analysis";
-import {ConfigurationOption} from "../model/configuration-option";
+import {Injectable} from '@angular/core';
 import {AnalysisContextService} from "./analysis-context.service";
 
 @Injectable({

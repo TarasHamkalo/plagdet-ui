@@ -10,7 +10,7 @@ import {
 import {MatDivider} from "@angular/material/divider";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
-import {MatChip, MatChipListbox, MatChipRow, MatChipTrailingIcon} from "@angular/material/chips";
+import {MatChip, MatChipListbox} from "@angular/material/chips";
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
@@ -24,8 +24,6 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatIconButton,
     MatListItemTitle,
     MatChip,
-    MatChipTrailingIcon,
-    MatChipRow,
     MatTooltip,
     MatChipListbox,
   ],

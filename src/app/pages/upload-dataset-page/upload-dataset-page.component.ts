@@ -9,6 +9,7 @@ import {
 import {Router} from "@angular/router";
 import {MatButton} from "@angular/material/button";
 import {FileUtilsService} from "../../services/file-utils.service";
+import {NavigationService} from "../../services/navigation.service";
 
 @Component({
   selector: 'app-upload-dataset-page',
@@ -27,7 +28,8 @@ export class UploadDatasetPageComponent {
 
   constructor(private analysisContext: AnalysisContextService,
               private fileUtils: FileUtilsService,
-              private router: Router) {}
+              private router: Router,
+              private navigationService: NavigationService) {}
 
   onFileUploaded(file: File): void {
 
@@ -49,6 +51,7 @@ export class UploadDatasetPageComponent {
   }
 
   moveToConfigPage(): void {
-    this.router.navigate(['/configuration']);
+    // this.router.navigate(['/configuration']);
+    this.navigationService.getRoutes();
   }
 }

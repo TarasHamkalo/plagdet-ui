@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Submission} from "../model/submission";
 import {Observable, of} from "rxjs";
 import {Cluster} from "../model/cluster";
 

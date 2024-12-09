@@ -5,7 +5,9 @@ import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {TableColumnDefinition} from "../../model/table-column-definition";
 import {Cluster} from "../../model/cluster";
 import {ClustersService} from "../../services/clusters.service";
-import {SubmissionsListComponent} from "../../components/submissions-list/submissions-list.component";
+import {
+  SubmissionsListComponent
+} from "../../components/submissions-list/submissions-list.component";
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {MatButton} from "@angular/material/button";
@@ -83,8 +85,8 @@ export class AnalysisPageComponent implements OnInit {
     this.clusterDisplayedColumns = temp.concat('submissionList');
   }
 
-  onSorting($event: any) {
-    console.log($event);
+  onSorting(event: any) {
+    console.log(event);
     console.log('Busy sorting array....');
   }
 }
