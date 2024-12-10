@@ -33,4 +33,8 @@ export class NavItemViewComponent implements OnInit {
   ngOnInit(): void {
     console.log(`${this.navItem.route}: ${this.isActive}`);
   }
+
+  fullWidthNameId(navItem: any): string {
+    return `full-width-name-${navItem.fullWidthName}`;
+  }
 }

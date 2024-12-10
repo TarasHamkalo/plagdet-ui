@@ -1,13 +1,16 @@
 <a mat-list-item [routerLink]="navItem.route" [activated]="isActive()">
   <span class="nav-item nav-item-expanded" [class.nav-item-expanded]="isFullWidth()">
     @if (navItem.isIconSvg) {
-      <mat-icon [svgIcon]="navItem.iconPath ?? ''"/>
+      <mat-icon [svgIcon]="navItem.iconPath ?? ''"
+                [attr.aria-labelledby]="isFullWidth() ? fullWidthNameId(navItem) : null"
+                [attr.aria-label]="isFullWidth() ? null : navItem.fullWidthName"/>
+
     } @else {
       <mat-icon>{{ navItem.iconPath }}</mat-icon>
     }
 
     @if (isFullWidth()) {
-      <p>{{ navItem.fullWidthName }}</p>
+      <p [id]="fullWidthNameId(navItem)">{{ navItem.fullWidthName }}</p>
     }
 
   </span>
