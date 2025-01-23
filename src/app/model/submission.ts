@@ -1,6 +1,9 @@
 export interface Submission {
+  id: number;
   submitter: string;
-  fileName: string;
-  totalEditTime: number;
+  filename: string;
   maxSimilarity: number;
+  filepath: string;
+  pairIds: string[];
+  content: string;
 }
