@@ -3,8 +3,8 @@ import {SubmissionsService} from "../../services/submissions.service";
 import {Submission} from "../../model/submission";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {TableColumnDefinition} from "../../model/table-column-definition";
-import {Cluster} from "../../model/cluster";
-import {ClustersService} from "../../services/clusters.service";
+import {Cluster} from "../../model/mock/cluster";
+import {ClustersService} from "../../services/mock/clusters.service";
 import {
   SubmissionsListComponent
 } from "../../components/submissions-list/submissions-list.component";

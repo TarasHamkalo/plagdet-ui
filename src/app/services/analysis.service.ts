@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {AnalysisContextService} from "./analysis-context.service";
+import {AnalysisContextService} from "../context/analysis-context.service";
 
 @Injectable({
   providedIn: "root"

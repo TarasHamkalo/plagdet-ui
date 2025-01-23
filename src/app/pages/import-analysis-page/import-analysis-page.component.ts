@@ -14,7 +14,7 @@ import {Routes} from "../../enum/routes";
 })
 export class ImportAnalysisPageComponent extends UploadPageBaseComponent {
 
-  public supportedExtensions: Set<string> = new Set<string>(["analysis"]);
+  public supportedExtensions: Set<string> = new Set<string>(["zip"]);
 
   public subtitle = "Povolený formát je ANALYSIS";
 

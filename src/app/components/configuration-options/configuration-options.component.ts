@@ -1,6 +1,6 @@
 import {Component, computed, Input, OnInit, signal} from "@angular/core";
-import {AnalysisContextService} from "../../services/analysis-context.service";
-import {ConfigurationOption} from "../../model/configuration-option";
+import {AnalysisContextService} from "../../context/analysis-context.service";
+import {ConfigurationOption} from "../../model/mock/configuration-option";
 import {
   MatListItemLine,
   MatListItemTitle,

@@ -1,5 +1,5 @@
-import {MatPaginatorIntl} from '@angular/material/paginator';
-import {Injectable} from '@angular/core';
+import {MatPaginatorIntl} from "@angular/material/paginator";
+import {Injectable} from "@angular/core";
 
 @Injectable()
 export class SlovakPaginatorService extends MatPaginatorIntl {
@@ -10,11 +10,11 @@ export class SlovakPaginatorService extends MatPaginatorIntl {
   }
 
   getAndInitTranslations() {
-    this.itemsPerPageLabel = 'Položky na stránku:';
-    this.nextPageLabel = 'Ďalšia stránka';
-    this.previousPageLabel = 'Predchádzajúca stránka';
-    this.firstPageLabel = 'Prvá stránka';
-    this.lastPageLabel = 'Posledná stránka';
+    this.itemsPerPageLabel = "Položky na stránku:";
+    this.nextPageLabel = "Ďalšia stránka";
+    this.previousPageLabel = "Predchádzajúca stránka";
+    this.firstPageLabel = "Prvá stránka";
+    this.lastPageLabel = "Posledná stránka";
     this.changes.next();
   }
 
@@ -26,5 +26,6 @@ export class SlovakPaginatorService extends MatPaginatorIntl {
     const startIndex = page * pageSize;
     const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
     return `${startIndex + 1} - ${endIndex} / ${length}`;
-  }
+  };
+
 }

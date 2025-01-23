@@ -9,7 +9,7 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {
   ConfigurationOptionsComponent
 } from "../configuration-options/configuration-options.component";
-import {AnalysisContextService} from "../../services/analysis-context.service";
+import {AnalysisContextService} from "../../context/analysis-context.service";
 
 @Component({
   selector: "app-analysis-info-card",

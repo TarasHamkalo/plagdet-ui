@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {
   FileUploadConfirmationComponent
 } from "../../../components/file-upload-confirmation/file-upload-confirmation.component";
-import {AnalysisContextService} from "../../../services/analysis-context.service";
+import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {FileUtilsService} from "../../../services/file-utils.service";
 
 @Directive()

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
-import {Cluster} from "../model/cluster";
+import {Cluster} from "../../model/mock/cluster";
 
 @Injectable({
   providedIn: "root"

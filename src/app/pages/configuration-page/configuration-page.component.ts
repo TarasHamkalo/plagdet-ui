@@ -3,7 +3,7 @@ import {TitledSurfaceComponent} from "../../components/titled-surface/titled-sur
 import {
   ConfigurationOptionsComponent
 } from "../../components/configuration-options/configuration-options.component";
-import {AnalysisContextService} from "../../services/analysis-context.service";
+import {AnalysisContextService} from "../../context/analysis-context.service";
 import {MatError, MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
