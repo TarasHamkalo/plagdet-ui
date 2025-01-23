@@ -19,7 +19,7 @@ import {
 import {AnalysisService} from "../../services/analysis.service";
 import {AnalysisContextService} from "../../context/analysis-context.service";
 import {Router} from "@angular/router";
-import {Routes} from "../../enum/routes";
+import {PageRoutes} from "../../app.routes";
 import {NgIf} from "@angular/common";
 import {MatProgressBar} from "@angular/material/progress-bar";
 
@@ -83,7 +83,7 @@ export class AnalysisPageComponent implements OnInit {
         this.submissionsDataSource.data = [...report.submissions.values()];
         this.loading = false;
       } else {
-        this.router.navigate([Routes.HOME]);
+        this.router.navigate([PageRoutes.HOME]);
       }
     });
 

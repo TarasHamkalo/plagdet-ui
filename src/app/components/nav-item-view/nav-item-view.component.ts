@@ -2,7 +2,7 @@ import {Component, computed, Input, OnInit, signal} from "@angular/core";
 import {NavItem} from "../../model/nav-item";
 import {MatListItem} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
-import {NavigationService} from "../../services/navigation.service";
+import {NavigationService} from "../../services/navigation/navigation.service";
 import {RouterLink} from "@angular/router";
 
 @Component({

@@ -5,7 +5,7 @@ import {routes} from "./app.routes";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {MatPaginatorIntl} from "@angular/material/paginator";
-import {SlovakPaginatorService} from "./services/slovak-paginator.service";
+import {SlovakPaginatorService} from "./services/localization/slovak-paginator.service";
 
 export const appConfig: ApplicationConfig = {
   providers: [

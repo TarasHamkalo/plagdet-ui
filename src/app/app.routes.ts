@@ -10,12 +10,26 @@ import {
 import {
   PreviousAnalysisPageComponent
 } from "./pages/previous-analysis-page/previous-analysis-page.component";
+import {
+  SubmissionPairsPageComponent
+} from "./pages/submission-pairs-page/submission-pairs-page.component";
 
+export enum PageRoutes {
+  NONE = "#",
+  UPLOAD = "/upload",
+  IMPORT = "/import",
+  PREVIOUS_ANALYSIS = "/previous-analysis",
+  CONFIGURATION = "/configuration",
+  ANALYSIS = "/analysis",
+  PAIRS = "/pairs",
+  HOME = UPLOAD,
+}
 export const routes: Routes = [
-  {path: "upload", component: UploadDatasetPageComponent},
-  {path: "previous-analysis", component: PreviousAnalysisPageComponent},
-  {path: "import", component: ImportAnalysisPageComponent},
-  {path: "configuration", component: ConfigurationPageComponent},
-  {path: "analysis", component: AnalysisPageComponent},
-  {path: "**", redirectTo: "upload"}
+  {path: PageRoutes.UPLOAD.substring(1), component: UploadDatasetPageComponent},
+  {path: PageRoutes.PREVIOUS_ANALYSIS.substring(1), component: PreviousAnalysisPageComponent},
+  {path: PageRoutes.IMPORT.substring(1), component: ImportAnalysisPageComponent},
+  {path: PageRoutes.CONFIGURATION.substring(1), component: ConfigurationPageComponent},
+  {path: PageRoutes.ANALYSIS.substring(1), component: AnalysisPageComponent},
+  {path: PageRoutes.PAIRS.substring(1), component: SubmissionPairsPageComponent},
+  {path: "**", redirectTo: PageRoutes.HOME.substring(1)}
 ];

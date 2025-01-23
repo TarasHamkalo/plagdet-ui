@@ -15,7 +15,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   ViewAnalysisModalComponent
 } from "../../components/view-analysis-modal/view-analysis-modal.component";
-import {Routes} from "../../enum/routes";
+import {PageRoutes} from "../../app.routes";
 
 @Component({
   selector: "app-configuration-page",
@@ -70,7 +70,7 @@ export class ConfigurationPageComponent implements OnInit {
         // always be not null after validation succeed
         this.analysisContext.getAnalysisName().set(this.analysisNameControl.value ?? "");
 
-        this.router.navigate([Routes.ANALYSIS]);
+        this.router.navigate([PageRoutes.ANALYSIS]);
       } else {
         this.onCancel();
       }
@@ -79,7 +79,7 @@ export class ConfigurationPageComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate([Routes.HOME]);
+    this.router.navigate([PageRoutes.HOME]);
   }
 
 }

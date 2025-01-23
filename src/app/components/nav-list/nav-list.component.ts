@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, signal} from "@angular/core";
 import {MatNavList} from "@angular/material/list";
 import {NavigationEnd, Router} from "@angular/router";
-import {NavigationService} from "../../services/navigation.service";
+import {NavigationService} from "../../services/navigation/navigation.service";
 import {filter} from "rxjs";
 import {NavItem} from "../../model/nav-item";
 import {NavItemViewComponent} from "../nav-item-view/nav-item-view.component";

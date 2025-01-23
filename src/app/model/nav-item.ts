@@ -1,7 +1,7 @@
-import {Routes} from "../enum/routes";
+import {PageRoutes} from "../app.routes";
 
 export interface NavItem {
-  route: Routes;
+  route: PageRoutes;
   fullWidthName: string;
   iconPath: string;
   isIconSvg: boolean;

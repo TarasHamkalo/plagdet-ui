@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {FileUploadDndComponent} from "../../components/file-upload-dnd/file-upload-dnd.component";
-import {Routes} from "../../enum/routes";
+import {PageRoutes} from "../../app.routes";
 import {UploadPageBaseComponent} from "../shared/upload-page-base/upload-page-base.component";
 
 @Component({
@@ -17,7 +17,7 @@ import {UploadPageBaseComponent} from "../shared/upload-page-base/upload-page-ba
 export class UploadDatasetPageComponent extends UploadPageBaseComponent {
 
   override onFileUploaded(file: File): void {
-    super.onFileUploaded(file, Routes.CONFIGURATION, Routes.UPLOAD);
+    super.onFileUploaded(file, PageRoutes.CONFIGURATION, PageRoutes.UPLOAD);
   }
 
 }

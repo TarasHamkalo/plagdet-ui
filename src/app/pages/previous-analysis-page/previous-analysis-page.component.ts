@@ -24,7 +24,7 @@ import {MatChip} from "@angular/material/chips";
 import {MatTooltip} from "@angular/material/tooltip";
 import {StatusChipComponent} from "../../components/status-chip/status-chip.component";
 import {Router} from "@angular/router";
-import {Routes} from "../../enum/routes";
+import {PageRoutes} from "../../app.routes";
 
 @Component({
   selector: "app-previous-analysis-page",
@@ -110,7 +110,7 @@ export class PreviousAnalysisPageComponent implements OnInit {
   }
 
   onLoadAnalysis(element: Analysis): void {
-    this.router.navigate([Routes.ANALYSIS]) ;
+    this.router.navigate([PageRoutes.ANALYSIS]) ;
   }
 
   applyFilter(event: any) {
