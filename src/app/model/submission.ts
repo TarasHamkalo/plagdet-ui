@@ -1,3 +1,5 @@
+import {Metadata} from "./metadata";
+
 export interface Submission {
   id: number;
   submitter: string;
@@ -6,4 +8,5 @@ export interface Submission {
   filepath: string;
   pairIds: string[];
   content: string;
+  metadata: Metadata;
 }

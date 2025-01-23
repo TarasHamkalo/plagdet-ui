@@ -1,4 +1,4 @@
-import {Component, computed, Input, OnInit, signal} from "@angular/core";
+import {Component, computed, effect, Input, OnInit, signal} from "@angular/core";
 import {AnalysisContextService} from "../../context/analysis-context.service";
 import {ConfigurationOption} from "../../model/mock/configuration-option";
 import {
@@ -45,7 +45,14 @@ export class ConfigurationOptionsComponent implements OnInit {
     0
   ));
 
-  constructor(private analysisContextService: AnalysisContextService) {}
+  constructor(private analysisContextService: AnalysisContextService) {
+    effect(() => {
+      const analysis = this.analysisContextService.getReport()().analysis;
+      if (analysis) {
+        this.configurationOptions.set(analysis.configurationUsed);
+      }
+    });
+  }
 
   ngOnInit() {
     this.configurationOptions = this.analysisContextService.getConfigurationOptions();
@@ -56,7 +63,6 @@ export class ConfigurationOptionsComponent implements OnInit {
       this.variant === "chip"
         ? "Vlastnosti nastavené počas procesu konfigurácie"
         : "";
-    console.log(this.configurationOptions());
   }
 
   toggleOption(targetOption: ConfigurationOption) {

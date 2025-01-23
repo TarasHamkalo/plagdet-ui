@@ -17,6 +17,11 @@ import {
   AnalysisInfoCardComponent
 } from "../../components/analysis-info-card/analysis-info-card.component";
 import {AnalysisService} from "../../services/analysis.service";
+import {AnalysisContextService} from "../../context/analysis-context.service";
+import {Router} from "@angular/router";
+import {Routes} from "../../enum/routes";
+import {NgIf} from "@angular/common";
+import {MatProgressBar} from "@angular/material/progress-bar";
 
 @Component({
   selector: "app-analysis-page",
@@ -30,6 +35,8 @@ import {AnalysisService} from "../../services/analysis.service";
     ImageWrapperComponent,
     StatCardComponent,
     AnalysisInfoCardComponent,
+    NgIf,
+    MatProgressBar,
 
   ],
   templateUrl: "./analysis-page.component.html",
@@ -39,7 +46,7 @@ export class AnalysisPageComponent implements OnInit {
 
   public submissionTableDefinitions: TableColumnDefinition[] = [
     {fieldName: "submitter", displayName: "Odovzdávateľ"},
-    {fieldName: "fileName", displayName: "Názov súboru"},
+    {fieldName: "filename", displayName: "Názov súboru"},
     {fieldName: "totalEditTime", displayName: "Čas úpravy (min)"},
     {fieldName: "maxSimilarity", displayName: "Maximálna podobnosť %"},
   ];
@@ -59,34 +66,51 @@ export class AnalysisPageComponent implements OnInit {
 
   public clustersDataSource = new MatTableDataSource<Cluster>([]);
 
-  constructor(private analysisService: AnalysisService,
+  protected loading = true;
+
+  constructor(private analysisContext: AnalysisContextService,
+              private analysisService: AnalysisService,
               private submissionsService: SubmissionsService,
-              private clustersService: ClustersService) {
+              private clustersService: ClustersService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.submissionsService.getSubmissions().subscribe(submissions => {
-      console.log(submissions);
-      this.submissionsDataSource.data = submissions;
+    this.loading = true;
+    this.analysisService.loadReport().subscribe((report) => {
+      if (report) {
+        this.analysisContext.getReport().set(report);
+        this.submissionsDataSource.data = [...report.submissions.values()];
+        this.loading = false;
+      } else {
+        this.router.navigate([Routes.HOME]);
+      }
     });
 
-    this.clustersService.getClusters().subscribe(clusters => {
-      console.log(clusters);
-      this.clustersDataSource.data = clusters;
-    });
-
-    this.analysisService.analyze();
-
-    let temp = this.submissionTableDefinitions.map(col => col.fieldName);
+    const temp = this.submissionTableDefinitions.map(col => col.fieldName);
     this.submissionsDisplayedColumns = temp.concat("moreButton");
-    console.log(this.submissionsDisplayedColumns);
 
-    temp = this.clusterTableDefinitions.map(col => col.fieldName);
-    this.clusterDisplayedColumns = temp.concat("submissionList");
+    // this.submissionsService.getSubmissions().subscribe(submissions => {
+    //   console.log(submissions);
+    //   this.submissionsDataSource.data = submissions;
+    // });
+    //
+    // this.clustersService.getClusters().subscribe(clusters => {
+    //   console.log(clusters);
+    //   this.clustersDataSource.data = clusters;
+    // });
+    //
+    // this.analysisService.analyze();
+    // temp = this.clusterTableDefinitions.map(col => col.fieldName);
+    // this.clusterDisplayedColumns = temp.concat("submissionList");
   }
 
   onSorting(event: any) {
     console.log(event);
     console.log("Busy sorting array....");
+  }
+
+  showMoreAboutSubmission(element: Submission) {
+    console.log(element);
   }
 }

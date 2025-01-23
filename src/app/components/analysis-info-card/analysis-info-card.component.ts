@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, signal} from "@angular/core";
+import {Component, effect, Input, OnInit, signal} from "@angular/core";
 import {MatIcon} from "@angular/material/icon";
 import {MatList, MatListItem, MatListItemIcon, MatListItemTitle} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";
@@ -29,18 +29,21 @@ import {AnalysisContextService} from "../../context/analysis-context.service";
   templateUrl: "./analysis-info-card.component.html",
   styleUrl: "./analysis-info-card.component.scss"
 })
-export class AnalysisInfoCardComponent implements OnInit {
+export class AnalysisInfoCardComponent {
 
   @Input() public supportiveText = "V tejto časti sa zobrazujú informácie o analýze a o tom, aké parametre sa pri nej použili";
 
-  public analysis = signal<Partial<Analysis>>({});
+  public analysis = signal<Analysis | undefined>(undefined);
 
   constructor(private analysisContext: AnalysisContextService) {
+    effect(() => {
+      const report = this.analysisContext.getReport()();
+      this.analysis.set(report!.analysis);
+    });
   }
 
-  ngOnInit() {
-    console.log(this.analysisContext.getAnalysis()());
-    this.analysis = this.analysisContext.getAnalysis();
-  }
+  // ngOnInit() {
+  // this.analysis.set(this.analysisContext.getReport()().analysis!);
+  // }
 
 }

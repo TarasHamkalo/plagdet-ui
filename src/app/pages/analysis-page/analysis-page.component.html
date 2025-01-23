@@ -1,45 +1,51 @@
-<div class="frame">
-
+<div *ngIf="this.loading" class="frame">
+  <app-titled-surface title="Loading analysis" subtitle="" [isTitleCentered]="true"
+                      [isHorizontal]="true">
+    <mat-progress-bar class="full-width" mode="indeterminate"/>
+  </app-titled-surface>
+</div>
+<div *ngIf="!this.loading" class="frame">
   <app-titled-surface title="" subtitle="" [isTitleCentered]="true" [isHorizontal]="true">
     <app-analysis-info-card/>
 
-<!--    <div class="histogram-container">-->
-<!--      <h1>Rozdelenie podobnosti</h1>-->
-<!--      <app-image-wrapper imagePath="/assets/similarity-histogram.png"-->
-<!--                         [imageWidth]="620"-->
-<!--                         imageDesc="Document similarity Heat Map"/>-->
+    <!--    <div class="histogram-container">-->
+    <!--      <h1>Rozdelenie podobnosti</h1>-->
+    <!--      <app-image-wrapper imagePath="/assets/similarity-histogram.png"-->
+    <!--                         [imageWidth]="620"-->
+    <!--                         imageDesc="Document similarity Heat Map"/>-->
 
-<!--      <div></div>-->
-<!--      &lt;!&ndash;TODO: values should be derived from the context  &ndash;&gt;-->
-<!--      <div class="stat-group">-->
+    <!--      <div></div>-->
+    <!--      &lt;!&ndash;TODO: values should be derived from the context  &ndash;&gt;-->
+    <!--      <div class="stat-group">-->
 
-<!--        <app-stat-card name="Najvyššia podobnosť" value="98%">-->
-<!--          <app-image-wrapper imagePath="/assets/highest-sim.png"-->
-<!--                             [imageWidth]="50"-->
-<!--                             imageDesc="Najvyššia podobnosť"/>-->
-<!--        </app-stat-card>-->
+    <!--        <app-stat-card name="Najvyššia podobnosť" value="98%">-->
+    <!--          <app-image-wrapper imagePath="/assets/highest-sim.png"-->
+    <!--                             [imageWidth]="50"-->
+    <!--                             imageDesc="Najvyššia podobnosť"/>-->
+    <!--        </app-stat-card>-->
 
-<!--        <app-stat-card name="Priemerná podobnosť" value="51%">-->
-<!--          <app-image-wrapper imagePath="/assets/average-similarity.png"-->
-<!--                             [imageWidth]="50"-->
-<!--                             imageDesc="Priemerná podobnosť"/>-->
-<!--        </app-stat-card>-->
+    <!--        <app-stat-card name="Priemerná podobnosť" value="51%">-->
+    <!--          <app-image-wrapper imagePath="/assets/average-similarity.png"-->
+    <!--                             [imageWidth]="50"-->
+    <!--                             imageDesc="Priemerná podobnosť"/>-->
+    <!--        </app-stat-card>-->
 
-<!--      </div>-->
-<!--    </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
 
   </app-titled-surface>
 
 
-<!--  <app-titled-surface title="Teplotná mapa podobnosti" subtitle="" [isTitleCentered]="true">-->
-<!--    &lt;!&ndash; TODO: replace https://ej2.syncfusion.com/angular/documentation/heatmap-chart/getting-started?cs-save-lang=1&cs-lang=ts&ndash;&gt;-->
-<!--    <app-image-wrapper imagePath="/assets/similarity-heat-map.png"-->
-<!--                       [imageWidth]="650"-->
-<!--                       imageDesc="Document similarity Heat Map"/>-->
-<!--  </app-titled-surface>-->
+  <!--  <app-titled-surface title="Teplotná mapa podobnosti" subtitle="" [isTitleCentered]="true">-->
+  <!--    &lt;!&ndash; TODO: replace https://ej2.syncfusion.com/angular/documentation/heatmap-chart/getting-started?cs-save-lang=1&cs-lang=ts&ndash;&gt;-->
+  <!--    <app-image-wrapper imagePath="/assets/similarity-heat-map.png"-->
+  <!--                       [imageWidth]="650"-->
+  <!--                       imageDesc="Document similarity Heat Map"/>-->
+  <!--  </app-titled-surface>-->
 
-  <app-titled-surface title="Odovzdania" subtitle="Tabuľka obsahuje top 10 prác s najväčšou podobnosťou">
+  <app-titled-surface title="Odovzdania"
+                      subtitle="Tabuľka obsahuje top 10 prác s najväčšou podobnosťou">
 
     <!-- Submission Table -->
 
@@ -47,19 +53,39 @@
            [dataSource]="submissionsDataSource"
            matSort (matSortChange)="onSorting($event)"
            class="mat-elevation-z8">
-      @for (col of submissionTableDefinitions; track col) {
-        <ng-container [matColumnDef]="col.fieldName">
-          <th mat-header-cell *matHeaderCellDef
-              [mat-sort-header]="col.fieldName"> {{ col.displayName }}
-          </th>
-          <td mat-cell *matCellDef="let element"> {{ element[col.fieldName] }}</td>
-        </ng-container>
-      }
+
+      <ng-container matColumnDef="submitter">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="submitter">
+          Odovzdávateľ
+        </th>
+        <td mat-cell *matCellDef="let element"> {{ element.submitter }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="filename">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="filename">
+          Názov súboru
+        </th>
+        <td mat-cell *matCellDef="let element"> {{ element.filename }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalEditTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="totalEditTime">
+          Čas úpravy (min)
+        </th>
+        <td mat-cell *matCellDef="let element"> {{ element.metadata.totalEditTime }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="maxSimilarity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="maxSimilarity">
+          Čas úpravy (min)
+        </th>
+        <td mat-cell *matCellDef="let element"> {{ element.maxSimilarity }}</td>
+      </ng-container>
 
       <ng-container matColumnDef="moreButton">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-button>Viac</button>
+          <button mat-button (click)="showMoreAboutSubmission(element)">Viac</button>
         </td>
       </ng-container>
 
@@ -70,36 +96,36 @@
     <button style="align-self: end" mat-flat-button>Ostatné odovzdania</button>
   </app-titled-surface>
 
-  <app-titled-surface title="Zhluky" subtitle="Tabuľka zobrazuje top 10 najdených zhlukov (skupín podobných dokumentov) v odovzdanej sade">
+  <!-- <app-titled-surface title="Zhluky" subtitle="Tabuľka zobrazuje top 10 najdených zhlukov (skupín podobných dokumentov) v odovzdanej sade">
 
-    <!-- Clusters Table -->
-    <table mat-table
-           [dataSource]="clustersDataSource"
-           matSort (matSortChange)="onSorting($event)"
-           class="mat-elevation-z8">
+     &lt;!&ndash; Clusters Table &ndash;&gt;
+     <table mat-table
+            [dataSource]="clustersDataSource"
+            matSort (matSortChange)="onSorting($event)"
+            class="mat-elevation-z8">
 
-      @for (col of clusterTableDefinitions; track col) {
-        <ng-container [matColumnDef]="col.fieldName">
-          <th mat-header-cell *matHeaderCellDef
-              [mat-sort-header]="col.fieldName"> {{ col.displayName }}
-          </th>
-          <td mat-cell *matCellDef="let element"> {{ element[col.fieldName] }}</td>
-        </ng-container>
-      }
+       @for (col of clusterTableDefinitions; track col) {
+         <ng-container [matColumnDef]="col.fieldName">
+           <th mat-header-cell *matHeaderCellDef
+               [mat-sort-header]="col.fieldName"> {{ col.displayName }}
+           </th>
+           <td mat-cell *matCellDef="let element"> {{ element[col.fieldName] }}</td>
+         </ng-container>
+       }
 
-      <ng-container matColumnDef="submissionList">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <app-submissions-list [numberOfSubmissions]="element.numberOfSubmissions"/>
-        </td>
-      </ng-container>
+       <ng-container matColumnDef="submissionList">
+         <th mat-header-cell *matHeaderCellDef></th>
+         <td mat-cell *matCellDef="let element">
+           <app-submissions-list [numberOfSubmissions]="element.numberOfSubmissions"/>
+         </td>
+       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="clusterDisplayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: clusterDisplayedColumns;"></tr>
+       <tr mat-header-row *matHeaderRowDef="clusterDisplayedColumns"></tr>
+       <tr mat-row *matRowDef="let row; columns: clusterDisplayedColumns;"></tr>
 
-    </table>
-    <button style="align-self: end" mat-flat-button>Ostatné zhluky</button>
-  </app-titled-surface>
+     </table>
+     <button style="align-self: end" mat-flat-button>Ostatné zhluky</button>
+   </app-titled-surface>-->
 
 </div>
 

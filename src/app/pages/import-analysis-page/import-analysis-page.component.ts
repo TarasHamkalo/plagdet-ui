@@ -3,6 +3,7 @@ import {TitledSurfaceComponent} from "../../components/titled-surface/titled-sur
 import {FileUploadDndComponent} from "../../components/file-upload-dnd/file-upload-dnd.component";
 import {UploadPageBaseComponent} from "../shared/upload-page-base/upload-page-base.component";
 import {Routes} from "../../enum/routes";
+import {AnalysisContextService} from "../../context/analysis-context.service";
 
 @Component({
   selector: "app-import-analysis-page",
@@ -19,7 +20,12 @@ export class ImportAnalysisPageComponent extends UploadPageBaseComponent {
   public subtitle = "Povolený formát je ANALYSIS";
 
   override onFileUploaded(file: File) {
-    super.onFileUploaded(file, Routes.ANALYSIS, Routes.IMPORT);
+    super.onFileUploaded(
+      file,
+      Routes.ANALYSIS,
+      Routes.IMPORT,
+      () => this.analysisContext.getAnalysisImported().set(true)
+    );
   }
 
 }

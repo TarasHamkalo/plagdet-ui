@@ -44,3 +44,7 @@
   padding: 16px;
   gap: 32px;
 }
+
+.full-width {
+  width: 100%;
+}

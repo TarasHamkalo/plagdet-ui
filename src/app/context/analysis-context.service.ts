@@ -21,21 +21,23 @@ export class AnalysisContextService {
 
   private report = signal<Partial<AnalysisReport>>({});
 
+  private analysisImported = signal<boolean>(false);
+
   constructor(private http: HttpClient,
               private fileUtils: FileUtilsService) {
-    // this.setUploadedFile(this.fileUtils.mockWrapper());
   }
 
   setUploadedFile(file: Partial<FileWrapper>) {
     this.uploadedFile.set(file);
     this.analysisName.set(file.name ?? "");
-    this.fileUtils.readReportFromZip(file.file!).subscribe(report => {
-      console.log("report is ", report);
-      if (report != null) {
-        console.log(report);
-        this.report.set(report);
-      }
-    });
+  }
+
+  getReport() {
+    return this.report;
+  }
+
+  getAnalysisImported() {
+    return this.analysisImported;
   }
 
   getUploadedFile() {
@@ -44,10 +46,6 @@ export class AnalysisContextService {
 
   getAnalysisName() {
     return this.analysisName;
-  }
-
-  getAnalysis() {
-    return this.analysis;
   }
 
   loadConfigurationOptions() {
