@@ -3,13 +3,13 @@ import {AnalysisContextService} from "../../context/analysis-context.service";
 import {ActivatedRoute} from "@angular/router";
 import {SubmissionPair} from "../../model/submission-pair";
 import {Submission} from "../../model/submission";
-import {EditorComponent} from "ngx-monaco-editor-v2";
+// import {EditorComponent} from "ngx-monaco-editor-v2";
 import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: "app-submission-pair-view-page",
   imports: [
-    EditorComponent,
+    // EditorComponent,
     FormsModule
   ],
   templateUrl: "./submission-pair-view-page.component.html",
