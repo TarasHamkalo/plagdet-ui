@@ -19,7 +19,7 @@ export class AnalysisContextService {
 
   private analysis = signal<Partial<Analysis>>({});
 
-  private report = signal<Partial<AnalysisReport>>({});
+  private report = signal<AnalysisReport | null>(null);
 
   private analysisImported = signal<boolean>(false);
 
@@ -66,7 +66,7 @@ export class AnalysisContextService {
     this.analysisName.set("");
     this.configurationOptions.set([]);
     this.analysis.set({});
-    this.report.set({});
+    this.report.set(null);
     this.analysisImported.set(false);
   }
 }
