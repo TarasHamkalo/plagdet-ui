@@ -13,7 +13,17 @@ body {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.highlight {
+.highlight-code {
+  background-color: rgba(121, 125, 132, 0.3);
+  border-bottom: 2px solid rgba(121, 125, 132, 0.4);
+}
+
+.highlight-plag {
   background-color: rgba(255, 200, 0, 0.5);
   border-bottom: 2px solid rgba(255, 200, 0, 1);
+}
+
+.highlight-template {
+  background-color: rgba(70, 130, 180, 0.2);
+  border-bottom: 2px solid rgba(70, 130, 180, 0.3);
 }

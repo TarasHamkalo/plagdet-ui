@@ -3,18 +3,17 @@ import {AnalysisContextService} from "../../context/analysis-context.service";
 import {ActivatedRoute} from "@angular/router";
 import {SubmissionPair} from "../../model/submission-pair";
 import {Submission} from "../../model/submission";
-// import {EditorComponent} from "ngx-monaco-editor-v2";
 import {FormsModule} from "@angular/forms";
 import {EditorComponent} from "ngx-monaco-editor-v2";
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
-import {editor, languages, Range} from "monaco-editor";
-import {PlagCase} from "../../model/plag-case";
-import {PlagCaseSide} from "../../model/plag-case-side";
+import {editor, Range} from "monaco-editor";
+import {MarkingOffsets} from "../../model/marking-offsets";
 import {MonacoPosition} from "../../model/monaco-position";
+import {first, timer} from "rxjs";
+import {SpecialMarking} from "../../model/special-marking";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 import IModelDeltaDecoration = editor.IModelDeltaDecoration;
 import IEditorDecorationsCollection = editor.IEditorDecorationsCollection;
-import getEncodedLanguageId = languages.getEncodedLanguageId;
 
 
 @Component({
@@ -41,7 +40,11 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
   protected editorOptions = {
     theme: "vs-white",
     language: "plaintext",
-    readOnly: true
+    readOnly: true,
+    wordWrap: "on",
+    wrappingIndent: "same",
+    wordWrapBreakBeforeCharacters: "{([",
+    wordWrapBreakAfterCharacters: " \t})"
   };
 
   private editors: IStandaloneCodeEditor[] = [];
@@ -59,6 +62,7 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
       const pair = this.analysisContext.getReport()()!.pairs!.get(this.pairId()!);
       if (pair) {
         this.submissionPair.set(pair);
+        console.log("update content");
         const firstSubmission = this.analysisContext.getReport()()!.submissions!.get(pair.firstId)!;
         this.first.set(firstSubmission);
         const secondSubmission = this.analysisContext.getReport()()!.submissions!.get(pair.secondId)!;
@@ -72,8 +76,8 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
     this.editors.forEach(editorInstance => {
       console.log("destroy editor");
       editorInstance.dispose();
-
     });
+
     this.decorationCollections = [];
     this.editors = [];
     this.pairId.set(null);
@@ -86,37 +90,68 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
     });
   }
 
-
   protected initEditor(editor: editor.IStandaloneCodeEditor, content: string | undefined, side: 0 | 1): void {
     if (content === undefined || this.submissionPair() === null) {
       return;
     }
-
-    this.editors.push(editor);
-    console.log("editor this is called");
-    const decorations: IModelDeltaDecoration[] = [];
-    console.log("this should be added ", this.submissionPair()!.plagCases);
-    for (const plagCase of this.submissionPair()!.plagCases) {
-      const plagCaseSide = this.getPlagCaseSide(plagCase, side);
-      // console.log(plagCaseSide);
-      const plagStart = this.getLineColumnFromOffset(content, plagCaseSide.startOffset);
-      // console.log(plagStart);
-      const plagEnd = this.getLineColumnFromOffset(content, plagCaseSide.endOffset);
-      // console.log(plagEnd);
-      decorations.push(
-        {
-          range: new Range(plagStart.line, plagStart.column, plagEnd.line, plagEnd.column),
-          options: {
-            inlineClassName: "highlight",
-            hoverMessage: {value: "Plagiarized fragment"}
+    timer(
+      100, 100
+    ).pipe(first()).subscribe(() => {
+      this.editors.push(editor);
+      console.log("editor this is called");
+      const decorations: IModelDeltaDecoration[] = [];
+      console.log("this should be added ", this.submissionPair()!.plagCases);
+      for (const specialMarking of this.submissionPair()!.plagCases) {
+        const markingOffsets = this.getPlagCaseSide(specialMarking, side);
+        const start = this.getLineColumnFromOffset(content, markingOffsets.start);
+        const end = this.getLineColumnFromOffset(content, markingOffsets.end);
+        decorations.push(
+          {
+            range: new Range(start.line, start.column, end.line, end.column),
+            options: {
+              inlineClassName: "highlight-plag",
+              hoverMessage: {value: "Plagiarized fragment"}
+            }
           }
-        }
-      );
-    }
-    console.log("decorations", decorations);
-    const collection = editor.createDecorationsCollection(decorations);
-    this.decorationCollections.push(collection);
+        );
+      }
 
+      const specialMarkings: SpecialMarking[] = side == 0 ? this.first()!.markings : this.second()!.markings;
+      for (const specialMarking of specialMarkings) {
+
+        if (specialMarking.type === "CODE") {
+          const markingOffsets = specialMarking.first;
+          const start = this.getLineColumnFromOffset(content, markingOffsets.start);
+          const end = this.getLineColumnFromOffset(content, markingOffsets.end);
+          decorations.push(
+            {
+              range: new Range(start.line, start.column, end.line, end.column),
+              options: {
+                inlineClassName: "highlight-code",
+                hoverMessage: {value: "Code fragment"}
+              }
+            }
+          );
+        } else {
+          const markingOffsets = specialMarking.first;
+          const start = this.getLineColumnFromOffset(content, markingOffsets.start);
+          const end = this.getLineColumnFromOffset(content, markingOffsets.end);
+          decorations.push(
+            {
+              range: new Range(start.line, start.column, end.line, end.column),
+              options: {
+                inlineClassName: "highlight-template",
+                hoverMessage: {value: "Template fragment"}
+              }
+            }
+          );
+        }
+      }
+
+      console.log("decorations", decorations);
+      const collection = editor.createDecorationsCollection(decorations);
+      this.decorationCollections.push(collection);
+    });
   }
 
   protected getLineColumnFromOffset(content: string, offset: number): MonacoPosition {
@@ -131,20 +166,12 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
     return {line: lines.length, column: lines[lines.length - 1].length + 1};
   }
 
-  protected getPlagCaseSide(plagCase: PlagCase, side: 0 | 1): PlagCaseSide {
+  protected getPlagCaseSide(plagCase: SpecialMarking, side: 0 | 1): MarkingOffsets {
     if (side === 0) {
-      return {
-        startOffset: plagCase.firstStart,
-        endOffset: plagCase.firstEnd,
-        length: plagCase.firstLen
-      } as PlagCaseSide;
+      return plagCase.first;
     }
 
-    return {
-      startOffset: plagCase.secondStart,
-      endOffset: plagCase.secondEnd,
-      length: plagCase.secondLen
-    } as PlagCaseSide;
+    return plagCase.second!;
   }
 
 }

@@ -1,4 +1,5 @@
 import {Metadata} from "./metadata";
+import {SpecialMarking} from "./special-marking";
 
 export interface Submission {
   id: number;
@@ -9,4 +10,5 @@ export interface Submission {
   pairIds: string[];
   content: string;
   metadata: Metadata;
+  markings: SpecialMarking[];
 }

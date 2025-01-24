@@ -1,4 +1,4 @@
-import {Component, effect, Input, OnInit, signal} from "@angular/core";
+import {Component, effect, Input, signal} from "@angular/core";
 import {MatIcon} from "@angular/material/icon";
 import {MatList, MatListItem, MatListItemIcon, MatListItemTitle} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";

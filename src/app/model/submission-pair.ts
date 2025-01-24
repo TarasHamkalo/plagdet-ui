@@ -1,10 +1,10 @@
 import {PlagScore} from "./plag-score";
-import {PlagCase} from "./plag-case";
+import {SpecialMarking} from "./special-marking";
 
 export interface SubmissionPair {
   id: string;
   firstId: number;
   secondId: number;
   plagScores: PlagScore[];
-  plagCases: PlagCase[];
+  plagCases: SpecialMarking[];
 }

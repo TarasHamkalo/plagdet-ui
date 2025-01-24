@@ -20,6 +20,12 @@ export class FileUtilsService {
 
   public readonly PAIRS_DIR_PATH = "/pairs";
 
+  public readonly mimeToExtension: Record<string, string> = {
+    "application/zip": "zip",
+    "application/x-zip-compressed": "zip",
+    "application/x-rar-compressed": "rar",
+  };
+
   public hasValidExtension(file: File, supportedExtensions: Set<string>): boolean {
     if (!file) {
       return false;
@@ -27,6 +33,11 @@ export class FileUtilsService {
 
     const ext = this.getFileExtension(file);
     return supportedExtensions.has(ext);
+  }
+
+  public getNormalizedExtension(file: File): string {
+    const mimeType = file.type || "";
+    return this.mimeToExtension[mimeType] || "";
   }
 
   public mockWrapper(): FileWrapper {
@@ -46,7 +57,8 @@ export class FileUtilsService {
   }
 
   private getFileExtension(file: File) {
-    return file.type.split("/")[1];
+    return this.getNormalizedExtension(file);
+    // return file.type.split("/")[1];
   }
 
   public readReportFromZip(file: File): Observable<AnalysisReport | null> {
@@ -129,4 +141,3 @@ export class FileUtilsService {
       });
   }
 }
-
