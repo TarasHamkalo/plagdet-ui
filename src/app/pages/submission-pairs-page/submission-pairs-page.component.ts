@@ -95,6 +95,8 @@ export class SubmissionPairsPageComponent implements OnInit {
   }
 
   getPlagScore(pair: SubmissionPair) {
-    return pair.plagScores.sort((v) => -1 * v.score).at(0)!.score;
+    return Math.round(
+      pair.plagScores.sort((v) => -1 * v.score).at(0)!.score * 100
+    );
   }
 }

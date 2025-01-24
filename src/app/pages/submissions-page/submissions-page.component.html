@@ -1,0 +1,38 @@
+<app-titled-surface title="" subtitle="" [isTitleCentered]="true" [isHorizontal]="true">
+  <div class="table-container">
+    <table mat-table
+           [dataSource]="submissionsSource!"
+           matSort (matSortChange)="onSorting($event)"
+           class="mat-elevation-z8">
+
+      <ng-container matColumnDef="submitter">
+        <th mat-header-cell *matHeaderCellDef>
+          Submitter
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.submitter }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="filename">
+        <th mat-header-cell *matHeaderCellDef>
+          Filename
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.filename }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="maxSimilarity">
+        <th mat-header-cell *matHeaderCellDef>
+          Max Similarity
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ this.getPlagScore(element.maxSimilarity) }}%
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="pairsDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: pairsDisplayedColumns;"></tr>
+    </table>
+  </div>
+
+</app-titled-surface>

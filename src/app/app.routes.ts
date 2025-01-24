@@ -17,6 +17,8 @@ import {
   SubmissionPairViewPageComponent
 } from "./pages/submission-pair-view-page/submission-pair-view-page.component";
 import {AnalysisRelatedContentGuard} from "./guards/analysis-related-content.guard";
+import {MetadataPageComponent} from './pages/metadata-page/metadata-page.component';
+import {SubmissionsPageComponent} from './pages/submissions-page/submissions-page.component';
 
 export enum PageRoutes {
   NONE = "#",
@@ -27,6 +29,8 @@ export enum PageRoutes {
   ANALYSIS = "/analysis",
   PAIRS = "/pairs",
   PAIR = "/pair",
+  SUBMISSIONS = "/submissions",
+  METADATA = "/metadata",
   HOME = UPLOAD,
 }
 export const routes: Routes = [
@@ -37,5 +41,7 @@ export const routes: Routes = [
   {path: PageRoutes.ANALYSIS.substring(1), component: AnalysisPageComponent},
   {path: PageRoutes.PAIRS.substring(1), component: SubmissionPairsPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: `${PageRoutes.PAIR.substring(1)}/:id`, component: SubmissionPairViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: PageRoutes.METADATA.substring(1), component: MetadataPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: PageRoutes.SUBMISSIONS.substring(1), component: SubmissionsPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: "**", redirectTo: PageRoutes.HOME.substring(1)}
 ];
