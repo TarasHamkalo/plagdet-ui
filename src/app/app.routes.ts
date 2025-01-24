@@ -13,6 +13,9 @@ import {
 import {
   SubmissionPairsPageComponent
 } from "./pages/submission-pairs-page/submission-pairs-page.component";
+import {
+  SubmissionPairViewPageComponent
+} from "./pages/submission-pair-view-page/submission-pair-view-page.component";
 
 export enum PageRoutes {
   NONE = "#",
@@ -22,6 +25,7 @@ export enum PageRoutes {
   CONFIGURATION = "/configuration",
   ANALYSIS = "/analysis",
   PAIRS = "/pairs",
+  PAIR = "/pair",
   HOME = UPLOAD,
 }
 export const routes: Routes = [
@@ -31,5 +35,6 @@ export const routes: Routes = [
   {path: PageRoutes.CONFIGURATION.substring(1), component: ConfigurationPageComponent},
   {path: PageRoutes.ANALYSIS.substring(1), component: AnalysisPageComponent},
   {path: PageRoutes.PAIRS.substring(1), component: SubmissionPairsPageComponent},
+  {path: `${PageRoutes.PAIR.substring(1)}/:id`, component: SubmissionPairViewPageComponent},
   {path: "**", redirectTo: PageRoutes.HOME.substring(1)}
 ];

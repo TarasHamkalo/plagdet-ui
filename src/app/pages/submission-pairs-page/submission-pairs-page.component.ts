@@ -18,6 +18,8 @@ import {MatButton} from "@angular/material/button";
 import {MatPaginator} from "@angular/material/paginator";
 import {DecimalPipe, NgIf} from "@angular/common";
 import {MatProgressBar} from "@angular/material/progress-bar";
+import {Router} from "@angular/router";
+import {PageRoutes} from "../../app.routes";
 
 @Component({
   selector: "app-submission-pairs-page",
@@ -60,7 +62,8 @@ export class SubmissionPairsPageComponent implements OnInit {
 
   public pairsData = signal<SubmissionPair[]>([]);
 
-  constructor(protected analysisContext: AnalysisContextService) {
+  constructor(protected analysisContext: AnalysisContextService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -82,7 +85,7 @@ export class SubmissionPairsPageComponent implements OnInit {
 
   onLoadPair(element: SubmissionPair): void {
     console.log("Load pair:", element);
-    // this.router.navigate([Routes.ANALYSIS]) ;
+    this.router.navigate([PageRoutes.PAIR, element.id]) ;
   }
 
   applyFilter(event: any) {
