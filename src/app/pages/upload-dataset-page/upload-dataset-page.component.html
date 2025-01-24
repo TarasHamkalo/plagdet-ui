@@ -1,7 +1,4 @@
-<!--<app-titled-surface title="Analýza nových odovzdaní"-->
-<!--                    subtitle="Pridajte súbor obsahujúci odovzdania, vo formatoch PDF, DOCX, DOC.">-->
-<!--  <app-file-upload-dnd (fileUploaded)="onFileUploaded($event)"/>-->
-<!--</app-titled-surface>-->
-<div style="height: 500px">
-    <ngx-monaco-editor style="height: 100%" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
-</div>
+<app-titled-surface title="Analýza nových odovzdaní"
+                    subtitle="Pridajte súbor obsahujúci odovzdania, vo formatoch PDF, DOCX, DOC.">
+  <app-file-upload-dnd (fileUploaded)="onFileUploaded($event)"/>
+</app-titled-surface>

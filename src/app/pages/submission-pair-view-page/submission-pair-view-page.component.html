@@ -1,12 +1,18 @@
-<!--<div class="editor-container">-->
-<!--  <ngx-monaco-editor-->
-<!--    [options]="editorOptions"-->
-<!--    [textContent]="this.first()?.content">-->
-<!--    class="editor"-->
-<!--  ></ngx-monaco-editor>-->
-<!--  <ngx-monaco-editor-->
-<!--    [options]="editorOptions"-->
-<!--    [textContent]="this.second()?.content">-->
-<!--    class="editor"-->
-<!--  ></ngx-monaco-editor>-->
-<!--</div>-->
+<app-titled-surface title="Comparison" subtitle="">
+
+  <div class="editor-container">
+    <ngx-monaco-editor
+      [options]="editorOptions"
+      [ngModel]="this.first()?.content"
+      class="editor">
+      >
+    </ngx-monaco-editor>
+    <ngx-monaco-editor
+      [options]="editorOptions"
+      [ngModel]="this.second()?.content"
+      class="editor">
+      >
+    </ngx-monaco-editor>
+  </div>
+
+</app-titled-surface>

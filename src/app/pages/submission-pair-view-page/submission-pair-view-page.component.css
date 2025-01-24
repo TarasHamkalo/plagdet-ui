@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100vh;
+  gap: 0.5rem;
+  height: 80vh;
 }
+
 .editor {
   flex: 1;
-  margin: 5px;
+  height: 100%;
   border: 1px solid #ccc;
 }

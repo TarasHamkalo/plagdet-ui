@@ -5,12 +5,16 @@ import {SubmissionPair} from "../../model/submission-pair";
 import {Submission} from "../../model/submission";
 // import {EditorComponent} from "ngx-monaco-editor-v2";
 import {FormsModule} from "@angular/forms";
+import {EditorComponent} from "ngx-monaco-editor-v2";
+import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 
 @Component({
   selector: "app-submission-pair-view-page",
   imports: [
     // EditorComponent,
-    FormsModule
+    FormsModule,
+    EditorComponent,
+    TitledSurfaceComponent
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.css"
@@ -25,7 +29,11 @@ export class SubmissionPairViewPageComponent implements OnInit {
 
   protected second = signal<Submission | null>(null);
 
-  protected editorOptions = { theme: "vs-dark", language: "plaintext" };
+  protected editorOptions = {
+    theme: "vs-white",
+    language: "plaintext",
+    readOnly: true
+  };
 
   constructor(protected analysisContext: AnalysisContextService,
               private route: ActivatedRoute) {

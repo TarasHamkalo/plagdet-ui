@@ -17,6 +17,26 @@ export class NavigationService {
         {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Odovzdania", iconPath: "list", isIconSvg: false},
         {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Metaúdaje", iconPath: "badge-account-horizontal-outline", isIconSvg: true},
         {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Zhluky", iconPath: "apache-kafka", isIconSvg: true}
+      ],
+    ],
+    [
+      PageRoutes.PAIRS,
+      [
+        {route: PageRoutes.ANALYSIS, isFullWidthOnly: false, fullWidthName: "Súhrn analýzy", iconPath: "ballot-outline", isIconSvg: true},
+        {route: PageRoutes.PAIRS, isFullWidthOnly: false, fullWidthName: "Dvojice odovzdaní", iconPath: "book-multiple-outline", isIconSvg: true},
+        {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Odovzdania", iconPath: "list", isIconSvg: false},
+        {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Metaúdaje", iconPath: "badge-account-horizontal-outline", isIconSvg: true},
+        {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Zhluky", iconPath: "apache-kafka", isIconSvg: true}
+      ],
+    ],
+    [
+      PageRoutes.PAIR,
+      [
+        {route: PageRoutes.ANALYSIS, isFullWidthOnly: false, fullWidthName: "Súhrn analýzy", iconPath: "ballot-outline", isIconSvg: true},
+        {route: PageRoutes.PAIRS, isFullWidthOnly: false, fullWidthName: "Dvojice odovzdaní", iconPath: "book-multiple-outline", isIconSvg: true},
+        {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Odovzdania", iconPath: "list", isIconSvg: false},
+        {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Metaúdaje", iconPath: "badge-account-horizontal-outline", isIconSvg: true},
+        {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Zhluky", iconPath: "apache-kafka", isIconSvg: true}
       ]
     ]
   ]);
@@ -41,14 +61,18 @@ export class NavigationService {
     isFullWidthOnly: true
   };
 
+  private dynamicRoutesBase = [PageRoutes.PAIR];
+
   private activeRoute = signal(PageRoutes.HOME);
 
   constructor(private router: Router) {}
 
   getRoutes(): NavItem[] {
-    const url = this.router.url;
-    if (this.routesMap.has(url)) {
-      const routes = this.routesMap.get(url) ?? [];
+    const url = this.router.url.split("?")[0].split("#")[0];
+    const baseUrl = this.getBaseUrl(url);
+    console.log(baseUrl);
+    if (this.routesMap.has(baseUrl)) {
+      const routes = this.routesMap.get(baseUrl) ?? [];
       return routes.concat(this.supportRoutes);
     }
 
@@ -67,6 +91,16 @@ export class NavigationService {
 
   getHome(): NavItem | undefined {
     return this.homeRoute;
+  }
+
+  private getBaseUrl(url: string) {
+    for (const dynamicUrl of this.dynamicRoutesBase) {
+      if (url.startsWith(dynamicUrl)) {
+        return dynamicUrl;
+      }
+    }
+
+    return url;
   }
 
 }
