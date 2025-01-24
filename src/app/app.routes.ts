@@ -16,7 +16,7 @@ import {
 import {
   SubmissionPairViewPageComponent
 } from "./pages/submission-pair-view-page/submission-pair-view-page.component";
-import {AnalysisRelatedContentGuard} from "./guards/analysis-related-content-guard.service";
+import {AnalysisRelatedContentGuard} from "./guards/analysis-related-content.guard";
 
 export enum PageRoutes {
   NONE = "#",
@@ -34,7 +34,7 @@ export const routes: Routes = [
   {path: PageRoutes.PREVIOUS_ANALYSIS.substring(1), component: PreviousAnalysisPageComponent},
   {path: PageRoutes.IMPORT.substring(1), component: ImportAnalysisPageComponent},
   {path: PageRoutes.CONFIGURATION.substring(1), component: ConfigurationPageComponent},
-  {path: PageRoutes.ANALYSIS.substring(1), component: AnalysisPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: PageRoutes.ANALYSIS.substring(1), component: AnalysisPageComponent},
   {path: PageRoutes.PAIRS.substring(1), component: SubmissionPairsPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: `${PageRoutes.PAIR.substring(1)}/:id`, component: SubmissionPairViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: "**", redirectTo: PageRoutes.HOME.substring(1)}

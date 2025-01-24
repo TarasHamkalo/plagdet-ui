@@ -47,7 +47,7 @@ export class ConfigurationOptionsComponent implements OnInit {
 
   constructor(private analysisContextService: AnalysisContextService) {
     effect(() => {
-      const analysis = this.analysisContextService.getReport()().analysis;
+      const analysis = this.analysisContextService.getReport()()!.analysis;
       if (analysis) {
         this.configurationOptions.set(analysis.configurationUsed);
       }

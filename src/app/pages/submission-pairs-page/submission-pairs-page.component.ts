@@ -10,8 +10,10 @@ import {
   MatCell, MatCellDef,
   MatColumnDef,
   MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable, MatTableDataSource,
+  MatHeaderRow, MatHeaderRowDef,
+  MatRow, MatRowDef,
+  MatTable,
+  MatTableDataSource,
 } from "@angular/material/table";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {MatButton} from "@angular/material/button";
@@ -36,16 +38,16 @@ import {PageRoutes} from "../../app.routes";
     MatButton,
     MatHeaderRow,
     MatLabel,
-    MatHeaderRowDef,
-    MatRowDef,
     MatRow,
-    MatHeaderCellDef,
-    MatCellDef,
     MatPaginator,
     NgIf,
     MatProgressBar,
     MatSortHeader,
-    DecimalPipe
+    DecimalPipe,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatHeaderRowDef,
+    MatRowDef
   ],
   templateUrl: "./submission-pairs-page.component.html",
   styleUrl: "./submission-pairs-page.component.css"
@@ -67,12 +69,12 @@ export class SubmissionPairsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pairsData.set([...this.analysisContext.getReport()().pairs!.values()]);
+    this.pairsData.set([...this.analysisContext.getReport()()!.pairs!.values()]);
     this.pairsDataSource = new MatTableDataSource(this.pairsData());
   }
 
   protected getSubmissionById(id: number): Submission {
-    return this.analysisContext.getReport()().submissions!.get(id)!;
+    return this.analysisContext.getReport()()!.submissions!.get(id)!;
   }
 
   onSorting(event: any) {
