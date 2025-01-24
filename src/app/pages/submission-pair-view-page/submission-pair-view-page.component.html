@@ -4,14 +4,14 @@
     <ngx-monaco-editor
       [options]="editorOptions"
       [ngModel]="this.first()?.content"
-      class="editor">
-      >
+      class="editor"
+      (onInit)="this.initEditor($event,this.first()?.content,0)">
     </ngx-monaco-editor>
     <ngx-monaco-editor
       [options]="editorOptions"
       [ngModel]="this.second()?.content"
-      class="editor">
-      >
+      class="editor"
+      (onInit)="this.initEditor($event, this.second()?.content, 1)">
     </ngx-monaco-editor>
   </div>
 

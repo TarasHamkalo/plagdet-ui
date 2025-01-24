@@ -7,6 +7,11 @@ import {Submission} from "../../model/submission";
 import {FormsModule} from "@angular/forms";
 import {EditorComponent} from "ngx-monaco-editor-v2";
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
+import {editor, Range} from "monaco-editor";
+import {PlagCase} from "../../model/plag-case";
+import {PlagCaseSide} from "../../model/plag-case-side";
+import {MonacoPosition} from "../../model/monaco-position";
+import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
 @Component({
   selector: "app-submission-pair-view-page",
@@ -60,6 +65,60 @@ export class SubmissionPairViewPageComponent implements OnInit {
     });
   }
 
-// route -> /**, submission pair id
+
+  protected initEditor(editor: editor.IStandaloneCodeEditor, content: string | undefined, side: 0 | 1): void {
+    if (content === undefined || this.submissionPair() === null) {
+      return;
+    }
+
+    for (const plagCase of this.submissionPair()!.plagCases) {
+      const plagCaseSide = this.getPlagCaseSide(plagCase, side);
+      console.log(plagCaseSide);
+      const plagStart = this.getLineColumnFromOffset(content, plagCaseSide.startOffset);
+      console.log(plagStart);
+      const plagEnd = this.getLineColumnFromOffset(content, plagCaseSide.endOffset);
+      console.log(plagEnd);
+      editor.createDecorationsCollection(
+        [
+          {
+            range: new Range(plagStart.line, plagStart.column, plagEnd.line, plagEnd.column),
+            options: {
+              inlineClassName: "highlight",
+              hoverMessage: { value: "Plagiarized fragment" }
+            }
+          }
+        ]
+      );
+    }
+
+  }
+
+  protected getLineColumnFromOffset(content: string, offset: number): MonacoPosition {
+    const lines = content.split("\n");
+    let remainingOffset = offset;
+    for (let i = 0; i < lines.length; i++) {
+      if (remainingOffset <= lines[i].length) {
+        return { line: i + 1, column: remainingOffset + 1 };
+      }
+      remainingOffset -= lines[i].length + 1; // Account for the newline character
+    }
+    return { line: lines.length, column: lines[lines.length - 1].length + 1 };
+  }
+
+  protected getPlagCaseSide(plagCase: PlagCase, side: 0 | 1): PlagCaseSide {
+    if (side === 0) {
+      return {
+        startOffset: plagCase.firstStart,
+        endOffset: plagCase.firstEnd,
+        length: plagCase.firstLen
+      } as PlagCaseSide;
+    }
+
+    return {
+      startOffset: plagCase.secondStart,
+      endOffset: plagCase.secondEnd,
+      length: plagCase.secondLen
+    } as PlagCaseSide;
+  }
 
 }
