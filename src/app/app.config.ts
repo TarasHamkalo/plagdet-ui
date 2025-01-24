@@ -8,15 +8,15 @@ import {MatPaginatorIntl} from "@angular/material/paginator";
 import {SlovakPaginatorService} from "./services/localization/slovak-paginator.service";
 import {NgxMonacoEditorConfig, provideMonacoEditor} from "ngx-monaco-editor-v2";
 
-const monacoConfig: NgxMonacoEditorConfig = {
-  // baseUrl: "/assets/monaco/min",
-  defaultOptions: { scrollBeyondLastLine: false },
-  onMonacoLoad: () => {
-    console.log("Monaco editor loaded");
-  },
-  requireConfig: {preferScriptTags: true},
-  monacoRequire: (<any>window).monacoRequire,
-};
+// const monacoConfig: NgxMonacoEditorConfig = {
+//   // baseUrl: "/assets/monaco/min",
+//   defaultOptions: { scrollBeyondLastLine: false },
+//   onMonacoLoad: () => {
+//     console.log("Monaco editor loaded");
+//   },
+//   requireConfig: {preferScriptTags: true},
+//   monacoRequire: (<any>window).monacoRequire,
+// };
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
     {provide: MatPaginatorIntl, useClass: SlovakPaginatorService},
-    provideMonacoEditor(monacoConfig),
+    provideMonacoEditor(),
     provideAnimationsAsync(),
   ]
 };

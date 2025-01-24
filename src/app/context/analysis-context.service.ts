@@ -60,4 +60,13 @@ export class AnalysisContextService {
   getConfigurationOptions() {
     return this.configurationOptions;
   }
+
+  clear() {
+    this.uploadedFile.set({});
+    this.analysisName.set("");
+    this.configurationOptions.set([]);
+    this.analysis.set({});
+    this.report.set({});
+    this.analysisImported.set(false);
+  }
 }

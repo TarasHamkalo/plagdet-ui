@@ -1,4 +1,4 @@
-import {Component, effect, OnInit, signal} from "@angular/core";
+import {Component, effect, OnDestroy, OnInit, signal} from "@angular/core";
 import {AnalysisContextService} from "../../context/analysis-context.service";
 import {ActivatedRoute} from "@angular/router";
 import {SubmissionPair} from "../../model/submission-pair";
@@ -7,11 +7,15 @@ import {Submission} from "../../model/submission";
 import {FormsModule} from "@angular/forms";
 import {EditorComponent} from "ngx-monaco-editor-v2";
 import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
-import {editor, Range} from "monaco-editor";
+import {editor, languages, Range} from "monaco-editor";
 import {PlagCase} from "../../model/plag-case";
 import {PlagCaseSide} from "../../model/plag-case-side";
 import {MonacoPosition} from "../../model/monaco-position";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
+import IModelDeltaDecoration = editor.IModelDeltaDecoration;
+import IEditorDecorationsCollection = editor.IEditorDecorationsCollection;
+import getEncodedLanguageId = languages.getEncodedLanguageId;
+
 
 @Component({
   selector: "app-submission-pair-view-page",
@@ -24,7 +28,7 @@ import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.css"
 })
-export class SubmissionPairViewPageComponent implements OnInit {
+export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
 
   protected pairId = signal<string | null>(null);
 
@@ -39,6 +43,10 @@ export class SubmissionPairViewPageComponent implements OnInit {
     language: "plaintext",
     readOnly: true
   };
+
+  private editors: IStandaloneCodeEditor[] = [];
+
+  private decorationCollections: IEditorDecorationsCollection[] = [];
 
   constructor(protected analysisContext: AnalysisContextService,
               private route: ActivatedRoute) {
@@ -59,6 +67,19 @@ export class SubmissionPairViewPageComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.decorationCollections.forEach((collection) => collection.set([]));
+    this.editors.forEach(editorInstance => {
+      console.log("destroy editor");
+      editorInstance.dispose();
+
+    });
+    this.decorationCollections = [];
+    this.editors = [];
+    this.pairId.set(null);
+    this.submissionPair.set(null);
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.pairId.set(params.get("id"));
@@ -71,25 +92,30 @@ export class SubmissionPairViewPageComponent implements OnInit {
       return;
     }
 
+    this.editors.push(editor);
+    console.log("editor this is called");
+    const decorations: IModelDeltaDecoration[] = [];
+    console.log("this should be added ", this.submissionPair()!.plagCases);
     for (const plagCase of this.submissionPair()!.plagCases) {
       const plagCaseSide = this.getPlagCaseSide(plagCase, side);
-      console.log(plagCaseSide);
+      // console.log(plagCaseSide);
       const plagStart = this.getLineColumnFromOffset(content, plagCaseSide.startOffset);
-      console.log(plagStart);
+      // console.log(plagStart);
       const plagEnd = this.getLineColumnFromOffset(content, plagCaseSide.endOffset);
-      console.log(plagEnd);
-      editor.createDecorationsCollection(
-        [
-          {
-            range: new Range(plagStart.line, plagStart.column, plagEnd.line, plagEnd.column),
-            options: {
-              inlineClassName: "highlight",
-              hoverMessage: { value: "Plagiarized fragment" }
-            }
+      // console.log(plagEnd);
+      decorations.push(
+        {
+          range: new Range(plagStart.line, plagStart.column, plagEnd.line, plagEnd.column),
+          options: {
+            inlineClassName: "highlight",
+            hoverMessage: {value: "Plagiarized fragment"}
           }
-        ]
+        }
       );
     }
+    console.log("decorations", decorations);
+    const collection = editor.createDecorationsCollection(decorations);
+    this.decorationCollections.push(collection);
 
   }
 
@@ -98,11 +124,11 @@ export class SubmissionPairViewPageComponent implements OnInit {
     let remainingOffset = offset;
     for (let i = 0; i < lines.length; i++) {
       if (remainingOffset <= lines[i].length) {
-        return { line: i + 1, column: remainingOffset + 1 };
+        return {line: i + 1, column: remainingOffset + 1};
       }
       remainingOffset -= lines[i].length + 1; // Account for the newline character
     }
-    return { line: lines.length, column: lines[lines.length - 1].length + 1 };
+    return {line: lines.length, column: lines[lines.length - 1].length + 1};
   }
 
   protected getPlagCaseSide(plagCase: PlagCase, side: 0 | 1): PlagCaseSide {
