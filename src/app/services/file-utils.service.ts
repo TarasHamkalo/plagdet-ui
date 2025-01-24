@@ -111,7 +111,7 @@ export class FileUtilsService {
           .pipe(
             mergeMap((submissionJson: string) => {
               const paths = path.split("/");
-              const fileParent = paths[-2]!;
+              const fileParent = paths[2]!;
               const submission: Submission = JSON.parse(submissionJson);
               const contentPath = `${this.FILES_DIR_PATH}/${fileParent}/${submission.id}_content.txt`;
               if (zip.files[contentPath]) {
