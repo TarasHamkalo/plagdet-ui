@@ -1,3 +1,10 @@
+<mat-form-field appearance="outline"
+                class="search-bar"
+                *ngIf="this.enableSearch">
+  <mat-label>Hľadať</mat-label>
+  <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
+</mat-form-field>
+
 <table mat-table
        [dataSource]="submissionsDataSource"
        matSort (matSortChange)="onSorting($event)"
@@ -46,6 +53,7 @@
 <mat-paginator
   [length]="this.submissionsDataSource.data.length"
   [pageSize]="this.pageSize"
-  [pageSizeOptions]="this.pageSizeOptions">
+  [pageSizeOptions]="this.pageSizeOptions"
+  *ngIf="this.enablePagination">
 </mat-paginator>
 

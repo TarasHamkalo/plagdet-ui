@@ -1,4 +1,12 @@
-import {AfterViewInit, Component, effect, Input, OnInit, ViewChild} from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  effect,
+  Input,
+  OnInit,
+  signal,
+  ViewChild
+} from "@angular/core";
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -14,6 +22,10 @@ import {Submission} from "../../model/submission";
 import {AnalysisContextService} from "../../context/analysis-context.service";
 import {MatButton} from "@angular/material/button";
 import {MatPaginator} from "@angular/material/paginator";
+import {MatFormField, MatInput} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
+import {MatLabel} from "@angular/material/form-field";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: "app-submissions-table",
@@ -24,6 +36,7 @@ import {MatPaginator} from "@angular/material/paginator";
     MatHeaderRow,
     MatRow,
     MatTable,
+    MatLabel,
     TitledSurfaceComponent,
     MatButton,
     MatHeaderCellDef,
@@ -33,6 +46,10 @@ import {MatPaginator} from "@angular/material/paginator";
     MatHeaderRowDef,
     MatRowDef,
     MatPaginator,
+    MatInput,
+    MatFormField,
+    FormsModule,
+    NgIf,
   ],
   templateUrl: "./submissions-table.component.html",
   styleUrl: "./submissions-table.component.css"
@@ -42,6 +59,8 @@ export class SubmissionsTableComponent implements AfterViewInit {
   @Input() public limit: number | null = 10;
 
   @Input() public enablePagination = false;
+
+  @Input() public enableSearch = false;
 
   @Input() public pageSize = 5;
 
@@ -57,6 +76,8 @@ export class SubmissionsTableComponent implements AfterViewInit {
 
   public submissionsDataSource = new MatTableDataSource<Submission>([]);
 
+  protected searchText = signal<string>("");
+
   constructor(private analysisContext: AnalysisContextService) {
     effect(() => {
       const submissions = analysisContext.getReport()()?.submissions;
@@ -70,6 +91,9 @@ export class SubmissionsTableComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.submissionsDataSource.sort = this.sort;
     this.submissionsDataSource.paginator = this.matPaginator;
+    this.submissionsDataSource.filterPredicate = (data: Submission, filter: string) => {
+      return data!.submitter.toLowerCase().includes(filter);
+    };
   }
 
   onSorting(sort: Sort) {
@@ -90,7 +114,8 @@ export class SubmissionsTableComponent implements AfterViewInit {
 
   }
 
-  // onPageChanged($event: PageEvent) {
-  //
-  // }
+  applyFilter(filter: string) {
+    this.submissionsDataSource.filter = filter?.toLowerCase();
+  }
+
 }
