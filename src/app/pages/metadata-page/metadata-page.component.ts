@@ -1,10 +1,10 @@
-import {Component, effect, OnInit, signal} from '@angular/core';
-import {MatProgressBar} from '@angular/material/progress-bar';
-import {DecimalPipe, NgIf} from '@angular/common';
-import {TitledSurfaceComponent} from '../../components/titled-surface/titled-surface.component';
-import {AnalysisContextService} from '../../context/analysis-context.service';
-import {Submission} from '../../model/submission';
-import {MatButton} from '@angular/material/button';
+import {Component, effect, OnInit, signal} from "@angular/core";
+import {MatProgressBar} from "@angular/material/progress-bar";
+import {DecimalPipe, NgIf} from "@angular/common";
+import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
+import {AnalysisContextService} from "../../context/analysis-context.service";
+import {Submission} from "../../model/submission";
+import {MatButton} from "@angular/material/button";
 import {
   MatCell,
   MatCellDef,
@@ -13,14 +13,13 @@ import {
   MatHeaderRow,
   MatHeaderRowDef,
   MatRow, MatRowDef, MatTable, MatTableDataSource
-} from '@angular/material/table';
-import {MatSort, MatSortHeader} from '@angular/material/sort';
+} from "@angular/material/table";
+import {MatSort, MatSortHeader} from "@angular/material/sort";
 
 @Component({
-  selector: 'app-metadata-page',
+  selector: "app-metadata-page",
   imports: [
     MatProgressBar,
-    NgIf,
     TitledSurfaceComponent,
     DecimalPipe,
     MatButton,
@@ -38,8 +37,8 @@ import {MatSort, MatSortHeader} from '@angular/material/sort';
     MatTable,
     MatHeaderCellDef
   ],
-  templateUrl: './metadata-page.component.html',
-  styleUrl: './metadata-page.component.css'
+  templateUrl: "./metadata-page.component.html",
+  styleUrl: "./metadata-page.component.css"
 })
 export class MetadataPageComponent implements OnInit {
 
@@ -72,10 +71,10 @@ export class MetadataPageComponent implements OnInit {
     const date = new Date(unixTime);
 
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Добавляем ведущий ноль
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Добавляем ведущий ноль
+    const day = String(date.getDate()).padStart(2, "0");
     const hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, "0");
 
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   }

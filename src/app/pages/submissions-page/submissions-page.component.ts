@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, OnInit, signal} from "@angular/core";
 import {
   MatCell,
   MatCellDef,
@@ -7,16 +7,16 @@ import {
   MatHeaderRow,
   MatHeaderRowDef,
   MatRow, MatRowDef, MatTable, MatTableDataSource
-} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
-import {TitledSurfaceComponent} from '../../components/titled-surface/titled-surface.component';
-import {Submission} from '../../model/submission';
-import {AnalysisContextService} from '../../context/analysis-context.service';
-import {DecimalPipe} from '@angular/common';
-import {SubmissionPair} from '../../model/submission-pair';
+} from "@angular/material/table";
+import {MatSort, Sort} from "@angular/material/sort";
+import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
+import {Submission} from "../../model/submission";
+import {AnalysisContextService} from "../../context/analysis-context.service";
+import {DecimalPipe} from "@angular/common";
+import {SubmissionPair} from "../../model/submission-pair";
 
 @Component({
-  selector: 'app-submissions-page',
+  selector: "app-submissions-page",
   imports: [
     MatCell,
     MatCellDef,
@@ -30,10 +30,9 @@ import {SubmissionPair} from '../../model/submission-pair';
     MatTable,
     TitledSurfaceComponent,
     MatHeaderCellDef,
-    DecimalPipe
   ],
-  templateUrl: './submissions-page.component.html',
-  styleUrl: './submissions-page.component.css'
+  templateUrl: "./submissions-page.component.html",
+  styleUrl: "./submissions-page.component.css"
 })
 export class SubmissionsPageComponent implements OnInit {
 
@@ -41,7 +40,7 @@ export class SubmissionsPageComponent implements OnInit {
     "submitter", "filename", "maxSimilarity"
   ];
 
-  public submissions = signal<Map<number, Submission> | undefined>(undefined);
+  public submissions = signal<Submission[]>([]);
 
   public submissionsSource:  MatTableDataSource<Submission> | null = null;
 
@@ -49,13 +48,13 @@ export class SubmissionsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.submissions.set(this.analysisContext.getReport()()!.submissions);
-    const submissionArray = this.submissions()?.values ? Array.from(this.submissions()!.values()) : [];
-    this.submissionsSource = new MatTableDataSource(submissionArray);
+    let submissionsArray = [...this.analysisContext.getReport()()!.submissions.values()];
+    submissionsArray = submissionsArray.filter(s => !s.indexed);
+    this.submissions.set(submissionsArray);
+    this.submissionsSource = new MatTableDataSource(submissionsArray);
   }
 
-  onSorting(event: any) {
-    console.log("Sorting");
+  onSorting(sort: Sort) {
   }
 
   getPlagScore(similarity: number) {

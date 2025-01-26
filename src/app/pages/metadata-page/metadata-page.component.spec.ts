@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { MetadataPageComponent } from './metadata-page.component';
+import { MetadataPageComponent } from "./metadata-page.component";
 
-describe('MetadataPageComponent', () => {
+describe("MetadataPageComponent", () => {
   let component: MetadataPageComponent;
   let fixture: ComponentFixture<MetadataPageComponent>;
 
@@ -17,7 +17,7 @@ describe('MetadataPageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

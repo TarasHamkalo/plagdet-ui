@@ -3,6 +3,7 @@ import {SpecialMarking} from "./special-marking";
 
 export interface Submission {
   id: number;
+  indexed: boolean;
   submitter: string;
   filename: string;
   maxSimilarity: number;
