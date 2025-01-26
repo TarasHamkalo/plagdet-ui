@@ -17,8 +17,8 @@ import {
   SubmissionPairViewPageComponent
 } from "./pages/submission-pair-view-page/submission-pair-view-page.component";
 import {AnalysisRelatedContentGuard} from "./guards/analysis-related-content.guard";
-import {MetadataPageComponent} from './pages/metadata-page/metadata-page.component';
-import {SubmissionsPageComponent} from './pages/submissions-page/submissions-page.component';
+import {MetadataPageComponent} from "./pages/metadata-page/metadata-page.component";
+import {SubmissionsPageComponent} from "./pages/submissions-page/submissions-page.component";
 
 export enum PageRoutes {
   NONE = "#",

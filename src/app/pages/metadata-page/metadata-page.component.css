@@ -1,13 +1,4 @@
-.table-container {
-  display: flex;
-  width: 100%;
-  gap: 0;
-  flex-direction: column;
-  justify-content: start;
-  align-items: stretch;
-
-}
-
 table {
+  width: 100%;
   border-bottom: 1px solid var(--mat-sys-outline);
 }
