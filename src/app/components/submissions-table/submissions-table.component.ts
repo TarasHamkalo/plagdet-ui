@@ -1,4 +1,4 @@
-import {Component, effect, OnInit} from "@angular/core";
+import {AfterViewInit, Component, effect, Input, OnInit, ViewChild} from "@angular/core";
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -13,6 +13,7 @@ import {TitledSurfaceComponent} from "../../components/titled-surface/titled-sur
 import {Submission} from "../../model/submission";
 import {AnalysisContextService} from "../../context/analysis-context.service";
 import {MatButton} from "@angular/material/button";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: "app-submissions-table",
@@ -31,15 +32,28 @@ import {MatButton} from "@angular/material/button";
     MatSortHeader,
     MatHeaderRowDef,
     MatRowDef,
+    MatPaginator,
   ],
   templateUrl: "./submissions-table.component.html",
   styleUrl: "./submissions-table.component.css"
 })
-export class SubmissionsTableComponent implements OnInit {
+export class SubmissionsTableComponent implements AfterViewInit {
+
+  @Input() public limit: number | null = 10;
+
+  @Input() public enablePagination = false;
+
+  @Input() public pageSize = 5;
+
+  @Input() public pageSizeOptions = [5, 10, 25, 100];
 
   protected displayedColumns: string[] = [
     "submitter", "filename", "totalEditTime", "maxSimilarity", "moreButton"
   ];
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  @ViewChild(MatPaginator) matPaginator!: MatPaginator;
 
   public submissionsDataSource = new MatTableDataSource<Submission>([]);
 
@@ -49,14 +63,23 @@ export class SubmissionsTableComponent implements OnInit {
       this.submissionsDataSource.data = [...submissions!.values()]
         .filter(a => !a.indexed)
         .sort((a, b) => b.maxSimilarity - a.maxSimilarity)
-        .slice(0, 10);
+        .slice(0, this.limit ? this.limit : Number.MAX_VALUE);
     });
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.submissionsDataSource.sort = this.sort;
+    this.submissionsDataSource.paginator = this.matPaginator;
   }
 
   onSorting(sort: Sort) {
+    if (sort.active === "totalEditTime") {
+      const mul = (sort.direction === "asc") ? 1 : -1;
+      this.submissionsDataSource.data.sort(
+        (a, b) => mul * (a.metadata.totalEditTime - b.metadata.totalEditTime)
+      );
+    }
+
   }
 
   getPlagScore(similarity: number) {
@@ -66,4 +89,8 @@ export class SubmissionsTableComponent implements OnInit {
   loadSubmission(element: Submission) {
 
   }
+
+  // onPageChanged($event: PageEvent) {
+  //
+  // }
 }
