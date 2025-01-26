@@ -45,55 +45,12 @@
   <!--  </app-titled-surface>-->
 
   <app-titled-surface title="Odovzdania"
-                      subtitle="Tabuľka obsahuje top 10 prác s najväčšou podobnosťou">
+                      subtitle="Tabuľka obsahuje top 10 prác s najväčšou podobnosťou"
+                      [isContentCentered]="false">
 
     <!-- Submission Table -->
-
-    <table mat-table
-           [dataSource]="submissionsDataSource"
-           matSort (matSortChange)="onSorting($event)"
-           class="mat-elevation-z8">
-
-      <ng-container matColumnDef="submitter">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="submitter">
-          Odovzdávateľ
-        </th>
-        <td mat-cell *matCellDef="let element"> {{ element.submitter }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="filename">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="filename">
-          Názov súboru
-        </th>
-        <td mat-cell *matCellDef="let element"> {{ element.filename }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="totalEditTime">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="totalEditTime">
-          Čas úpravy (min)
-        </th>
-        <td mat-cell *matCellDef="let element"> {{ element.metadata.totalEditTime }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="maxSimilarity">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="maxSimilarity">
-          Podobnosť %
-        </th>
-        <td mat-cell *matCellDef="let element"> {{ element.maxSimilarity }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="moreButton">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-button (click)="showMoreAboutSubmission(element)">Viac</button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="submissionsDisplayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: submissionsDisplayedColumns;"></tr>
-
-    </table>
-    <button style="align-self: end" mat-flat-button>Ostatné odovzdania</button>
+    <app-submissions-table/>
+    <button style="align-self: end" mat-flat-button (click)="this.navigateSubmissionsPage()">Ostatné odovzdania</button>
   </app-titled-surface>
 
   <!-- <app-titled-surface title="Zhluky" subtitle="Tabuľka zobrazuje top 10 najdených zhlukov (skupín podobných dokumentov) v odovzdanej sade">

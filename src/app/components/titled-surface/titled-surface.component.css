@@ -25,12 +25,14 @@
   min-width: fit-content;
   align-items: stretch;
   justify-content: start;
-  align-content: center;
 
   flex-wrap: wrap;
   gap: 24px;
 }
 
+.content-centered {
+  align-content: center;
+}
 .horizontal {
   flex-direction: row;
   justify-content: center;
