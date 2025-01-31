@@ -41,7 +41,11 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="totalEditTime">
         Čas úpravy
       </th>
-      <td mat-cell *matCellDef="let element"> {{ element.metadata.totalEditTime | minutesTime }}</td>
+      <td mat-cell *matCellDef="let element"
+          appCellHighlight
+          [checkTimeDeviation]="true"
+          [submission]="element">
+        {{ element.metadata.totalEditTime | minutesTime }}</td>
     </ng-container>
 
     <ng-container matColumnDef="maxSimilarity">

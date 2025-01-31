@@ -25,6 +25,7 @@ import {FormsModule} from "@angular/forms";
 import {MatLabel} from "@angular/material/form-field";
 import {NgIf} from "@angular/common";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
+import {CellHighlightDirective} from "../../../directives/cell-highlight.directive";
 
 @Component({
   selector: "app-submissions-table",
@@ -49,6 +50,7 @@ import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
     FormsModule,
     NgIf,
     MinutesTimePipe,
+    CellHighlightDirective,
   ],
   templateUrl: "./submissions-table.component.html",
   styleUrls: ["./submissions-table.component.css", "../shared/base-table.scss"],
