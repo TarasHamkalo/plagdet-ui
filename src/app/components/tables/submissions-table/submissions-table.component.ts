@@ -49,7 +49,7 @@ import {NgIf} from "@angular/common";
     NgIf,
   ],
   templateUrl: "./submissions-table.component.html",
-  styleUrl: "./submissions-table.component.css"
+  styleUrls: ["./submissions-table.component.css", "../shared/base-table.scss"]
 })
 export class SubmissionsTableComponent implements AfterViewInit {
 
@@ -78,11 +78,14 @@ export class SubmissionsTableComponent implements AfterViewInit {
   constructor(private analysisContext: AnalysisContextService) {
     effect(() => {
       const submissions = analysisContext.getReport()()?.submissions;
-      this.submissionsDataSource.data = [...submissions!.values()]
-        .filter(a => !a.indexed)
-        .sort((a, b) => b.maxSimilarity - a.maxSimilarity)
-        .slice(0, this.limit ? this.limit : Number.MAX_VALUE);
+      if (submissions) {
+        this.submissionsDataSource.data = [...submissions!.values()]
+          .filter(a => !a.indexed)
+          .sort((a, b) => b.maxSimilarity - a.maxSimilarity)
+          .slice(0, this.limit ? this.limit : Number.MAX_VALUE);
+      }
     });
+
   }
 
   public ngAfterViewInit() {
@@ -96,7 +99,7 @@ export class SubmissionsTableComponent implements AfterViewInit {
   protected onSorting(sort: Sort) {
     if (sort.active === "totalEditTime") {
       const mul = (sort.direction === "asc") ? 1 : -1;
-      this.submissionsDataSource.data.sort(
+      this.submissionsDataSource.filteredData.sort(
         (a, b) => mul * (a.metadata.totalEditTime - b.metadata.totalEditTime)
       );
     }

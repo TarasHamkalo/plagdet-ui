@@ -5,8 +5,9 @@
   </app-surface>
 
   <app-surface *ngIf="pairs().length > 0"
-               title=""
+               title="Dvojice odovzdaní"
                subtitle=""
+               [isTitleCentered]="true"
                [isContentCentered]="false">
     <app-pairs-table [pairsSource]="this.pairs"></app-pairs-table>
   </app-surface>

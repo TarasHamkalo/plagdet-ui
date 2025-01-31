@@ -2,7 +2,7 @@
   <mat-label>Hľadať</mat-label>
   <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
 </mat-form-field>
-<div class="table-responsive">
+<div class="table-responsive size-65">
   <table [dataSource]="pairsDataSource!"
          (matSortChange)="onSorting($event)"
          mat-table

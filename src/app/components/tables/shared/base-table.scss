@@ -2,7 +2,6 @@
   display: block;
   width: 100%;
   overflow-x: auto;
-  height: 70vh;
   overflow-y: auto;
 
   border-bottom: 1px solid var(--mat-sys-outline);
@@ -38,4 +37,12 @@
 
 .search-bar {
   width: 100%;
+}
+
+.size-65 {
+  height: 65vh;
+}
+
+.size-50 {
+  height: 50vh;
 }
