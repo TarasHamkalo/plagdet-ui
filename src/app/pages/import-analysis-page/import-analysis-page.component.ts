@@ -5,12 +5,16 @@ import {
 import {UploadPageBaseComponent} from "../shared/upload-page-base/upload-page-base.component";
 import {PageRoutes} from "../../app.routes";
 import {SurfaceComponent} from "../../components/base/surface/surface.component";
+import {
+  ContentContainerComponent
+} from "../../components/base/content-container/content-container.component";
 
 @Component({
-  selector: "app-import-analysis-page",
+  selector: "app-import-overview-page",
   imports: [
     FileUploadDndComponent,
     SurfaceComponent,
+    ContentContainerComponent,
   ],
   templateUrl: "./import-analysis-page.component.html",
 })
@@ -18,7 +22,7 @@ export class ImportAnalysisPageComponent extends UploadPageBaseComponent {
 
   public supportedExtensions: Set<string> = new Set<string>(["zip"]);
 
-  public subtitle = "Povolený formát je ANALYSIS";
+  public subtitle = "Povolený formát je ZIP";
 
   protected override onFileUploaded(file: File) {
     super.onFileUploaded(

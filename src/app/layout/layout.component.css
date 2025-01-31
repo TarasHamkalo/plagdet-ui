@@ -1,9 +1,21 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+
+  flex-direction: column;
+}
+
+main {
+  height: 100%;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
 .sidenav-colored {
   position: fixed;
-  /*top: 64px;*/
-
-  /*height: calc(100% - 64px);*/
-
   height: 100%;
   padding: 64px 0.25rem 0.25rem;
   border-radius: 0;
@@ -16,12 +28,4 @@
 
 .expanded {
   width: 320px;
-}
-
-.app-layout {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-
-  flex-direction: column;
 }

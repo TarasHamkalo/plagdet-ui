@@ -1,4 +1,10 @@
-<app-surface title="Import analýzy"
-                    subtitle="V prípade, že máte analýzu uloženú na disku, môžeme vám ju zobraziť.">
-  <app-file-upload-dnd [supportedExtensions]="supportedExtensions" [subtitle]="subtitle" (fileUploaded)="onFileUploaded($event)"/>
-</app-surface>
+<app-content-container>
+
+  <app-surface title="Import analýzy"
+               subtitle="V prípade, že máte analýzu uloženú na disku, môžeme vám ju zobraziť.">
+    <app-file-upload-dnd [supportedExtensions]="supportedExtensions"
+                         [subtitle]="subtitle"
+                         (fileUploaded)="onFileUploaded($event)"/>
+  </app-surface>
+
+</app-content-container>

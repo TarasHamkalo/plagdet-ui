@@ -1,4 +1,8 @@
-<app-surface title="Analýza nových odovzdaní"
-             subtitle="Pridajte súbor obsahujúci odovzdania, vo formatoch PDF, DOCX, DOC.">
-  <app-file-upload-dnd (fileUploaded)="onFileUploaded($event)"/>
-</app-surface>
+<app-content-container>
+
+  <app-surface title="Analýza nových odovzdaní"
+               subtitle="Pridajte súbor obsahujúci odovzdania, vo formatoch PDF, DOCX, DOC.">
+    <app-file-upload-dnd (fileUploaded)="onFileUploaded($event)"/>
+  </app-surface>
+
+</app-content-container>

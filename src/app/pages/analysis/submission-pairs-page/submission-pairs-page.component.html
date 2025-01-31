@@ -1,0 +1,14 @@
+<app-content-container>
+
+  <app-surface *ngIf="pairs().length === 0" title="Loading pairs data" subtitle="">
+    <mat-progress-bar mode="indeterminate"/>
+  </app-surface>
+
+  <app-surface *ngIf="pairs().length > 0"
+               title=""
+               subtitle=""
+               [isContentCentered]="false">
+    <app-pairs-table [pairsSource]="this.pairs"></app-pairs-table>
+  </app-surface>
+
+</app-content-container>

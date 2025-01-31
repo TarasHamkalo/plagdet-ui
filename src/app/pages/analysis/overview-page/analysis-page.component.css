@@ -1,11 +1,11 @@
-.frame {
-  display: flex;
-  flex-direction: column;
+/*.frame {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
 
-  width: 100%;
-  gap: 32px;
-  padding: 24px 0 72px 0;
-}
+/*  width: 100%;*/
+/*  gap: 32px;*/
+/*  padding: 24px 0 72px 0;*/
+/*}*/
 
 .histogram-container {
   display: flex;

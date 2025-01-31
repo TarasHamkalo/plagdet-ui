@@ -4,6 +4,9 @@ import {PageRoutes} from "../../app.routes";
 import {UploadPageBaseComponent} from "../shared/upload-page-base/upload-page-base.component";
 import {FormsModule} from "@angular/forms";
 import {SurfaceComponent} from "../../components/base/surface/surface.component";
+import {
+  ContentContainerComponent
+} from "../../components/base/content-container/content-container.component";
 
 @Component({
   selector: "app-upload-dataset-page",
@@ -12,6 +15,7 @@ import {SurfaceComponent} from "../../components/base/surface/surface.component"
     FileUploadDndComponent,
     FormsModule,
     SurfaceComponent,
+    ContentContainerComponent,
   ],
   templateUrl: "./upload-dataset-page.component.html",
 })

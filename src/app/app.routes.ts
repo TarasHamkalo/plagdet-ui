@@ -2,19 +2,19 @@ import {Routes} from "@angular/router";
 import {
   UploadDatasetPageComponent
 } from "./pages/upload-dataset-page/upload-dataset-page.component";
-import {AnalysisPageComponent} from "./pages/analysis-page/analysis-page.component";
+import {AnalysisPageComponent} from "./pages/analysis/overview-page/analysis-page.component";
 import {
   ImportAnalysisPageComponent
 } from "./pages/import-analysis-page/import-analysis-page.component";
 import {
   SubmissionPairsPageComponent
-} from "./pages/submission-pairs-page/submission-pairs-page.component";
+} from "./pages/analysis/submission-pairs-page/submission-pairs-page.component";
 import {
   SubmissionPairViewPageComponent
-} from "./pages/submission-pair-view-page/submission-pair-view-page.component";
+} from "./pages/analysis/submission-pair-view-page/submission-pair-view-page.component";
 import {AnalysisRelatedContentGuard} from "./guards/analysis-related-content.guard";
-import {MetadataPageComponent} from "./pages/metadata-page/metadata-page.component";
-import {SubmissionsPageComponent} from "./pages/submissions-page/submissions-page.component";
+import {MetadataPageComponent} from "./pages/analysis/metadata-page/metadata-page.component";
+import {SubmissionsPageComponent} from "./pages/analysis/submissions-page/submissions-page.component";
 import {AnalysisPageGuard} from "./guards/analysis-page.guard";
 
 export enum PageRoutes {

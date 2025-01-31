@@ -1,0 +1,30 @@
+<app-content-container *ngIf="this.loading">
+  <app-surface title="Loading analysis"
+               subtitle=""
+               [isTitleCentered]="true"
+               [isHorizontal]="true">
+    <mat-progress-bar class="full-width" mode="indeterminate"/>
+  </app-surface>
+</app-content-container>
+
+<app-content-container>
+
+  <app-surface title=""
+               subtitle=""
+               [isTitleCentered]="true"
+               [isHorizontal]="true">
+    <app-analysis-info-card/>
+
+  </app-surface>
+
+  <app-surface title="Odovzdania"
+               subtitle="Tabuľka obsahuje top 10 prác s najväčšou podobnosťou"
+               [isContentCentered]="false">
+
+    <app-submissions-table/>
+    <button style="align-self: end" mat-flat-button (click)="this.navigateSubmissionsPage()">Ostatné
+      Odovzdania
+    </button>
+  </app-surface>
+
+</app-content-container>

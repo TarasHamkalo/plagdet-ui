@@ -1,7 +1,0 @@
-<app-surface *ngIf="!isTableLoaded()" title="Loading pairs data" subtitle="">
-  <mat-progress-bar mode="indeterminate"/>
-</app-surface>
-
-<app-surface *ngIf="isTableLoaded()" title="" subtitle="">
-  <app-pairs-table [isTableLoaded]="isTableLoaded"></app-pairs-table>
-</app-surface>
