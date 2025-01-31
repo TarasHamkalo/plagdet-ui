@@ -7,15 +7,17 @@ import {PageRoutes} from "../app.routes";
   providedIn: "root",
 })
 export class AnalysisRelatedContentGuard implements CanActivate {
+
   constructor(
     private analysisContext: AnalysisContextService,
     private router: Router
-  ) {}
+  ) {
+  }
 
-  canActivate(): boolean {
+  public canActivate(): boolean {
     const isReportLoaded = this.analysisContext.getReport()() !== null;
     if (!isReportLoaded) {
-      this.analysisContext.clear();
+      this.analysisContext.clearContext();
       this.router.navigate([PageRoutes.HOME]);
       return false;
     }

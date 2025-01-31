@@ -2,14 +2,10 @@ import {Routes} from "@angular/router";
 import {
   UploadDatasetPageComponent
 } from "./pages/upload-dataset-page/upload-dataset-page.component";
-import {ConfigurationPageComponent} from "./pages/configuration-page/configuration-page.component";
 import {AnalysisPageComponent} from "./pages/analysis-page/analysis-page.component";
 import {
   ImportAnalysisPageComponent
 } from "./pages/import-analysis-page/import-analysis-page.component";
-import {
-  PreviousAnalysisPageComponent
-} from "./pages/previous-analysis-page/previous-analysis-page.component";
 import {
   SubmissionPairsPageComponent
 } from "./pages/submission-pairs-page/submission-pairs-page.component";
@@ -19,6 +15,7 @@ import {
 import {AnalysisRelatedContentGuard} from "./guards/analysis-related-content.guard";
 import {MetadataPageComponent} from "./pages/metadata-page/metadata-page.component";
 import {SubmissionsPageComponent} from "./pages/submissions-page/submissions-page.component";
+import {AnalysisPageGuard} from "./guards/analysis-page.guard";
 
 export enum PageRoutes {
   NONE = "#",
@@ -35,10 +32,8 @@ export enum PageRoutes {
 }
 export const routes: Routes = [
   {path: PageRoutes.UPLOAD.substring(1), component: UploadDatasetPageComponent},
-  {path: PageRoutes.PREVIOUS_ANALYSIS.substring(1), component: PreviousAnalysisPageComponent},
   {path: PageRoutes.IMPORT.substring(1), component: ImportAnalysisPageComponent},
-  {path: PageRoutes.CONFIGURATION.substring(1), component: ConfigurationPageComponent},
-  {path: PageRoutes.ANALYSIS.substring(1), component: AnalysisPageComponent},
+  {path: PageRoutes.ANALYSIS.substring(1), component: AnalysisPageComponent, canActivate: [AnalysisPageGuard]},
   {path: PageRoutes.PAIRS.substring(1), component: SubmissionPairsPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: `${PageRoutes.PAIR.substring(1)}/:id`, component: SubmissionPairViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: PageRoutes.METADATA.substring(1), component: MetadataPageComponent, canActivate: [AnalysisRelatedContentGuard]},

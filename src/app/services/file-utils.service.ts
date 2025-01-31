@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
-import {FileWrapper} from "../model/file-wrapper";
+import {FileWrapper} from "../types/file-wrapper";
 import {forkJoin, from, map, mergeMap, Observable, of} from "rxjs";
-import {AnalysisReport} from "../model/analysisReport";
+import {Report} from "../model/report";
 import JSZip from "jszip";
 import {Submission} from "../model/submission";
 import {SubmissionPair} from "../model/submission-pair";
-import {Analysis} from "../model/analysis";
+import {Overview} from "../model/overview";
 
 @Injectable({
   providedIn: "root"
@@ -31,7 +31,7 @@ export class FileUtilsService {
       return false;
     }
 
-    const ext = this.getFileExtension(file);
+    const ext = this.getNormalizedExtension(file);
     return supportedExtensions.has(ext);
   }
 
@@ -40,28 +40,17 @@ export class FileUtilsService {
     return this.mimeToExtension[mimeType] || "";
   }
 
-  public mockWrapper(): FileWrapper {
-    const file = new File([""], "Submissions", {type: "text/zip"});
-    return this.createWrapper(file);
-  }
-
   public createWrapper(file: File): FileWrapper {
-    // this.
     return {
       file: file,
       name: file.name,
-      extension: this.getFileExtension(file),
-      filesContained: Math.trunc(file.size / 50000),
+      extension: this.getNormalizedExtension(file),
       dateModified: new Date(file.lastModified),
     };
   }
 
-  private getFileExtension(file: File) {
-    return this.getNormalizedExtension(file);
-    // return file.type.split("/")[1];
-  }
 
-  public readReportFromZip(file: File): Observable<AnalysisReport | null> {
+  public readReportFromZip(file: File): Observable<Report | null> {
     if (!this.hasValidExtension(file, this.SUPPORTED_EXTENSIONS)) {
       return of(null);
     }
@@ -70,13 +59,15 @@ export class FileUtilsService {
       mergeMap((zip) => {
         const fileNames = Object.keys(zip.files);
         console.log("Loaded zip ", fileNames);
-        const analysisTask = from(zip.files[this.OVERVIEW_FILEPATH].async("string")).pipe(
-          map((content) => JSON.parse(content) as Analysis)
+        const overviewReadTask = from(zip.files[this.OVERVIEW_FILEPATH].async("string")).pipe(
+          map((content) => JSON.parse(content) as Overview)
         );
-        const submissionsReadTasks: Observable<Submission>[] = this.getSubmissionsReadTasks(fileNames, zip);
-        const pairReadTasks: Observable<SubmissionPair>[] = this.getPairReadTasks(fileNames, zip);
+        const submissionsReadTasks: Observable<Submission>[] =
+          this.getSubmissionsReadTasks(fileNames, zip);
+        const pairReadTasks: Observable<SubmissionPair>[] =
+          this.getPairReadTasks(fileNames, zip);
         return forkJoin({
-          analysis: analysisTask,
+          overview: overviewReadTask ,
           submissions: forkJoin(submissionsReadTasks).pipe(
             map((submissions) => {
               console.log(submissions);
@@ -98,7 +89,7 @@ export class FileUtilsService {
           )
         });
       })
-    ) as Observable<AnalysisReport | null>;
+    ) as Observable<Report | null>;
   }
 
   private getPairReadTasks(fileNames: string[], zip: JSZip) {

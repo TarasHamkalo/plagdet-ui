@@ -1,6 +1,6 @@
 import {Injectable, signal} from "@angular/core";
 import {Router} from "@angular/router";
-import {NavItem} from "../../model/nav-item";
+import {NavItem} from "../../types/nav-item";
 import {PageRoutes} from "../../app.routes";
 
 @Injectable({
@@ -81,13 +81,13 @@ export class NavigationService {
     isFullWidthOnly: true
   };
 
-  private dynamicRoutesBase = [PageRoutes.PAIR];
+  private readonly dynamicRoutesBase = [PageRoutes.PAIR];
 
   private activeRoute = signal(PageRoutes.HOME);
 
   constructor(private router: Router) {}
 
-  getRoutes(): NavItem[] {
+  public getRoutes(): NavItem[] {
     const url = this.router.url.split("?")[0].split("#")[0];
     const baseUrl = this.getBaseUrl(url);
     console.log(baseUrl);
@@ -99,17 +99,17 @@ export class NavigationService {
     return this.defaultRoutes.concat(this.supportRoutes);
   }
 
-  getActive() {
+  public getActive() {
     return this.activeRoute;
   }
 
-  updateActive() {
+  public updateActive() {
     const url = this.router.url;
     this.activeRoute.set(url as PageRoutes);
     console.log(this.activeRoute());
   }
 
-  getHome(): NavItem | undefined {
+  public getHome(): NavItem | undefined {
     return this.homeRoute;
   }
 

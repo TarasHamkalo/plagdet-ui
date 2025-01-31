@@ -14,7 +14,19 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
-
+      "@typescript-eslint/explicit-member-accessibility": [
+        "error",
+        {
+          "accessibility": "explicit",
+          "overrides": {
+            "accessors": "explicit",
+            "constructors": "no-public",
+            "methods": "explicit",
+            "properties": "off",
+            "parameterProperties": "explicit"
+          }
+        }
+      ],
       "@/quotes": [
         "error",
         "double",

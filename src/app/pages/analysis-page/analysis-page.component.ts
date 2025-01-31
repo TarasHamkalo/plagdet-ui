@@ -1,10 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Submission} from "../../model/submission";
-import {MatTableDataSource, MatTableModule} from "@angular/material/table";
-import {TableColumnDefinition} from "../../model/table-column-definition";
-import {Cluster} from "../../model/mock/cluster";
-import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
-import {MatSort, MatSortHeader} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
 import {MatButton} from "@angular/material/button";
 import {
   AnalysisInfoCardComponent
@@ -16,59 +12,40 @@ import {PageRoutes} from "../../app.routes";
 import {NgIf} from "@angular/common";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {
-  SubmissionsListComponent
-} from "../../components/submissions-list/submissions-list.component";
-import {
   SubmissionsTableComponent
-} from "../../components/submissions-table/submissions-table.component";
+} from "../../components/tables/submissions-table/submissions-table.component";
+import {SurfaceComponent} from "../../components/base/surface/surface.component";
 
 @Component({
   selector: "app-analysis-page",
   imports: [
     MatTableModule,
-    TitledSurfaceComponent,
-    MatSort,
-    MatSortHeader,
     MatButton,
     AnalysisInfoCardComponent,
     NgIf,
     MatProgressBar,
-    SubmissionsListComponent,
     SubmissionsTableComponent,
+    SurfaceComponent,
   ],
   templateUrl: "./analysis-page.component.html",
   styleUrl: "./analysis-page.component.css"
 })
 export class AnalysisPageComponent implements OnInit {
 
-
-  public submissionsDisplayedColumns: string[] = [];
-
-  public submissionsDataSource = new MatTableDataSource<Submission>([]);
-
-  public clusterTableDefinitions: TableColumnDefinition[] = [
-    {fieldName: "name", displayName: "Názov zhluku"},
-    {fieldName: "avgSimilarity", displayName: "Priemerná podobnosť"},
-    {fieldName: "avgEditTime", displayName: "Priemerný čas úpravy (min)"},
-    {fieldName: "numberOfSubmissions", displayName: "Počet odovzdaní "},
-  ];
-
-  public clusterDisplayedColumns: string[] = [];
-
-  public clustersDataSource = new MatTableDataSource<Cluster>([]);
-
   protected loading = true;
 
-  constructor(private analysisContext: AnalysisContextService,
-              private analysisService: AnalysisService,
-              private router: Router) {
+  constructor(
+    private analysisContext: AnalysisContextService,
+    private analysisService: AnalysisService,
+    private router: Router
+  ) {
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.loading = true;
     this.analysisService.loadReport().subscribe((report) => {
       if (report) {
-        this.analysisContext.getReport().set(report);
+        this.analysisContext.setReport(report);
         this.loading = false;
       } else {
         this.router.navigate([PageRoutes.HOME]);
@@ -76,13 +53,7 @@ export class AnalysisPageComponent implements OnInit {
     });
 
   }
-
-  onSorting(event: any) {
-    console.log(event);
-    console.log("Busy sorting array....");
-  }
-
-  showMoreAboutSubmission(element: Submission) {
+  protected showMoreAboutSubmission(element: Submission) {
     console.log(element);
   }
 

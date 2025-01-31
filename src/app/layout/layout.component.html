@@ -1,0 +1,24 @@
+<div class="app-layout">
+  <app-header (menuToggle)="this.toggleSideNav()"></app-header>
+
+  <main>
+
+    <mat-sidenav-container autosize="true">
+      <mat-sidenav class="sidenav-colored"
+                   [class.rail]="!isSidenavOpen()"
+                   [class.expanded]="isSidenavOpen()"
+                   [opened]="true"
+                   mode="side">
+
+        <app-nav-list [isFullWidth]="isSidenavOpen"/>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+
+    </mat-sidenav-container>
+
+  </main>
+
+</div>

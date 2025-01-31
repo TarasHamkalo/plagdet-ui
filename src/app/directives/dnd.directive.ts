@@ -5,15 +5,17 @@ import {Directive, EventEmitter, HostBinding, HostListener, Output, OnInit} from
 })
 export class DndDirective implements OnInit {
 
-  @HostBinding("class.dnd-faint") private faintClass = false;
+  @HostBinding("class.dnd-faint")
+  private faintClass = false;
 
   @Output() public dragDrop = new EventEmitter<DragEvent>();
 
-  ngOnInit() {
+  public ngOnInit() {
     this.faintClass = false;
   }
 
-  @HostListener("dragover", ["$event"]) onDragenter(event: DragEvent) {
+  @HostListener("dragover", ["$event"])
+  public onDragenter(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -21,7 +23,8 @@ export class DndDirective implements OnInit {
     console.log(event);
   }
 
-  @HostListener("dragleave", ["$event"]) onDragLeave(event: DragEvent) {
+  @HostListener("dragleave", ["$event"])
+  public onDragLeave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -29,13 +32,14 @@ export class DndDirective implements OnInit {
     console.log(event);
   }
 
-  @HostListener("drop", ["$event"]) onDragDrop(event: DragEvent) {
+  @HostListener("drop", ["$event"])
+  public onDragDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.faintClass = false;
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
-        this.dragDrop.emit(event);
+      this.dragDrop.emit(event);
     }
   }
 }

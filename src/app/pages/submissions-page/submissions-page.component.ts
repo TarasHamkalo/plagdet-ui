@@ -1,15 +1,14 @@
 import {Component} from "@angular/core";
-import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
+import {SurfaceComponent} from "../../components/base/surface/surface.component";
 import {
   SubmissionsTableComponent
-} from "../../components/submissions-table/submissions-table.component";
+} from "../../components/tables/submissions-table/submissions-table.component";
 
 @Component({
   selector: "app-submissions-page",
   imports: [
-    TitledSurfaceComponent,
+    SurfaceComponent,
     SubmissionsTableComponent,
-
   ],
   templateUrl: "./submissions-page.component.html",
   styleUrl: "./submissions-page.component.css"

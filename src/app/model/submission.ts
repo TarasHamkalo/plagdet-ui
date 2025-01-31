@@ -1,5 +1,5 @@
 import {Metadata} from "./metadata";
-import {SpecialMarking} from "./special-marking";
+import {SpecialMarking} from "./positioning/special-marking";
 
 export interface Submission {
   id: number;

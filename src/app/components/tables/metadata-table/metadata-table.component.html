@@ -1,0 +1,84 @@
+<mat-form-field appearance="outline"
+                class="search-bar">
+  <mat-label>Hľadať</mat-label>
+  <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
+</mat-form-field>
+
+<table [dataSource]="this.submissionsDataSource"
+       (matSortChange)="onSorting($event)"
+       class="mat-elevation-z8"
+       mat-table
+       matSort>
+
+  <ng-container matColumnDef="filename">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="filename">
+      Názov súboru
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.filename }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="submitter">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="submitter">
+      Odosielateľ
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.submitter }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="creator">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="creator">
+      Autor
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.metadata.creator ? element.metadata.creator : 'Neznáme' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastModifiedBy">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="modifier">
+      Naposledy upravil
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.metadata.modifier ? element.metadata.modifier : 'Neznáme' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="totalEditTime">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="totalEditTime">
+      Čas úpravy (min)
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.metadata.totalEditTime }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateCreated">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="creationDate">
+      Dátum vytvorenia
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.metadata.creationDate ? (element.metadata.creationDate | unixDate) : 'Neznáme' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateModified">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="modificationDate">
+      Dátum úpravy
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.metadata.modificationDate ? (element.metadata.creationDate | unixDate) : 'Neznáme' }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="pairsDisplayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: pairsDisplayedColumns;"></tr>
+
+  <mat-paginator
+    [length]="this.submissionsDataSource.data.length"
+    [pageSize]="20"
+    [pageSizeOptions]="[10, 20, 30, 40]">
+  </mat-paginator>
+</table>

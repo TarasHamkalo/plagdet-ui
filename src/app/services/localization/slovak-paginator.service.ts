@@ -9,7 +9,7 @@ export class SlovakPaginatorService extends MatPaginatorIntl {
     this.getAndInitTranslations();
   }
 
-  getAndInitTranslations() {
+  public getAndInitTranslations() {
     this.itemsPerPageLabel = "Položky na stránku:";
     this.nextPageLabel = "Ďalšia stránka";
     this.previousPageLabel = "Predchádzajúca stránka";
@@ -24,7 +24,8 @@ export class SlovakPaginatorService extends MatPaginatorIntl {
     }
     length = Math.max(length, 0);
     const startIndex = page * pageSize;
-    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+    const endIndex = startIndex < length ?
+      Math.min(startIndex + pageSize, length) : startIndex + pageSize;
     return `${startIndex + 1} - ${endIndex} / ${length}`;
   };
 

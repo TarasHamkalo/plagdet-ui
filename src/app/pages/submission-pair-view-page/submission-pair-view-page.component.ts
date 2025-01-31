@@ -5,12 +5,12 @@ import {SubmissionPair} from "../../model/submission-pair";
 import {Submission} from "../../model/submission";
 import {FormsModule} from "@angular/forms";
 import {EditorComponent} from "ngx-monaco-editor-v2";
-import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
 import {editor, Range} from "monaco-editor";
-import {MarkingOffsets} from "../../model/marking-offsets";
-import {MonacoPosition} from "../../model/monaco-position";
+import {MarkingOffsets} from "../../model/positioning/marking-offsets";
+import {MonacoPosition} from "../../types/monaco-position";
 import {first, timer} from "rxjs";
-import {SpecialMarking} from "../../model/special-marking";
+import {SpecialMarking} from "../../model/positioning/special-marking";
+import {SurfaceComponent} from "../../components/base/surface/surface.component";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 import IModelDeltaDecoration = editor.IModelDeltaDecoration;
 import IEditorDecorationsCollection = editor.IEditorDecorationsCollection;
@@ -19,10 +19,9 @@ import IEditorDecorationsCollection = editor.IEditorDecorationsCollection;
 @Component({
   selector: "app-submission-pair-view-page",
   imports: [
-    // EditorComponent,
     FormsModule,
     EditorComponent,
-    TitledSurfaceComponent
+    SurfaceComponent
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.css"
@@ -71,7 +70,7 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.decorationCollections.forEach((collection) => collection.set([]));
     this.editors.forEach(editorInstance => {
       console.log("destroy editor");
@@ -84,7 +83,7 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
     this.submissionPair.set(null);
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.pairId.set(params.get("id"));
     });

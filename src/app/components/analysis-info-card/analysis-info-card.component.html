@@ -1,7 +1,7 @@
 <div class="info-card">
   <div class="header">
     <div class="text-frame">
-      <h1 aria-label="Názov analýzy">{{ analysis()!.name ?? "Name not loaded" }}</h1>
+      <h1 aria-label="Názov analýzy">{{ analysis()!.name }}</h1>
       <p>Informácie o analýze</p>
     </div>
     <mat-icon [matTooltip]="supportiveText" aria-label="Viac informacií">info_outlined</mat-icon>
@@ -78,6 +78,5 @@
     </mat-list>
     <mat-divider></mat-divider>
 
-    <app-configuration-options variant="chip"/>
   </mat-list>
 </div>

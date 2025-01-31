@@ -1,5 +1,5 @@
 import {PlagScore} from "./plag-score";
-import {SpecialMarking} from "./special-marking";
+import {SpecialMarking} from "./positioning/special-marking";
 
 export interface SubmissionPair {
   id: string;

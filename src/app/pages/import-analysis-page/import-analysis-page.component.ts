@@ -1,14 +1,16 @@
 import {Component} from "@angular/core";
-import {TitledSurfaceComponent} from "../../components/titled-surface/titled-surface.component";
-import {FileUploadDndComponent} from "../../components/file-upload-dnd/file-upload-dnd.component";
+import {
+  FileUploadDndComponent
+} from "../../components/files/file-upload-dnd/file-upload-dnd.component";
 import {UploadPageBaseComponent} from "../shared/upload-page-base/upload-page-base.component";
 import {PageRoutes} from "../../app.routes";
+import {SurfaceComponent} from "../../components/base/surface/surface.component";
 
 @Component({
   selector: "app-import-analysis-page",
   imports: [
-    TitledSurfaceComponent,
     FileUploadDndComponent,
+    SurfaceComponent,
   ],
   templateUrl: "./import-analysis-page.component.html",
 })
@@ -18,12 +20,12 @@ export class ImportAnalysisPageComponent extends UploadPageBaseComponent {
 
   public subtitle = "Povolený formát je ANALYSIS";
 
-  override onFileUploaded(file: File) {
+  protected override onFileUploaded(file: File) {
     super.onFileUploaded(
       file,
       PageRoutes.ANALYSIS,
       PageRoutes.IMPORT,
-      () => this.analysisContext.getAnalysisImported().set(true)
+      () => this.analysisContext.setAnalysisImported(true)
     );
   }
 
