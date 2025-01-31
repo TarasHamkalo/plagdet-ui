@@ -10,10 +10,12 @@ import {Report} from "../model/report";
 export class AnalysisService {
 
   constructor(private analysisContext: AnalysisContextService,
-              private fileUtils: FileUtilsService) {}
+              private fileUtils: FileUtilsService) {
+  }
 
   public loadReport(): Observable<Report | null> {
-    if (this.analysisContext.getAnalysisImported()) {
+    if (this.analysisContext.getReport()() == null &&
+      this.analysisContext.getAnalysisImported()) {
       return this.loadFromUploadedZip();
     }
     console.log("else"); //TODO: implement

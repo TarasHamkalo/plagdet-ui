@@ -38,9 +38,14 @@
     white-space: nowrap;
     overflow-x: scroll;
     padding-bottom: 4px;
+    scrollbar-width: none; /* Firefox */
   }
 
+  .scrollable-text::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
 }
+
 .cell-width-12 {
   max-width: 12rem;
 }
@@ -59,4 +64,8 @@
 
 .size-50 {
   height: 50vh;
+}
+
+td.meta-warning {
+  background-color: #FFB300;
 }

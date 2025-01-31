@@ -28,6 +28,7 @@ import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {UnixDatePipe} from "../../../pipes/unix-date.pipe";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
+import {CellHighlightDirective} from "../../../directives/cell-highlight.directive";
 
 
 @Component({
@@ -51,7 +52,8 @@ import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
     MatRowDef,
     MatHeaderRowDef,
     MatPaginator,
-    MinutesTimePipe
+    MinutesTimePipe,
+    CellHighlightDirective
   ],
   templateUrl: "./metadata-table.component.html",
   styleUrls: ["./metadata-table.component.css", "../shared/base-table.scss"],
@@ -64,8 +66,6 @@ export class MetadataTableComponent implements AfterViewInit {
   ];
 
   protected submissionsDataSource = new MatTableDataSource<Submission>();
-
-  public static readonly DATE_DEVIATION_SECONDS = 30 * 24 * 60 * 60 * 1000;
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -81,10 +81,8 @@ export class MetadataTableComponent implements AfterViewInit {
 
   constructor(private analysisContext: AnalysisContextService) {
     effect(() => {
-      const data = [...this.analysisContext.getReport()()!.submissions.values()]
+      this.submissionsDataSource.data = [...this.analysisContext.getReport()()!.submissions.values()]
         .filter(s => !s.indexed);
-      this.calculateAverages(data);
-      this.submissionsDataSource.data = data;
     });
   }
 
@@ -92,69 +90,6 @@ export class MetadataTableComponent implements AfterViewInit {
     this.submissionsDataSource.sort = this.sort;
     this.submissionsDataSource.paginator = this.matPaginator;
     this.submissionsDataSource.filterPredicate = this.rowsFilter.bind(this);
-  }
-
-  private calculateAverages(data: Submission[]) {
-    this.avgEditTime = this.calculateAvg(data.map(e => e.metadata.totalEditTime));
-    const creationDateFiltered = data
-      .filter(e => e.metadata.creationDate !== undefined)
-      .map(e => e.metadata.creationDate!);
-
-    const modificationDateFiltered = data
-      .filter(e => e.metadata.modificationDate !== undefined)
-      .map(e => e.metadata.modificationDate!);
-    this.avgDateCreated = this.calculateAvgFromModeYearDate(creationDateFiltered);
-    console.log(new Date(this.avgDateCreated));
-    this.avgModificationDate = this.calculateAvgFromModeYearDate(modificationDateFiltered);
-    console.log(new Date(this.avgModificationDate ));
-  }
-
-  private calculateAvg(arr: number[]) {
-    return arr.length > 0 ? (arr.reduce((s: number, e: number) => s + e) / arr.length) : 0;
-  }
-
-  private calculateAvgFromModeYearDate(dates: number[]) {
-    const yearMode = this.findYearMode(dates);
-    return this.calculateAvg(dates.filter(e => new Date(e).getFullYear() == yearMode));
-  }
-
-  private findYearMode(dates: number[]) {
-    const yearCounts: Record<number, number> = {};
-    dates.forEach(e => {
-      const year = new Date(e).getFullYear();
-      yearCounts[year] = (yearCounts[year] || 0) + 1;
-    });
-
-    let mostFrequentYear: number | null = null;
-    let maxCount = 0;
-    for (const year in yearCounts) {
-      if (yearCounts[year] > maxCount) {
-        mostFrequentYear = parseInt(year);
-        maxCount = yearCounts[year];
-      }
-    }
-    return mostFrequentYear;
-  }
-
-  protected isBelowAvgEditTime(element: Submission): boolean {
-    return element.metadata.totalEditTime < this.avgEditTime;
-  }
-
-  protected isDateDeviating(
-    element: Submission,
-    dateField: "modificationDate" | "creationDate"
-  ): boolean {
-    console.log(element.submitter, element.metadata);
-    const dateValue = element.metadata[dateField]!;
-    if (!dateValue) {
-      return true;
-    }
-
-    const avg = dateField == "modificationDate" ?
-      this.avgModificationDate : this.avgModificationDate;
-
-    const deviationRange = MetadataTableComponent.DATE_DEVIATION_SECONDS;
-    return Math.abs(dateValue - avg) > deviationRange;
   }
 
   protected rowsFilter(data: Submission, filter: string): boolean {
