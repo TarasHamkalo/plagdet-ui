@@ -34,7 +34,9 @@ export class AnalysisInfoCardComponent {
   constructor(private analysisContext: AnalysisContextService) {
     effect(() => {
       const report = this.analysisContext.getReport()();
-      this.analysis.set(report!.overview);
+      if (report) {
+        this.analysis.set(report!.overview);
+      }
     });
   }
 

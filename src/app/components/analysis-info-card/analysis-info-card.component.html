@@ -1,7 +1,7 @@
 <div class="info-card">
   <div class="header">
     <div class="text-frame">
-      <h1 aria-label="Názov analýzy">{{ analysis()!.name }}</h1>
+      <h1 aria-label="Názov analýzy">{{ analysis()?.name }}</h1>
       <p>Informácie o analýze</p>
     </div>
     <mat-icon [matTooltip]="supportiveText" aria-label="Viac informacií">info_outlined</mat-icon>
@@ -16,7 +16,7 @@
                   aria-label="Názov analyzovaného súboru"
                   svgIcon="file-search-outline"
                   matListItemIcon></mat-icon>
-        <p matListItemTitle>{{ analysis()!.analyzedFileName }}</p>
+        <p matListItemTitle>{{ analysis()?.analyzedFileName }}</p>
       </mat-list-item>
 
       <mat-list-item>
@@ -26,7 +26,7 @@
                   matListItemIcon>
           date_range
         </mat-icon>
-        <p matListItemTitle>{{ analysis()!.dateAnalyzed | date }}</p>
+        <p matListItemTitle>{{ analysis()?.dateAnalyzed | date }}</p>
       </mat-list-item>
 
       <mat-list-item>
@@ -35,7 +35,7 @@
                   aria-label="Počet vykonaných porovnaní"
                   svgIcon="compare-horizontal"
                   matListItemIcon></mat-icon>
-        <p matListItemTitle>{{ analysis()!.numberOfComparisons | number }}</p>
+        <p matListItemTitle>{{ analysis()?.numberOfComparisons | number }}</p>
       </mat-list-item>
 
     </mat-list>
@@ -50,7 +50,7 @@
                     aria-label="Zobraziť súbory formatu docx">
             DOCX
           </mat-chip>
-          <p>{{ analysis()!.docxFiles }} súborov</p>
+          <p>{{ analysis()?.docxFiles }} súborov</p>
         </div>
       </mat-list-item>
 
@@ -61,7 +61,7 @@
                     aria-label="Zobraziť súbory formatu doc">
             DOC
           </mat-chip>
-          <p>{{ analysis()!.docFiles }} súborov</p>
+          <p>{{ analysis()?.docFiles }} súborov</p>
         </div>
       </mat-list-item>
 
