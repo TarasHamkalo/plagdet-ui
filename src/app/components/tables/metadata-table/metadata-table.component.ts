@@ -27,6 +27,7 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {UnixDatePipe} from "../../../pipes/unix-date.pipe";
+import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
 
 
 @Component({
@@ -49,7 +50,8 @@ import {UnixDatePipe} from "../../../pipes/unix-date.pipe";
     MatRow,
     MatRowDef,
     MatHeaderRowDef,
-    MatPaginator
+    MatPaginator,
+    MinutesTimePipe
   ],
   templateUrl: "./metadata-table.component.html",
   styleUrls: ["./metadata-table.component.css", "../shared/base-table.scss"],
@@ -63,16 +65,26 @@ export class MetadataTableComponent implements AfterViewInit {
 
   protected submissionsDataSource = new MatTableDataSource<Submission>();
 
+  public static readonly DATE_DEVIATION_SECONDS = 30 * 24 * 60 * 60 * 1000;
+
   @ViewChild(MatSort) sort!: MatSort;
 
   @ViewChild(MatPaginator) matPaginator!: MatPaginator;
 
   protected searchText = signal<string>("");
 
+  private avgEditTime = 0;
+
+  private avgDateCreated = 0; // unix timestamp
+
+  private avgModificationDate = 0;
+
   constructor(private analysisContext: AnalysisContextService) {
     effect(() => {
-      this.submissionsDataSource.data = [...this.analysisContext.getReport()()!.submissions.values()]
+      const data = [...this.analysisContext.getReport()()!.submissions.values()]
         .filter(s => !s.indexed);
+      this.calculateAverages(data);
+      this.submissionsDataSource.data = data;
     });
   }
 
@@ -82,8 +94,70 @@ export class MetadataTableComponent implements AfterViewInit {
     this.submissionsDataSource.filterPredicate = this.rowsFilter.bind(this);
   }
 
+  private calculateAverages(data: Submission[]) {
+    this.avgEditTime = this.calculateAvg(data.map(e => e.metadata.totalEditTime));
+    const creationDateFiltered = data
+      .filter(e => e.metadata.creationDate !== undefined)
+      .map(e => e.metadata.creationDate!);
+
+    const modificationDateFiltered = data
+      .filter(e => e.metadata.modificationDate !== undefined)
+      .map(e => e.metadata.modificationDate!);
+    this.avgDateCreated = this.calculateAvgFromModeYearDate(creationDateFiltered);
+    console.log(new Date(this.avgDateCreated));
+    this.avgModificationDate = this.calculateAvgFromModeYearDate(modificationDateFiltered);
+    console.log(new Date(this.avgModificationDate ));
+  }
+
+  private calculateAvg(arr: number[]) {
+    return arr.length > 0 ? (arr.reduce((s: number, e: number) => s + e) / arr.length) : 0;
+  }
+
+  private calculateAvgFromModeYearDate(dates: number[]) {
+    const yearMode = this.findYearMode(dates);
+    return this.calculateAvg(dates.filter(e => new Date(e).getFullYear() == yearMode));
+  }
+
+  private findYearMode(dates: number[]) {
+    const yearCounts: Record<number, number> = {};
+    dates.forEach(e => {
+      const year = new Date(e).getFullYear();
+      yearCounts[year] = (yearCounts[year] || 0) + 1;
+    });
+
+    let mostFrequentYear: number | null = null;
+    let maxCount = 0;
+    for (const year in yearCounts) {
+      if (yearCounts[year] > maxCount) {
+        mostFrequentYear = parseInt(year);
+        maxCount = yearCounts[year];
+      }
+    }
+    return mostFrequentYear;
+  }
+
+  protected isBelowAvgEditTime(element: Submission): boolean {
+    return element.metadata.totalEditTime < this.avgEditTime;
+  }
+
+  protected isDateDeviating(
+    element: Submission,
+    dateField: "modificationDate" | "creationDate"
+  ): boolean {
+    console.log(element.submitter, element.metadata);
+    const dateValue = element.metadata[dateField]!;
+    if (!dateValue) {
+      return true;
+    }
+
+    const avg = dateField == "modificationDate" ?
+      this.avgModificationDate : this.avgModificationDate;
+
+    const deviationRange = MetadataTableComponent.DATE_DEVIATION_SECONDS;
+    return Math.abs(dateValue - avg) > deviationRange;
+  }
+
   protected rowsFilter(data: Submission, filter: string): boolean {
-    console.log(filter);
     const hasSubmitter = data.submitter.toLowerCase().includes(filter);
     const hasCreator = data.metadata.creator?.toLowerCase().includes(filter);
     const hasModifier = data.metadata.modifier?.toLowerCase().includes(filter);
@@ -110,7 +184,6 @@ export class MetadataTableComponent implements AfterViewInit {
   private compareSubmissions(a: Submission, b: Submission, sort: Sort) {
     const valueA = this.getSortValue(a, sort.active);
     const valueB = this.getSortValue(b, sort.active);
-    console.log(valueA, valueB);
     const mul = sort.direction === "asc" ? 1 : -1;
     if (valueA == null && valueB == null) return 0;
     if (valueA == null) return 1;

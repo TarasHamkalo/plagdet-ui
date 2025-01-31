@@ -60,10 +60,11 @@
 
     <ng-container matColumnDef="totalEditTime">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="totalEditTime">
-        Čas úpravy (min)
+        Čas úpravy
       </th>
-      <td mat-cell *matCellDef="let element">
-          {{ element.metadata.totalEditTime }}
+      <td mat-cell *matCellDef="let element"
+          [class.warning]="isBelowAvgEditTime(element)">
+        {{ element.metadata.totalEditTime | minutesTime }}
       </td>
     </ng-container>
 
@@ -71,7 +72,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="creationDate">
         Dátum vytvorenia
       </th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element"
+          [class.warning]="isDateDeviating(element, 'creationDate')">
         {{ element.metadata.creationDate ? (element.metadata.creationDate | unixDate) : 'Neznáme' }}
       </td>
     </ng-container>
@@ -80,8 +82,9 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="modificationDate">
         Dátum úpravy
       </th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.metadata.modificationDate ? (element.metadata.creationDate | unixDate) : 'Neznáme' }}
+      <td mat-cell *matCellDef="let element"
+          [class.warning]="isDateDeviating(element, 'modificationDate')">
+        {{ element.metadata.modificationDate ? (element.metadata.modificationDate | unixDate) : 'Neznáme' }}
       </td>
     </ng-container>
 

@@ -39,9 +39,9 @@
 
     <ng-container matColumnDef="totalEditTime">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="totalEditTime">
-        Čas úpravy (min)
+        Čas úpravy
       </th>
-      <td mat-cell *matCellDef="let element"> {{ element.metadata.totalEditTime }}</td>
+      <td mat-cell *matCellDef="let element"> {{ element.metadata.totalEditTime | minutesTime }}</td>
     </ng-container>
 
     <ng-container matColumnDef="maxSimilarity">

@@ -6,8 +6,12 @@
   max-width: 7rem;
 }
 
-td.mat-column-totalEditTime {
-  text-align: right;
-  overflow: hidden;
-  white-space: nowrap;
+/*td.mat-column-totalEditTime {*/
+/*  text-align: right;*/
+/*  overflow: hidden;*/
+/*  white-space: nowrap;*/
+/*}*/
+
+td.warning {
+  background-color: #FFB300;
 }

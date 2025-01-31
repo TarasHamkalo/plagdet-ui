@@ -1,9 +1,9 @@
 export interface Metadata {
   creator?: string;
-  creationDate?: Date;
+  creationDate?: number;
   modifier?: string;
-  modificationDate?: Date;
+  modificationDate?: number;
   totalEditTime: number;
   revisionsNumber: number;
-  lastPrinted?: Date;
+  lastPrinted?: number;
 }

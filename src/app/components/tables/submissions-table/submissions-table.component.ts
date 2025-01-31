@@ -24,6 +24,7 @@ import {MatFormField, MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatLabel} from "@angular/material/form-field";
 import {NgIf} from "@angular/common";
+import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
 
 @Component({
   selector: "app-submissions-table",
@@ -47,6 +48,7 @@ import {NgIf} from "@angular/common";
     MatFormField,
     FormsModule,
     NgIf,
+    MinutesTimePipe,
   ],
   templateUrl: "./submissions-table.component.html",
   styleUrls: ["./submissions-table.component.css", "../shared/base-table.scss"],

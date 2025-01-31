@@ -2,13 +2,11 @@
   max-width: 8rem;
 }
 
-.mat-column-maxSimilarity,
-.mat-column-totalEditTime {
+.mat-column-maxSimilarity {
   max-width: 5rem;
 }
 
-td.mat-column-maxSimilarity,
-td.mat-column-totalEditTime {
+td.mat-column-maxSimilarity {
   text-align: right;
 }
 
