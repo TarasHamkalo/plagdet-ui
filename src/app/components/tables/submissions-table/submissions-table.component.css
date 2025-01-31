@@ -1,0 +1,18 @@
+.mat-column-filename {
+  max-width: 8rem;
+}
+
+.mat-column-maxSimilarity,
+.mat-column-totalEditTime {
+  max-width: 5rem;
+}
+
+td.mat-column-maxSimilarity,
+td.mat-column-totalEditTime {
+  text-align: right;
+}
+
+td.mat-column-moreButton {
+  text-align: center
+}
+

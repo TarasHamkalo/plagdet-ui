@@ -4,7 +4,7 @@ import {
   effect,
   Input,
   signal,
-  ViewChild
+  ViewChild, ViewEncapsulation
 } from "@angular/core";
 import {
   MatCell, MatCellDef,
@@ -49,7 +49,9 @@ import {NgIf} from "@angular/common";
     NgIf,
   ],
   templateUrl: "./submissions-table.component.html",
-  styleUrls: ["./submissions-table.component.css", "../shared/base-table.scss"]
+  styleUrls: ["./submissions-table.component.css", "../shared/base-table.scss"],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class SubmissionsTableComponent implements AfterViewInit {
 

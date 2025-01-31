@@ -1,0 +1,12 @@
+.mat-column-similarity {
+  max-width: 5rem;
+}
+
+.mat-column-similarity {
+  text-align: center;
+}
+
+.mat-column-firstDocumentName,
+.mat-column-secondDocumentName {
+  max-width: 5rem;
+}

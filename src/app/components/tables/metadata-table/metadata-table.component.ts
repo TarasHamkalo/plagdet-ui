@@ -1,4 +1,11 @@
-import {AfterViewInit, Component, effect, signal, ViewChild} from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  effect,
+  signal,
+  ViewChild,
+  ViewEncapsulation
+} from "@angular/core";
 import {
   MatCell,
   MatCellDef,
@@ -45,7 +52,8 @@ import {UnixDatePipe} from "../../../pipes/unix-date.pipe";
     MatPaginator
   ],
   templateUrl: "./metadata-table.component.html",
-  styleUrl: "./metadata-table.component.css"
+  styleUrls: ["./metadata-table.component.css", "../shared/base-table.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class MetadataTableComponent implements AfterViewInit {
 
@@ -71,14 +79,22 @@ export class MetadataTableComponent implements AfterViewInit {
   public ngAfterViewInit() {
     this.submissionsDataSource.sort = this.sort;
     this.submissionsDataSource.paginator = this.matPaginator;
+    this.submissionsDataSource.filterPredicate = this.rowsFilter.bind(this);
+  }
+
+  protected rowsFilter(data: Submission, filter: string): boolean {
+    console.log(filter);
+    const hasSubmitter = data.submitter.toLowerCase().includes(filter);
+    const hasCreator = data.metadata.creator?.toLowerCase().includes(filter);
+    const hasModifier = data.metadata.modifier?.toLowerCase().includes(filter);
+    return hasCreator || hasModifier || hasSubmitter;
   }
 
   protected onSorting(sort: Sort) {
     if (sort.active in ["filename", "submitter"]) {
       return;
     }
-
-    this.submissionsDataSource.data.sort((a, b) => this.compareSubmissions(a, b, sort));
+    this.submissionsDataSource.filteredData.sort((a, b) => this.compareSubmissions(a, b, sort));
   }
 
   protected applyFilter(filter: string) {
@@ -94,10 +110,11 @@ export class MetadataTableComponent implements AfterViewInit {
   private compareSubmissions(a: Submission, b: Submission, sort: Sort) {
     const valueA = this.getSortValue(a, sort.active);
     const valueB = this.getSortValue(b, sort.active);
+    console.log(valueA, valueB);
     const mul = sort.direction === "asc" ? 1 : -1;
     if (valueA == null && valueB == null) return 0;
-    if (valueA == null) return -1;
-    if (valueB == null) return 1;
+    if (valueA == null) return 1;
+    if (valueB == null) return -1;
 
     // Compare values (handle both strings and numbers)
     if (typeof valueA === "string" && typeof valueB === "string") {

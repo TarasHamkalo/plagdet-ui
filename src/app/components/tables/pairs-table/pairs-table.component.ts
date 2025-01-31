@@ -1,4 +1,12 @@
-import {AfterViewInit, Component, effect, Input, signal, ViewChild} from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  effect,
+  Input,
+  signal,
+  ViewChild,
+  ViewEncapsulation
+} from "@angular/core";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
@@ -51,7 +59,8 @@ import {AnalysisContextService} from "../../../context/analysis-context.service"
 
   ],
   templateUrl: "./pairs-table.component.html",
-  styleUrl: "../shared/base-table.scss"
+  styleUrls: ["./pairs-table.component.css", "../shared/base-table.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class PairsTableComponent implements AfterViewInit {
 

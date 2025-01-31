@@ -15,14 +15,26 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="submitter">
         Odovzdávateľ
       </th>
-      <td mat-cell *matCellDef="let element"> {{ element.submitter }}</td>
+      <td mat-cell *matCellDef="let element">
+
+        <div class="scrollable-text">
+          {{ element.submitter }}
+        </div>
+
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="filename">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="filename">
         Názov súboru
       </th>
-      <td mat-cell *matCellDef="let element"> {{ element.filename }}</td>
+      <td mat-cell *matCellDef="let element">
+
+        <div class="scrollable-text">
+          {{ element.filename }}
+        </div>
+
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="totalEditTime">

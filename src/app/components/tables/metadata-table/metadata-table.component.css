@@ -1,0 +1,13 @@
+.mat-column-filename {
+  max-width: 12rem;
+}
+
+.mat-column-totalEditTime  {
+  max-width: 7rem;
+}
+
+td.mat-column-totalEditTime {
+  text-align: right;
+  overflow: hidden;
+  white-space: nowrap;
+}

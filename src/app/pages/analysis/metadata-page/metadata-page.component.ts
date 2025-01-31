@@ -4,13 +4,17 @@ import {SurfaceComponent} from "../../../components/base/surface/surface.compone
 import {
   MetadataTableComponent
 } from "../../../components/tables/metadata-table/metadata-table.component";
+import {
+  ContentContainerComponent
+} from "../../../components/base/content-container/content-container.component";
 
 @Component({
   selector: "app-metadata-page",
   imports: [
     FormsModule,
     SurfaceComponent,
-    MetadataTableComponent
+    MetadataTableComponent,
+    ContentContainerComponent
   ],
   templateUrl: "./metadata-page.component.html",
   styleUrl: "./metadata-page.component.css"
