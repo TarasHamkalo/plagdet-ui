@@ -20,10 +20,10 @@ import {MatButton} from "@angular/material/button";
 import {MatPaginator} from "@angular/material/paginator";
 import {DecimalPipe} from "@angular/common";
 import {Router} from "@angular/router";
-import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {Submission} from "../../../model/submission";
 import {PageRoutes} from "../../../app.routes";
+import {AnalysisContextService} from "../../../context/analysis-context.service";
 
 
 @Component({
@@ -48,9 +48,10 @@ import {PageRoutes} from "../../../app.routes";
     MatHeaderCellDef,
     MatHeaderRowDef,
     MatRowDef,
+
   ],
   templateUrl: "./pairs-table.component.html",
-  styleUrl: "./pairs-table.component.css"
+  styleUrl: "./pairs-table.component.scss"
 })
 export class PairsTableComponent implements AfterViewInit {
 
@@ -58,7 +59,7 @@ export class PairsTableComponent implements AfterViewInit {
     "firstDocumentName", "secondDocumentName", "similarity", "moreButton"
   ];
 
-  @Input() public isTableLoaded = signal<boolean>(false);
+  @Input() public pairsSource = signal<SubmissionPair[]>([]);
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -73,9 +74,8 @@ export class PairsTableComponent implements AfterViewInit {
     private router: Router
   ) {
     effect(() => {
-      this.pairsDataSource.data = [...this.analysisContext.getReport()()!.pairs!.values()]
+      this.pairsDataSource.data = this.pairsSource()
         .sort((a, b) => this.getMaxScore(b) - this.getMaxScore(a));
-      this.isTableLoaded.set(true);
     });
   }
 

@@ -1,10 +1,8 @@
-<div class="table-container">
-
-  <mat-form-field appearance="outline" class="search-bar">
-    <mat-label>Hľadať</mat-label>
-    <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
-  </mat-form-field>
-
+<mat-form-field appearance="outline" class="search-bar">
+  <mat-label>Hľadať</mat-label>
+  <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
+</mat-form-field>
+<div class="table-responsive">
   <table [dataSource]="pairsDataSource!"
          (matSortChange)="onSorting($event)"
          mat-table
@@ -51,16 +49,16 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="pairsDisplayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="pairsDisplayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: pairsDisplayedColumns;"></tr>
 
   </table>
 
-
-  <mat-paginator
-    [length]="this.pairsDataSource.data.length"
-    [pageSize]="20"
-    [pageSizeOptions]="[10, 20, 30, 40]">
-  </mat-paginator>
-
 </div>
+
+<mat-paginator #paginator
+               [length]="this.pairsDataSource.data.length"
+               [pageSize]="20"
+               [pageSizeOptions]="[10, 20, 30, 40]">
+</mat-paginator>
+
