@@ -51,7 +51,7 @@ import {AnalysisContextService} from "../../../context/analysis-context.service"
 
   ],
   templateUrl: "./pairs-table.component.html",
-  styleUrl: "./pairs-table.component.scss"
+  styleUrl: "../shared/base-table.scss"
 })
 export class PairsTableComponent implements AfterViewInit {
 
@@ -80,15 +80,17 @@ export class PairsTableComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    this.pairsDataSource.sort = this.sort;
     this.pairsDataSource.paginator = this.matPaginator;
-    this.pairsDataSource.filterPredicate = (data: SubmissionPair, filter: string) => {
-      console.log(filter);
-      const submission = this.getSubmissionById(data.firstId);
-      console.log(submission);
-      return submission!.submitter.toLowerCase().includes(filter);
-    };
+    this.pairsDataSource.filterPredicate = this.rowsFilter.bind(this);
+    this.pairsDataSource.sort = this.sort;
+  }
 
+  protected rowsFilter(data: SubmissionPair, filter: string): boolean {
+    console.log(filter);
+    const first = this.getSubmissionById(data.firstId);
+    const second = this.getSubmissionById(data.secondId);
+    return first.submitter.toLowerCase().includes(filter) ||
+      second.submitter.toLowerCase().includes(filter);
   }
 
   protected getSubmissionById(id: number): Submission {
@@ -96,24 +98,25 @@ export class PairsTableComponent implements AfterViewInit {
   }
 
   public onSorting(sort: Sort) {
+    console.log(sort);
     const mul = sort.direction === "asc" ? 1 : -1;
     switch (sort.active) {
       case "first": {
-        this.pairsDataSource.data.sort((a, b) =>
+        this.pairsDataSource.filteredData.sort((a, b) =>
           this.getSubmissionById(a.firstId)!.submitter
             .localeCompare(this.getSubmissionById(b.firstId).submitter) * mul
         );
         break;
       }
       case "second": {
-        this.pairsDataSource.data.sort((a, b) =>
+        this.pairsDataSource.filteredData.sort((a, b) =>
           this.getSubmissionById(a.secondId)!.submitter
             .localeCompare(this.getSubmissionById(b.secondId).submitter) * mul
         );
         break;
       }
       case "similarity": {
-        this.pairsDataSource.data.sort((a, b) =>
+        this.pairsDataSource.filteredData.sort((a, b) =>
           (this.getMaxScore(a) - this.getMaxScore(b)) * mul
         );
         break;
@@ -123,7 +126,7 @@ export class PairsTableComponent implements AfterViewInit {
 
   protected onLoadPair(element: SubmissionPair): void {
     console.log("Load pair:", element);
-    this.router.navigate([PageRoutes.PAIR, element.id]) ;
+    this.router.navigate([PageRoutes.PAIR, element.id]);
   }
 
   protected applyFilter(filter: string) {
