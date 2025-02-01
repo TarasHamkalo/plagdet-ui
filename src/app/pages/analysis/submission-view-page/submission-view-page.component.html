@@ -9,9 +9,20 @@
       <app-submission-info-card [submission]="this.submission()!"></app-submission-info-card>
       <app-pairs-table [pairsSource]="this.pairsSource" [isHalfPage]="true"></app-pairs-table>
     </app-surface>
+
+    <app-surface title="Obsah odovzdania"
+                 subtitle=""
+                 [isTitleCentered]="true"
+                 [isContentCentered]="false">
+      <app-text-editor [submission]="this.submission()!"
+                       [markingSide]="0">
+      </app-text-editor>
+    </app-surface>
+
   } @else {
     <app-surface title="Načítanie odovzdania" subtitle="">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </app-surface>
   }
+
 </app-content-container>

@@ -1,7 +1,6 @@
-import {Component, computed, effect, OnInit, signal} from "@angular/core";
+import {Component, computed, OnInit, signal} from "@angular/core";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Submission} from "../../../model/submission";
 import {PageRoutes} from "../../../app.routes";
 import {
   ContentContainerComponent
@@ -13,6 +12,8 @@ import {SurfaceComponent} from "../../../components/base/surface/surface.compone
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {PairsTableComponent} from "../../../components/tables/pairs-table/pairs-table.component";
 import {SubmissionPair} from "../../../model/submission-pair";
+import {FormsModule} from "@angular/forms";
+import {TextEditorComponent} from "../../../components/text-editor/text-editor.component";
 
 @Component({
   selector: "app-submission-view-page",
@@ -22,6 +23,8 @@ import {SubmissionPair} from "../../../model/submission-pair";
     SurfaceComponent,
     MatProgressBar,
     PairsTableComponent,
+    FormsModule,
+    TextEditorComponent,
 
   ],
   templateUrl: "./submission-view-page.component.html",
@@ -74,4 +77,5 @@ export class SubmissionViewPageComponent implements OnInit {
       }
     });
   }
+
 }
