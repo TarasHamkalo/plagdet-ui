@@ -1,7 +1,8 @@
 .content {
   display: flex;
 
-  height: 100%;
+  height: fit-content;
+  /*height: 100%;*/
 
   flex-direction: column;
   flex-grow: 1;
@@ -9,7 +10,7 @@
   padding-top: calc(64px + 12px);
   padding-left: 6rem;
   padding-right: 6rem;
-
+  padding-bottom: 5rem;
   gap: 2rem;
 }
 
