@@ -1,18 +1,22 @@
-<app-surface title="Comparison" subtitle="">
+<app-content-container>
 
-  <div class="editor-container">
-    <ngx-monaco-editor
-      [options]="editorOptions"
-      [ngModel]="this.first()?.content"
-      class="editor"
-      (onInit)="this.initEditor($event,this.first()?.content,0)">
-    </ngx-monaco-editor>
-    <ngx-monaco-editor
-      [options]="editorOptions"
-      [ngModel]="this.second()?.content"
-      class="editor"
-      (onInit)="this.initEditor($event, this.second()?.content, 1)">
-    </ngx-monaco-editor>
-  </div>
+  <app-surface title="Comparison"
+               subtitle=""
+               [isContentCentered]="false"
+               [isTitleCentered]="true">
 
-</app-surface>
+    <div class="editor-container">
+      <app-text-editor [submission]="this.first"
+                       [plagCases]="this.plagCases"
+                       [markingSide]="0"
+      ></app-text-editor>
+      <app-text-editor [submission]="this.second"
+                       [plagCases]="this.plagCases"
+                       [markingSide]="1"
+      ></app-text-editor>
+
+    </div>
+
+  </app-surface>
+
+</app-content-container>

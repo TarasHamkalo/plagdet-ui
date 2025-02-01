@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy} from "@angular/core";
+import {Component, effect, Input, OnDestroy, signal, Signal} from "@angular/core";
 import {EditorComponent} from "ngx-monaco-editor-v2";
 import {editor} from "monaco-editor";
 import {Submission} from "../../model/submission";
@@ -31,47 +31,56 @@ export class TextEditorComponent implements OnDestroy {
     wordWrapBreakAfterCharacters: " \t})"
   };
 
-  protected editor: IStandaloneCodeEditor | null = null;
+  protected editor = signal<IStandaloneCodeEditor | null>(null);
 
-  @Input({required: true}) public submission!: Submission;
+  @Input({required: true}) public submission!: Signal<Submission | null>;
 
   @Input({required: true}) public markingSide!: 0 | 1;
 
-  @Input({required: false}) public plagCases: SpecialMarking[] | null = null;
+  @Input({required: false}) public plagCases: Signal<SpecialMarking[] | null> | null = null;
 
   constructor(private monacoDecorationService: MonacoDecorationService) {
+    effect(() => {
+      if (!this.editor() || !this.submission()) {
+        return;
+      }
+
+      const decorations = this.createDecorations();
+      timer(100)
+        .pipe(
+          first(),
+          switchMap(() => of(decorations))
+        )
+        .subscribe((decorations) => {
+          this.editor()?.createDecorationsCollection(decorations);
+        });
+    });
+  }
+
+  private createDecorations(): IModelDeltaDecoration[] {
+    const decorations: IModelDeltaDecoration[] = [];
+    const plagCases = this.plagCases ? this.plagCases() : null;
+    if (plagCases) {
+      decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
+        this.editor()!, plagCases, this.markingSide
+      ));
+    }
+    decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
+      this.editor()!, this.submission()!.markings, 0
+    ));
+    return decorations;
   }
 
   protected initEditor(editor: IStandaloneCodeEditor) {
-    if (!this.editor) {
-      this.editor = editor;
-      timer(100, 100)
-        .pipe(
-          first(),
-          switchMap(() => {
-            const decorations: IModelDeltaDecoration[] = [];
-            if (this.plagCases) {
-              decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
-                this.editor!, this.plagCases, this.markingSide
-              ));
-            }
-
-            decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
-              this.editor!, this.submission.markings, this.markingSide
-            ));
-
-            return of(decorations);
-          })
-        )
-        .subscribe((decorations) => {
-          this.editor?.createDecorationsCollection(decorations);
-        });
+    if (!this.editor()) {
+      this.editor.set(editor);
     }
   }
 
   public ngOnDestroy(): void {
-    if (this.editor) {
-      this.editor.dispose();
+    const editor = this.editor();
+    if (editor) {
+      editor.dispose();
     }
   }
 }

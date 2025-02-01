@@ -1,6 +1,6 @@
 <ngx-monaco-editor
   [options]="editorOptions"
-  [ngModel]="submission.content"
+  [ngModel]="submission()?.content"
   class="editor"
   (onInit)="this.initEditor($event)">
 </ngx-monaco-editor>

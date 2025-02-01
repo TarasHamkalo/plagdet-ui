@@ -12,7 +12,7 @@ import {editor, Range} from "monaco-editor";
 export class MonacoDecorationService {
 
   public readonly markingTypeToDecorationOptions: Record<string, editor.IModelDecorationOptions> = {
-    "PLUG": {
+    "PLAG": {
       inlineClassName: "highlight-plag",
       hoverMessage: {value: "Plagiarized fragment"}
     },

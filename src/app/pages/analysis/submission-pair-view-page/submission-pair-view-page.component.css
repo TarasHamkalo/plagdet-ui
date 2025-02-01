@@ -1,14 +1,14 @@
 .editor-container {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  gap: 0.5rem;
-  height: 80vh;
+  height: 70vh;
+  gap: 1rem;
 }
 
-.editor {
-  flex: 1;
+app-text-editor {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
   height: 100%;
-  border: 1px solid #ccc;
 }
 
