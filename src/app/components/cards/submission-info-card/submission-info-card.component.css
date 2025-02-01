@@ -16,11 +16,26 @@ mat-card {
 
 .card-group {
   display: flex;
+
+  max-width: calc(2 * 350px);
+  min-width: calc(2 * 150px);
+
+  flex-direction: column;
+  padding: 16px;
+  gap: 24px;
+
+  border-radius: var(--mat-sys-corner-extra-large);
+  background-color: var(--mat-sys-surface-container-high);
+}
+
+.card-flex-box {
+  display: flex;
   max-width: calc(2 * 350px);
   min-width: calc(2 * 150px);
 
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+
   gap: 16px;
 }

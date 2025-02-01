@@ -23,7 +23,7 @@ import {AnalysisContextService} from "../../../context/analysis-context.service"
     MatTooltip,
   ],
   templateUrl: "./analysis-info-card.component.html",
-  styleUrl: "./analysis-info-card.component.scss"
+  styleUrls: ["../shared/card-base.scss", "./analysis-info-card.component.scss"]
 })
 export class AnalysisInfoCardComponent {
 

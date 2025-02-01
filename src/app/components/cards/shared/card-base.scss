@@ -15,8 +15,58 @@ p {
 }
 
 h3 {
-  font: var(--mat-sys-title-large-size);
+  font: var(--mat-sys-title-small);
   color: var(--mat-sys-on-surface);
   margin: 0;
 }
 
+h1 {
+  font: var(--mat-sys-title-large);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
+
+.text-frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: start;
+}
+
+.text-center {
+  align-items: center;
+}
+
+.text-frame h1 {
+  font: var(--mat-sys-title-large);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
+
+.text-frame p {
+  font: var(--mat-sys-body-medium);
+  color: var(--mat-sys-on-surface-variant);
+  margin: 0;
+}
+
+.header-with-actions {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center; /* Vertically center */
+  justify-content: space-between; /* Push items apart */
+}
+
+.header-with-actions button {
+  justify-self: end;
+}
+
+.header-with-actions h1 {
+  flex-grow: 1;
+  text-align: center;
+  margin: 0;
+}
+
+.header-with-actions button {
+  margin-left: auto;
+}

@@ -1,6 +1,9 @@
 <app-content-container>
   @if (this.submission() !== null) {
-    <app-surface title="Informacie o odovzdaní" subtitle="">
+    <app-surface title="Informacie o odovzdaní"
+                 subtitle=""
+                 [isTitleCentered]="true"
+                 [isContentCentered]="false">
       <app-submission-info-card [submission]="this.submission()!"></app-submission-info-card>
     </app-surface>
   } @else {

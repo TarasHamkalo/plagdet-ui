@@ -25,27 +25,6 @@
   gap: 8px;
 }
 
-.text-frame {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.text-frame h1 {
-  font: var(--mat-sys-title-large);
-  color: var(--mat-sys-on-surface);
-  align-self: stretch;
-  margin: 0;
-}
-
-.text-frame p {
-  font: var(--mat-sys-body-medium);
-  color: var(--mat-sys-on-surface-variant);
-  align-self: stretch;
-  margin: 0;
-}
-
 .info-groups {
   width: 100%;
 }

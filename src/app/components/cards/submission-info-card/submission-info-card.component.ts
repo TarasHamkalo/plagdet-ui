@@ -6,6 +6,7 @@ import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
 import {StatCardComponent} from "../stat-card/stat-card.component";
+import {MatIconButton} from "@angular/material/button";
 
 @Component({
   selector: "app-submission-info-card",
@@ -16,7 +17,8 @@ import {StatCardComponent} from "../stat-card/stat-card.component";
     MatList,
     MatListItem,
     MatIcon,
-    StatCardComponent
+    StatCardComponent,
+    MatIconButton
   ],
   templateUrl: "./submission-info-card.component.html",
   styleUrls: ["../shared/card-base.scss", "./submission-info-card.component.css"]
