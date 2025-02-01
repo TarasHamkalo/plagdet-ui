@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   Component,
   effect,
-  Input,
+  Input, Signal,
   signal,
   ViewChild,
   ViewEncapsulation
@@ -68,7 +68,8 @@ export class PairsTableComponent implements AfterViewInit {
     "firstDocumentName", "secondDocumentName", "similarity", "moreButton"
   ];
 
-  @Input() public pairsSource = signal<SubmissionPair[]>([]);
+  @Input({required: true}) public pairsSource!: Signal<SubmissionPair[]>;
+
 
   @ViewChild(MatSort) sort!: MatSort;
 

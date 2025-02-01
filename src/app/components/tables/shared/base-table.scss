@@ -2,7 +2,7 @@
   display: block;
   width: 100%;
   overflow-x: auto;
-  overflow-y: auto;
+  overflow-y: scroll;
 
   border-bottom: 1px solid var(--mat-sys-outline);
 
@@ -59,11 +59,11 @@
 }
 
 .size-65 {
-  height: 65vh;
+  max-height: 65vh;
 }
 
 .size-50 {
-  height: 50vh;
+  max-height: 50vh;
 }
 
 td.meta-warning {
