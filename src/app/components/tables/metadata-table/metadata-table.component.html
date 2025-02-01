@@ -1,107 +1,109 @@
-<mat-form-field appearance="outline"
-                class="search-bar">
-  <mat-label>Hľadať</mat-label>
-  <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
-</mat-form-field>
+<div class="table-container">
 
-<div class="table-responsive size-65">
+  <mat-form-field class="search-bar">
+    <mat-label>Hľadať</mat-label>
+    <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
+  </mat-form-field>
 
-  <table [dataSource]="this.submissionsDataSource"
-         (matSortChange)="onSorting($event)"
-         class="mat-elevation-z8"
-         mat-table
-         matSort>
+  <div class="table-responsive size-65">
 
-    <ng-container matColumnDef="filename">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="filename">
-        Názov súboru
-      </th>
-      <td mat-cell *matCellDef="let element">
+    <table [dataSource]="this.submissionsDataSource"
+           (matSortChange)="onSorting($event)"
+           class="mat-elevation-z8"
+           mat-table
+           matSort>
 
-        <div class="scrollable-text cell-width-12">
-          {{ element.filename }}
-        </div>
+      <ng-container matColumnDef="filename">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="filename">
+          Názov súboru
+        </th>
+        <td mat-cell *matCellDef="let element">
 
-      </td>
-    </ng-container>
+          <div class="scrollable-text cell-width-12">
+            {{ element.filename }}
+          </div>
 
-    <ng-container matColumnDef="submitter">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="submitter">
-        Odosielateľ
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <div class="scrollable-text cell-width-12">
-          {{ element.submitter }}
-        </div>
-      </td>
-    </ng-container>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="creator">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="creator">
-        Autor
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <div class="scrollable-text cell-width-12">
-          {{ element.metadata.creator ? element.metadata.creator : 'Neznámy' }}
-        </div>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="submitter">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="submitter">
+          Odosielateľ
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="scrollable-text cell-width-12">
+            {{ element.submitter }}
+          </div>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="lastModifiedBy">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="modifier">
-        Naposledy upravil
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <div class="scrollable-text cell-width-12">
-          {{ element.metadata.modifier ? element.metadata.modifier : 'Neznámy' }}
-        </div>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="creator">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="creator">
+          Autor
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="scrollable-text cell-width-12">
+            {{ element.metadata.creator ? element.metadata.creator : 'Neznámy' }}
+          </div>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="totalEditTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="totalEditTime">
-        Čas úpravy
-      </th>
-      <td mat-cell *matCellDef="let element"
-          appCellHighlight
-          [submission]="element"
-          [checkTimeDeviation]="true">
-        {{ element.metadata.totalEditTime | minutesTime }}
+      <ng-container matColumnDef="lastModifiedBy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="modifier">
+          Naposledy upravil
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="scrollable-text cell-width-12">
+            {{ element.metadata.modifier ? element.metadata.modifier : 'Neznámy' }}
+          </div>
+        </td>
+      </ng-container>
 
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="totalEditTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="totalEditTime">
+          Čas úpravy
+        </th>
+        <td mat-cell *matCellDef="let element"
+            appCellHighlight
+            [submission]="element"
+            [checkTimeDeviation]="true">
+          {{ element.metadata.totalEditTime | minutesTime }}
 
-    <ng-container matColumnDef="dateCreated">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="creationDate">
-        Dátum vytvorenia
-      </th>
-      <td mat-cell *matCellDef="let element"
-          appCellHighlight
-          dateField="creationDate"
-          [submission]="element">
-        {{ element.metadata.creationDate ? (element.metadata.creationDate | unixDate) : 'Neznáme' }}
-      </td>
-    </ng-container>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="dateModified">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="modificationDate">
-        Dátum úpravy
-      </th>
-      <td mat-cell *matCellDef="let element"
-          appCellHighlight
-          dateField="modificationDate"
-          [submission]="element">
-        {{ element.metadata.modificationDate ? (element.metadata.modificationDate | unixDate) : 'Neznáme' }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="dateCreated">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="creationDate">
+          Dátum vytvorenia
+        </th>
+        <td mat-cell *matCellDef="let element"
+            appCellHighlight
+            dateField="creationDate"
+            [submission]="element">
+          {{ element.metadata.creationDate ? (element.metadata.creationDate | unixDate) : 'Neznáme' }}
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="pairsDisplayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: pairsDisplayedColumns;"></tr>
+      <ng-container matColumnDef="dateModified">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="modificationDate">
+          Dátum úpravy
+        </th>
+        <td mat-cell *matCellDef="let element"
+            appCellHighlight
+            dateField="modificationDate"
+            [submission]="element">
+          {{ element.metadata.modificationDate ? (element.metadata.modificationDate | unixDate) : 'Neznáme' }}
+        </td>
+      </ng-container>
 
-  </table>
+      <tr mat-header-row *matHeaderRowDef="pairsDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: pairsDisplayedColumns;"></tr>
+
+    </table>
+  </div>
+  <mat-paginator
+    [length]="this.submissionsDataSource.data.length"
+    [pageSize]="20"
+    [pageSizeOptions]="[10, 20, 30, 40]">
+  </mat-paginator>
 </div>
-<mat-paginator
-  [length]="this.submissionsDataSource.data.length"
-  [pageSize]="20"
-  [pageSizeOptions]="[10, 20, 30, 40]">
-</mat-paginator>

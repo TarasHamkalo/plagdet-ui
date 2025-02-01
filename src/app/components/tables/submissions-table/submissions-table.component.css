@@ -11,7 +11,7 @@
 }
 
 td.mat-column-maxSimilarity {
-  text-align: right;
+  text-align: end;
 }
 
 .mat-column-moreButton {
@@ -20,4 +20,8 @@ td.mat-column-maxSimilarity {
 
 td.mat-column-moreButton {
   text-align: center;
+}
+
+th[mat-sort-header="maxSimilarity"] .mat-sort-header-container {
+  justify-content: flex-end;
 }

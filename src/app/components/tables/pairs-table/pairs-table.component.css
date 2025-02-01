@@ -1,9 +1,5 @@
 .mat-column-similarity {
-  width: 10%;
-}
-
-.mat-column-similarity {
-  text-align: end;
+  width: 20%;
 }
 
 .mat-column-firstDocumentName,
@@ -19,3 +15,12 @@
 .mat-column-moreButton {
   text-align: center;
 }
+
+th[mat-sort-header="similarity"] .mat-sort-header-container {
+  justify-content: flex-end;
+}
+
+td.mat-column-similarity {
+  text-align: end;
+}
+
