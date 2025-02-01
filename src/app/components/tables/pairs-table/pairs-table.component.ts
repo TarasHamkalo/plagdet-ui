@@ -70,6 +70,7 @@ export class PairsTableComponent implements AfterViewInit {
 
   @Input({required: true}) public pairsSource!: Signal<SubmissionPair[]>;
 
+  @Input() public isHalfPage = false;
 
   @ViewChild(MatSort) sort!: MatSort;
 

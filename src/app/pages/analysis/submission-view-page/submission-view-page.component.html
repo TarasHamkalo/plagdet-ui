@@ -3,8 +3,10 @@
     <app-surface title="Informacie o odovzdaní"
                  subtitle=""
                  [isTitleCentered]="true"
-                 [isContentCentered]="false">
+                 [isContentCentered]="false"
+                 [isHorizontal]="true">
       <app-submission-info-card [submission]="this.submission()!"></app-submission-info-card>
+      <app-pairs-table [pairsSource]="this.pairsSource" [isHalfPage]="true"></app-pairs-table>
     </app-surface>
   } @else {
     <app-surface title="Načítanie odovzdania" subtitle="">

@@ -23,7 +23,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatFormField, MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatLabel} from "@angular/material/form-field";
-import {NgIf} from "@angular/common";
+import {DecimalPipe, NgIf} from "@angular/common";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
 import {CellHighlightDirective} from "../../../directives/cell-highlight.directive";
 import {Router} from "@angular/router";
@@ -53,6 +53,7 @@ import {PageRoutes} from "../../../app.routes";
     NgIf,
     MinutesTimePipe,
     CellHighlightDirective,
+    DecimalPipe,
   ],
   templateUrl: "./submissions-table.component.html",
   styleUrls: ["./submissions-table.component.css", "../shared/base-table.scss"],

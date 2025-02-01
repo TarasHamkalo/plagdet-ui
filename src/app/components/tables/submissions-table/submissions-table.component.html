@@ -52,7 +52,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="maxSimilarity">
         Maximálna podobnosť %
       </th>
-      <td mat-cell *matCellDef="let element"> {{ getPlagScore(element.maxSimilarity) }}</td>
+      <td mat-cell *matCellDef="let element"> {{ getPlagScore(element.maxSimilarity) | number:'1.1-1'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="moreButton">

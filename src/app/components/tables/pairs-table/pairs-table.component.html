@@ -1,63 +1,66 @@
-<mat-form-field appearance="outline" class="search-bar">
-  <mat-label>Hľadať</mat-label>
-  <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
-</mat-form-field>
-<div class="table-responsive size-65">
-  <table [dataSource]="pairsDataSource!"
-         (matSortChange)="onSorting($event)"
-         mat-table
-         matSort
-         class="mat-elevation-z8">
+<div class="table-container"
+     [class.size-50]="isHalfPage">
 
-    <ng-container matColumnDef="firstDocumentName">
-      <th mat-header-cell *matHeaderCellDef
-          mat-sort-header="first">
-        Odosielateľ dokumentu
-      </th>
-      <td mat-cell *matCellDef="let element">
-        {{ this.getSubmissionById(element.firstId).submitter }}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="secondDocumentName">
-      <th mat-header-cell *matHeaderCellDef
-          mat-sort-header="second">
-        Odosielateľ dokumentu
-      </th>
-      <td mat-cell *matCellDef="let element">
-        {{ this.getSubmissionById(element.secondId).submitter }}
-      </td>
-    </ng-container>
+  <mat-form-field class="search-bar">
+    <mat-label>Hľadať</mat-label>
+    <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
+  </mat-form-field>
+  <div class="table-responsive size-65">
+    <table [dataSource]="pairsDataSource!"
+           (matSortChange)="onSorting($event)"
+           mat-table
+           matSort
+           class="mat-elevation-z20">
 
-    <ng-container matColumnDef="similarity">
+      <ng-container matColumnDef="firstDocumentName">
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header="first">
+          Odosielateľ dokumentu
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ this.getSubmissionById(element.firstId).submitter }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="secondDocumentName">
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header="second">
+          Odosielateľ dokumentu
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ this.getSubmissionById(element.secondId).submitter }}
+        </td>
+      </ng-container>
 
-      <th mat-header-cell *matHeaderCellDef
-          mat-sort-header="similarity">
-        Podobnosť
-      </th>
-      <td mat-cell *matCellDef="let element">
-        {{ this.getMaxScore(element) | number }}%
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="similarity">
 
-    <ng-container matColumnDef="moreButton">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-button
-                (click)="onLoadPair(element)">
-          Načitať
-        </button>
-      </td>
-    </ng-container>
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header="similarity">
+          Podobnosť %
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ this.getMaxScore(element) | number:'1.0-1' }}
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="pairsDisplayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: pairsDisplayedColumns;"></tr>
+      <ng-container matColumnDef="moreButton">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button
+                  (click)="onLoadPair(element)">
+            Načitať
+          </button>
+        </td>
+      </ng-container>
 
-  </table>
+      <tr mat-header-row *matHeaderRowDef="pairsDisplayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: pairsDisplayedColumns;"></tr>
 
+    </table>
+
+  </div>
+
+  <mat-paginator [length]="this.pairsDataSource.data.length"
+                 [pageSize]="20"
+                 [pageSizeOptions]="[10, 20, 30, 40]">
+  </mat-paginator>
 </div>
-
-<mat-paginator [length]="this.pairsDataSource.data.length"
-               [pageSize]="20"
-               [pageSizeOptions]="[10, 20, 30, 40]">
-</mat-paginator>
-
