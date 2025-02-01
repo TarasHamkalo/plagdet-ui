@@ -1,16 +1,23 @@
-.mat-column-filename {
-  max-width: 8rem;
+.mat-column-filename,
+.mat-column-submitter {
+  box-sizing: content-box;
+  /*width: 50px;*/
+  width: 25%;
 }
 
+.mat-column-totalEditTime,
 .mat-column-maxSimilarity {
-  max-width: 5rem;
+  width: 20%;
 }
 
 td.mat-column-maxSimilarity {
   text-align: right;
 }
 
-td.mat-column-moreButton {
-  text-align: center
+.mat-column-moreButton {
+  width: 10%;
 }
 
+td.mat-column-moreButton {
+  text-align: center;
+}

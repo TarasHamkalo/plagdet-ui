@@ -1,5 +1,5 @@
 .mat-column-similarity {
-  max-width: fit-content;
+  width: 10%;
 }
 
 .mat-column-similarity {
@@ -8,9 +8,12 @@
 
 .mat-column-firstDocumentName,
 .mat-column-secondDocumentName {
-  /*max-width: 5rem;*/
-  max-width: fit-content;
   box-sizing: content-box;
+  width: 30%;
+}
+
+.mat-column-secondDocumentName .scrollable-text {
+  max-width: 80%;
 }
 
 .mat-column-moreButton {

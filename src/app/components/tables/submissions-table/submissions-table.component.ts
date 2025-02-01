@@ -56,7 +56,7 @@ import {PageRoutes} from "../../../app.routes";
     DecimalPipe,
   ],
   templateUrl: "./submissions-table.component.html",
-  styleUrls: ["./submissions-table.component.css", "../shared/base-table.scss"],
+  styleUrls: ["../shared/base-table.scss", "./submissions-table.component.css"],
   encapsulation: ViewEncapsulation.None
 
 })

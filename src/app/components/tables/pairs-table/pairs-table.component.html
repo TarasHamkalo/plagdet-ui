@@ -18,16 +18,22 @@
           Odosielateľ dokumentu
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ this.getSubmissionById(element.firstId).submitter }}
+          <div class="scrollable-text">
+            {{ this.getSubmissionById(element.firstId).submitter }}
+          </div>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="secondDocumentName">
         <th mat-header-cell *matHeaderCellDef
             mat-sort-header="second">
           Odosielateľ dokumentu
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ this.getSubmissionById(element.secondId).submitter }}
+
+          <div class="scrollable-text">
+            {{ this.getSubmissionById(element.secondId).submitter }}
+          </div>
         </td>
       </ng-container>
 
