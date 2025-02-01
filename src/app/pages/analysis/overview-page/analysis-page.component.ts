@@ -4,7 +4,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatButton} from "@angular/material/button";
 import {
   AnalysisInfoCardComponent
-} from "../../../components/analysis-info-card/analysis-info-card.component";
+} from "../../../components/cards/analysis-info-card/analysis-info-card.component";
 import {AnalysisService} from "../../../services/analysis.service";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {Router} from "@angular/router";

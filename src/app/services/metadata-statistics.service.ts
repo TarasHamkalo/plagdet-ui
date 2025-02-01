@@ -1,4 +1,4 @@
-import {computed, effect, Injectable, signal} from "@angular/core";
+import {computed, Injectable} from "@angular/core";
 import {Submission} from "../model/submission";
 import {AnalysisContextService} from "../context/analysis-context.service";
 import {MetadataStatistics} from "../types/metadata-statistics";

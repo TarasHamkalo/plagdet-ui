@@ -135,7 +135,7 @@ export class PairsTableComponent implements AfterViewInit {
 
   protected onLoadPair(element: SubmissionPair): void {
     console.log("Load pair:", element);
-    this.router.navigate([PageRoutes.PAIR, element.id]);
+    this.router.navigate([PageRoutes.PAIRS, element.id]);
   }
 
   protected applyFilter(filter: string) {

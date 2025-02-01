@@ -9,15 +9,21 @@ import {Report} from "../model/report";
 })
 export class AnalysisService {
 
-  constructor(private analysisContext: AnalysisContextService,
-              private fileUtils: FileUtilsService) {
+  constructor(
+    private analysisContext: AnalysisContextService,
+    private fileUtils: FileUtilsService
+  ) {
   }
 
   public loadReport(): Observable<Report | null> {
-    if (this.analysisContext.getReport()() == null &&
-      this.analysisContext.getAnalysisImported()) {
+    if (this.analysisContext.getReport()() != null) {
+      return of(this.analysisContext.getReport()());
+    }
+
+    if (this.analysisContext.getAnalysisImported()) {
       return this.loadFromUploadedZip();
     }
+
     console.log("else"); //TODO: implement
     return of(null);
   }
