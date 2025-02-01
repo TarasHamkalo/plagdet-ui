@@ -1,0 +1,22 @@
+.medium-card {
+  max-width: 350px;
+  min-width: 200px;
+}
+
+.base-card {
+  margin: auto;
+  padding: 16px;
+}
+
+p {
+  font: var(--mat-sys-body-medium);
+  color: var(--mat-sys-on-surface-variant);
+  margin: 0;
+}
+
+h3 {
+  font: var(--mat-sys-title-large-size);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
+

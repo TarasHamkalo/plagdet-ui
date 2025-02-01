@@ -1,0 +1,11 @@
+<app-content-container>
+  @if (this.submission() !== null) {
+    <app-surface title="Informacie o odovzdaní" subtitle="">
+      <app-submission-info-card [submission]="this.submission()!"></app-submission-info-card>
+    </app-surface>
+  } @else {
+    <app-surface title="Načítanie odovzdania" subtitle="">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </app-surface>
+  }
+</app-content-container>

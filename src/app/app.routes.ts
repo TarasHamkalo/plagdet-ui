@@ -16,6 +16,9 @@ import {AnalysisRelatedContentGuard} from "./guards/analysis-related-content.gua
 import {MetadataPageComponent} from "./pages/analysis/metadata-page/metadata-page.component";
 import {SubmissionsPageComponent} from "./pages/analysis/submissions-page/submissions-page.component";
 import {AnalysisPageGuard} from "./guards/analysis-page.guard";
+import {
+  SubmissionViewPageComponent
+} from "./pages/analysis/submission-view-page/submission-view-page.component";
 
 export enum PageRoutes {
   NONE = "#",
@@ -25,7 +28,6 @@ export enum PageRoutes {
   CONFIGURATION = "/configuration",
   ANALYSIS = "/analysis",
   PAIRS = "/pairs",
-  PAIR = "/pair",
   SUBMISSIONS = "/submissions",
   METADATA = "/metadata",
   HOME = UPLOAD,
@@ -35,8 +37,9 @@ export const routes: Routes = [
   {path: PageRoutes.IMPORT.substring(1), component: ImportAnalysisPageComponent},
   {path: PageRoutes.ANALYSIS.substring(1), component: AnalysisPageComponent, canActivate: [AnalysisPageGuard]},
   {path: PageRoutes.PAIRS.substring(1), component: SubmissionPairsPageComponent, canActivate: [AnalysisRelatedContentGuard]},
-  {path: `${PageRoutes.PAIR.substring(1)}/:id`, component: SubmissionPairViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: `${PageRoutes.PAIRS.substring(1)}/:id`, component: SubmissionPairViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: PageRoutes.METADATA.substring(1), component: MetadataPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: PageRoutes.SUBMISSIONS.substring(1), component: SubmissionsPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: `${PageRoutes.SUBMISSIONS.substring(1)}/:id`, component: SubmissionViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: "**", redirectTo: PageRoutes.HOME.substring(1)}
 ];

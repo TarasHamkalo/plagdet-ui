@@ -2,11 +2,11 @@ import {Component, effect, Input, signal} from "@angular/core";
 import {MatIcon} from "@angular/material/icon";
 import {MatList, MatListItem, MatListItemIcon, MatListItemTitle} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";
-import {Overview} from "../../model/overview";
+import {Overview} from "../../../model/overview";
 import {DatePipe, DecimalPipe} from "@angular/common";
 import {MatChip} from "@angular/material/chips";
 import {MatTooltip} from "@angular/material/tooltip";
-import {AnalysisContextService} from "../../context/analysis-context.service";
+import {AnalysisContextService} from "../../../context/analysis-context.service";
 
 @Component({
   selector: "app-analysis-info-card",

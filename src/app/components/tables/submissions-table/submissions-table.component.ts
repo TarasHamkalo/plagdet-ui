@@ -26,6 +26,8 @@ import {MatLabel} from "@angular/material/form-field";
 import {NgIf} from "@angular/common";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
 import {CellHighlightDirective} from "../../../directives/cell-highlight.directive";
+import {Router} from "@angular/router";
+import {PageRoutes} from "../../../app.routes";
 
 @Component({
   selector: "app-submissions-table",
@@ -81,7 +83,10 @@ export class SubmissionsTableComponent implements AfterViewInit {
 
   protected searchText = signal<string>("");
 
-  constructor(private analysisContext: AnalysisContextService) {
+  constructor(
+    private analysisContext: AnalysisContextService,
+    private router: Router
+  ) {
     effect(() => {
       const submissions = analysisContext.getReport()()?.submissions;
       if (submissions) {
@@ -117,7 +122,7 @@ export class SubmissionsTableComponent implements AfterViewInit {
   }
 
   protected loadSubmission(element: Submission) {
-    console.log(element);
+    this.router.navigate([PageRoutes.SUBMISSIONS, element.id]);
   }
 
   protected applyFilter(filter: string) {

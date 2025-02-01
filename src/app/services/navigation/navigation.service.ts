@@ -30,16 +30,6 @@ export class NavigationService {
       ],
     ],
     [
-      PageRoutes.PAIR,
-      [
-        {route: PageRoutes.ANALYSIS, isFullWidthOnly: false, fullWidthName: "Súhrn analýzy", iconPath: "ballot-outline", isIconSvg: true},
-        {route: PageRoutes.PAIRS, isFullWidthOnly: false, fullWidthName: "Dvojice odovzdaní", iconPath: "book-multiple-outline", isIconSvg: true},
-        {route: PageRoutes.SUBMISSIONS, isFullWidthOnly: false, fullWidthName: "Odovzdania", iconPath: "list", isIconSvg: false},
-        {route: PageRoutes.METADATA, isFullWidthOnly: false, fullWidthName: "Metaúdaje", iconPath: "badge-account-horizontal-outline", isIconSvg: true},
-        {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Zhluky", iconPath: "apache-kafka", isIconSvg: true}
-      ]
-    ],
-    [
       PageRoutes.METADATA,
       [
         {route: PageRoutes.ANALYSIS, isFullWidthOnly: false, fullWidthName: "Súhrn analýzy", iconPath: "ballot-outline", isIconSvg: true},
@@ -81,7 +71,7 @@ export class NavigationService {
     isFullWidthOnly: true
   };
 
-  private readonly dynamicRoutesBase = [PageRoutes.PAIR];
+  private readonly dynamicRoutesBase = [PageRoutes.PAIRS, PageRoutes.SUBMISSIONS];
 
   private activeRoute = signal(PageRoutes.HOME);
 

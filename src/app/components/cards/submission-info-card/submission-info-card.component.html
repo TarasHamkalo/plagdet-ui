@@ -1,0 +1,138 @@
+<!--<mat-card class="submission-info-card">-->
+<!--  <mat-card-header>-->
+<!--    <mat-card-title>Odovzdanie</mat-card-title>-->
+<!--  </mat-card-header>-->
+<!--  <mat-card-content>-->
+<!--    <p><strong>Odosielateľ:</strong> {{ this.submission.submitter }}</p>-->
+<!--    <p><strong>Názov súboru:</strong> {{ this.submission.filename }}</p>-->
+<!--    <p><strong>Autor:</strong> {{ this.submission.metadata.creator || 'Neznámy' }}</p>-->
+<!--    <p><strong>Dátum-->
+<!--      vytvorenia:</strong> {{ this.submission.metadata.creationDate ? (this.submission.metadata.creationDate | unixDate) : 'Neznáme' }}-->
+<!--    </p>-->
+<!--    <p><strong>Upravovateľ:</strong> {{ this.submission.metadata.modifier || 'Neznámy' }}</p>-->
+<!--    <p><strong>Dátum-->
+<!--      úpravy:</strong> {{ this.submission.metadata.modificationDate ? (this.submission.metadata.modificationDate | unixDate) : 'Neznáme' }}-->
+<!--    </p>-->
+<!--    <p><strong>Celkový čas-->
+<!--      úprav:</strong> {{ this.submission.metadata.totalEditTime | minutesTime }} </p>-->
+<!--    <p><strong>Počet revízií:</strong> {{ this.submission.metadata.revisionsNumber }}</p>-->
+<!--    <p><strong>Naposledy-->
+<!--      vytlačené:</strong> {{ this.submission.metadata.lastPrinted ? (this.submission.metadata.lastPrinted | unixDate) : 'Neznáme' }}-->
+<!--    </p>-->
+<!--    <p><strong>Maximálna podobnosť:</strong> {{ this.submission.maxSimilarity }}</p>-->
+<!--  </mat-card-content>-->
+<!--</mat-card>-->
+<div class="card-group">
+  <mat-card class="medium-card base-card">
+    <mat-card-header>
+      <mat-card-title>Autori odovzdania</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list class="info-list">
+        <mat-list-item>
+          <h3 matListItemTitle>{{ submission.submitter }}</h3>
+          <p matListItemLine>Odosielateľ</p>
+          <div matListItemMeta>
+            <mat-icon>face</mat-icon>
+          </div>
+        </mat-list-item>
+
+
+        <mat-list-item>
+          <h3 matListItemTitle>{{ this.submission.metadata.modifier || 'Neznámy' }}</h3>
+          <p matListItemLine>Naposledy upravil</p>
+          <div matListItemMeta>
+            <mat-icon>edit</mat-icon>
+          </div>
+        </mat-list-item>
+
+
+        <mat-list-item>
+          <h3 matListItemTitle>{{ this.submission.metadata.creator || 'Neznámy' }}</h3>
+          <p matListItemLine>Autor</p>
+          <div matListItemMeta>
+            <mat-icon>person</mat-icon>
+          </div>
+        </mat-list-item>
+
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="medium-card base-card">
+    <mat-card-header>
+      <mat-card-title>Rozsah práce</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-list class="info-list">
+        <mat-list-item>
+          <h3
+            matListItemTitle>{{ this.submission.metadata.creationDate ? (this.submission.metadata.creationDate | unixDate) : 'Neznáme' }}</h3>
+          <p matListItemLine>Dátum vytvorenia</p>
+          <div matListItemMeta>
+            <mat-icon>calendar_today</mat-icon>
+          </div>
+        </mat-list-item>
+
+
+        <mat-list-item>
+          <h3
+            matListItemTitle>{{ this.submission.metadata.modificationDate ? (this.submission.metadata.modificationDate | unixDate) : 'Neznáme' }}</h3>
+          <p matListItemLine>Dátum úpravy</p>
+          <div matListItemMeta>
+            <mat-icon>update</mat-icon>
+          </div>
+        </mat-list-item>
+
+
+        <mat-list-item>
+          <h3
+            matListItemTitle>{{ this.submission.metadata.lastPrinted ? (this.submission.metadata.lastPrinted | unixDate) : 'Neznáme' }}</h3>
+          <p matListItemLine>Naposledy vytlačené</p>
+          <div matListItemMeta>
+            <mat-icon>print</mat-icon>
+          </div>
+        </mat-list-item>
+
+
+        <mat-list-item>
+          <h3 matListItemTitle>{{ this.submission.metadata.totalEditTime | minutesTime }}</h3>
+          <p matListItemLine>Celkový čas úprav</p>
+          <div matListItemMeta>
+            <mat-icon>timer</mat-icon>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <h3 matListItemTitle>{{ this.submission.metadata.revisionsNumber }}</h3>
+          <p matListItemLine>Počet revízií</p>
+          <div matListItemMeta>
+            <mat-icon>history</mat-icon>
+          </div>
+        </mat-list-item>
+
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+  <app-stat-card name="Najvyššia podobnosť" [value]="this.submission.maxSimilarity * 100 + ' %'"></app-stat-card>
+</div>
+
+
+<!--<mat-list-item>-->
+<!--  <h3 matListItemTitle>{{ submission.filename }}</h3>-->
+<!--  <p matListItemLine>Názov súboru</p>-->
+<!--  <div matListItemMeta>-->
+<!--    <mat-icon>description</mat-icon>-->
+<!--  </div>-->
+<!--</mat-list-item>-->
+
+
+<!--<mat-list-item>-->
+<!--  <h3 matListItemTitle>{{ submission.maxSimilarity * 100 }} %</h3>-->
+<!--  <p matListItemLine>Maximálna podobnosť</p>-->
+<!--  <div matListItemMeta>-->
+<!--    <mat-icon>check_circle</mat-icon>-->
+<!--  </div>-->
+<!--</mat-list-item>-->
+
