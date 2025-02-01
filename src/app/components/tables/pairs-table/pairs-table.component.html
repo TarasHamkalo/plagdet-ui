@@ -1,11 +1,12 @@
 <div class="table-container"
-     [class.size-50]="isHalfPage">
+     [class.height-50]="isHalfPage"
+     [class.width-50]="isHalfPage">
 
   <mat-form-field class="search-bar">
     <mat-label>Hľadať</mat-label>
     <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
   </mat-form-field>
-  <div class="table-responsive size-65">
+  <div class="table-responsive height-65">
     <table [dataSource]="pairsDataSource!"
            (matSortChange)="onSorting($event)"
            mat-table

@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, HostListener, Input, signal, OnInit} from "@angular/core";
 
 @Component({
   selector: "app-surface",
@@ -6,7 +6,7 @@ import {Component, Input} from "@angular/core";
   templateUrl: "./surface.component.html",
   styleUrl: "./surface.component.css"
 })
-export class SurfaceComponent {
+export class SurfaceComponent implements OnInit {
 
   @Input() public title = "Default Title";
 
@@ -18,4 +18,27 @@ export class SurfaceComponent {
 
   @Input() public isContentCentered = true;
 
+  @Input() public wrapBreakpoint: number | null = null;
+
+  protected shouldWrap = signal<boolean>(true);
+  public ngOnInit() {
+    if (this.wrapBreakpoint) {
+      this.recalculateWrap();
+    }
+  }
+
+  @HostListener("window:resize", ["$event.target.innerWidth"])
+  protected onResize() {
+    this.recalculateWrap();
+  }
+
+  private recalculateWrap() {
+    if (!this.wrapBreakpoint) {
+      this.shouldWrap.set(true);
+      return;
+    }
+
+    this.shouldWrap.set(window.innerWidth <= this.wrapBreakpoint);
+    console.log(this.shouldWrap());
+  }
 }

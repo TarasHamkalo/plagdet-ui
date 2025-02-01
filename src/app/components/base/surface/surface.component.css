@@ -7,11 +7,11 @@
 
   padding: 16px;
   flex-direction: column;
+  flex-wrap: wrap;
   /*align-items: center;*/
   min-width: fit-content;
   align-items: stretch;
 
-  flex-wrap: wrap;
   gap: 24px;
 
   background-color: var(--mat-sys-surface-container-low);
@@ -26,8 +26,11 @@
   align-items: stretch;
   justify-content: start;
 
-  flex-wrap: wrap;
   gap: 24px;
+}
+
+.content-wrap {
+  flex-wrap: wrap;
 }
 
 .content-centered {

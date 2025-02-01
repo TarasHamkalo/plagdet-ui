@@ -6,7 +6,7 @@
     <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
   </mat-form-field>
 
-  <div class="table-responsive size-50">
+  <div class="table-responsive height-50">
     <table mat-table
            [dataSource]="submissionsDataSource"
            matSort (matSortChange)="onSorting($event)"

@@ -8,8 +8,9 @@
   </div>
 
   <div class="content"
-    [class.horizontal]="isHorizontal"
-    [class.content-centered]="isContentCentered">
+       [class.horizontal]="isHorizontal"
+       [class.content-centered]="isContentCentered"
+       [class.content-wrap]="this.shouldWrap()">
 
     <ng-content></ng-content>
 
