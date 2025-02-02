@@ -7,7 +7,7 @@ export class MinutesTimePipe implements PipeTransform {
 
 
   public transform(value: number): string {
-    if (isNaN(value)) {
+    if (isNaN(value) || value == 0) {
       return "00:00:00";
     }
 
