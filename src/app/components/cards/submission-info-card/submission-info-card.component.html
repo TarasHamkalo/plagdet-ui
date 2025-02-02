@@ -28,8 +28,9 @@
     <h1>
       Metaúdaje
     </h1>
-    <button mat-icon-button>
-      <mat-icon>share</mat-icon>
+    <button mat-icon-button
+            (click)="this.downloadMetadataCsv()">
+      <mat-icon>download</mat-icon>
     </button>
   </div>
 

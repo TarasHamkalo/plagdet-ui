@@ -1,9 +1,16 @@
 <div class="table-container">
+  <div style="display: flex; flex-direction: row; gap: 8px; justify-content: space-between; align-items: center">
+    <mat-form-field class="search-bar" style="width: 70%">
+      <mat-label>Hľadať</mat-label>
+      <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
+    </mat-form-field>
 
-  <mat-form-field class="search-bar">
-    <mat-label>Hľadať</mat-label>
-    <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
-  </mat-form-field>
+    <button mat-icon-button
+            (click)="this.downloadMetadataCsv()">
+      <mat-icon>download</mat-icon>
+    </button>
+  </div>
+
 
   <div class="table-responsive height-65">
 

@@ -28,7 +28,12 @@ import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {UnixDatePipe} from "../../../pipes/unix-date.pipe";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
-import {MetadataDeviationHighlightDirective} from "../../../directives/metadata-deviation-highlight.directive";
+import {
+  MetadataDeviationHighlightDirective
+} from "../../../directives/metadata-deviation-highlight.directive";
+import {MatIcon} from "@angular/material/icon";
+import {MatIconButton} from "@angular/material/button";
+import {ExportService} from "../../../services/export.service";
 
 
 @Component({
@@ -53,7 +58,9 @@ import {MetadataDeviationHighlightDirective} from "../../../directives/metadata-
     MatHeaderRowDef,
     MatPaginator,
     MinutesTimePipe,
-    MetadataDeviationHighlightDirective
+    MetadataDeviationHighlightDirective,
+    MatIcon,
+    MatIconButton
   ],
   templateUrl: "./metadata-table.component.html",
   styleUrls: ["./metadata-table.component.css", "../shared/base-table.scss"],
@@ -73,13 +80,10 @@ export class MetadataTableComponent implements AfterViewInit {
 
   protected searchText = signal<string>("");
 
-  private avgEditTime = 0;
-
-  private avgDateCreated = 0; // unix timestamp
-
-  private avgModificationDate = 0;
-
-  constructor(private analysisContext: AnalysisContextService) {
+  constructor(
+    private analysisContext: AnalysisContextService,
+    private exportService: ExportService
+  ) {
     effect(() => {
       this.submissionsDataSource.data = [...this.analysisContext.getReport()()!.submissions.values()]
         .filter(s => !s.indexed);
@@ -131,4 +135,8 @@ export class MetadataTableComponent implements AfterViewInit {
 
     return (valueA - valueB) * mul;
   };
+
+  protected downloadMetadataCsv() {
+    this.exportService.exportSubmissionToCsv(this.submissionsDataSource.filteredData, Date.now().toFixed());
+  }
 }
