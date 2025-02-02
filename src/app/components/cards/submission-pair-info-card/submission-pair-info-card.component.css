@@ -1,0 +1,22 @@
+.grid-card {
+  width: 550px;
+  height: fit-content;
+  padding: 16px;
+}
+
+mat-grid-tile {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+/*mat-grid-tile > h3 {*/
+/*  font: var(--mat-sys-label-small);*/
+/*  margin: 0;*/
+/*}*/
+
+/*mat-grid-tile > p {*/
+/*  font: var(--mat-sys-label-small);*/
+/*  margin: 0;*/
+/*}*/
