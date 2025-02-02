@@ -5,6 +5,7 @@
 
     <mat-sidenav-container autosize="true">
       <mat-sidenav class="sidenav-colored"
+                   [disableClose]="true"
                    [class.rail]="!isSidenavOpen()"
                    [class.expanded]="isSidenavOpen()"
                    [opened]="true"
