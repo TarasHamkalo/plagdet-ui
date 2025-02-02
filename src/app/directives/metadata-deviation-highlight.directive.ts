@@ -3,9 +3,9 @@ import {MetadataStatisticsService} from "../services/metadata-statistics.service
 import {Submission} from "../model/submission";
 
 @Directive({
-  selector: "[appCellHighlight]"
+  selector: "[appMetadataDeviationHighlight]"
 })
-export class CellHighlightDirective implements OnChanges {
+export class MetadataDeviationHighlightDirective implements OnChanges {
 
   @Input({required: true}) public submission!: Submission;
 

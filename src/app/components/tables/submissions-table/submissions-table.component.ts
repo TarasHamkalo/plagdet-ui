@@ -25,7 +25,7 @@ import {FormsModule} from "@angular/forms";
 import {MatLabel} from "@angular/material/form-field";
 import {DecimalPipe, NgIf} from "@angular/common";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
-import {CellHighlightDirective} from "../../../directives/cell-highlight.directive";
+import {MetadataDeviationHighlightDirective} from "../../../directives/metadata-deviation-highlight.directive";
 import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
 
@@ -52,7 +52,7 @@ import {PageRoutes} from "../../../app.routes";
     FormsModule,
     NgIf,
     MinutesTimePipe,
-    CellHighlightDirective,
+    MetadataDeviationHighlightDirective,
     DecimalPipe,
   ],
   templateUrl: "./submissions-table.component.html",

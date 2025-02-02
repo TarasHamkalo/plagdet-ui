@@ -11,27 +11,54 @@
 
       <!-- Submitter -->
       <mat-grid-tile class="label"><h3>Odosielateľ</h3></mat-grid-tile>
-      <mat-grid-tile><p>{{ first.submitter || 'Neznámy' }}</p></mat-grid-tile>
-      <mat-grid-tile><p>{{ second.submitter || 'Neznámy' }}</p></mat-grid-tile>
+
+      <mat-grid-tile appMetadataEqualityHighlight
+                     [first]="first"
+                     [second]="second"
+                     metadataField="submitter">
+        <p class="scrollable-text">{{ first.submitter || 'Neznámy' }}</p></mat-grid-tile>
+
+      <mat-grid-tile appMetadataEqualityHighlight
+                     [first]="first"
+                     [second]="second"
+                     metadataField="submitter">
+        <p class="scrollable-text">{{ second.submitter || 'Neznámy' }}</p></mat-grid-tile>
 
       <!-- Last Modified By -->
       <mat-grid-tile class="label"><h3>Naposledy upravil</h3></mat-grid-tile>
-      <mat-grid-tile><p>{{ first.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
-      <mat-grid-tile><p>{{ second.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
+      <mat-grid-tile appMetadataEqualityHighlight
+                     [first]="first"
+                     [second]="second"
+                     metadataField="modifier">
+        <p class="scrollable-text">{{ first.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
+
+      <mat-grid-tile appMetadataEqualityHighlight
+                     [first]="first"
+                     [second]="second"
+                     metadataField="modifier">
+        <p class="scrollable-text">{{ second.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
 
       <!-- Creator -->
       <mat-grid-tile class="label"><h3>Autor</h3></mat-grid-tile>
-      <mat-grid-tile><p>{{ first.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
-      <mat-grid-tile><p>{{ second.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
+      <mat-grid-tile appMetadataEqualityHighlight
+                     [first]="first"
+                     [second]="second"
+                     metadataField="creator">
+        <p class="scrollable-text">{{ first.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
+      <mat-grid-tile appMetadataEqualityHighlight
+                     [first]="first"
+                     [second]="second"
+                     metadataField="creator">
+        <p class="scrollable-text">{{ second.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
 
       <!-- Date Created -->
       <mat-grid-tile class="label"><h3>Dátum vytvorenia</h3></mat-grid-tile>
-      <mat-grid-tile appCellHighlight
+      <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="first"
                      dateField="creationDate">
         <p>{{ first.metadata.creationDate ? (first.metadata.creationDate | unixDate) : 'Neznáme' }}</p>
       </mat-grid-tile>
-      <mat-grid-tile appCellHighlight
+      <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="second"
                      dateField="creationDate">
         <p>{{ second.metadata.creationDate ? (second.metadata.creationDate | unixDate) : 'Neznáme' }}</p>
@@ -39,12 +66,12 @@
 
       <!-- Date Modified -->
       <mat-grid-tile class="label"><h3>Dátum úpravy</h3></mat-grid-tile>
-      <mat-grid-tile appCellHighlight
+      <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="first"
                      dateField="modificationDate">
-        <p>{{ first.metadata.modificationDate ? (first.metadata.modificationDate | unixDate) : 'Neznáme' }}</p>
+        <p >{{ first.metadata.modificationDate ? (first.metadata.modificationDate | unixDate) : 'Neznáme' }}</p>
       </mat-grid-tile>
-      <mat-grid-tile appCellHighlight
+      <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="second"
                      dateField="modificationDate">
         <p>{{ second.metadata.modificationDate ? (second.metadata.modificationDate | unixDate) : 'Neznáme' }}</p>
@@ -61,12 +88,12 @@
 
       <!-- Total Edit Time -->
       <mat-grid-tile class="label"><h3>Celkový čas úprav</h3></mat-grid-tile>
-      <mat-grid-tile appCellHighlight
+      <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="first"
                      [checkTimeDeviation]="true">
         <p>{{ first.metadata.totalEditTime! | minutesTime }}</p>
       </mat-grid-tile>
-      <mat-grid-tile appCellHighlight
+      <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="second"
                      [checkTimeDeviation]="true">
         <p>{{ second.metadata.totalEditTime! | minutesTime }}</p>
@@ -77,6 +104,13 @@
       <mat-grid-tile><p>{{ first.metadata.revisionsNumber || 'Neznáme' }}</p></mat-grid-tile>
       <mat-grid-tile><p>{{ second.metadata.revisionsNumber || 'Neznáme' }}</p></mat-grid-tile>
     </mat-grid-list>
-
   </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-footer *ngIf="submissionPair.source !== 'UNCERTAIN'">
+    <p>
+      Zdrojom plagiatu v tejto dvojici {{isSourceIndexed() ? "" :  "pravdepodobne" }} bol {{getSource().submitter}}
+    </p>
+  </mat-card-footer>
 </mat-card>

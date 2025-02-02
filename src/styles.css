@@ -10,8 +10,28 @@ body {
   background-color: var(--mat-sys-surface);
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.scrollable-text {
+  padding-bottom: 4px;
+  scrollbar-width: none; /* Firefox */
+  display: inline-block;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow-x: auto;
+  text-overflow: ellipsis;
+}
+
+.scrollable-text::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
 
 .highlight-code {
   background-color: rgba(121, 125, 132, 0.3);
@@ -30,4 +50,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .meta-warning {
   background-color: #FFB300;
+}
+
+.meta-equality {
+  background-color: rgba(0, 217, 255, 0.67);
 }

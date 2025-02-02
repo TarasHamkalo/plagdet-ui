@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SubmissionPairInfoCardComponent } from "./submission-pair-info-card.component";
+import { MetadataDiffCard } from "./metadata-diff-card.component";
 
 describe("SubmissionPairCardComponent", () => {
-  let component: SubmissionPairInfoCardComponent;
-  let fixture: ComponentFixture<SubmissionPairInfoCardComponent>;
+  let component: MetadataDiffCard;
+  let fixture: ComponentFixture<MetadataDiffCard>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SubmissionPairInfoCardComponent]
+      imports: [MetadataDiffCard]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SubmissionPairInfoCardComponent);
+    fixture = TestBed.createComponent(MetadataDiffCard);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,8 @@
 .grid-card {
-  width: 650px;
+  width: 750px;
   height: fit-content;
   padding: 16px;
+  gap: 16px
 }
 
 mat-grid-tile {

@@ -38,21 +38,6 @@
     vertical-align: middle;
   }
 
-  .scrollable-text {
-    padding-bottom: 4px;
-    scrollbar-width: none; /* Firefox */
-    display: inline-block;
-    //width: 80%;
-    //width: inherit;
-    max-width: 80%;
-    white-space: nowrap;
-    overflow-x: auto;
-    text-overflow: ellipsis;
-  }
-
-  .scrollable-text::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
-  }
 }
 
 .table-container {

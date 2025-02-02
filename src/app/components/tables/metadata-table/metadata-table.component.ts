@@ -28,7 +28,7 @@ import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {UnixDatePipe} from "../../../pipes/unix-date.pipe";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
-import {CellHighlightDirective} from "../../../directives/cell-highlight.directive";
+import {MetadataDeviationHighlightDirective} from "../../../directives/metadata-deviation-highlight.directive";
 
 
 @Component({
@@ -53,7 +53,7 @@ import {CellHighlightDirective} from "../../../directives/cell-highlight.directi
     MatHeaderRowDef,
     MatPaginator,
     MinutesTimePipe,
-    CellHighlightDirective
+    MetadataDeviationHighlightDirective
   ],
   templateUrl: "./metadata-table.component.html",
   styleUrls: ["./metadata-table.component.css", "../shared/base-table.scss"],
