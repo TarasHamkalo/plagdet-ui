@@ -1,5 +1,5 @@
 export interface PlagScore {
   score: number;
-  direction: string;
+  type: "META" | "JACCARD" | "SEMANTIC";
   comments: string[];
 }

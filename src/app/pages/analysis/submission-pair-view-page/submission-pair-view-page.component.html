@@ -5,12 +5,33 @@
 </app-content-container>
 
 <app-content-container *ngIf="this.submissionPair() !== null">
-  <app-surface title="Vysledky" subtitle="" [isTitleCentered]="true">
+  <app-surface title="Vysledky"
+               subtitle=""
+               [isTitleCentered]="true"
+               [wrapBreakpoint]="1300"
+               [isContentCentered]="false"
+               [isHorizontal]="true">
     <app-metadata-diff-card [first]="this.first()!"
                             [second]="this.second()!"
                             [submissionPair]="this.submissionPair()!">
 
     </app-metadata-diff-card>
+
+    <div class="stat-flex-column">
+
+      <app-stat-card name="Jaccardov koeficient (bi-gramy)"
+                     [value]="this.getFormattedScore('JACCARD')">
+      </app-stat-card>
+
+      <app-stat-card name="Podobnosť autorov (metaúdaje)"
+                     [value]="this.getFormattedScore('META')">
+      </app-stat-card>
+
+      <app-stat-card name="Semantická podobnosť"
+                     [value]="this.getFormattedScore('SEMANTIC')">
+      </app-stat-card>
+
+    </div>
   </app-surface>
 
   <app-surface title="Porovnanie obsahu"

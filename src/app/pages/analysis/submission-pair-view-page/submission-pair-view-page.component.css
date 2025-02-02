@@ -57,3 +57,13 @@ app-text-editor {
   color: var(--mat-sys-on-surface-variant);
   margin: 0;
 }
+
+.stat-flex-column {
+  display: flex;
+
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 16px;
+  gap: 16px;
+  /*max-width: min-content;*/
+}

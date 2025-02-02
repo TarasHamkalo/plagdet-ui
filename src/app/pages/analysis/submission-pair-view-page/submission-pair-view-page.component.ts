@@ -16,6 +16,8 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {
   MetadataDiffCardComponent
 } from "../../../components/cards/metadata-diff-card/metadata-diff-card.component";
+import {StatCardComponent} from "../../../components/cards/stat-card/stat-card.component";
+import {PlagScore} from "../../../model/plag-score";
 
 
 @Component({
@@ -29,7 +31,8 @@ import {
     MatProgressBar,
     MatIcon,
     MatTooltip,
-    MetadataDiffCardComponent
+    MetadataDiffCardComponent,
+    StatCardComponent
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.css"
@@ -73,6 +76,25 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe(params => {
       this.pairId.set(params.get("id"));
     });
+  }
+
+  private getScoreByType(type: "META" | "JACCARD" | "SEMANTIC"): PlagScore | null {
+    const pair = this.submissionPair();
+    if (pair !== null) {
+      const score = pair.plagScores.filter(p => p.type === type).at(0)
+      return score ? score : null;
+    }
+
+    return null;
+  }
+
+  public getFormattedScore(type: "META" | "JACCARD" | "SEMANTIC"): string {
+    const plagScore = this.getScoreByType(type);
+    if (plagScore !== null) {
+      return (plagScore?.score * 100).toFixed(2) + " %";
+    }
+
+    return "Nevypočítané";
   }
 
 }
