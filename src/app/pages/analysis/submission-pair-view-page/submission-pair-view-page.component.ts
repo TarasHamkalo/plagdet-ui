@@ -81,7 +81,7 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
   private getScoreByType(type: "META" | "JACCARD" | "SEMANTIC"): PlagScore | null {
     const pair = this.submissionPair();
     if (pair !== null) {
-      const score = pair.plagScores.filter(p => p.type === type).at(0)
+      const score = pair.plagScores.filter(p => p.type === type).at(0);
       return score ? score : null;
     }
 
