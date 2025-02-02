@@ -27,19 +27,32 @@ app-text-editor {
 
 .editor-header {
   display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
 
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  max-height: fit-content;
+
+  padding-right: 8px;
+}
+
+.header-text-frame {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-height: fit-content;
 }
 
-.editor-header > h3 {
+.header-text-frame > h3 {
   font: var(--mat-sys-title-small);
   color: var(--mat-sys-on-surface);
   margin: 0;
 }
 
-.editor-header > p {
+.header-text-frame > p {
   font: var(--mat-sys-body-medium);
   color: var(--mat-sys-on-surface-variant);
   margin: 0;

@@ -22,6 +22,7 @@ export class IconsRegistrationService {
     "frequently-asked-questions",
     "import",
     "upload-outline",
+    "file-document-check-outline"
   ];
 
   constructor(

@@ -127,7 +127,7 @@
       </mat-card-content>
     </mat-card>
     <app-stat-card name="Najvyššia podobnosť"
-                   [value]="this.submission.maxSimilarity * 100 + ' %'"></app-stat-card>
+                   [value]="(this.submission.maxSimilarity * 100).toFixed(2)  + ' %'"></app-stat-card>
   </div>
 
 </div>

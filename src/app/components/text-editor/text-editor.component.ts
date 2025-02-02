@@ -33,15 +33,15 @@ export class TextEditorComponent implements OnDestroy {
 
   protected editor = signal<IStandaloneCodeEditor | null>(null);
 
-  @Input({required: true}) public submission!: Signal<Submission | null>;
+  @Input({required: true}) public submission!: Submission;
 
   @Input({required: true}) public markingSide!: 0 | 1;
 
-  @Input({required: false}) public plagCases: Signal<SpecialMarking[] | null> | null = null;
+  @Input({required: false}) public plagCases: SpecialMarking[] | null = null;
 
   constructor(private monacoDecorationService: MonacoDecorationService) {
     effect(() => {
-      if (!this.editor() || !this.submission()) {
+      if (!this.editor() || !this.submission) {
         return;
       }
 
@@ -59,14 +59,13 @@ export class TextEditorComponent implements OnDestroy {
 
   private createDecorations(): IModelDeltaDecoration[] {
     const decorations: IModelDeltaDecoration[] = [];
-    const plagCases = this.plagCases ? this.plagCases() : null;
-    if (plagCases) {
+    if (this.plagCases) {
       decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
-        this.editor()!, plagCases, this.markingSide
+        this.editor()!, this.plagCases, this.markingSide
       ));
     }
     decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
-      this.editor()!, this.submission()!.markings, 0
+      this.editor()!, this.submission.markings, 0
     ));
     return decorations;
   }

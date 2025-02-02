@@ -4,12 +4,18 @@ import {ActivatedRoute} from "@angular/router";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {Submission} from "../../../model/submission";
 import {FormsModule} from "@angular/forms";
-import {editor} from "monaco-editor";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
 import {TextEditorComponent} from "../../../components/text-editor/text-editor.component";
 import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
+import {
+  SubmissionPairInfoCardComponent
+} from "../../../components/cards/submission-pair-info-card/submission-pair-info-card.component";
+import {NgIf} from "@angular/common";
+import {MatProgressBar} from "@angular/material/progress-bar";
+import {MatIcon} from "@angular/material/icon";
+import {MatTooltip} from "@angular/material/tooltip";
 
 
 @Component({
@@ -18,7 +24,12 @@ import {
     FormsModule,
     SurfaceComponent,
     TextEditorComponent,
-    ContentContainerComponent
+    ContentContainerComponent,
+    SubmissionPairInfoCardComponent,
+    NgIf,
+    MatProgressBar,
+    MatIcon,
+    MatTooltip
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.css"
@@ -33,18 +44,11 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
 
   protected second = signal<Submission | null>(null);
 
-  protected plagCases = computed(() => {
-    if (this.submissionPair() === null) {
-      return null;
-    }
-
-    return this.submissionPair()!.plagCases;
-  });
+  protected plagCases = computed(() => this.submissionPair()?.plagCases ?? []);
 
   constructor(protected analysisContext: AnalysisContextService,
               private route: ActivatedRoute) {
     effect(() => {
-      console.log(this.pairId());
       if (this.pairId() === null) {
         return;
       }

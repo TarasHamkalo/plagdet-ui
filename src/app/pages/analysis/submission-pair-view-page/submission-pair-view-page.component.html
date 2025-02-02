@@ -1,4 +1,17 @@
-<app-content-container>
+<app-content-container *ngIf="this.submissionPair() === null">
+  <app-surface title="Načitanie odovzdania">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </app-surface>
+</app-content-container>
+
+<app-content-container *ngIf="this.submissionPair() !== null">
+  <app-surface title="Vysledky" subtitle="" [isTitleCentered]="true">
+    <app-submission-pair-info-card [first]="this.first()!"
+                                   [second]="this.second()!"
+                                   [submissionPair]="this.submissionPair()!">
+
+    </app-submission-pair-info-card>
+  </app-surface>
 
   <app-surface title="Porovnanie obsahu"
                subtitle=""
@@ -8,23 +21,36 @@
     <div class="editor-container">
       <div class="editor-wrapper">
         <div class="editor-header">
-          <h3>{{ this.first()?.submitter }}</h3>
-          <p>{{ this.first()?.filename }}</p>
+          <div class="header-text-frame">
+            <h3>{{ this.first()?.submitter }}</h3>
+            <p>{{ this.first()?.filename }}</p>
+          </div>
+          <mat-icon *ngIf="this.first()?.indexed"
+                    svgIcon="file-document-check-outline"
+                    matTooltip="Tento dokument bol získaný z indexu dokumentov."
+          ></mat-icon>
         </div>
 
-        <app-text-editor [submission]="this.first"
-                         [plagCases]="this.plagCases"
+        <app-text-editor [submission]="this.first()!"
+                         [plagCases]="this.plagCases()!"
                          [markingSide]="0"
         ></app-text-editor>
 
       </div>
       <div class="editor-wrapper">
         <div class="editor-header">
-          <h3>{{ this.second()?.submitter }}</h3>
-          <p>{{ this.second()?.filename }}</p>
+          <div class="header-text-frame">
+            <h3>{{ this.second()?.submitter }}</h3>
+            <p>{{ this.second()?.filename }}</p>
+          </div>
+          <mat-icon *ngIf="this.second()?.indexed"
+                    svgIcon="file-document-check-outline"
+                    matTooltip="Tento dokument bol získaný z indexu dokumentov."
+          ></mat-icon>
         </div>
-        <app-text-editor [submission]="this.second"
-                         [plagCases]="this.plagCases"
+
+        <app-text-editor [submission]="this.second()!"
+                         [plagCases]="this.plagCases()!"
                          [markingSide]="1"
         ></app-text-editor>
       </div>

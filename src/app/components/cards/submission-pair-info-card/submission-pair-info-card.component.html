@@ -6,18 +6,76 @@
       <mat-grid-tile></mat-grid-tile>
 
       <!-- Column Headers -->
-      <mat-grid-tile><h3>Document A</h3></mat-grid-tile>
-      <mat-grid-tile><h3>Document B</h3></mat-grid-tile>
+      <mat-grid-tile class="header"><h3>Dokument A</h3></mat-grid-tile>
+      <mat-grid-tile class="header"><h3>Dokument B</h3></mat-grid-tile>
 
-      <!-- Row 1 -->
-      <mat-grid-tile><h3>Date Creation</h3></mat-grid-tile>
-      <mat-grid-tile><p>2024-01-01</p></mat-grid-tile>
-      <mat-grid-tile><p>2024-02-10</p></mat-grid-tile>
+      <!-- Submitter -->
+      <mat-grid-tile class="label"><h3>Odosielateľ</h3></mat-grid-tile>
+      <mat-grid-tile><p>{{ first.submitter || 'Neznámy' }}</p></mat-grid-tile>
+      <mat-grid-tile><p>{{ second.submitter || 'Neznámy' }}</p></mat-grid-tile>
 
-      <!-- Row 2 -->
-      <mat-grid-tile><h3>Date Modification</h3></mat-grid-tile>
-      <mat-grid-tile><p>2024-01-15</p></mat-grid-tile>
-      <mat-grid-tile><p>2024-02-20</p></mat-grid-tile>
+      <!-- Last Modified By -->
+      <mat-grid-tile class="label"><h3>Naposledy upravil</h3></mat-grid-tile>
+      <mat-grid-tile><p>{{ first.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
+      <mat-grid-tile><p>{{ second.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
+
+      <!-- Creator -->
+      <mat-grid-tile class="label"><h3>Autor</h3></mat-grid-tile>
+      <mat-grid-tile><p>{{ first.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
+      <mat-grid-tile><p>{{ second.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
+
+      <!-- Date Created -->
+      <mat-grid-tile class="label"><h3>Dátum vytvorenia</h3></mat-grid-tile>
+      <mat-grid-tile appCellHighlight
+                     [submission]="first"
+                     dateField="creationDate">
+        <p>{{ first.metadata.creationDate ? (first.metadata.creationDate | unixDate) : 'Neznáme' }}</p>
+      </mat-grid-tile>
+      <mat-grid-tile appCellHighlight
+                     [submission]="second"
+                     dateField="creationDate">
+        <p>{{ second.metadata.creationDate ? (second.metadata.creationDate | unixDate) : 'Neznáme' }}</p>
+      </mat-grid-tile>
+
+      <!-- Date Modified -->
+      <mat-grid-tile class="label"><h3>Dátum úpravy</h3></mat-grid-tile>
+      <mat-grid-tile appCellHighlight
+                     [submission]="first"
+                     dateField="modificationDate">
+        <p>{{ first.metadata.modificationDate ? (first.metadata.modificationDate | unixDate) : 'Neznáme' }}</p>
+      </mat-grid-tile>
+      <mat-grid-tile appCellHighlight
+                     [submission]="second"
+                     dateField="modificationDate">
+        <p>{{ second.metadata.modificationDate ? (second.metadata.modificationDate | unixDate) : 'Neznáme' }}</p>
+      </mat-grid-tile>
+
+      <!-- Last Printed -->
+      <mat-grid-tile class="label"><h3>Naposledy vytlačené</h3></mat-grid-tile>
+      <mat-grid-tile>
+        <p>{{ first.metadata.lastPrinted ? (first.metadata.lastPrinted | unixDate) : 'Neznáme' }}</p>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <p>{{ second.metadata.lastPrinted ? (second.metadata.lastPrinted | unixDate) : 'Neznáme' }}</p>
+      </mat-grid-tile>
+
+      <!-- Total Edit Time -->
+      <mat-grid-tile class="label"><h3>Celkový čas úprav</h3></mat-grid-tile>
+      <mat-grid-tile appCellHighlight
+                     [submission]="first"
+                     [checkTimeDeviation]="true">
+        <p>{{ first.metadata.totalEditTime! | minutesTime }}</p>
+      </mat-grid-tile>
+      <mat-grid-tile appCellHighlight
+                     [submission]="second"
+                     [checkTimeDeviation]="true">
+        <p>{{ second.metadata.totalEditTime! | minutesTime }}</p>
+      </mat-grid-tile>
+
+      <!-- Revisions Count -->
+      <mat-grid-tile class="label"><h3>Počet revízií</h3></mat-grid-tile>
+      <mat-grid-tile><p>{{ first.metadata.revisionsNumber || 'Neznáme' }}</p></mat-grid-tile>
+      <mat-grid-tile><p>{{ second.metadata.revisionsNumber || 'Neznáme' }}</p></mat-grid-tile>
     </mat-grid-list>
 
   </mat-card-content>
