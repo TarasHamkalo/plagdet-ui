@@ -16,6 +16,7 @@ export class NavigationService {
         {route: PageRoutes.PAIRS, isFullWidthOnly: false, fullWidthName: "Dvojice odovzdaní", iconPath: "book-multiple-outline", isIconSvg: true},
         {route: PageRoutes.SUBMISSIONS, isFullWidthOnly: false, fullWidthName: "Odovzdania", iconPath: "list", isIconSvg: false},
         {route: PageRoutes.METADATA, isFullWidthOnly: false, fullWidthName: "Metaúdaje", iconPath: "badge-account-horizontal-outline", isIconSvg: true},
+        {route: PageRoutes.HEATMAP, isFullWidthOnly: false, fullWidthName: "Teplotná mapa", iconPath: "table", isIconSvg: false},
         {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Zhluky", iconPath: "apache-kafka", isIconSvg: true}
       ],
     ],
@@ -26,6 +27,7 @@ export class NavigationService {
         {route: PageRoutes.PAIRS, isFullWidthOnly: false, fullWidthName: "Dvojice odovzdaní", iconPath: "book-multiple-outline", isIconSvg: true},
         {route: PageRoutes.SUBMISSIONS, isFullWidthOnly: false, fullWidthName: "Odovzdania", iconPath: "list", isIconSvg: false},
         {route: PageRoutes.METADATA, isFullWidthOnly: false, fullWidthName: "Metaúdaje", iconPath: "badge-account-horizontal-outline", isIconSvg: true},
+        {route: PageRoutes.HEATMAP, isFullWidthOnly: false, fullWidthName: "Teplotná mapa", iconPath: "table", isIconSvg: false},
         {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Zhluky", iconPath: "apache-kafka", isIconSvg: true}
       ],
     ],
@@ -36,6 +38,7 @@ export class NavigationService {
         {route: PageRoutes.PAIRS, isFullWidthOnly: false, fullWidthName: "Dvojice odovzdaní", iconPath: "book-multiple-outline", isIconSvg: true},
         {route: PageRoutes.SUBMISSIONS, isFullWidthOnly: false, fullWidthName: "Odovzdania", iconPath: "list", isIconSvg: false},
         {route: PageRoutes.METADATA, isFullWidthOnly: false, fullWidthName: "Metaúdaje", iconPath: "badge-account-horizontal-outline", isIconSvg: true},
+        {route: PageRoutes.HEATMAP, isFullWidthOnly: false, fullWidthName: "Teplotná mapa", iconPath: "table", isIconSvg: false},
         {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Zhluky", iconPath: "apache-kafka", isIconSvg: true}
       ]
     ],
@@ -46,6 +49,18 @@ export class NavigationService {
         {route: PageRoutes.PAIRS, isFullWidthOnly: false, fullWidthName: "Dvojice odovzdaní", iconPath: "book-multiple-outline", isIconSvg: true},
         {route: PageRoutes.SUBMISSIONS, isFullWidthOnly: false, fullWidthName: "Odovzdania", iconPath: "list", isIconSvg: false},
         {route: PageRoutes.METADATA, isFullWidthOnly: false, fullWidthName: "Metaúdaje", iconPath: "badge-account-horizontal-outline", isIconSvg: true},
+        {route: PageRoutes.HEATMAP, isFullWidthOnly: false, fullWidthName: "Teplotná mapa", iconPath: "table", isIconSvg: false},
+        {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Zhluky", iconPath: "apache-kafka", isIconSvg: true}
+      ]
+    ],
+    [
+      PageRoutes.HEATMAP,
+      [
+        {route: PageRoutes.ANALYSIS, isFullWidthOnly: false, fullWidthName: "Súhrn analýzy", iconPath: "ballot-outline", isIconSvg: true},
+        {route: PageRoutes.PAIRS, isFullWidthOnly: false, fullWidthName: "Dvojice odovzdaní", iconPath: "book-multiple-outline", isIconSvg: true},
+        {route: PageRoutes.SUBMISSIONS, isFullWidthOnly: false, fullWidthName: "Odovzdania", iconPath: "list", isIconSvg: false},
+        {route: PageRoutes.METADATA, isFullWidthOnly: false, fullWidthName: "Metaúdaje", iconPath: "badge-account-horizontal-outline", isIconSvg: true},
+        {route: PageRoutes.HEATMAP, isFullWidthOnly: false, fullWidthName: "Teplotná mapa", iconPath: "table", isIconSvg: false},
         {route: PageRoutes.NONE, isFullWidthOnly: false, fullWidthName: "Zhluky", iconPath: "apache-kafka", isIconSvg: true}
       ]
     ]

@@ -19,6 +19,9 @@ import {AnalysisPageGuard} from "./guards/analysis-page.guard";
 import {
   SubmissionViewPageComponent
 } from "./pages/analysis/submission-view-page/submission-view-page.component";
+import {
+  SimilarityHeatmapPageComponent
+} from "./pages/analysis/similarity-heatmap-page/similarity-heatmap-page.component";
 
 export enum PageRoutes {
   NONE = "#",
@@ -30,6 +33,7 @@ export enum PageRoutes {
   PAIRS = "/pairs",
   SUBMISSIONS = "/submissions",
   METADATA = "/metadata",
+  HEATMAP = "/heatmap",
   HOME = UPLOAD,
 }
 export const routes: Routes = [
@@ -40,6 +44,7 @@ export const routes: Routes = [
   {path: `${PageRoutes.PAIRS.substring(1)}/:id`, component: SubmissionPairViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: PageRoutes.METADATA.substring(1), component: MetadataPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: PageRoutes.SUBMISSIONS.substring(1), component: SubmissionsPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: PageRoutes.HEATMAP.substring(1), component: SimilarityHeatmapPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: `${PageRoutes.SUBMISSIONS.substring(1)}/:id`, component: SubmissionViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: "**", redirectTo: PageRoutes.HOME.substring(1)}
 ];
