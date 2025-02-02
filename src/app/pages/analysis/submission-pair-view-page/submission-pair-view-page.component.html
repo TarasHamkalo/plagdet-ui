@@ -1,19 +1,33 @@
 <app-content-container>
 
-  <app-surface title="Comparison"
+  <app-surface title="Porovnanie obsahu"
                subtitle=""
                [isContentCentered]="false"
                [isTitleCentered]="true">
 
     <div class="editor-container">
-      <app-text-editor [submission]="this.first"
-                       [plagCases]="this.plagCases"
-                       [markingSide]="0"
-      ></app-text-editor>
-      <app-text-editor [submission]="this.second"
-                       [plagCases]="this.plagCases"
-                       [markingSide]="1"
-      ></app-text-editor>
+      <div class="editor-wrapper">
+        <div class="editor-header">
+          <h3>{{ this.first()?.submitter }}</h3>
+          <p>{{ this.first()?.filename }}</p>
+        </div>
+
+        <app-text-editor [submission]="this.first"
+                         [plagCases]="this.plagCases"
+                         [markingSide]="0"
+        ></app-text-editor>
+
+      </div>
+      <div class="editor-wrapper">
+        <div class="editor-header">
+          <h3>{{ this.second()?.submitter }}</h3>
+          <p>{{ this.second()?.filename }}</p>
+        </div>
+        <app-text-editor [submission]="this.second"
+                         [plagCases]="this.plagCases"
+                         [markingSide]="1"
+        ></app-text-editor>
+      </div>
 
     </div>
 
