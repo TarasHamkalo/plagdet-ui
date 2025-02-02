@@ -9,13 +9,13 @@ import {TextEditorComponent} from "../../../components/text-editor/text-editor.c
 import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
-import {
-  SubmissionPairInfoCardComponent
-} from "../../../components/cards/submission-pair-info-card/submission-pair-info-card.component";
 import {NgIf} from "@angular/common";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
+import {
+  MetadataDiffCardComponent
+} from "../../../components/cards/metadata-diff-card/metadata-diff-card.component";
 
 
 @Component({
@@ -25,11 +25,11 @@ import {MatTooltip} from "@angular/material/tooltip";
     SurfaceComponent,
     TextEditorComponent,
     ContentContainerComponent,
-    SubmissionPairInfoCardComponent,
     NgIf,
     MatProgressBar,
     MatIcon,
-    MatTooltip
+    MatTooltip,
+    MetadataDiffCardComponent
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.css"

@@ -1,4 +1,4 @@
-import {Component, effect, Input, OnDestroy, signal, Signal} from "@angular/core";
+import {Component, effect, Input, OnDestroy, signal} from "@angular/core";
 import {EditorComponent} from "ngx-monaco-editor-v2";
 import {editor} from "monaco-editor";
 import {Submission} from "../../model/submission";

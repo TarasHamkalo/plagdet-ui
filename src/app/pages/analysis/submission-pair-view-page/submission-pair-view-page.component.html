@@ -6,11 +6,11 @@
 
 <app-content-container *ngIf="this.submissionPair() !== null">
   <app-surface title="Vysledky" subtitle="" [isTitleCentered]="true">
-    <app-submission-pair-info-card [first]="this.first()!"
-                                   [second]="this.second()!"
-                                   [submissionPair]="this.submissionPair()!">
+    <app-metadata-diff-card [first]="this.first()!"
+                            [second]="this.second()!"
+                            [submissionPair]="this.submissionPair()!">
 
-    </app-submission-pair-info-card>
+    </app-metadata-diff-card>
   </app-surface>
 
   <app-surface title="Porovnanie obsahu"
