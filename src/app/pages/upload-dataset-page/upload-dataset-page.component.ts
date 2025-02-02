@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import {FileUploadDndComponent} from "../../components/files/file-upload-dnd/file-upload-dnd.component";
+import {
+  FileUploadDndComponent
+} from "../../components/files/file-upload-dnd/file-upload-dnd.component";
 import {PageRoutes} from "../../app.routes";
 import {UploadPageBaseComponent} from "../shared/upload-page-base/upload-page-base.component";
 import {FormsModule} from "@angular/forms";
@@ -16,6 +18,7 @@ import {
     FormsModule,
     SurfaceComponent,
     ContentContainerComponent,
+
   ],
   templateUrl: "./upload-dataset-page.component.html",
 })

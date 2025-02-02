@@ -21,6 +21,7 @@ export class SurfaceComponent implements OnInit {
   @Input() public wrapBreakpoint: number | null = null;
 
   protected shouldWrap = signal<boolean>(true);
+
   public ngOnInit() {
     if (this.wrapBreakpoint) {
       this.recalculateWrap();
@@ -39,6 +40,5 @@ export class SurfaceComponent implements OnInit {
     }
 
     this.shouldWrap.set(window.innerWidth <= this.wrapBreakpoint);
-    console.log(this.shouldWrap());
   }
 }
