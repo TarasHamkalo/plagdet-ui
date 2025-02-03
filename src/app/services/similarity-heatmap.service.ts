@@ -19,6 +19,10 @@ export class SimilarityHeatmapService {
 
   private previousPage: DocumentSeriesPage | null = null;
 
+  private duplicateCategories: Record<string, number> = {};
+
+  private duplicateSeries: Record<string, number> = {};
+
   constructor(private analysisContextService: AnalysisContextService) {
   }
 
@@ -37,10 +41,10 @@ export class SimilarityHeatmapService {
 
     const series = [];
     for (const submission of newSubmissions) {
+      this.duplicateCategories = {};
       series.push({
-        name: submission.id.toFixed(0),
+        name: this.getDataPointCategory(submission, this.duplicateSeries),
         data: newSubmissions.map(other => this.getDataPoint(submission, other, pairs))
-
       });
     }
 
@@ -80,7 +84,10 @@ export class SimilarityHeatmapService {
 
   private getDataPoint(target: Submission, other: Submission, pairs: Map<string, SubmissionPair>) {
     if (target.id === other.id) {
-      return {x: other.id.toFixed(0), y: SubmissionPairUtils.formatScore(1)};
+      return {
+        x: this.getDataPointCategory(other, this.duplicateCategories),
+        y: SubmissionPairUtils.formatScore(1)
+      };
     }
 
     const key1 = `${target.id}_${other.id}`;
@@ -90,7 +97,18 @@ export class SimilarityHeatmapService {
       SubmissionPairUtils.getFormattedScore(pair, this.displayScoreType) :
       SubmissionPairUtils.formatScore(0);
 
-    return {x: other.id.toFixed(0), y: score};
+    return {x: this.getDataPointCategory(other, this.duplicateCategories), y: score};
+  }
+
+  private getDataPointCategory(submission: Submission, frequencyMap: Record<string, number>): string {
+    const duplicateCount = frequencyMap[submission.submitter];
+    if (duplicateCount) {
+      frequencyMap[submission.submitter] = duplicateCount + 1;
+      return `${submission.submitter}_${frequencyMap[submission.submitter]}`;
+    }
+
+    frequencyMap[submission.submitter] = 1;
+    return `${submission.submitter}_1`;
   }
 
   public setDisplayScoreType(type: "META" | "JACCARD" | "SEMANTIC") {
