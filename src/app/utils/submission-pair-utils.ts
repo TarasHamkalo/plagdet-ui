@@ -1,5 +1,6 @@
 import {SubmissionPair} from "../model/submission-pair";
 import {PlagScore} from "../model/plag-score";
+import {Submission} from "../model/submission";
 
 export class SubmissionPairUtils {
 
@@ -31,5 +32,14 @@ export class SubmissionPairUtils {
     return null;
   }
 
+
+  public static hasIndexedSubmission(
+    submissionPair: SubmissionPair,
+    submissionMap: Map<number, Submission>
+  ): boolean {
+    const first = submissionMap.get(submissionPair.firstId);
+    const second = submissionMap.get(submissionPair.secondId);
+    return first!.indexed || second!.indexed;
+  }
 
 }

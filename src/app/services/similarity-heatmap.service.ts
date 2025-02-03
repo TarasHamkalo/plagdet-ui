@@ -5,6 +5,7 @@ import {SubmissionPair} from "../model/submission-pair";
 import {SubmissionPairUtils} from "../utils/submission-pair-utils";
 import {ApexAxisChartSeries} from "ng-apexcharts";
 import {DocumentSeriesPage} from "../types/document-series-page";
+import {PlagScore} from "../model/plag-score";
 
 @Injectable({
   providedIn: "root"
@@ -23,6 +24,8 @@ export class SimilarityHeatmapService {
 
   private duplicateSeries: Record<string, number> = {};
 
+  private displayedSubmissions: Submission[] = [];
+
   constructor(private analysisContextService: AnalysisContextService) {
   }
 
@@ -37,19 +40,32 @@ export class SimilarityHeatmapService {
     }
     const submissions = report.submissions.values();
     const pairs = report.pairs;
-    const newSubmissions = Array.from(submissions).filter(s => !s.indexed && s.maxSimilarity !== 0.0);
+    this.displayedSubmissions = Array.from(submissions)
+      .filter(s => !s.indexed && this.getTypedSimilarity(s, pairs, report.submissions));
 
     const series = [];
-    for (const submission of newSubmissions) {
+    for (const submission of this.displayedSubmissions) {
       this.duplicateCategories = {};
       series.push({
         name: this.getDataPointCategory(submission, this.duplicateSeries),
-        data: newSubmissions.map(other => this.getDataPoint(submission, other, pairs))
+        data: this.displayedSubmissions.map(other => this.getDataPoint(submission, other, pairs))
       });
     }
 
     this.documentSeries = series;
     return true;
+  }
+
+  private getTypedSimilarity(
+    s: Submission,
+    pairs: Map<string, SubmissionPair>,
+    submissionsMap: Map<number, Submission>
+  ): PlagScore | undefined {
+    return s.pairIds
+      .map(pId => pairs.get(pId))
+      .filter(p => !SubmissionPairUtils.hasIndexedSubmission(p!, submissionsMap))
+      .map(p => SubmissionPairUtils.getScoreByType(p!, this.displayScoreType))
+      .find(p => p !== null);
   }
 
   public getDocumentSeriesPage(x: number, y: number): DocumentSeriesPage {
