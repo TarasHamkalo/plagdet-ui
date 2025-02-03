@@ -12,12 +12,8 @@ import {
 import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
-import {AnalysisContextService} from "../../../context/analysis-context.service";
-import {Submission} from "../../../model/submission";
-import {SubmissionPair} from "../../../model/submission-pair";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
-import {MatButton, MatIconButton} from "@angular/material/button";
-import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
+import {MatIconButton} from "@angular/material/button";
 import {SimilarityHeatmapService} from "../../../services/similarity-heatmap.service";
 import {MatIcon} from "@angular/material/icon";
 
@@ -41,7 +37,6 @@ export interface SimilarityDatapoint {
     NgApexchartsModule,
     ContentContainerComponent,
     SurfaceComponent,
-    MatButton,
     MatIconButton,
     MatIcon
   ],
@@ -96,8 +91,11 @@ export class SimilarityHeatmapPageComponent {
   constructor(
     private similarityHeatmapService: SimilarityHeatmapService
   ) {
+    const initialPage = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
+    this.x = initialPage.x;
+    this.y = initialPage.y;
     this.chartOptions = {
-      series: this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y),
+      series: initialPage.series,
       chart: {
         type: "heatmap",
         events: {
@@ -120,8 +118,12 @@ export class SimilarityHeatmapPageComponent {
   }
 
   protected updateSeries() {
-    this.chartOptions.series = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
-    this.chart.updateSeries(this.chartOptions.series!);
+    const page = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
+    this.x = page.x;
+    this.y = page.y;
+    if (page.viewUpdate) {
+      this.chartOptions.series = page.series;
+    }
   }
 
   protected updatePosition(dx: number, dy: number) {

@@ -4,7 +4,8 @@
       <button mat-icon-button (click)="this.updatePosition(0, 1)">
         <mat-icon>arrow_upward</mat-icon>
       </button>
-      <div style="gap: 32px; display: flex; flex-direction: row; justify-content: space-between; align-items: center">
+      <div
+        style="gap: 32px; display: flex; flex-direction: row; justify-content: space-between; align-items: center">
         <button mat-icon-button (click)="this.updatePosition(-1, 0)">
           <mat-icon>arrow_back</mat-icon>
         </button>
@@ -18,12 +19,15 @@
     </div>
   </app-surface>
   <app-surface>
-    <apx-chart id="chart"
-               [series]="chartOptions.series!"
-               [chart]="chartOptions.chart!"
-               [dataLabels]="chartOptions.dataLabels!"
-               [plotOptions]="chartOptions.plotOptions!"
-               [title]="chartOptions.title!"
-    ></apx-chart>
+    <div class="chart">
+
+      <apx-chart
+                 [series]="chartOptions.series!"
+                 [chart]="chartOptions.chart!"
+                 [dataLabels]="chartOptions.dataLabels!"
+                 [plotOptions]="chartOptions.plotOptions!"
+                 [title]="chartOptions.title!"
+      ></apx-chart>
+    </div>
   </app-surface>
 </app-content-container>

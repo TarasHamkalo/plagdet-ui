@@ -1,4 +1,7 @@
-#chart {
-  height: 900px;
-  width: 900px;
+.chart {
+  width: 50vw;
+  /*height: 10vh;*/
+  /*box-sizing: content-box;*/
+  /*height: 900px;*/
+  /*width: 900px;*/
 }
