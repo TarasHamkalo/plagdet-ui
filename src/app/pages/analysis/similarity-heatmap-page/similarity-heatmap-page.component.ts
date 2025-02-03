@@ -13,13 +13,13 @@ import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
-import {MatIconButton} from "@angular/material/button";
 import {SimilarityHeatmapService} from "../../../services/similarity-heatmap.service";
-import {MatIcon} from "@angular/material/icon";
 import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
+import {MatFormField, MatOption, MatSelect} from "@angular/material/select";
+import {MatLabel} from "@angular/material/form-field";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -36,11 +36,13 @@ export interface ChartOptions {
     NgApexchartsModule,
     ContentContainerComponent,
     SurfaceComponent,
-    MatIconButton,
-    MatIcon,
+    MatLabel,
     MatSlider,
     MatSliderThumb,
-    FormsModule
+    FormsModule,
+    MatSelect,
+    MatOption,
+    MatFormField
   ],
   templateUrl: "./similarity-heatmap-page.component.html",
   styleUrl: "./similarity-heatmap-page.component.css"
@@ -143,6 +145,13 @@ export class SimilarityHeatmapPageComponent {
     }
 
     this.router.navigate([PageRoutes.PAIRS, pairId]);
+  }
+
+  public changeScoreType(type: "META" | "SEMANTIC" | "JACCARD") {
+    this.similarityHeatmapService.setDisplayScoreType(type);
+    this.x = 0;
+    this.y = 0;
+    this.updateSeries();
   }
 }
 

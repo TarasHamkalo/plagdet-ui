@@ -30,9 +30,10 @@ export class SimilarityHeatmapService {
   }
 
   private initDocumentSeries(): boolean {
-    if (this.documentSeries) {
+    if (this.documentSeries !== null) {
       return true;
     }
+
     const report = this.analysisContextService.getReport()();
     if (!report) {
       this.documentSeries = null;
@@ -111,7 +112,10 @@ export class SimilarityHeatmapService {
   }
 
   public getMaxPosition(): number {
-    return this.documentSeries![0].data.length - this.documentsLimit;
+    if (this.initDocumentSeries()) {
+      return this.documentSeries![0].data.length - this.documentsLimit;
+    }
+    return -1;
   }
 
   private getDataPoint(target: Submission, other: Submission, pairs: Map<string, SubmissionPair>) {
@@ -143,9 +147,21 @@ export class SimilarityHeatmapService {
     return `${submission.submitter}_1`;
   }
 
+  public getDisplayScoreType() {
+    return this.displayScoreType;
+  }
+
   public setDisplayScoreType(type: "META" | "JACCARD" | "SEMANTIC") {
+    console.log(type);
     this.displayScoreType = type;
+    console.log(this.displayScoreType);
+    this.reset();
+  }
+
+  private reset() {
     this.documentSeries = null;
+    this.previousPage = null;
+    this.duplicateSeries = {};
   }
 
   public setDocumentsLimit(limit: number) {
