@@ -16,6 +16,8 @@ import {AnalysisContextService} from "../../../context/analysis-context.service"
 import {Submission} from "../../../model/submission";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {PlagScore} from "../../../model/plag-score";
+import {SurfaceComponent} from "../../../components/base/surface/surface.component";
+import {MatButton} from "@angular/material/button";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -25,43 +27,52 @@ export interface ChartOptions {
   plotOptions: ApexPlotOptions;
 }
 
+export interface SimilarityDatapoint {
+  x: string;
+  y: number;
+}
+
 @Component({
   selector: "app-similarity-heatmap-page",
   template: `
     <app-content-container>
-      <div id="chart">
-        <apx-chart
-          [series]="chartOptions.series!"
-          [chart]="chartOptions.chart!"
-          [dataLabels]="chartOptions.dataLabels!"
-          [plotOptions]="chartOptions.plotOptions!"
-          [title]="chartOptions.title!"
-        ></apx-chart>
-      </div>
+      <app-surface>
+        <button mat-button (click)="this.updateSeries()">update</button>
+      </app-surface>
+      <apx-chart id="chart"
+                 [series]="chartOptions.series!"
+                 [chart]="chartOptions.chart!"
+                 [dataLabels]="chartOptions.dataLabels!"
+                 [plotOptions]="chartOptions.plotOptions!"
+                 [title]="chartOptions.title!"
+      ></apx-chart>
     </app-content-container>
   `,
   imports: [
     ChartComponent,
     NgApexchartsModule,
-    ContentContainerComponent
+    ContentContainerComponent,
+    SurfaceComponent,
+    MatButton
   ],
   styles: ``
 })
 
 export class SimilarityHeatmapPageComponent {
 
-  @ViewChild("chart") chart!: ChartComponent;
+  @ViewChild(ChartComponent) chart!: ChartComponent;
+
   public chartOptions: Partial<ChartOptions>;
 
   public readonly DISPLAY_SCORE_TYPE = "SEMANTIC";
 
-  public readonly DATA_POINTS_LIMIT = 30;
+  public readonly DATA_POINTS_LIMIT = 15;
 
   constructor(private analysisContextService: AnalysisContextService) {
     this.chartOptions = {
       series: this.createDocumentSimilaritySeries(),
       chart: {
-        height: 1200,
+        height: 600,
         type: "heatmap",
         events: {
           dataPointSelection: (event, chartContext, opts) => {
@@ -112,6 +123,40 @@ export class SimilarityHeatmapPageComponent {
         text: "Teplotná mapa podobnosti"
       },
     };
+  }
+
+  protected updateSeries() {
+    const series: ApexAxisChartSeries = this.chartOptions.series!;
+    console.log(series);
+    const targetSeries = series.at(0)!;
+    console.log(targetSeries);
+    const relocated = series.slice(1);
+      // .filter(s => s.name != targetSeries.name);
+      // .map(s => {
+      //   return {
+      //     ...s,
+      //     data: (s.data as SimilarityDatapoint[]).map(d => d.x )
+      //   };
+      // });
+    this.chartOptions.series = [...relocated, targetSeries];
+    // this.chart.updateSeries([...relocated, targetSeries]);
+  }
+
+
+  private removalExample() {
+    const series: ApexAxisChartSeries = this.chartOptions.series!;
+    console.log(series);
+    const idToRemove = series[0].name!;
+    const filtered = series
+      .filter(s => s.name !== idToRemove)
+      .map(s => {
+        return {
+          ...s,
+          data: (s.data as { x: string; y: number }[]).filter(d => d.x !== idToRemove),
+        };
+      });
+
+    this.chart.updateSeries(filtered);
   }
 
   private createDocumentSimilaritySeries(): ApexAxisChartSeries {
