@@ -23,21 +23,21 @@ export class SimilarityHeatmapService {
     if (this.documentSeries) {
       return true;
     }
-
-    const submissions = this.analysisContextService.getReport()()?.submissions.values();
-    const pairs = this.analysisContextService.getReport()()?.pairs;
-    if (!submissions || !pairs) {
+    const report = this.analysisContextService.getReport()();
+    if (!report) {
       this.documentSeries = null;
       return false;
     }
-
-    const newSubmissions = [...submissions].filter(s => !s.indexed);
+    const submissions = report.submissions.values();
+    const pairs = report.pairs;
+    const newSubmissions = Array.from(submissions).filter(s => !s.indexed);
 
     const series = [];
     for (const submission of newSubmissions) {
       series.push({
         name: submission.id.toFixed(0),
-        data: this.comparisonResultsFor(submission, newSubmissions, pairs)
+        data: newSubmissions.map(other => this.getDataPoint(submission, other, pairs))
+
       });
     }
 
@@ -47,45 +47,35 @@ export class SimilarityHeatmapService {
 
   public getDocumentSeriesPage(x: number, y: number) {
     if (!this.initDocumentSeries()) {
-      return;
+      return [];
     }
-    console.log(this.documentSeries);
 
-    const mapped = this.documentSeries!.map(s => {
-      return {...s, data: s.data.slice(x, x + this.documentsLimit + 1)};
-    });
+    const slicedSeries = this.documentSeries!.map(seriesItem => ({
+      ...seriesItem,
+      data: seriesItem.data.slice(x, x + this.documentsLimit)
+    }));
 
-    console.log(mapped.slice(y, y + this.documentsLimit + 1));
-    return mapped.slice(y, y + this.documentsLimit + 1);
+    return slicedSeries.slice(y, y + this.documentsLimit);
   }
 
-  private comparisonResultsFor(
-    target: Submission,
-    other: Submission[],
-    pairs: Map<string, SubmissionPair>
-  ) {
-    return other.map(o => {
-      if (o.id === target.id) {
-        return {x: o.id.toFixed(0), y: 100};
-      }
+  private getDataPoint(target: Submission, other: Submission, pairs: Map<string, SubmissionPair>) {
+    if (target.id === other.id) {
+      return { x: other.id.toFixed(0), y: SubmissionPairUtils.formatScore(1) };
+    }
 
-      let pair = pairs.get(`${target.id}_${o.id}`);
-      if (!pair) {
-        pair = pairs.get(`${o.id}_${target.id}`);
-      }
+    const key1 = `${target.id}_${other.id}`;
+    const key2 = `${other.id}_${target.id}`;
+    const pair = pairs.get(key1) || pairs.get(key2);
+    const score = pair ?
+      SubmissionPairUtils.getFormattedScore(pair, this.displayScoreType) :
+      SubmissionPairUtils.formatScore(0);
 
-      if (pair) {
-        const plagScore = SubmissionPairUtils.getFormattedScore(pair, this.displayScoreType);
-        return {x: o.id.toFixed(0), y: plagScore};
-      }
-
-      return {x: o.id.toFixed(0), y: 0};
-    });
-
+    return { x: other.id.toFixed(0), y: score };
   }
 
   public setDisplayScoreType(type: "META" | "JACCARD" | "SEMANTIC") {
     this.displayScoreType = type;
+    this.documentSeries = null;
   }
 
   public setDocumentsLimit(limit: number) {
