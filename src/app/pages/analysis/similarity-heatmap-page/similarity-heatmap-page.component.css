@@ -1,7 +1,59 @@
 .chart {
-  width: 50vw;
-  /*height: 10vh;*/
-  /*box-sizing: content-box;*/
-  /*height: 900px;*/
-  /*width: 900px;*/
+  width: 70%;
 }
+.container-vertical {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.container-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.horizontal-slider-wrapper {
+  display: flex;
+  position: relative;
+
+  width: 100%;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.horizontal-slider {
+  width: 50%;
+}
+
+.vertical-slider-wrapper {
+  position: relative;
+
+  width: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  align-items: center;
+}
+
+.vertical-slider {
+  position: absolute;
+  width: 16rem;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+@media screen and (max-width: 1500px) {
+  .chart {
+    width: 100%;
+  }
+}
+

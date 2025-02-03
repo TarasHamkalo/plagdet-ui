@@ -52,8 +52,7 @@ export class SimilarityHeatmapService {
     if (!this.initDocumentSeries()) {
       return {x: 0, y: 0, series: [], viewUpdate: false};
     }
-
-    const maxPosSymmetric = this.documentSeries![0].data.length - this.documentsLimit;
+    const maxPosSymmetric = this.getMaxPosition();
     const rx = Math.min(maxPosSymmetric, Math.max(0, x));
     const ry = Math.min(maxPosSymmetric, Math.max(0, y));
     if (this.previousPage && this.previousPage.x == rx && this.previousPage.y == ry) {
@@ -73,6 +72,10 @@ export class SimilarityHeatmapService {
     };
 
     return this.previousPage;
+  }
+
+  public getMaxPosition(): number {
+    return this.documentSeries![0].data.length - this.documentsLimit;
   }
 
   private getDataPoint(target: Submission, other: Submission, pairs: Map<string, SubmissionPair>) {

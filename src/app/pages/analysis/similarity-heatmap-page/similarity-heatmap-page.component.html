@@ -18,16 +18,46 @@
       </button>
     </div>
   </app-surface>
-  <app-surface>
-    <div class="chart">
+  <app-surface title="Teplotná mapa podobnosti"
+               subtitle=""
+               [isTitleCentered]="true"
+               [isContentCentered]="true">
+    <div class="container-vertical">
 
-      <apx-chart
-                 [series]="chartOptions.series!"
-                 [chart]="chartOptions.chart!"
-                 [dataLabels]="chartOptions.dataLabels!"
-                 [plotOptions]="chartOptions.plotOptions!"
-                 [title]="chartOptions.title!"
-      ></apx-chart>
+      <div class="horizontal-slider-wrapper">
+        <mat-slider
+          [min]="0"
+          [max]="this.similarityHeatmapService.getMaxPosition()"
+          [step]="1"
+          [discrete]="false"
+          [showTickMarks]="true"
+          class="horizontal-slider"
+        >
+          <input matSliderThumb (change)="this.updateSeries()" [(ngModel)]="this.x" #slider>
+        </mat-slider>
+
+      </div>
+      <div class="container-horizontal">
+        <apx-chart class="chart"
+                   [series]="chartOptions.series!"
+                   [chart]="chartOptions.chart!"
+                   [dataLabels]="chartOptions.dataLabels!"
+                   [plotOptions]="chartOptions.plotOptions!"
+                   [title]="chartOptions.title!"
+        ></apx-chart>
+        <div class="vertical-slider-wrapper">
+          <mat-slider
+            [min]="0"
+            [max]="this.similarityHeatmapService.getMaxPosition()"
+            [step]="1"
+            [discrete]="false"
+            [showTickMarks]="true"
+            class="vertical-slider">
+            <input matSliderThumb (change)="this.updateSeries()" [(ngModel)]="this.y" #slider>
+          </mat-slider>
+        </div>
+      </div>
+
     </div>
   </app-surface>
 </app-content-container>

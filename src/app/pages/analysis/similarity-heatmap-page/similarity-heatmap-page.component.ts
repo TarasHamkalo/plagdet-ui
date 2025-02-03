@@ -16,6 +16,8 @@ import {SurfaceComponent} from "../../../components/base/surface/surface.compone
 import {MatIconButton} from "@angular/material/button";
 import {SimilarityHeatmapService} from "../../../services/similarity-heatmap.service";
 import {MatIcon} from "@angular/material/icon";
+import {MatSlider, MatSliderThumb} from "@angular/material/slider";
+import {FormsModule} from "@angular/forms";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -38,7 +40,10 @@ export interface SimilarityDatapoint {
     ContentContainerComponent,
     SurfaceComponent,
     MatIconButton,
-    MatIcon
+    MatIcon,
+    MatSlider,
+    MatSliderThumb,
+    FormsModule
   ],
   templateUrl: "./similarity-heatmap-page.component.html",
   styleUrl: "./similarity-heatmap-page.component.css"
@@ -89,7 +94,7 @@ export class SimilarityHeatmapPageComponent {
   protected y = 0;
 
   constructor(
-    private similarityHeatmapService: SimilarityHeatmapService
+    protected similarityHeatmapService: SimilarityHeatmapService
   ) {
     const initialPage = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
     this.x = initialPage.x;
@@ -112,7 +117,7 @@ export class SimilarityHeatmapPageComponent {
         enabled: true,
       },
       title: {
-        text: "Teplotná mapa podobnosti"
+        text: ""
       },
     };
   }
