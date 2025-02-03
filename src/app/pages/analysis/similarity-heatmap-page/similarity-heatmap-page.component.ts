@@ -18,6 +18,8 @@ import {SimilarityHeatmapService} from "../../../services/similarity-heatmap.ser
 import {MatIcon} from "@angular/material/icon";
 import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {FormsModule} from "@angular/forms";
+import {Router} from "@angular/router";
+import {PageRoutes} from "../../../app.routes";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -25,11 +27,6 @@ export interface ChartOptions {
   dataLabels: ApexDataLabels;
   title: ApexTitleSubtitle;
   plotOptions: ApexPlotOptions;
-}
-
-export interface SimilarityDatapoint {
-  x: string;
-  y: number;
 }
 
 @Component({
@@ -61,25 +58,25 @@ export class SimilarityHeatmapPageComponent {
           {
             from: 0,
             to: 25,
-            name: "low",
+            name: "nízka",
             color: "#00A100"
           },
           {
             from: 26,
             to: 50,
-            name: "medium",
+            name: "stredná",
             color: "#128FD9"
           },
           {
             from: 51,
             to: 75,
-            name: "high",
+            name: "vysoká",
             color: "#FFB200"
           },
           {
             from: 76,
             to: 100,
-            name: "extreme",
+            name: "extrémna",
             color: "#FF0000"
           }
         ]
@@ -94,7 +91,8 @@ export class SimilarityHeatmapPageComponent {
   protected y = 0;
 
   constructor(
-    protected similarityHeatmapService: SimilarityHeatmapService
+    protected similarityHeatmapService: SimilarityHeatmapService,
+    private router: Router
   ) {
     const initialPage = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
     this.x = initialPage.x;
@@ -105,7 +103,9 @@ export class SimilarityHeatmapPageComponent {
         type: "heatmap",
         events: {
           dataPointSelection: (event, chartContext, opts) => {
-            console.log(chartContext, opts);
+            const pair = this.similarityHeatmapService
+              .getSubmissionPairIdByDatapoint(opts.seriesIndex, opts.dataPointIndex);
+            this.loadPair(pair);
           }
         },
         zoom: {
@@ -135,6 +135,14 @@ export class SimilarityHeatmapPageComponent {
     this.x += dx;
     this.y += dy;
     this.updateSeries();
+  }
+
+  private loadPair(pairId: string | null) {
+    if (pairId == null) {
+      return;
+    }
+
+    this.router.navigate([PageRoutes.PAIRS, pairId]);
   }
 }
 
