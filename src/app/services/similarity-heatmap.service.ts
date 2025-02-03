@@ -77,12 +77,17 @@ export class SimilarityHeatmapService {
       return null;
     }
 
+    const pairs = this.analysisContextService.getReport()()?.pairs;
+    if (!pairs) {
+      return null;
+    }
+
     const firstIndex = seriesIndex + this.previousPage!.y;
     const secondIndex = dataPointIndex + this.previousPage!.x;
     const first = this.displayedSubmissions.at(firstIndex)!;
     const second = this.displayedSubmissions.at(secondIndex)!;
-    return (first.pairIds.find(id => id.includes(second.id.toFixed(0))) ||
-      second.pairIds.find(id => id.includes(first.id.toFixed(0))))!;
+    const pair = pairs.get(`${first.id}_${second.id}`) || pairs.get(`${second.id}_${first.id}`);
+    return pair ? pair.id : null;
   }
 
   public getDocumentSeriesPage(x: number, y: number): DocumentSeriesPage {

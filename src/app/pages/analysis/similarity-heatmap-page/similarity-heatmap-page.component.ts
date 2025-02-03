@@ -1,4 +1,4 @@
-import {Component, ViewChild, OnDestroy} from "@angular/core";
+import {Component, OnDestroy, ViewChild} from "@angular/core";
 
 import {
   ApexAxisChartSeries,
@@ -20,7 +20,6 @@ import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
 import {MatFormField, MatOption, MatSelect} from "@angular/material/select";
 import {MatLabel} from "@angular/material/form-field";
-import {DocumentSeriesPage} from "../../../types/document-series-page";
 import {RouteContextService} from "../../../context/route-context.service";
 
 export interface ChartOptions {
@@ -108,6 +107,9 @@ export class SimilarityHeatmapPageComponent implements OnDestroy {
     this.chartOptions = {
       series: initialPage.series,
       chart: {
+        toolbar: {
+          show: false
+        },
         type: "heatmap",
         events: {
           dataPointSelection: (event, chartContext, opts) => {
@@ -127,6 +129,7 @@ export class SimilarityHeatmapPageComponent implements OnDestroy {
       title: {
         text: ""
       },
+
     };
   }
 
