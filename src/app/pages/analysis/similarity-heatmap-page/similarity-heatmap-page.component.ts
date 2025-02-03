@@ -16,8 +16,10 @@ import {AnalysisContextService} from "../../../context/analysis-context.service"
 import {Submission} from "../../../model/submission";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
+import {SimilarityHeatmapService} from "../../../services/similarity-heatmap.service";
+import {MatIcon} from "@angular/material/icon";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -39,7 +41,9 @@ export interface SimilarityDatapoint {
     NgApexchartsModule,
     ContentContainerComponent,
     SurfaceComponent,
-    MatButton
+    MatButton,
+    MatIconButton,
+    MatIcon
   ],
   templateUrl: "./similarity-heatmap-page.component.html",
   styleUrl: "./similarity-heatmap-page.component.css"
@@ -48,12 +52,6 @@ export interface SimilarityDatapoint {
 export class SimilarityHeatmapPageComponent {
 
   @ViewChild(ChartComponent) chart!: ChartComponent;
-
-  public chartOptions: Partial<ChartOptions>;
-
-  public readonly DISPLAY_SCORE_TYPE = "SEMANTIC";
-
-  public readonly DATA_POINTS_LIMIT = 15;
 
   public readonly PLOT_OPTIONS: ApexPlotOptions = {
     heatmap: {
@@ -89,9 +87,17 @@ export class SimilarityHeatmapPageComponent {
     }
   };
 
-  constructor(private analysisContextService: AnalysisContextService) {
+  public chartOptions: Partial<ChartOptions>;
+
+  protected x = 0;
+
+  protected y = 0;
+
+  constructor(
+    private similarityHeatmapService: SimilarityHeatmapService
+  ) {
     this.chartOptions = {
-      series: this.createDocumentSimilaritySeries(),
+      series: this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y),
       chart: {
         type: "heatmap",
         events: {
@@ -114,108 +120,14 @@ export class SimilarityHeatmapPageComponent {
   }
 
   protected updateSeries() {
-    const series: ApexAxisChartSeries = this.chartOptions.series!;
-    console.log(series);
-    const targetSeries = series.at(0)!;
-    console.log(targetSeries);
-    const relocated = series.slice(1);
-    // .filter(s => s.name != targetSeries.name);
-    // .map(s => {
-    //   return {
-    //     ...s,
-    //     data: (s.data as SimilarityDatapoint[]).map(d => d.x )
-    //   };
-    // });
-    this.chartOptions.series = [...relocated, targetSeries];
-    // this.chart.updateSeries([...relocated, targetSeries]);
+    this.chartOptions.series = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
+    this.chart.updateSeries(this.chartOptions.series!);
   }
 
-
-  private removalExample() {
-    const series: ApexAxisChartSeries = this.chartOptions.series!;
-    console.log(series);
-    const idToRemove = series[0].name!;
-    const filtered = series
-      .filter(s => s.name !== idToRemove)
-      .map(s => {
-        return {
-          ...s,
-          data: (s.data as { x: string; y: number }[]).filter(d => d.x !== idToRemove),
-        };
-      });
-
-    this.chart.updateSeries(filtered);
-  }
-
-  private createDocumentSimilaritySeries(): ApexAxisChartSeries {
-    const submissions = this.analysisContextService.getReport()()?.submissions.values();
-    const pairs = this.analysisContextService.getReport()()?.pairs;
-    if (!submissions || !pairs) {
-      return [];
-    }
-
-    const newSubmissions = [...submissions].filter(s => !s.indexed).slice(0, this.DATA_POINTS_LIMIT);
-    const series = [];
-    for (const submission of newSubmissions) {
-      series.push({
-        name: submission.id.toFixed(0),
-        data: this.comparisonResultsFor(submission, newSubmissions, pairs)
-      });
-    }
-
-    return series;
-
-  }
-
-  public generateData(count: number, yrange: { min: number, max: number }) {
-    let i = 0;
-    const series = [];
-    while (i < count) {
-      const x = "w" + (i + 1).toString();
-      const y =
-        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-      series.push({
-        x: x,
-        y: y
-      });
-      i++;
-    }
-    return series;
-  }
-
-  private comparisonResultsFor(
-    target: Submission,
-    other: Submission[],
-    pairs: Map<string, SubmissionPair>
-  ) {
-    return other.map(o => {
-      if (o.id === target.id) {
-        return {
-          x: o.id.toFixed(0),
-          y: 100
-        };
-      }
-
-      let pair = pairs.get(`${target.id}_${o.id}`);
-      if (!pair) {
-        pair = pairs.get(`${o.id}_${target.id}`);
-      }
-
-      if (pair) {
-        const plagScore = SubmissionPairUtils.getFormattedScore(pair, this.DISPLAY_SCORE_TYPE);
-        return {
-          x: o.id.toFixed(0),
-          y: plagScore
-        };
-      }
-
-      return {
-        x: o.id.toFixed(0),
-        y: 0
-      };
-    });
-
+  protected updatePosition(dx: number, dy: number) {
+    this.x += dx;
+    this.y += dy;
+    this.updateSeries();
   }
 }
 
