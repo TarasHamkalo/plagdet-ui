@@ -9,13 +9,17 @@ export class SubmissionPairUtils {
   ): string {
     const plagScore = this.getScoreByType(pair, type);
     if (plagScore !== null) {
-      return (plagScore?.score * 100).toFixed(2) + " %";
+      return this.formatScore(plagScore.score);
     }
 
-    return "0";
+    return "0 %";
   }
 
-  private static getScoreByType(
+  public static formatScore(score: number): string {
+    return (score * 100).toFixed(2) + " %";
+  }
+
+  public static getScoreByType(
     pair: SubmissionPair,
     type: "META" | "JACCARD" | "SEMANTIC"
   ): PlagScore | null {
