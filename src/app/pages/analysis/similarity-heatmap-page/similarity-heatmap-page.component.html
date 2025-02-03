@@ -1,0 +1,14 @@
+<app-content-container>
+  <app-surface>
+    <button mat-button (click)="this.updateSeries()">update</button>
+  </app-surface>
+  <app-surface>
+    <apx-chart id="chart"
+               [series]="chartOptions.series!"
+               [chart]="chartOptions.chart!"
+               [dataLabels]="chartOptions.dataLabels!"
+               [plotOptions]="chartOptions.plotOptions!"
+               [title]="chartOptions.title!"
+    ></apx-chart>
+  </app-surface>
+</app-content-container>

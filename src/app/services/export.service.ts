@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Submission} from "../model/submission";
-import {TimeFormatingService} from "./time-formating.service";
+import {TimeFormatting} from "../utils/time-formatting";
 
 @Injectable({
   providedIn: "root"
@@ -9,14 +9,11 @@ export class ExportService {
 
   public readonly typeToHeader: Record<string, string[]> = {
     "submission": [
-      "Submitter", "Filename", "Filepath", "Creator", "Creation Date", "Modifier", "Modification Date", "Total Edit Time", "Revisions Number", "Last Printed"
+      "Submitter", "Filename", "Filepath", "Creator", "Creation Date", "Modifier",
+      "Modification Date", "Total Edit Time", "Revisions Number", "Last Printed"
     ]
   };
 
-  constructor(
-    private timeFormatingService: TimeFormatingService
-  ) {
-  }
 
   public exportSubmissionToCsv(data: Submission[], filename: string): void {
     const csvContent = this.getSubmissionRows(data);
@@ -41,12 +38,12 @@ export class ExportService {
       this.escapeString(s.filename),
       this.escapeString(s.filepath),
       this.escapeString(s.metadata.creator),
-      s.metadata.creationDate ? this.timeFormatingService.mapUnixTimeToDate(s.metadata.creationDate) : "",
+      s.metadata.creationDate ? TimeFormatting.mapUnixTimeToDate(s.metadata.creationDate) : "",
       this.escapeString(s.metadata.modifier),
-      s.metadata.modificationDate ? this.timeFormatingService.mapUnixTimeToDate(s.metadata.modificationDate) : "",
-      this.timeFormatingService.mapToSecondsToHhMmSs(s.metadata.totalEditTime),
+      s.metadata.modificationDate ? TimeFormatting.mapUnixTimeToDate(s.metadata.modificationDate) : "",
+      TimeFormatting.mapToSecondsToHhMmSs(s.metadata.totalEditTime),
       s.metadata.revisionsNumber,
-      s.metadata.lastPrinted ? this.timeFormatingService.mapUnixTimeToDate(s.metadata.lastPrinted) : ""
+      s.metadata.lastPrinted ? TimeFormatting.mapUnixTimeToDate(s.metadata.lastPrinted) : ""
     ]);
 
   }

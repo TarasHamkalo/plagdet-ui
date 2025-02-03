@@ -1,11 +1,6 @@
-import {Injectable} from "@angular/core";
+export class TimeFormatting {
 
-@Injectable({
-  providedIn: "root"
-})
-export class TimeFormatingService {
-
-  public mapUnixTimeToDate(unixTime: number): string {
+  public static mapUnixTimeToDate(unixTime: number): string {
     if (unixTime.toString().length === 10) {
       unixTime *= 1000;
     }
@@ -21,7 +16,7 @@ export class TimeFormatingService {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   }
 
-  public mapToSecondsToHhMmSs(value: number): string {
+  public static mapToSecondsToHhMmSs(value: number): string {
     if (isNaN(value) || value == 0) {
       return "00:00:00";
     }
@@ -30,4 +25,5 @@ export class TimeFormatingService {
     const minutes = value % 60;
     return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:00`;
   }
+
 }

@@ -15,9 +15,9 @@ import {
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {Submission} from "../../../model/submission";
 import {SubmissionPair} from "../../../model/submission-pair";
-import {PlagScore} from "../../../model/plag-score";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
 import {MatButton} from "@angular/material/button";
+import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -34,20 +34,6 @@ export interface SimilarityDatapoint {
 
 @Component({
   selector: "app-similarity-heatmap-page",
-  template: `
-    <app-content-container>
-      <app-surface>
-        <button mat-button (click)="this.updateSeries()">update</button>
-      </app-surface>
-      <apx-chart id="chart"
-                 [series]="chartOptions.series!"
-                 [chart]="chartOptions.chart!"
-                 [dataLabels]="chartOptions.dataLabels!"
-                 [plotOptions]="chartOptions.plotOptions!"
-                 [title]="chartOptions.title!"
-      ></apx-chart>
-    </app-content-container>
-  `,
   imports: [
     ChartComponent,
     NgApexchartsModule,
@@ -55,7 +41,8 @@ export interface SimilarityDatapoint {
     SurfaceComponent,
     MatButton
   ],
-  styles: ``
+  templateUrl: "./similarity-heatmap-page.component.html",
+  styleUrl: "./similarity-heatmap-page.component.css"
 })
 
 export class SimilarityHeatmapPageComponent {
@@ -68,11 +55,44 @@ export class SimilarityHeatmapPageComponent {
 
   public readonly DATA_POINTS_LIMIT = 15;
 
+  public readonly PLOT_OPTIONS: ApexPlotOptions = {
+    heatmap: {
+      shadeIntensity: 0.5,
+      colorScale: {
+        ranges: [
+          {
+            from: 0,
+            to: 25,
+            name: "low",
+            color: "#00A100"
+          },
+          {
+            from: 26,
+            to: 50,
+            name: "medium",
+            color: "#128FD9"
+          },
+          {
+            from: 51,
+            to: 75,
+            name: "high",
+            color: "#FFB200"
+          },
+          {
+            from: 76,
+            to: 100,
+            name: "extreme",
+            color: "#FF0000"
+          }
+        ]
+      }
+    }
+  };
+
   constructor(private analysisContextService: AnalysisContextService) {
     this.chartOptions = {
       series: this.createDocumentSimilaritySeries(),
       chart: {
-        height: 600,
         type: "heatmap",
         events: {
           dataPointSelection: (event, chartContext, opts) => {
@@ -83,39 +103,7 @@ export class SimilarityHeatmapPageComponent {
           enabled: false
         }
       },
-      plotOptions: {
-        heatmap: {
-          shadeIntensity: 0.5,
-          colorScale: {
-            ranges: [
-              {
-                from: 0,
-                to: 25,
-                name: "low",
-                color: "#00A100"
-              },
-              {
-                from: 26,
-                to: 50,
-                name: "medium",
-                color: "#128FD9"
-              },
-              {
-                from: 51,
-                to: 75,
-                name: "high",
-                color: "#FFB200"
-              },
-              {
-                from: 76,
-                to: 100,
-                name: "extreme",
-                color: "#FF0000"
-              }
-            ]
-          }
-        }
-      },
+      plotOptions: this.PLOT_OPTIONS,
       dataLabels: {
         enabled: true,
       },
@@ -131,13 +119,13 @@ export class SimilarityHeatmapPageComponent {
     const targetSeries = series.at(0)!;
     console.log(targetSeries);
     const relocated = series.slice(1);
-      // .filter(s => s.name != targetSeries.name);
-      // .map(s => {
-      //   return {
-      //     ...s,
-      //     data: (s.data as SimilarityDatapoint[]).map(d => d.x )
-      //   };
-      // });
+    // .filter(s => s.name != targetSeries.name);
+    // .map(s => {
+    //   return {
+    //     ...s,
+    //     data: (s.data as SimilarityDatapoint[]).map(d => d.x )
+    //   };
+    // });
     this.chartOptions.series = [...relocated, targetSeries];
     // this.chart.updateSeries([...relocated, targetSeries]);
   }
@@ -183,8 +171,8 @@ export class SimilarityHeatmapPageComponent {
     let i = 0;
     const series = [];
     while (i < count) {
-      let x = "w" + (i + 1).toString();
-      let y =
+      const x = "w" + (i + 1).toString();
+      const y =
         Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
 
       series.push({
@@ -215,7 +203,7 @@ export class SimilarityHeatmapPageComponent {
       }
 
       if (pair) {
-        const plagScore = this.getFormattedScore(pair, this.DISPLAY_SCORE_TYPE);
+        const plagScore = SubmissionPairUtils.getFormattedScore(pair, this.DISPLAY_SCORE_TYPE);
         return {
           x: o.id.toFixed(0),
           y: plagScore
@@ -228,30 +216,6 @@ export class SimilarityHeatmapPageComponent {
       };
     });
 
-  }
-
-  public getFormattedScore(
-    pair: SubmissionPair,
-    type: "META" | "JACCARD" | "SEMANTIC"
-  ): string {
-    const plagScore = this.getScoreByType(pair, type);
-    if (plagScore !== null) {
-      return (plagScore?.score * 100).toFixed(2) + " %";
-    }
-
-    return "0";
-  }
-
-  private getScoreByType(
-    pair: SubmissionPair,
-    type: "META" | "JACCARD" | "SEMANTIC"
-  ): PlagScore | null {
-    if (pair !== null) {
-      const score = pair.plagScores.filter(p => p.type === type).at(0);
-      return score ? score : null;
-    }
-
-    return null;
   }
 }
 

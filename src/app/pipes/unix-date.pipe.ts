@@ -1,15 +1,10 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import {TimeFormatingService} from "../services/time-formating.service";
+import {Pipe, PipeTransform} from "@angular/core";
+import {TimeFormatting} from "../utils/time-formatting";
 
 @Pipe({
   name: "unixDate"
 })
 export class UnixDatePipe implements PipeTransform {
-
-  constructor(
-    private timeFormatingService: TimeFormatingService
-  ) {
-  }
 
   public transform(value: number | string | null | undefined): string {
     if (!value) {
@@ -22,7 +17,7 @@ export class UnixDatePipe implements PipeTransform {
       return "Invalid date";
     }
 
-    return this.timeFormatingService.mapUnixTimeToDate(unixTime);
+    return TimeFormatting.mapUnixTimeToDate(unixTime);
   }
 
 
