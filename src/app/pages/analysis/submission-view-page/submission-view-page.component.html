@@ -7,7 +7,10 @@
                  [isHorizontal]="true"
                  [wrapBreakpoint]="1600">
       <app-submission-info-card [submission]="this.submission()!"></app-submission-info-card>
-      <app-pairs-table [pairsSource]="this.pairsSource" [isHalfPage]="true"></app-pairs-table>
+      <app-pairs-table [pairsSource]="this.pairsSource"
+                       [isHalfPage]="true"
+                       [contextPrefix]="'submission-view-page-' + this.submission()!.id"
+      ></app-pairs-table>
     </app-surface>
 
     <app-surface title="Obsah odovzdania"

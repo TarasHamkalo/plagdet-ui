@@ -5,7 +5,7 @@ import {
   Input, Signal,
   signal,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation, OnDestroy
 } from "@angular/core";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -32,6 +32,8 @@ import {SubmissionPair} from "../../../model/submission-pair";
 import {Submission} from "../../../model/submission";
 import {PageRoutes} from "../../../app.routes";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
+import {RouteContextService} from "../../../context/route-context.service";
+import {TableContext} from "../../../types/table-context";
 
 
 @Component({
@@ -62,13 +64,17 @@ import {AnalysisContextService} from "../../../context/analysis-context.service"
   styleUrls: ["./pairs-table.component.css", "../shared/base-table.scss"],
   encapsulation: ViewEncapsulation.None
 })
-export class PairsTableComponent implements AfterViewInit {
+export class PairsTableComponent implements AfterViewInit, OnDestroy {
+
+  public static readonly CONTEXT_KEY = "pairs-table";
 
   protected readonly pairsDisplayedColumns: string[] = [
     "firstDocumentName", "secondDocumentName", "similarity", "moreButton"
   ];
 
   @Input({required: true}) public pairsSource!: Signal<SubmissionPair[]>;
+
+  @Input() public contextPrefix = "";
 
   @Input() public isHalfPage = false;
 
@@ -82,6 +88,7 @@ export class PairsTableComponent implements AfterViewInit {
 
   constructor(
     protected analysisContext: AnalysisContextService,
+    protected routeContextService: RouteContextService,
     private router: Router
   ) {
     effect(() => {
@@ -94,6 +101,7 @@ export class PairsTableComponent implements AfterViewInit {
     this.pairsDataSource.paginator = this.matPaginator;
     this.pairsDataSource.filterPredicate = this.rowsFilter.bind(this);
     this.pairsDataSource.sort = this.sort;
+    this.applyContext();
   }
 
   protected rowsFilter(data: SubmissionPair, filter: string): boolean {
@@ -148,4 +156,26 @@ export class PairsTableComponent implements AfterViewInit {
     const scores = [...pair.plagScores.map(p => p.score * 100)];
     return Math.max(...scores);
   }
+
+  public ngOnDestroy(): void {
+    this.routeContextService.putProperty(
+      PairsTableComponent.CONTEXT_KEY,
+      JSON.stringify({filter: this.searchText()} as TableContext),
+      this.contextPrefix
+    );
+  }
+
+  private applyContext() {
+    const persistedContext = this.routeContextService.popProperty(
+      PairsTableComponent.CONTEXT_KEY,
+      this.contextPrefix
+    );
+
+    if (persistedContext) {
+      const context = JSON.parse(persistedContext) as TableContext;
+      this.searchText.set(context.filter);
+       this.applyFilter(this.searchText());
+    }
+  }
+
 }

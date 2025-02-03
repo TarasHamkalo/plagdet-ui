@@ -1,4 +1,4 @@
-import {Component, ViewChild} from "@angular/core";
+import {Component, ViewChild, OnDestroy} from "@angular/core";
 
 import {
   ApexAxisChartSeries,
@@ -20,6 +20,8 @@ import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
 import {MatFormField, MatOption, MatSelect} from "@angular/material/select";
 import {MatLabel} from "@angular/material/form-field";
+import {DocumentSeriesPage} from "../../../types/document-series-page";
+import {RouteContextService} from "../../../context/route-context.service";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -48,9 +50,11 @@ export interface ChartOptions {
   styleUrl: "./similarity-heatmap-page.component.css"
 })
 
-export class SimilarityHeatmapPageComponent {
+export class SimilarityHeatmapPageComponent implements OnDestroy {
 
-  @ViewChild(ChartComponent) chart!: ChartComponent;
+  @ViewChild(ChartComponent) protected chart!: ChartComponent;
+
+  public static readonly CONTEXT_KEY = "similarity-heatmap-page";
 
   public readonly PLOT_OPTIONS: ApexPlotOptions = {
     heatmap: {
@@ -94,8 +98,10 @@ export class SimilarityHeatmapPageComponent {
 
   constructor(
     protected similarityHeatmapService: SimilarityHeatmapService,
+    protected routeContextService: RouteContextService,
     private router: Router
   ) {
+    this.applyContext();
     const initialPage = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
     this.x = initialPage.x;
     this.y = initialPage.y;
@@ -133,12 +139,6 @@ export class SimilarityHeatmapPageComponent {
     }
   }
 
-  protected updatePosition(dx: number, dy: number) {
-    this.x += dx;
-    this.y += dy;
-    this.updateSeries();
-  }
-
   private loadPair(pairId: string | null) {
     if (pairId == null) {
       return;
@@ -152,6 +152,35 @@ export class SimilarityHeatmapPageComponent {
     this.x = 0;
     this.y = 0;
     this.updateSeries();
+  }
+
+  public ngOnDestroy(): void {
+    this.routeContextService.putProperty(
+      ".x", this.x.toFixed(0), SimilarityHeatmapPageComponent.CONTEXT_KEY
+    );
+    this.routeContextService.putProperty(
+      ".y", this.y.toFixed(0), SimilarityHeatmapPageComponent.CONTEXT_KEY
+    );
+    this.routeContextService.putProperty(
+      ".score-type",
+      this.similarityHeatmapService.getDisplayScoreType(),
+      SimilarityHeatmapPageComponent.CONTEXT_KEY
+    );
+  }
+
+  private applyContext() {
+    const x = this.routeContextService.popProperty(".x", SimilarityHeatmapPageComponent.CONTEXT_KEY);
+    const y = this.routeContextService.popProperty(".y", SimilarityHeatmapPageComponent.CONTEXT_KEY);
+    const scoreType = this.routeContextService.popProperty(
+      ".score-type", SimilarityHeatmapPageComponent.CONTEXT_KEY
+    );
+    if (x && y && scoreType) {
+      this.x = parseInt(x);
+      this.y = parseInt(y);
+      this.similarityHeatmapService.setDisplayScoreType(
+        scoreType as "META" | "SEMANTIC" | "JACCARD"
+      );
+    }
   }
 }
 

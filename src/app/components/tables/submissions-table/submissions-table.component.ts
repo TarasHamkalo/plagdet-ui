@@ -4,7 +4,7 @@ import {
   effect,
   Input,
   signal,
-  ViewChild, ViewEncapsulation
+  ViewChild, ViewEncapsulation, OnDestroy
 } from "@angular/core";
 import {
   MatCell, MatCellDef,
@@ -28,6 +28,8 @@ import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
 import {MetadataDeviationHighlightDirective} from "../../../directives/metadata-deviation-highlight.directive";
 import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
+import {RouteContextService} from "../../../context/route-context.service";
+import { TableContext } from "../../../types/table-context";
 
 @Component({
   selector: "app-submissions-table",
@@ -60,7 +62,9 @@ import {PageRoutes} from "../../../app.routes";
   encapsulation: ViewEncapsulation.None
 
 })
-export class SubmissionsTableComponent implements AfterViewInit {
+export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
+
+  public static readonly CONTEXT_KEY: string = "submissions-table";
 
   protected readonly displayedColumns: string[] = [
     "submitter", "filename", "totalEditTime", "maxSimilarity", "moreButton"
@@ -80,12 +84,16 @@ export class SubmissionsTableComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) matPaginator!: MatPaginator;
 
+  @Input() public contextPrefix = "";
+
   public submissionsDataSource = new MatTableDataSource<Submission>([]);
 
   protected searchText = signal<string>("");
 
+
   constructor(
     private analysisContext: AnalysisContextService,
+    private routeContextService: RouteContextService,
     private router: Router
   ) {
     effect(() => {
@@ -106,6 +114,8 @@ export class SubmissionsTableComponent implements AfterViewInit {
     this.submissionsDataSource.filterPredicate = (data: Submission, filter: string) => {
       return data!.submitter.toLowerCase().includes(filter);
     };
+
+    this.applyContext();
   }
 
   protected onSorting(sort: Sort) {
@@ -130,4 +140,24 @@ export class SubmissionsTableComponent implements AfterViewInit {
     this.submissionsDataSource.filter = filter?.toLowerCase();
   }
 
+  public ngOnDestroy(): void {
+    this.routeContextService.putProperty(
+      SubmissionsTableComponent.CONTEXT_KEY,
+      JSON.stringify({filter: this.searchText()} as TableContext),
+      this.contextPrefix
+    );
+  }
+
+  private applyContext() {
+    const persistedContext = this.routeContextService.popProperty(
+      SubmissionsTableComponent.CONTEXT_KEY,
+      this.contextPrefix
+    );
+
+    if (persistedContext) {
+      const context = JSON.parse(persistedContext) as TableContext;
+      this.searchText.set(context.filter);
+      this.applyFilter(this.searchText());
+    }
+  }
 }
