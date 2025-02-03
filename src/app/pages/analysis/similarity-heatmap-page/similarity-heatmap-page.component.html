@@ -59,11 +59,13 @@
       </div>
 
     </div>
+
+    <button mat-button (click)="this.export()">Exportovať</button>
   </app-surface>
   <app-surface title="Nastavenie miery podobnosti"
                subtitle="Vyberte mieru podobnosti, ktorá sa zobrazí na teplotnej mape."
                [isContentCentered]="false">
-    <mat-form-field >
+    <mat-form-field>
       <mat-label>Meira</mat-label>
       <mat-select #select [value]="this.similarityHeatmapService.getDisplayScoreType()"
                   (selectionChange)="this.changeScoreType(select.value)">

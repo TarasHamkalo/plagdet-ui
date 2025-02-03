@@ -21,6 +21,7 @@ import {PageRoutes} from "../../../app.routes";
 import {MatFormField, MatOption, MatSelect} from "@angular/material/select";
 import {MatLabel} from "@angular/material/form-field";
 import {RouteContextService} from "../../../context/route-context.service";
+import {MatButton} from "@angular/material/button";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -43,7 +44,8 @@ export interface ChartOptions {
     FormsModule,
     MatSelect,
     MatOption,
-    MatFormField
+    MatFormField,
+    MatButton
   ],
   templateUrl: "./similarity-heatmap-page.component.html",
   styleUrl: "./similarity-heatmap-page.component.css"
@@ -108,8 +110,9 @@ export class SimilarityHeatmapPageComponent implements OnDestroy {
       series: initialPage.series,
       chart: {
         toolbar: {
-          show: false
+          show: false,
         },
+
         type: "heatmap",
         events: {
           dataPointSelection: (event, chartContext, opts) => {
@@ -184,6 +187,10 @@ export class SimilarityHeatmapPageComponent implements OnDestroy {
         scoreType as "META" | "SEMANTIC" | "JACCARD"
       );
     }
+  }
+
+  public export() {
+    this.similarityHeatmapService.export();
   }
 }
 

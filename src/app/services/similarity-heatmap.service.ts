@@ -6,6 +6,7 @@ import {SubmissionPairUtils} from "../utils/submission-pair-utils";
 import {ApexAxisChartSeries} from "ng-apexcharts";
 import {DocumentSeriesPage} from "../types/document-series-page";
 import {PlagScore} from "../model/plag-score";
+import {ExportService} from "./export.service";
 
 @Injectable({
   providedIn: "root"
@@ -26,7 +27,10 @@ export class SimilarityHeatmapService {
 
   private displayedSubmissions: Submission[] = [];
 
-  constructor(private analysisContextService: AnalysisContextService) {
+  constructor(
+    private analysisContextService: AnalysisContextService,
+    private exportService: ExportService
+  ) {
   }
 
   private initDocumentSeries(): boolean {
@@ -171,5 +175,11 @@ export class SimilarityHeatmapService {
 
   public setDocumentsLimit(limit: number) {
     this.documentsLimit = limit;
+  }
+
+  public export() {
+    if (this.documentSeries != null) {
+      this.exportService.exportHeatmapToCsv(this.documentSeries, Date.now().toFixed(0));
+    }
   }
 }

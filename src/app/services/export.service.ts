@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Submission} from "../model/submission";
 import {TimeFormatting} from "../utils/time-formatting";
+import {ApexAxisChartSeries} from "ng-apexcharts";
 
 @Injectable({
   providedIn: "root"
@@ -14,6 +15,15 @@ export class ExportService {
     ]
   };
 
+
+  public exportHeatmapToCsv(data: ApexAxisChartSeries, filename: string): void {
+    const csvContent = this.getSeriesRows(data);
+    const csvHeader = ["submitter", ...data.map(s => s.name)];
+    const csv = [csvHeader, ...csvContent]
+      .map(row => row.join(", "))
+      .join("\n");
+    this.createFile(csv, filename);
+  }
 
   public exportSubmissionToCsv(data: Submission[], filename: string): void {
     const csvContent = this.getSubmissionRows(data);
@@ -46,6 +56,13 @@ export class ExportService {
       s.metadata.lastPrinted ? TimeFormatting.mapUnixTimeToDate(s.metadata.lastPrinted) : ""
     ]);
 
+  }
+
+  private getSeriesRows(data: ApexAxisChartSeries) {
+    return data.map(s => [
+      s.name,
+      ...(s.data as {x: string; y: string}[]).map(d => d.y)
+    ]);
   }
 
   private escapeString(value: string | undefined): string {

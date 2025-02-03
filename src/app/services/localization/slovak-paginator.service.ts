@@ -10,7 +10,7 @@ export class SlovakPaginatorService extends MatPaginatorIntl {
   }
 
   public getAndInitTranslations() {
-    this.itemsPerPageLabel = "Položky na stránku:";
+    this.itemsPerPageLabel = "Položiek na stránku:";
     this.nextPageLabel = "Ďalšia stránka";
     this.previousPageLabel = "Predchádzajúca stránka";
     this.firstPageLabel = "Prvá stránka";
