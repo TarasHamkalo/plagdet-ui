@@ -146,14 +146,27 @@ export class SimilarityHeatmapService {
   }
 
   private getDataPointCategory(submission: Submission, frequencyMap: Record<string, number>): string {
-    const duplicateCount = frequencyMap[submission.submitter];
+    const maxLabelLength = 30;
+    let label = submission.submitter;
+    label = this.sanitizeLabel(label, maxLabelLength);
+
+    const duplicateCount = frequencyMap[label];
     if (duplicateCount) {
-      frequencyMap[submission.submitter] = duplicateCount + 1;
-      return `${submission.submitter}_${frequencyMap[submission.submitter]}`;
+      frequencyMap[label] = duplicateCount + 1;
+      return `${label}_${frequencyMap[label]}`;
     }
 
-    frequencyMap[submission.submitter] = 1;
-    return `${submission.submitter}_1`;
+    frequencyMap[label] = 1;
+    return `${label}_1`;
+  }
+
+  private sanitizeLabel(label: string, maxLabelLength: number) {
+    let sanitize = label.split("_").filter(part => part.match("[A-z]+")).join("_");
+    if (sanitize.length > maxLabelLength) {
+      sanitize = `${sanitize.substring(0, maxLabelLength)}`;
+    }
+
+    return sanitize;
   }
 
   public getDisplayScoreType() {
