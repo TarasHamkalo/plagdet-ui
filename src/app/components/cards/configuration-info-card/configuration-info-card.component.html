@@ -1,14 +1,186 @@
-<mat-card class="medium-card base-card">
-  <mat-card-header>
-    <mat-card-title>Semantické porovnávanie</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-list class="info-list">
-      <mat-list-item *ngFor="let param of getParams() | keyvalue">
-        <h3 matListItemTitle>{{ param.key }}</h3>
-        <p matListItemLine>{{ param.value }}</p>
-      </mat-list-item>
+<div class="configuration-card-group">
 
-    </mat-list>
-  </mat-card-content>
-</mat-card>
+  <mat-card class="large-card" *ngIf="configurationDescription().length !== 0">
+    <mat-card-header>
+      <mat-card-title>Semantické porovnávanie</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <mat-list class="info-list" style="gap: 0">
+        @for (param of getSentenceComparatorParams() | keyvalue; track param) {
+          <mat-list-item [lines]="3"
+                         class="configuration-item">
+            <h3 matListItemTitle>{{ param.value }}</h3>
+            <span>{{ this.getDescription(param.key) }}</span>
+
+          </mat-list-item>
+        }
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <mat-card class="extra-large-card"
+              style="gap: 16px;"
+              *ngIf="configurationDescription().length !== 0">
+      <mat-card-header>
+        <mat-card-title>Shingle porovnávanie</mat-card-title>
+        <mat-card-subtitle>
+          <p *ngIf="overview()?.configuration!.shingleComparatorParameters.bypassFiltering">
+            Filtrovanie dokumentových dvojíc, za prienikom ich šinglov, <strong>nebolo
+            použite</strong>
+          </p>
+
+          <p *ngIf="!overview()?.configuration!.shingleComparatorParameters.bypassFiltering">
+            <strong>Bolo použite</strong> filtrovanie dokumentových dvojíc, za prienikom ich
+            šinglov.
+            Niektoré dvojice nebudú obsahovať vyznačenie zhodných fragmentov
+          </p>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <mat-list class="info-list" style="gap: 0">
+          <mat-list-item [lines]="3"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.shingleComparatorParameters.discardLevel }}</h3>
+            <span>{{ getDescription('discardLevel') }}</span>
+          </mat-list-item>
+
+          <mat-list-item [lines]="3"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.shingleComparatorParameters.plagiarizedLevel }}</h3>
+            <span>{{ getDescription('plagiarizedLevel') }}</span>
+          </mat-list-item>
+          <mat-list-item [lines]="2"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.shingleComparatorParameters.size }}</h3>
+            <span>{{ getDescription('size') }}</span>
+          </mat-list-item>
+
+          <mat-list-item [lines]="2"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.shingleComparatorParameters.overlap }}</h3>
+            <span>{{ getDescription('overlap') }}</span>
+          </mat-list-item>
+
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="medium-card" *ngIf="configurationDescription().length !== 0">
+      <mat-card-header>
+        <mat-card-title>Porovnávanie metaúdajov</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <p *ngIf="overview()?.configuration!.metadataComparatorParameters.bypassFiltering">
+          Filtrovanie dokumentových dvojíc, za ich autormi, <strong>nebolo použite</strong>
+        </p>
+
+        <p *ngIf="!overview()?.configuration!.metadataComparatorParameters.bypassFiltering">
+          <strong>Bolo použite</strong> filtrovanie dokumentových dvojíc, za ich autormi.
+          V prípade dvojíc so spoločnými autormi sa ďalšie porovnania nevykonávali. Takéto dvojice,
+          nebudú obsahovať vyznačenie zhodných fragmentov
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <mat-card class="extra-large-card" *ngIf="configurationDescription().length !== 0">
+      <mat-card-header>
+        <mat-card-title>Nastavenia filtrovania výsledkov</mat-card-title>
+        <mat-card-subtitle>
+          <p *ngIf="overview()?.configuration!.resultsFilterParameters.bypassResultsFiltering">
+            Filtrovanie výsledkov <strong>nebolo použite</strong>
+          </p>
+
+          <p *ngIf="!overview()?.configuration!.resultsFilterParameters.bypassResultsFiltering">
+            <strong>Bolo použite</strong> filtrovanie výsledkov, odovzdania bez výsledných porovnaní
+            sú považované za bezplagiatorské
+          </p>
+
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <mat-list class="info-list">
+          <mat-list-item [lines]="3" class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.resultsFilterParameters.maxResultsPerDocument }}</h3>
+            <span>{{ getDescription('maxResultsPerDocument') }}</span>
+          </mat-list-item>
+
+
+          <mat-list-item [lines]="3"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.resultsFilterParameters.minSimilarityToInclude }}</h3>
+            <span>{{ getDescription('minSimilarityToInclude') }}</span>
+          </mat-list-item>
+
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="extra-large-card">
+      <mat-card-header>
+        <mat-card-title>
+          Porovnávanie so šablónou
+        </mat-card-title>
+        <mat-card-subtitle>
+          <p>
+            Každý súbor sa predbežne porovná s daným súborom. Všetky nájdené zhody sa budú ignorovať
+            a zobrazia sa pri otvorení obsahu dokumentu
+          </p>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <mat-list class="info-list">
+          <mat-list-item [lines]="4"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.templateDocumentPath || 'Prázdná' }}</h3>
+            <span>{{ getDescription('templateDocumentPath') }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card class="large-card">
+    <mat-card-header>
+      <mat-card-title>
+        Indexovanie
+      </mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <mat-list class="info-list">
+        <mat-list-item [lines]="3"
+                       class="configuration-item">
+          <h3
+            matListItemTitle>{{ overview()?.configuration!.luceneIndexDirectoryPath || 'Prázdná' }}</h3>
+          <span>{{ getDescription('luceneIndexDirectoryPath') }}</span>
+        </mat-list-item>
+
+        <mat-list-item [lines]="3"
+                       class="configuration-item">
+          <h3
+            matListItemTitle>{{ overview()?.configuration!.similarDocumentSourceParameters.similarDocumentsLimit }}</h3>
+          <span>{{ getDescription('similarDocumentsLimit') }}</span>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

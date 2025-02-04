@@ -1,0 +1,19 @@
+.gap-8 {
+  gap: 8px !important;
+}
+
+.configuration-card-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 32px;
+  row-gap: 32px;
+  align-items: start;
+  justify-content: center;
+}
+
+.configuration-card-group mat-card {
+  margin-top: auto;
+  margin-bottom: auto;
+  gap: 16px;
+}
