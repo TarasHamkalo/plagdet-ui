@@ -1,13 +1,11 @@
 import {Component, effect, OnInit, signal, ViewEncapsulation} from "@angular/core";
 import {MatCard, MatCardContent, MatCardHeader, MatCardModule} from "@angular/material/card";
-import {MatList, MatListItem, MatListItemMeta} from "@angular/material/list";
+import {MatList, MatListItem} from "@angular/material/list";
 import {Overview} from "../../../model/overview";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {KeyValuePipe, NgIf} from "@angular/common";
 import {AssetsLoaderService} from "../../../services/assets-loader.service";
 import {ConfigurationDescription} from "../../../types/configuration-description";
-import {MatIcon} from "@angular/material/icon";
-import {MatTooltip} from "@angular/material/tooltip";
 import {MatDivider} from "@angular/material/divider";
 
 @Component({
@@ -21,9 +19,6 @@ import {MatDivider} from "@angular/material/divider";
     MatCardModule,
     KeyValuePipe,
     NgIf,
-    MatIcon,
-    MatListItemMeta,
-    MatTooltip,
     MatDivider
   ],
   templateUrl: "./configuration-info-card.component.html",
