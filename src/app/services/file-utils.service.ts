@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {FileWrapper} from "../types/file-wrapper";
 import {forkJoin, from, map, mergeMap, Observable, of} from "rxjs";
 import {Report} from "../model/report";
-import JSZip, {file} from "jszip";
+import JSZip from "jszip";
 import {Submission} from "../model/submission";
 import {SubmissionPair} from "../model/submission-pair";
 import {Overview} from "../model/overview";
@@ -117,7 +117,7 @@ export class FileUtilsService {
             mergeMap((submissionJson: string) => {
               const paths = path.split("/");
               const fileParent = paths[paths.length - 2]!;
-              console.log(fileParent);
+              // console.log(fileP);
               const submission: Submission = JSON.parse(submissionJson);
               const contentPath = `${this.FILES_DIR_PATH}/${fileParent}/${submission.id}_content.txt`;
               const contentEntry = zip.files[contentPath] || zip.files["/" + contentPath];
