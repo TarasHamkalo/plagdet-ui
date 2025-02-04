@@ -146,7 +146,7 @@ export class SimilarityHeatmapService {
   }
 
   private getDataPointCategory(submission: Submission, frequencyMap: Record<string, number>): string {
-    const maxLabelLength = 30;
+    const maxLabelLength = 20;
     let label = submission.submitter;
     label = this.sanitizeLabel(label, maxLabelLength);
 
