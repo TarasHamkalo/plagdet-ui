@@ -1,4 +1,6 @@
 import {Submission} from "./submission";
+import {PlagdetConfiguration} from "./plagdet-configuration";
+
 
 export interface Overview {
   name: string;
@@ -11,4 +13,5 @@ export interface Overview {
   totalFilesCount: number; // shouldn't be there (but for prototype simplifies table logic)
   status: "success" | "in-process" | "error";
   submissions: Submission[];
+  configuration: PlagdetConfiguration;
 }

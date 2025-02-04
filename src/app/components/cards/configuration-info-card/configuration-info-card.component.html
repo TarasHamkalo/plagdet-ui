@@ -1,0 +1,14 @@
+<mat-card class="medium-card base-card">
+  <mat-card-header>
+    <mat-card-title>Semantické porovnávanie</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list class="info-list">
+      <mat-list-item *ngFor="let param of getParams() | keyvalue">
+        <h3 matListItemTitle>{{ param.key }}</h3>
+        <p matListItemLine>{{ param.value }}</p>
+      </mat-list-item>
+
+    </mat-list>
+  </mat-card-content>
+</mat-card>

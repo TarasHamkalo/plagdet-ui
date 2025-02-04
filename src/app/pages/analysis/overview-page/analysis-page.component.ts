@@ -18,6 +18,9 @@ import {SurfaceComponent} from "../../../components/base/surface/surface.compone
 import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
+import {
+  ConfigurationInfoCardComponent
+} from "../../../components/cards/configuration-info-card/configuration-info-card.component";
 
 @Component({
   selector: "app-overview-page",
@@ -30,6 +33,7 @@ import {
     SubmissionsTableComponent,
     SurfaceComponent,
     ContentContainerComponent,
+    ConfigurationInfoCardComponent,
   ],
   templateUrl: "./analysis-page.component.html",
   styleUrl: "./analysis-page.component.css"
@@ -39,7 +43,7 @@ export class AnalysisPageComponent implements OnInit {
   protected loading = true;
 
   constructor(
-    private analysisContext: AnalysisContextService,
+    protected analysisContext: AnalysisContextService,
     private analysisService: AnalysisService,
     private router: Router
   ) {
@@ -47,16 +51,22 @@ export class AnalysisPageComponent implements OnInit {
 
   public ngOnInit() {
     this.loading = true;
-    this.analysisService.loadReport().subscribe((report) => {
-      if (report) {
-        this.analysisContext.setReport(report);
-        this.loading = false;
-      } else {
-        this.router.navigate([PageRoutes.HOME]);
+    this.analysisService.loadReport().subscribe({
+      next: (report) => {
+        if (report) {
+          this.analysisContext.setReport(report);
+          this.loading = false;
+        } else {
+          this.router.navigate([PageRoutes.HOME]);
+        }
+      },
+      error: (error) => {
+        console.error("ZIP Load Error:", error);
       }
     });
 
   }
+
   protected showMoreAboutSubmission(element: Submission) {
     console.log(element);
   }

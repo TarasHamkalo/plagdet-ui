@@ -2,18 +2,6 @@ mat-card {
   gap: 16px;
 }
 
-.info-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.info-list > mat-list-item {
-  padding-left: 0;
-  padding-right: 0;
-  gap: 16px;
-}
-
 .card-group {
   display: flex;
 

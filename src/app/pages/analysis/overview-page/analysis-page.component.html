@@ -14,7 +14,7 @@
                [isTitleCentered]="true"
                [isHorizontal]="true">
     <app-analysis-info-card/>
-
+    <app-configuration-info-card *ngIf="this.analysisContext.getReport()()?.overview?.configuration"/>
   </app-surface>
 
   <app-surface title="Odovzdania"
