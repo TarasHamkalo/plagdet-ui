@@ -27,11 +27,17 @@ export class SubmissionPairsPageComponent {
 
   protected pairs = signal<SubmissionPair[]>([]);
 
+  protected isReportLoaded = false;
+
   constructor(
     protected analysisContext: AnalysisContextService,
   ) {
     effect(() => {
-      this.pairs.set([...this.analysisContext.getReport()()!.pairs!.values()]);
+      const reportPairs = this.analysisContext.getReport()()!.pairs!.values();
+      if (reportPairs) {
+        this.pairs.set(Array.from(reportPairs));
+        this.isReportLoaded = true;
+      }
     });
   }
 }

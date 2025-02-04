@@ -1,10 +1,10 @@
 <app-content-container>
 
-  <app-surface *ngIf="pairs().length === 0" title="Loading pairs data" subtitle="">
+  <app-surface *ngIf="!isReportLoaded" title="Loading pairs data" subtitle="">
     <mat-progress-bar mode="indeterminate"/>
   </app-surface>
 
-  <app-surface *ngIf="pairs().length > 0"
+  <app-surface *ngIf="isReportLoaded"
                title="Dvojice odovzdaní"
                subtitle=""
                [isTitleCentered]="true"

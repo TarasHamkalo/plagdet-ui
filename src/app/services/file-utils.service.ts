@@ -68,17 +68,16 @@ export class FileUtilsService {
           this.getPairReadTasks(fileNames, zip);
         return forkJoin({
           overview: overviewReadTask ,
-          submissions: forkJoin(submissionsReadTasks).pipe(
+          submissions: submissionsReadTasks.length > 0 ? forkJoin(submissionsReadTasks).pipe(
             map((submissions) => {
-              console.log(submissions);
               const submissionsMap = new Map<number, Submission>();
               submissions.forEach((submission) => {
                 submissionsMap.set(submission.id, submission);
               });
               return submissionsMap;
             })
-          ),
-          pairs: forkJoin(pairReadTasks).pipe(
+          ) : of(new Map<number, Submission>()),
+          pairs: pairReadTasks.length > 0 ? forkJoin(pairReadTasks).pipe(
             map((pairs) => {
               const pairsMap = new Map<string, SubmissionPair>();
               pairs.forEach((pair) => {
@@ -86,7 +85,7 @@ export class FileUtilsService {
               });
               return pairsMap;
             })
-          )
+          ) : of(new Map<number, SubmissionPair>())
         });
       })
     ) as Observable<Report | null>;
