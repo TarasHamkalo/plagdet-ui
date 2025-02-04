@@ -121,8 +121,8 @@ export class SimilarityHeatmapService {
   }
 
   public getMaxPosition(): number {
-    if (this.initDocumentSeries()) {
-      return this.documentSeries![0].data.length - this.documentsLimit;
+    if (this.initDocumentSeries() && this.documentSeries?.length != 0) {
+      return Math.max(0, this.documentSeries![0].data.length - this.documentsLimit);
     }
     return -1;
   }
@@ -182,4 +182,9 @@ export class SimilarityHeatmapService {
       this.exportService.exportHeatmapToCsv(this.documentSeries, Date.now().toFixed(0));
     }
   }
+
+  public hasDataToDisplay() {
+    return this.initDocumentSeries() && this.documentSeries?.length != 0;
+  }
+
 }

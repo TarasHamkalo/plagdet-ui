@@ -22,6 +22,7 @@ import {MatFormField, MatOption, MatSelect} from "@angular/material/select";
 import {MatLabel} from "@angular/material/form-field";
 import {RouteContextService} from "../../../context/route-context.service";
 import {MatButton} from "@angular/material/button";
+import {NgIf} from "@angular/common";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -45,7 +46,8 @@ export interface ChartOptions {
     MatSelect,
     MatOption,
     MatFormField,
-    MatButton
+    MatButton,
+    NgIf
   ],
   templateUrl: "./similarity-heatmap-page.component.html",
   styleUrl: "./similarity-heatmap-page.component.css"
