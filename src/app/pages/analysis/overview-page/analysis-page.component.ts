@@ -21,6 +21,9 @@ import {
 import {
   ConfigurationInfoCardComponent
 } from "../../../components/cards/configuration-info-card/configuration-info-card.component";
+import {
+  PlagiarismScoreDistributionComponent
+} from "../../../components/charts/plagiarism-score-distribution/plagiarism-score-distribution.component";
 
 @Component({
   selector: "app-overview-page",
@@ -34,6 +37,7 @@ import {
     SurfaceComponent,
     ContentContainerComponent,
     ConfigurationInfoCardComponent,
+    PlagiarismScoreDistributionComponent,
   ],
   templateUrl: "./analysis-page.component.html",
   styleUrl: "./analysis-page.component.css"

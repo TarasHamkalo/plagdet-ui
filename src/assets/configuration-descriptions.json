@@ -1,0 +1,92 @@
+[
+  {
+    "flag": "-bypass-metadata-filter",
+    "description": "Či zastaviť porovnávanie po zhode autorov/modifikátora",
+    "name": "bypassFilteringMeta"
+  },
+  {
+    "flag": "-bypass-results-filter",
+    "description": "Žiadny limit na počet výsledkov, čo by bolo rovné (files_count * (files_count - 1) / 2) + files_count * similar-docs-limit",
+    "name": "bypassResultsFiltering"
+  },
+  {
+    "flag": "-bypass-shingle-filter",
+    "description": "Či zastaviť porovnávanie po dosiahnutí prahu prekrytia shinglov",
+    "name": "bypassFilteringShingle"
+  },
+  {
+    "flag": "-dice-sim <arg>",
+    "description": "Prah Diceovej podobnosti pre dve vety, aby boli považované za podobné",
+    "name": "diceSimilarityThreshold"
+  },
+  {
+    "flag": "-discard-level <arg>",
+    "description": "Prah Jaccardovej podobnosti, pod ktorým budú dokumentové páry odstránené",
+    "name": "discardLevel"
+  },
+  {
+    "flag": "-l, --lucene-path <arg>",
+    "description": "Cesta k Lucene indexovému adresáru, ak je prázdna, bol vytvorený dočasný adresár",
+    "name": "luceneIndexDirectoryPath"
+  },
+  {
+    "flag": "-max-gap <arg>",
+    "description": "Maximálna medzera medzi vetami pri zlučovaní",
+    "name": "maxGap"
+  },
+  {
+    "flag": "-max-results <arg>",
+    "description": "Maximálny počet párov na dokument, ktoré budú uložené do výsledkov",
+    "name": "maxResultsPerDocument"
+  },
+  {
+    "flag": "-min-cluster-size <arg>",
+    "description": "Minimálny počet viet na to, aby boli považované za plagiát",
+    "name": "minClusterSize"
+  },
+  {
+    "flag": "-min-fragment-length <arg>",
+    "description": "Minimálna dĺžka fragmentu v znakoch",
+    "name": "minFragmentCharLength"
+  },
+  {
+    "flag": "-min-fragment-sim <arg>",
+    "description": "Minimálna podobnosť pre skupinu viet, aby boli považované za podobné",
+    "name": "minFragmentSideSim"
+  },
+  {
+    "flag": "-min-similarity <arg>",
+    "description": "Minimálna podobnosť na zaradenie porovnania do výsledkov",
+    "name": "minSimilarityToInclude"
+  },
+  {
+    "flag": "-plagiarized-level <arg>",
+    "description": "Prah Jaccardovej podobnosti, nad ktorým sú dva dokumenty považované za plagiát",
+    "name": "plagiarizedLevel"
+  },
+  {
+    "flag": "-sentence-sim <arg>",
+    "description": "Prah podobnosti vetných vektorov na to, aby boli považované za podobné",
+    "name": "sentenceVectorSimilarityThreshold"
+  },
+  {
+    "flag": "-shingle-overlap <arg>",
+    "description": "Prekrytie shinglov",
+    "name": "overlap"
+  },
+  {
+    "flag": "-shingle-size <arg>",
+    "description": "Veľkosť shinglov",
+    "name": "size"
+  },
+  {
+    "flag": "-similar-docs-limit <arg>",
+    "description": "Limit počtu indexovaných dokumentov načítaných pre každý odovzdaný dokument",
+    "name": "similarDocumentsLimit"
+  },
+  {
+    "flag": "-t, --template-path <arg>",
+    "description": "Cesta k súboru so šablónou",
+    "name": "templateDocumentPath"
+  }
+]
