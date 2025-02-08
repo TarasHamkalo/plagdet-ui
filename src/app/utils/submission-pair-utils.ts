@@ -6,18 +6,19 @@ export class SubmissionPairUtils {
 
   public static getFormattedScore(
     pair: SubmissionPair,
-    type: "META" | "JACCARD" | "SEMANTIC"
+    type: "META" | "JACCARD" | "SEMANTIC",
+    decimals = 2
   ): string {
     const plagScore = this.getScoreByType(pair, type);
     if (plagScore !== null) {
-      return this.formatScore(plagScore.score);
+      return this.formatScore(plagScore.score, decimals);
     }
 
     return "0 %";
   }
 
-  public static formatScore(score: number): string {
-    return (score * 100).toFixed(2) + " %";
+  public static formatScore(score: number, decimals = 2): string {
+    return (score * 100).toFixed(decimals) + " %";
   }
 
   public static getScoreByType(

@@ -131,7 +131,7 @@ export class SimilarityHeatmapService {
     if (target.id === other.id) {
       return {
         x: this.getDataPointCategory(other, this.duplicateCategories),
-        y: SubmissionPairUtils.formatScore(1)
+        y: SubmissionPairUtils.formatScore(1, 1)
       };
     }
 
@@ -139,8 +139,8 @@ export class SimilarityHeatmapService {
     const key2 = `${other.id}_${target.id}`;
     const pair = pairs.get(key1) || pairs.get(key2);
     const score = pair ?
-      SubmissionPairUtils.getFormattedScore(pair, this.displayScoreType) :
-      SubmissionPairUtils.formatScore(0);
+      SubmissionPairUtils.getFormattedScore(pair, this.displayScoreType, 1) :
+      SubmissionPairUtils.formatScore(0, 1);
 
     return {x: this.getDataPointCategory(other, this.duplicateCategories), y: score};
   }
