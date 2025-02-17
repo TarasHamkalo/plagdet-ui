@@ -23,6 +23,10 @@ export class MonacoDecorationService {
     "TEMPLATE": {
       inlineClassName: "highlight-template",
       hoverMessage: {value: "Template fragment"}
+    },
+    "MISSPELLED": {
+      inlineClassName: "highlight-misspelled",
+      hoverMessage: {value: "Misspelled fragment"}
     }
   };
 

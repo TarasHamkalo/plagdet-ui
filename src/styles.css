@@ -48,6 +48,11 @@ body {
   border-bottom: 2px solid rgba(70, 130, 180, 0.3);
 }
 
+.highlight-misspelled {
+  background-color: rgba(181, 73, 105, 0.2);
+  border-bottom: 2px solid rgba(213, 46, 95, 0.47);
+}
+
 .meta-warning {
   background-color: #FFB300;
 }
