@@ -17,6 +17,8 @@ export class HeaderComponent {
 
   @Input() public title = "Plagdet";
 
+  @Input() public isToggleButtonVisible = true;
+
   @Output() public menuToggle = new EventEmitter<void>();
 
   protected onMenuToggle(): void {

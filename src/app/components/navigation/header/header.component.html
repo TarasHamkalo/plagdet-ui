@@ -1,9 +1,18 @@
 <mat-toolbar class="app-bar">
-  <button mat-icon-button aria-label="Menu icon" (click)="onMenuToggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
+  @if (isToggleButtonVisible) {
+    <button mat-icon-button
+            aria-label="Menu icon"
+            (click)="onMenuToggle()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+  } @else {
+    <span></span>
+  }
+
   <h1>{{ title }}</h1>
-  <button mat-icon-button>
-    <mat-icon>account_circle</mat-icon>
-  </button>
+  <span></span>
+  <!--  <button mat-icon-button>-->
+  <!--    <mat-icon>account_circle</mat-icon>-->
+  <!--  </button>-->
 </mat-toolbar>

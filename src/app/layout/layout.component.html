@@ -1,5 +1,7 @@
 <div class="app-layout">
-  <app-header (menuToggle)="this.toggleSideNav()"></app-header>
+  <app-header [isToggleButtonVisible]="this.navigationService.rawRoutes().length !== 0"
+              (menuToggle)="this.toggleSideNav()"
+  ></app-header>
 
   <main>
 

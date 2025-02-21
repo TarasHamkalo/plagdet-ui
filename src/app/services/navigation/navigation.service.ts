@@ -93,15 +93,18 @@ export class NavigationService {
   constructor(private router: Router) {}
 
   public getRoutes(): NavItem[] {
+    const rawRoutes = this.rawRoutes();
+    if (rawRoutes.length > 0) {
+      return rawRoutes.concat(this.supportRoutes);
+    }
+    return [];
+    // return this.defaultRoutes.concat(this.supportRoutes);
+  }
+
+  public rawRoutes(): NavItem[] {
     const url = this.router.url.split("?")[0].split("#")[0];
     const baseUrl = this.getBaseUrl(url);
-    console.log(baseUrl);
-    if (this.routesMap.has(baseUrl)) {
-      const routes = this.routesMap.get(baseUrl) ?? [];
-      return routes.concat(this.supportRoutes);
-    }
-
-    return this.defaultRoutes.concat(this.supportRoutes);
+    return this.routesMap.get(baseUrl) ?? [];
   }
 
   public getActive() {
