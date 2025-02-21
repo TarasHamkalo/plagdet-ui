@@ -1,7 +1,9 @@
 import {MarkingOffsets} from "./marking-offsets";
+import {SpecialMarkingType} from "./special-marking-type";
 
 export interface SpecialMarking {
-  type: "PLAG" | "CODE" | "TEMPLATE" | "MISSPELLED";
+  type: SpecialMarkingType;
   first: MarkingOffsets;
   second?: MarkingOffsets;
+  comments?: string[];
 }

@@ -49,6 +49,11 @@ body {
 }
 
 .highlight-misspelled {
+  background-color: rgba(73, 181, 104, 0.2);
+  border-bottom: 2px solid rgba(4, 249, 69, 0.31);
+}
+
+.highlight-spoof {
   background-color: rgba(181, 73, 105, 0.2);
   border-bottom: 2px solid rgba(213, 46, 95, 0.47);
 }

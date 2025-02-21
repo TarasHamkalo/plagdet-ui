@@ -1,32 +1,36 @@
 import {Injectable} from "@angular/core";
 import {SpecialMarking} from "../model/positioning/special-marking";
-import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 import {MarkingOffsets} from "../model/positioning/marking-offsets";
-import IModelDeltaDecoration = editor.IModelDeltaDecoration;
 import {MonacoPosition} from "../types/monaco-position";
 import {editor, Range} from "monaco-editor";
+import {SpecialMarkingType} from "../model/positioning/special-marking-type";
+import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
+import IModelDeltaDecoration = editor.IModelDeltaDecoration;
 
 @Injectable({
   providedIn: "root"
 })
 export class MonacoDecorationService {
 
-  public readonly markingTypeToDecorationOptions: Record<string, editor.IModelDecorationOptions> = {
-    "PLAG": {
+  public readonly markingTypeToDecorationOptions: Record<SpecialMarkingType, editor.IModelDecorationOptions> = {
+    [SpecialMarkingType.PLAG]: {
       inlineClassName: "highlight-plag",
-      hoverMessage: {value: "Plagiarized fragment"}
+      hoverMessage: {value: "Spoločný fragment"}
     },
-    "CODE": {
+    [SpecialMarkingType.CODE]: {
       inlineClassName: "highlight-code",
-      hoverMessage: {value: "Code fragment"}
+      hoverMessage: {value: "Fragment kódu"}
     },
-    "TEMPLATE": {
+    [SpecialMarkingType.TEMPLATE]: {
       inlineClassName: "highlight-template",
-      hoverMessage: {value: "Template fragment"}
+      hoverMessage: {value: "Fragment šablóny"}
     },
-    "MISSPELLED": {
+    [SpecialMarkingType.MISSPELLED]: {
       inlineClassName: "highlight-misspelled",
-      hoverMessage: {value: "Misspelled fragment"}
+    },
+    [SpecialMarkingType.SPOOF]: {
+      inlineClassName: "highlight-spoof",
+      hoverMessage: {value: "Boli použité iné ako latinské znaky (Unicode Look-Alike)"}
     }
   };
 
@@ -37,6 +41,7 @@ export class MonacoDecorationService {
   ): IModelDeltaDecoration[] {
 
     const decorations: IModelDeltaDecoration[] = [];
+
     for (const specialMarking of markings) {
       const markingOffsets = this.getMarkingOffset(specialMarking, markingSide);
       const start = this.getLineColumnFromOffset(editor.getValue(), markingOffsets.start);
@@ -44,12 +49,23 @@ export class MonacoDecorationService {
       decorations.push(
         {
           range: new Range(start.line, start.column, end.line, end.column),
-          options: this.markingTypeToDecorationOptions[specialMarking.type]
+          options: this.getOptionsForSpecialMarking(specialMarking),
         }
       );
     }
 
     return decorations;
+  }
+
+  public getOptionsForSpecialMarking(specialMarking: SpecialMarking) {
+    if (specialMarking.type === SpecialMarkingType.MISSPELLED) {
+      return {
+        ...this.markingTypeToDecorationOptions[specialMarking.type],
+        hoverMessage: {value: `Pravdepodobný preklep [${specialMarking.comments || ""}]`}
+      };
+    }
+
+    return this.markingTypeToDecorationOptions[specialMarking.type];
   }
 
   public getMarkingOffset(marking: SpecialMarking, side: 0 | 1): MarkingOffsets {
