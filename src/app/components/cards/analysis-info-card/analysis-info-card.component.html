@@ -35,7 +35,7 @@
                   aria-label="Počet vykonaných porovnaní"
                   svgIcon="compare-horizontal"
                   matListItemIcon></mat-icon>
-        <p matListItemTitle>{{ analysis()?.numberOfComparisons | number }}</p>
+        <p matListItemTitle>{{ analysis()?.comparisonsCount | number }}</p>
       </mat-list-item>
 
     </mat-list>
@@ -50,7 +50,7 @@
                     aria-label="Zobraziť súbory formatu docx">
             DOCX
           </mat-chip>
-          <p>{{ analysis()?.docxFiles }} súborov</p>
+          <p>{{ extensionToCount().get('docx') || 0 }} súborov</p>
         </div>
       </mat-list-item>
 
@@ -61,7 +61,7 @@
                     aria-label="Zobraziť súbory formatu doc">
             DOC
           </mat-chip>
-          <p>{{ analysis()?.docFiles }} súborov</p>
+          <p>{{ extensionToCount().get('doc') || 0 }} súborov</p>
         </div>
       </mat-list-item>
 
@@ -72,11 +72,10 @@
                     aria-label="Zobraziť súbory formatu pdf">
             PDF
           </mat-chip>
-          <p>{{ analysis()?.pdfFiles }} súborov</p>
+          <p>{{ extensionToCount().get('pdf') || 0 }} súborov</p>
         </div>
       </mat-list-item>
     </mat-list>
-<!--    <mat-divider></mat-divider>-->
 
   </mat-list>
 </div>
