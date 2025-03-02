@@ -23,15 +23,15 @@ export class MetadataStatisticsService {
   }
 
   public calculateAverages(data: Submission[]): MetadataStatistics {
-    const avgEditTime = this.calculateAvg(data.map(e => e.metadata.totalEditTime));
+    const avgEditTime = this.calculateAvg(data.map(e => e.fileData.metadata.totalEditTime));
 
     const creationDateFiltered = data
-      .filter(e => e.metadata.creationDate !== undefined)
-      .map(e => e.metadata.creationDate!);
+      .filter(e => e.fileData.metadata.creationDate !== undefined)
+      .map(e => e.fileData.metadata.creationDate!);
 
     const modificationDateFiltered = data
-      .filter(e => e.metadata.modificationDate !== undefined)
-      .map(e => e.metadata.modificationDate!);
+      .filter(e => e.fileData.metadata.modificationDate !== undefined)
+      .map(e => e.fileData.metadata.modificationDate!);
     const avgCreationDate = this.calculateAvgFromModeYearDate(creationDateFiltered);
     const avgModificationDate = this.calculateAvgFromModeYearDate(modificationDateFiltered);
 
@@ -75,7 +75,7 @@ export class MetadataStatisticsService {
       return false;
     }
 
-    return element.metadata.totalEditTime < statistics.avgEditTime;
+    return element.fileData.metadata.totalEditTime < statistics.avgEditTime;
   }
 
   public isDateDeviating(
@@ -87,7 +87,7 @@ export class MetadataStatisticsService {
       return false;
     }
 
-    const dateValue = element.metadata[dateField]!;
+    const dateValue = element.fileData.metadata[dateField]!;
     if (!dateValue) {
       return true;
     }

@@ -16,8 +16,8 @@ export class MetadataEqualityHighlightDirective implements OnInit {
   @HostBinding("class.meta-equality") private metaEquality = false;
 
   public ngOnInit() {
-    const firstValue = this.getFieldValue(this.first.metadata, this.metadataField);
-    const secondValue = this.getFieldValue(this.second.metadata, this.metadataField);
+    const firstValue = this.getFieldValue(this.first.fileData.metadata, this.metadataField);
+    const secondValue = this.getFieldValue(this.second.fileData.metadata, this.metadataField);
     if (firstValue && secondValue) {
       this.metaEquality = firstValue === secondValue;
       return;

@@ -97,9 +97,9 @@ export class MetadataTableComponent implements AfterViewInit {
   }
 
   protected rowsFilter(data: Submission, filter: string): boolean {
-    const hasSubmitter = data.submitter.toLowerCase().includes(filter);
-    const hasCreator = data.metadata.creator?.toLowerCase().includes(filter);
-    const hasModifier = data.metadata.modifier?.toLowerCase().includes(filter);
+    const hasSubmitter = data.fileData.submitter.toLowerCase().includes(filter);
+    const hasCreator = data.fileData.metadata.creator?.toLowerCase().includes(filter);
+    const hasModifier = data.fileData.metadata.modifier?.toLowerCase().includes(filter);
     return hasCreator || hasModifier || hasSubmitter;
   }
 
@@ -117,7 +117,7 @@ export class MetadataTableComponent implements AfterViewInit {
   private getSortValue(submission: Submission, field: string) {
     // @ts-expect-error {{field}} comes from table definition,
     // where it must correspond with real field name
-    return submission.metadata[field];
+    return submission.fileData.metadata[field];
   }
 
   private compareSubmissions(a: Submission, b: Submission, sort: Sort) {

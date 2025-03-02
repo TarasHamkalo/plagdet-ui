@@ -1,15 +1,12 @@
-import {Metadata} from "./metadata";
 import {SpecialMarking} from "./positioning/special-marking";
+import {FileData} from "./filedata";
 
 export interface Submission {
   id: number;
   indexed: boolean;
-  submitter: string;
-  filename: string;
+  fileData: FileData;
   maxSimilarity: number;
-  filepath: string;
   pairIds: string[];
-  content: string;
-  metadata: Metadata;
   markings: SpecialMarking[];
+  content: string;
 }

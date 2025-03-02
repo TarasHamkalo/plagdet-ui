@@ -35,6 +35,7 @@ export class AnalysisInfoCardComponent {
     effect(() => {
       const report = this.analysisContext.getReport()();
       if (report) {
+        // report.submissions.
         this.analysis.set(report!.overview);
       }
     });

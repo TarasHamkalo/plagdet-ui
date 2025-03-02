@@ -44,16 +44,16 @@ export class ExportService {
 
   private getSubmissionRows(data: Submission[]): (string | number) [][] {
     return data.map(s => [
-      this.escapeString(s.submitter),
-      this.escapeString(s.filename),
-      this.escapeString(s.filepath),
-      this.escapeString(s.metadata.creator),
-      s.metadata.creationDate ? TimeFormatting.mapUnixTimeToDate(s.metadata.creationDate) : "",
-      this.escapeString(s.metadata.modifier),
-      s.metadata.modificationDate ? TimeFormatting.mapUnixTimeToDate(s.metadata.modificationDate) : "",
-      TimeFormatting.mapToSecondsToHhMmSs(s.metadata.totalEditTime),
-      s.metadata.revisionsNumber,
-      s.metadata.lastPrinted ? TimeFormatting.mapUnixTimeToDate(s.metadata.lastPrinted) : ""
+      this.escapeString(s.fileData.submitter),
+      this.escapeString(s.fileData.filename),
+      this.escapeString(s.fileData.persistentPath),
+      this.escapeString(s.fileData.metadata.creator),
+      s.fileData.metadata.creationDate ? TimeFormatting.mapUnixTimeToDate(s.fileData.metadata.creationDate) : "",
+      this.escapeString(s.fileData.metadata.modifier),
+      s.fileData.metadata.modificationDate ? TimeFormatting.mapUnixTimeToDate(s.fileData.metadata.modificationDate) : "",
+      TimeFormatting.mapToSecondsToHhMmSs(s.fileData.metadata.totalEditTime),
+      s.fileData.metadata.revisionsNumber,
+      s.fileData.metadata.lastPrinted ? TimeFormatting.mapUnixTimeToDate(s.fileData.metadata.lastPrinted) : ""
     ]);
 
   }

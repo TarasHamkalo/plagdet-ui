@@ -108,8 +108,8 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
     console.log(filter);
     const first = this.getSubmissionById(data.firstId);
     const second = this.getSubmissionById(data.secondId);
-    return first.submitter.toLowerCase().includes(filter) ||
-      second.submitter.toLowerCase().includes(filter);
+    return first.fileData.submitter.toLowerCase().includes(filter) ||
+      second.fileData.submitter.toLowerCase().includes(filter);
   }
 
   protected getSubmissionById(id: number): Submission {
@@ -122,15 +122,15 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
     switch (sort.active) {
       case "first": {
         this.pairsDataSource.filteredData.sort((a, b) =>
-          this.getSubmissionById(a.firstId)!.submitter
-            .localeCompare(this.getSubmissionById(b.firstId).submitter) * mul
+          this.getSubmissionById(a.firstId)!.fileData.submitter
+            .localeCompare(this.getSubmissionById(b.firstId).fileData.submitter) * mul
         );
         break;
       }
       case "second": {
         this.pairsDataSource.filteredData.sort((a, b) =>
-          this.getSubmissionById(a.secondId)!.submitter
-            .localeCompare(this.getSubmissionById(b.secondId).submitter) * mul
+          this.getSubmissionById(a.secondId)!.fileData.submitter
+            .localeCompare(this.getSubmissionById(b.secondId).fileData.submitter) * mul
         );
         break;
       }

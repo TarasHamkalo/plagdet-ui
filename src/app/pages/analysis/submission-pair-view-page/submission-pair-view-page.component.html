@@ -43,8 +43,8 @@
       <div class="editor-wrapper">
         <div class="editor-header">
           <div class="header-text-frame">
-            <h3>{{ this.first()?.submitter }}</h3>
-            <p>{{ this.first()?.filename }}</p>
+            <h3>{{ this.first()?.fileData?.submitter }}</h3>
+            <p>{{ this.first()?.fileData?.filename }}</p>
           </div>
           <mat-icon *ngIf="this.first()?.indexed"
                     svgIcon="file-document-check-outline"
@@ -61,8 +61,8 @@
       <div class="editor-wrapper">
         <div class="editor-header">
           <div class="header-text-frame">
-            <h3>{{ this.second()?.submitter }}</h3>
-            <p>{{ this.second()?.filename }}</p>
+            <h3>{{ this.second()?.fileData?.submitter }}</h3>
+            <p>{{ this.second()?.fileData?.filename }}</p>
           </div>
           <mat-icon *ngIf="this.second()?.indexed"
                     svgIcon="file-document-check-outline"

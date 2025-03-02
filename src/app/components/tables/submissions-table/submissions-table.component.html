@@ -19,7 +19,7 @@
         <td mat-cell *matCellDef="let element">
 
           <div class="scrollable-text">
-            {{ element.submitter }}
+            {{ element.fileData.submitter }}
           </div>
 
         </td>
@@ -32,7 +32,7 @@
         <td mat-cell *matCellDef="let element">
 
           <div class="scrollable-text">
-            {{ element.filename }}
+            {{ element.fileData.filename }}
           </div>
 
         </td>
@@ -46,7 +46,7 @@
             appMetadataDeviationHighlight
             [checkTimeDeviation]="true"
             [submission]="element">
-          {{ element.metadata.totalEditTime | minutesTime }}
+          {{ element.fileData.metadata.totalEditTime | minutesTime }}
         </td>
       </ng-container>
 

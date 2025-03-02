@@ -1,5 +1,6 @@
 <div class="table-container">
-  <div style="display: flex; flex-direction: row; gap: 8px; justify-content: space-between; align-items: center">
+  <div
+    style="display: flex; flex-direction: row; gap: 8px; justify-content: space-between; align-items: center">
     <mat-form-field class="search-bar" style="width: 70%">
       <mat-label>Hľadať</mat-label>
       <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
@@ -27,7 +28,7 @@
         <td mat-cell *matCellDef="let element">
 
           <div class="scrollable-text cell-width-12">
-            {{ element.filename }}
+            {{ element.fileData.filename }}
           </div>
 
         </td>
@@ -39,7 +40,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <div class="scrollable-text cell-width-12">
-            {{ element.submitter }}
+            {{ element.fileData.submitter }}
           </div>
         </td>
       </ng-container>
@@ -50,7 +51,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <div class="scrollable-text cell-width-12">
-            {{ element.metadata.creator ? element.metadata.creator : 'Neznámy' }}
+            {{ element.fileData.metadata.creator ? element.fileData.metadata.creator : 'Neznámy' }}
           </div>
         </td>
       </ng-container>
@@ -61,7 +62,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <div class="scrollable-text cell-width-12">
-            {{ element.metadata.modifier ? element.metadata.modifier : 'Neznámy' }}
+            {{ element.fileData.metadata.modifier ? element.fileData.metadata.modifier : 'Neznámy' }}
           </div>
         </td>
       </ng-container>
@@ -74,7 +75,7 @@
             appMetadataDeviationHighlight
             [submission]="element"
             [checkTimeDeviation]="true">
-          {{ element.metadata.totalEditTime | minutesTime }}
+          {{ element.fileData.metadata.totalEditTime | minutesTime }}
 
         </td>
       </ng-container>
@@ -87,7 +88,7 @@
             appMetadataDeviationHighlight
             dateField="creationDate"
             [submission]="element">
-          {{ element.metadata.creationDate ? (element.metadata.creationDate | unixDate) : 'Neznáme' }}
+          {{ element.fileData.metadata.creationDate ? (element.fileData.metadata.creationDate | unixDate) : 'Neznáme' }}
         </td>
       </ng-container>
 
@@ -99,7 +100,7 @@
             appMetadataDeviationHighlight
             dateField="modificationDate"
             [submission]="element">
-          {{ element.metadata.modificationDate ? (element.metadata.modificationDate | unixDate) : 'Neznáme' }}
+          {{ element.fileData.metadata.modificationDate ? (element.fileData.metadata.modificationDate | unixDate) : 'Neznáme' }}
         </td>
       </ng-container>
 

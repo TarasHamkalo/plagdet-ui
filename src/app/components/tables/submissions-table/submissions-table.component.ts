@@ -112,7 +112,7 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
     this.submissionsDataSource.sort = this.sort;
     this.submissionsDataSource.paginator = this.matPaginator;
     this.submissionsDataSource.filterPredicate = (data: Submission, filter: string) => {
-      return data!.submitter.toLowerCase().includes(filter);
+      return data!.fileData.submitter.toLowerCase().includes(filter);
     };
 
     this.applyContext();
@@ -122,7 +122,7 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
     if (sort.active === "totalEditTime") {
       const mul = (sort.direction === "asc") ? 1 : -1;
       this.submissionsDataSource.filteredData.sort(
-        (a, b) => mul * (a.metadata.totalEditTime - b.metadata.totalEditTime)
+        (a, b) => mul * (a.fileData.metadata.totalEditTime - b.fileData.metadata.totalEditTime)
       );
     }
 

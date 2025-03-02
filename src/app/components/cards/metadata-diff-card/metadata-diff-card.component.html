@@ -16,13 +16,13 @@
                      [first]="first"
                      [second]="second"
                      metadataField="submitter">
-        <p class="scrollable-text">{{ first.submitter || 'Neznámy' }}</p></mat-grid-tile>
+        <p class="scrollable-text">{{ first.fileData.submitter || 'Neznámy' }}</p></mat-grid-tile>
 
       <mat-grid-tile appMetadataEqualityHighlight
                      [first]="first"
                      [second]="second"
                      metadataField="submitter">
-        <p class="scrollable-text">{{ second.submitter || 'Neznámy' }}</p></mat-grid-tile>
+        <p class="scrollable-text">{{ second.fileData.submitter || 'Neznámy' }}</p></mat-grid-tile>
 
       <!-- Last Modified By -->
       <mat-grid-tile class="label"><h3>Naposledy upravil</h3></mat-grid-tile>
@@ -30,13 +30,13 @@
                      [first]="first"
                      [second]="second"
                      metadataField="modifier">
-        <p class="scrollable-text">{{ first.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
+        <p class="scrollable-text">{{ first.fileData.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
 
       <mat-grid-tile appMetadataEqualityHighlight
                      [first]="first"
                      [second]="second"
                      metadataField="modifier">
-        <p class="scrollable-text">{{ second.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
+        <p class="scrollable-text">{{ second.fileData.metadata.modifier || 'Neznámy' }}</p></mat-grid-tile>
 
       <!-- Creator -->
       <mat-grid-tile class="label"><h3>Autor</h3></mat-grid-tile>
@@ -44,24 +44,24 @@
                      [first]="first"
                      [second]="second"
                      metadataField="creator">
-        <p class="scrollable-text">{{ first.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
+        <p class="scrollable-text">{{ first.fileData.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
       <mat-grid-tile appMetadataEqualityHighlight
                      [first]="first"
                      [second]="second"
                      metadataField="creator">
-        <p class="scrollable-text">{{ second.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
+        <p class="scrollable-text">{{ second.fileData.metadata.creator || 'Neznámy' }}</p></mat-grid-tile>
 
       <!-- Date Created -->
       <mat-grid-tile class="label"><h3>Dátum vytvorenia</h3></mat-grid-tile>
       <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="first"
                      dateField="creationDate">
-        <p>{{ first.metadata.creationDate ? (first.metadata.creationDate | unixDate) : 'Neznáme' }}</p>
+        <p>{{ first.fileData.metadata.creationDate ? (first.fileData.metadata.creationDate | unixDate) : 'Neznáme' }}</p>
       </mat-grid-tile>
       <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="second"
                      dateField="creationDate">
-        <p>{{ second.metadata.creationDate ? (second.metadata.creationDate | unixDate) : 'Neznáme' }}</p>
+        <p>{{ second.fileData.metadata.creationDate ? (second.fileData.metadata.creationDate | unixDate) : 'Neznáme' }}</p>
       </mat-grid-tile>
 
       <!-- Date Modified -->
@@ -69,21 +69,21 @@
       <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="first"
                      dateField="modificationDate">
-        <p >{{ first.metadata.modificationDate ? (first.metadata.modificationDate | unixDate) : 'Neznáme' }}</p>
+        <p >{{ first.fileData.metadata.modificationDate ? (first.fileData.metadata.modificationDate | unixDate) : 'Neznáme' }}</p>
       </mat-grid-tile>
       <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="second"
                      dateField="modificationDate">
-        <p>{{ second.metadata.modificationDate ? (second.metadata.modificationDate | unixDate) : 'Neznáme' }}</p>
+        <p>{{ second.fileData.metadata.modificationDate ? (second.fileData.metadata.modificationDate | unixDate) : 'Neznáme' }}</p>
       </mat-grid-tile>
 
       <!-- Last Printed -->
       <mat-grid-tile class="label"><h3>Naposledy vytlačené</h3></mat-grid-tile>
       <mat-grid-tile>
-        <p>{{ first.metadata.lastPrinted ? (first.metadata.lastPrinted | unixDate) : 'Neznáme' }}</p>
+        <p>{{ first.fileData.metadata.lastPrinted ? (first.fileData.metadata.lastPrinted | unixDate) : 'Neznáme' }}</p>
       </mat-grid-tile>
       <mat-grid-tile>
-        <p>{{ second.metadata.lastPrinted ? (second.metadata.lastPrinted | unixDate) : 'Neznáme' }}</p>
+        <p>{{ second.fileData.metadata.lastPrinted ? (second.fileData.metadata.lastPrinted | unixDate) : 'Neznáme' }}</p>
       </mat-grid-tile>
 
       <!-- Total Edit Time -->
@@ -91,18 +91,18 @@
       <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="first"
                      [checkTimeDeviation]="true">
-        <p>{{ first.metadata.totalEditTime! | minutesTime }}</p>
+        <p>{{ first.fileData.metadata.totalEditTime! | minutesTime }}</p>
       </mat-grid-tile>
       <mat-grid-tile appMetadataDeviationHighlight
                      [submission]="second"
                      [checkTimeDeviation]="true">
-        <p>{{ second.metadata.totalEditTime! | minutesTime }}</p>
+        <p>{{ second.fileData.metadata.totalEditTime! | minutesTime }}</p>
       </mat-grid-tile>
 
       <!-- Revisions Count -->
       <mat-grid-tile class="label"><h3>Počet revízií</h3></mat-grid-tile>
-      <mat-grid-tile><p>{{ first.metadata.revisionsNumber || 'Neznáme' }}</p></mat-grid-tile>
-      <mat-grid-tile><p>{{ second.metadata.revisionsNumber || 'Neznáme' }}</p></mat-grid-tile>
+      <mat-grid-tile><p>{{ first.fileData.metadata.revisionsNumber || 'Neznáme' }}</p></mat-grid-tile>
+      <mat-grid-tile><p>{{ second.fileData.metadata.revisionsNumber || 'Neznáme' }}</p></mat-grid-tile>
     </mat-grid-list>
   </mat-card-content>
 
@@ -110,7 +110,7 @@
 
   <mat-card-footer *ngIf="submissionPair.source !== 'UNCERTAIN'">
     <p>
-      Zdrojom plagiatu v tejto dvojici {{isSourceIndexed() ? "" :  "pravdepodobne" }} bol {{getSource().submitter}}
+      Zdrojom plagiatu v tejto dvojici {{isSourceIndexed() ? "" :  "pravdepodobne" }} bol {{getSource().fileData.submitter}}
     </p>
   </mat-card-footer>
 </mat-card>
