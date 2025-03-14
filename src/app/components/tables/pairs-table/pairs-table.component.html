@@ -2,10 +2,12 @@
      [class.height-50]="isHalfPage"
      [class.width-50]="isHalfPage">
 
-  <mat-form-field class="search-bar">
-    <mat-label>Hľadať</mat-label>
-    <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
-  </mat-form-field>
+  <div class="table-search-row">
+    <mat-form-field class="search-bar">
+      <mat-label>Hľadať</mat-label>
+      <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
+    </mat-form-field>
+  </div>
   <div class="table-responsive height-65">
     <table [dataSource]="pairsDataSource!"
            (matSortChange)="onSorting($event)"

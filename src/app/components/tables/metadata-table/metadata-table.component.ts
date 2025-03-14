@@ -32,7 +32,7 @@ import {
   MetadataDeviationHighlightDirective
 } from "../../../directives/metadata-deviation-highlight.directive";
 import {MatIcon} from "@angular/material/icon";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton} from "@angular/material/button";
 import {ExportService} from "../../../services/export.service";
 
 
@@ -60,7 +60,7 @@ import {ExportService} from "../../../services/export.service";
     MinutesTimePipe,
     MetadataDeviationHighlightDirective,
     MatIcon,
-    MatIconButton
+    MatButton
   ],
   templateUrl: "./metadata-table.component.html",
   styleUrls: ["./metadata-table.component.css", "../shared/base-table.scss"],
