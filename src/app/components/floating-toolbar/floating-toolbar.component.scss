@@ -1,0 +1,45 @@
+@use "@angular/material" as mat;
+
+.floating-toolbar {
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+
+  width: fit-content;
+
+  padding: 10px 20px;
+  gap: 4px;
+
+  transform: translateX(-50%);
+  background: white;
+  border-radius: var(--mat-sys-corner-small);
+  z-index: 1000;
+
+  @include mat.elevation(8);
+}
+
+.toolbar-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.toolbar-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  gap: 16px;
+}
+
+.floating-toolbar.collapsed {
+  transform: translateX(-50%) translateY(45%);
+  opacity: 0.5;
+}
+

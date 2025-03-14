@@ -26,6 +26,9 @@ import {
 import {StatCardComponent} from "../../../components/cards/stat-card/stat-card.component";
 import {PlagScore} from "../../../model/plag-score";
 import {MatChipListbox, MatChipOption} from "@angular/material/chips";
+import {
+  FloatingToolbarComponent
+} from "../../../components/floating-toolbar/floating-toolbar.component";
 
 
 @Component({
@@ -40,7 +43,8 @@ import {MatChipListbox, MatChipOption} from "@angular/material/chips";
     MetadataDiffCardComponent,
     StatCardComponent,
     MatChipOption,
-    MatChipListbox
+    MatChipListbox,
+    FloatingToolbarComponent
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.scss"

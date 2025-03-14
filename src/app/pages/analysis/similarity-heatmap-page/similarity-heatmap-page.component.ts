@@ -23,6 +23,10 @@ import {MatLabel} from "@angular/material/form-field";
 import {RouteContextService} from "../../../context/route-context.service";
 import {MatButton} from "@angular/material/button";
 import {NgIf} from "@angular/common";
+import {MatIcon} from "@angular/material/icon";
+import {
+  FloatingToolbarComponent
+} from "../../../components/floating-toolbar/floating-toolbar.component";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -47,10 +51,12 @@ export interface ChartOptions {
     MatOption,
     MatFormField,
     MatButton,
-    NgIf
+    NgIf,
+    MatIcon,
+    FloatingToolbarComponent
   ],
   templateUrl: "./similarity-heatmap-page.component.html",
-  styleUrl: "./similarity-heatmap-page.component.css"
+  styleUrl: "./similarity-heatmap-page.component.scss"
 })
 
 export class SimilarityHeatmapPageComponent implements OnDestroy {

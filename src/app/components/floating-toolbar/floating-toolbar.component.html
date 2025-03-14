@@ -1,0 +1,12 @@
+<div class="floating-toolbar" [class.collapsed]="isCollapsed()">
+  <div class="toolbar-header">
+    <button mat-icon-button (click)="toggleToolbar()">
+      <mat-icon>
+        {{ isCollapsed() ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+      </mat-icon>
+    </button>
+  </div>
+  <div class="toolbar-body" *ngIf="!isCollapsed()">
+    <ng-content></ng-content>
+  </div>
+</div>

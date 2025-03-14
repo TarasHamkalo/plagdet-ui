@@ -25,6 +25,9 @@
     <p *ngIf="!this.similarityHeatmapService.hasDataToDisplay()">Počet porovnaní s týmto typom
       hodnotenia je príliš malý na zobrazenie.</p>
 
+    <!--    <div>-->
+    <!--      -->
+    <!--    </div>-->
     <div class="container-vertical" *ngIf="this.similarityHeatmapService.hasDataToDisplay()">
 
       <div class="horizontal-slider-wrapper">
@@ -63,17 +66,20 @@
 
     </div>
 
-    <button mat-button
-            (click)="this.export()"
-            *ngIf="this.similarityHeatmapService.hasDataToDisplay()"
-    >Exportovať
-    </button>
+    <!--    <button mat-button-->
+    <!--            (click)="this.export()"-->
+    <!--            *ngIf="this.similarityHeatmapService.hasDataToDisplay()"-->
+    <!--    >Exportovať-->
+    <!--    </button>-->
   </app-surface>
-  <app-surface title="Nastavenie miery podobnosti"
-               subtitle="Vyberte mieru podobnosti, ktorá sa zobrazí na teplotnej mape."
-               [isContentCentered]="false">
-    <mat-form-field>
-      <mat-label>Meira</mat-label>
+  <!--  <app-surface title="Nastavenie miery podobnosti"-->
+  <!--               subtitle="Vyberte mieru podobnosti, ktorá sa zobrazí na teplotnej mape."-->
+  <!--               [isContentCentered]="false">-->
+
+  <!--  <div class="floating-toolbar">-->
+  <app-floating-toolbar>
+    <mat-form-field appearance="outline">
+      <mat-label>Mieru podobnosti</mat-label>
       <mat-select #select [value]="this.similarityHeatmapService.getDisplayScoreType()"
                   (selectionChange)="this.changeScoreType(select.value)">
         <mat-option value="META">
@@ -87,5 +93,15 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </app-surface>
+
+    <button mat-raised-button
+            (click)="this.export()"
+            style="max-width: 250px;">
+      <mat-icon>download</mat-icon>
+      <p>
+        Stiahnuť ako csv
+      </p>
+    </button>
+  </app-floating-toolbar>
+  <!--  </app-surface>-->
 </app-content-container>
