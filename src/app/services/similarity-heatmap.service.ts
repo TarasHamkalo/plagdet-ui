@@ -46,7 +46,8 @@ export class SimilarityHeatmapService {
     const submissions = report.submissions.values();
     const pairs = report.pairs;
     this.displayedSubmissions = Array.from(submissions)
-      .filter(s => !s.indexed && this.getTypedSimilarity(s, pairs, report.submissions));
+      .filter(s => !s.indexed && this.getTypedSimilarity(s, pairs, report.submissions))
+      .sort((a, b) => a.fileData.submitter.localeCompare(b.fileData.submitter));
 
     const series = [];
     for (const submission of this.displayedSubmissions) {
@@ -57,7 +58,7 @@ export class SimilarityHeatmapService {
       });
     }
 
-    this.documentSeries = series;
+    this.documentSeries = series.reverse();
     return true;
   }
 
@@ -77,17 +78,20 @@ export class SimilarityHeatmapService {
     seriesIndex: number,
     dataPointIndex: number
   ): string | null {
-    if (seriesIndex == dataPointIndex) {
-      return null;
-    }
-
     const pairs = this.analysisContextService.getReport()()?.pairs;
     if (!pairs) {
       return null;
     }
 
-    const firstIndex = seriesIndex + this.previousPage!.y;
+    const dispLength = this.displayedSubmissions.length;
+
+    const firstIndex = dispLength - 1 - (seriesIndex + this.previousPage!.y);
     const secondIndex = dataPointIndex + this.previousPage!.x;
+
+    if (firstIndex == secondIndex) {
+      return null;
+    }
+
     const first = this.displayedSubmissions.at(firstIndex)!;
     const second = this.displayedSubmissions.at(secondIndex)!;
     const pair = pairs.get(`${first.id}_${second.id}`) || pairs.get(`${second.id}_${first.id}`);
@@ -174,9 +178,7 @@ export class SimilarityHeatmapService {
   }
 
   public setDisplayScoreType(type: "META" | "JACCARD" | "SEMANTIC") {
-    console.log(type);
     this.displayScoreType = type;
-    console.log(this.displayScoreType);
     this.reset();
   }
 
