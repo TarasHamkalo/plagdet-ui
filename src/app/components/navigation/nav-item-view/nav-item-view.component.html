@@ -1,35 +1,16 @@
-<!--<a mat-list-item-->
-<!--   [routerLink]="navItem.route"-->
-<!--   [activated]="isActive()"-->
-<!--   [lines]="2"-->
-<!--&gt;-->
-<!--  <span [class.nav-item-expanded]="isFullWidth()">-->
-<!--    @if (navItem.isIconSvg) {-->
-<!--      <mat-icon matListItemTitle [svgIcon]="navItem.iconPath ?? ''"-->
-<!--                [attr.aria-labelledby]="isFullWidth() ? fullWidthNameId(navItem) : null"-->
-<!--                [attr.aria-label]="isFullWidth() ? null : navItem.fullWidthName"/>-->
-<!--      <p matListItemLine>Graph</p>-->
-<!--    } @else {-->
-<!--      <mat-icon>{{ navItem.iconPath }}</mat-icon>-->
-<!--    }-->
-
-<!--    @if (isFullWidth()) {-->
-<!--      <p [id]="fullWidthNameId(navItem)">{{ navItem.fullWidthName }}</p>-->
-<!--    }-->
-
-<!--  </span>-->
-<!--</a>-->
-<div mat-list-item class="nav-item"
+<div mat-list-item
+     class="nav-item"
+     [class.nav-item-expanded]="isFullWidth()"
      matRipple
      [matRippleCentered]="true"
      [matRippleRadius]="50"
-     [matRippleAnimation]="{enterDuration: 450, exitDuration: 850}"
+     [matRippleAnimation]="{enterDuration: 200, exitDuration: 200}"
      [routerLink]="navItem.route"
      [routerLinkActive]="['nav-item-active']"
      [routerLinkActiveOptions]="{exact:true}"
 >
 
-  <div class="icon-state">
+  <div class="state-container">
 
     @if (navItem.isIconSvg) {
       <mat-icon [svgIcon]="navItem.iconPath ?? ''"
@@ -39,33 +20,17 @@
       <mat-icon>{{ navItem.iconPath }}</mat-icon>
     }
 
+    @if (isFullWidth()) {
+      <div class="label center">
+        {{ navItem.fullWidthName }}
+      </div>
+    }
   </div>
 
-  <div class="label center">
-    {{ navItem.fullWidthName }}
-  </div>
-
+  @if (!isFullWidth()) {
+    <div class="label center">
+      {{ navItem.fullWidthName }}
+    </div>
+  }
 
 </div>
-
-<!--<a mat-list-item-->
-<!--   [routerLink]="navItem.route"-->
-<!--   [activated]="isActive()"-->
-<!--   [lines]="2"-->
-<!--&gt;-->
-<!--  <span class="nav-item nav-item-expanded" [class.nav-item-expanded]="isFullWidth()">-->
-<!--    @if (navItem.isIconSvg) {-->
-<!--      <mat-icon matListItemTitle [svgIcon]="navItem.iconPath ?? ''"-->
-<!--                [attr.aria-labelledby]="isFullWidth() ? fullWidthNameId(navItem) : null"-->
-<!--                [attr.aria-label]="isFullWidth() ? null : navItem.fullWidthName"/>-->
-<!--      <p matListItemLine>Graph</p>-->
-<!--    } @else {-->
-<!--      <mat-icon>{{ navItem.iconPath }}</mat-icon>-->
-<!--    }-->
-
-<!--    @if (isFullWidth()) {-->
-<!--      <p [id]="fullWidthNameId(navItem)">{{ navItem.fullWidthName }}</p>-->
-<!--    }-->
-
-<!--  </span>-->
-<!--</a>-->
