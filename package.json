@@ -1,9 +1,10 @@
 {
-  "name": "ux",
+  "name": "plagdet",
   "main": "electron.js",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "serve": "ng serve",
     "start": "electron-forge start",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
