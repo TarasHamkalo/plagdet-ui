@@ -1,4 +1,13 @@
-import {Component, computed, effect, OnDestroy, OnInit, signal} from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  OnDestroy,
+  OnInit,
+  signal,
+  ViewChild,
+  AfterViewInit
+} from "@angular/core";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {ActivatedRoute} from "@angular/router";
 import {SubmissionPair} from "../../../model/submission-pair";
@@ -11,13 +20,13 @@ import {
 } from "../../../components/base/content-container/content-container.component";
 import {NgIf} from "@angular/common";
 import {MatProgressBar} from "@angular/material/progress-bar";
-import {MatIcon} from "@angular/material/icon";
-import {MatTooltip} from "@angular/material/tooltip";
 import {
   MetadataDiffCardComponent
 } from "../../../components/cards/metadata-diff-card/metadata-diff-card.component";
 import {StatCardComponent} from "../../../components/cards/stat-card/stat-card.component";
 import {PlagScore} from "../../../model/plag-score";
+import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
+import {MatChipListbox, MatChipOption} from "@angular/material/chips";
 
 
 @Component({
@@ -29,15 +38,17 @@ import {PlagScore} from "../../../model/plag-score";
     ContentContainerComponent,
     NgIf,
     MatProgressBar,
-    MatIcon,
-    MatTooltip,
     MetadataDiffCardComponent,
-    StatCardComponent
+    StatCardComponent,
+    MatButtonToggleGroup,
+    MatButtonToggle,
+    MatChipOption,
+    MatChipListbox
   ],
   templateUrl: "./submission-pair-view-page.component.html",
-  styleUrl: "./submission-pair-view-page.component.css"
+  styleUrl: "./submission-pair-view-page.component.scss"
 })
-export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
+export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   protected pairId = signal<string | null>(null);
 
@@ -48,6 +59,15 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
   protected second = signal<Submission | null>(null);
 
   protected plagCases = computed(() => this.submissionPair()?.plagCases ?? []);
+
+
+  @ViewChild("firstEditor")
+  protected firstEditor!: TextEditorComponent;
+
+  @ViewChild("secondEditor")
+  protected secondEditor!: TextEditorComponent;
+
+  protected isScrollSyncEnabled = signal<boolean>(true);
 
   constructor(protected analysisContext: AnalysisContextService,
               private route: ActivatedRoute) {
@@ -67,6 +87,13 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  public ngAfterViewInit(): void {
+    if (this.firstEditor && this.secondEditor) {
+      this.firstEditor.subscribeOnScrolling(this.secondEditor.scrollEventEmitter);
+      this.secondEditor.subscribeOnScrolling(this.firstEditor.scrollEventEmitter);
+    }
+  }
+
   public ngOnDestroy(): void {
     this.pairId.set(null);
     this.submissionPair.set(null);
@@ -76,6 +103,19 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe(params => {
       this.pairId.set(params.get("id"));
     });
+  }
+
+  public toggleScrollSync(): void {
+    console.log("toggle called");
+    this.isScrollSyncEnabled.update(v => !v);
+
+    if (this.isScrollSyncEnabled()) {
+      this.firstEditor.subscribeOnScrolling(this.secondEditor.scrollEventEmitter);
+      this.secondEditor.subscribeOnScrolling(this.firstEditor.scrollEventEmitter);
+    } else {
+      this.firstEditor.unsubscribeFromScrolling();
+      this.secondEditor.unsubscribeFromScrolling();
+    }
   }
 
   private getScoreByType(type: "META" | "JACCARD" | "SEMANTIC"): PlagScore | null {

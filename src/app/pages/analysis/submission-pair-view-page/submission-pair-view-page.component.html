@@ -41,15 +41,23 @@
 
 
     <div class="editor-container">
-      <app-text-editor [submission]="this.first()!"
+      <app-text-editor #firstEditor
+                       [submission]="this.first()!"
                        [plagCases]="this.plagCases()!"
                        [markingSide]="0"
       ></app-text-editor>
-      <app-text-editor [submission]="this.second()!"
+
+      <app-text-editor #secondEditor
+                       [submission]="this.second()!"
                        [plagCases]="this.plagCases()!"
                        [markingSide]="1"/>
 
     </div>
   </app-surface>
 
+  <div class="floating-toolbar">
+    <mat-chip-listbox>
+      <mat-chip-option selected (click)="toggleScrollSync()">Posúvať súčasne</mat-chip-option>
+    </mat-chip-listbox>
+  </div>
 </app-content-container>

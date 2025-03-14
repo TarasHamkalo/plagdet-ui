@@ -1,10 +1,10 @@
-import {Component, effect, Input, OnDestroy, signal} from "@angular/core";
+import {Component, effect, EventEmitter, Input, OnDestroy, Output, signal} from "@angular/core";
 import {EditorComponent} from "ngx-monaco-editor-v2";
-import {editor} from "monaco-editor";
+import {editor, IScrollEvent} from "monaco-editor";
 import {Submission} from "../../model/submission";
 import {FormsModule} from "@angular/forms";
 import {MonacoDecorationService} from "../../services/monaco-decoration.service";
-import {first, of, switchMap, timer} from "rxjs";
+import {first, of, switchMap, takeWhile, timer} from "rxjs";
 import {SpecialMarking} from "../../model/positioning/special-marking";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 import IModelDeltaDecoration = editor.IModelDeltaDecoration;
@@ -45,6 +45,10 @@ export class TextEditorComponent implements OnDestroy {
 
   @Input({required: false}) public plagCases: SpecialMarking[] | null = null;
 
+  @Output() public scrollEventEmitter = new EventEmitter<IScrollEvent>();
+
+  protected isScrollSyncEnabled = signal<boolean>(true);
+
   constructor(private monacoDecorationService: MonacoDecorationService) {
     effect(() => {
       if (!this.editor() || !this.submission) {
@@ -60,6 +64,17 @@ export class TextEditorComponent implements OnDestroy {
         .subscribe((decorations) => {
           this.editor()?.createDecorationsCollection(decorations);
         });
+    });
+  }
+
+  public unsubscribeFromScrolling(): void {
+    this.isScrollSyncEnabled.set(false);
+  }
+
+  public subscribeOnScrolling(eventEmitter: EventEmitter<IScrollEvent>): void {
+    this.isScrollSyncEnabled.set(true);
+    eventEmitter.pipe(takeWhile(() => this.isScrollSyncEnabled())).subscribe((e) => {
+      this.editor()!.setScrollTop(e.scrollTop);
     });
   }
 
@@ -80,6 +95,8 @@ export class TextEditorComponent implements OnDestroy {
     if (!this.editor()) {
       this.editor.set(editor);
     }
+
+    editor.onDidScrollChange((e) => this.scrollEventEmitter.emit(e));
   }
 
   public ngOnDestroy(): void {
