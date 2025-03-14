@@ -14,3 +14,7 @@ mat-nav-list {
 mat-divider {
   opacity: 0.5;
 }
+
+.centered-nav-list {
+  justify-content: center;
+}
