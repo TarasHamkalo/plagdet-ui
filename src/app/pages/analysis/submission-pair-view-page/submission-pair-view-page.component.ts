@@ -1,12 +1,12 @@
 import {
+  AfterViewInit,
   Component,
   computed,
   effect,
   OnDestroy,
   OnInit,
   signal,
-  ViewChild,
-  AfterViewInit
+  ViewChild
 } from "@angular/core";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {ActivatedRoute} from "@angular/router";
@@ -14,7 +14,7 @@ import {SubmissionPair} from "../../../model/submission-pair";
 import {Submission} from "../../../model/submission";
 import {FormsModule} from "@angular/forms";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
-import {TextEditorComponent} from "../../../components/text-editor/text-editor.component";
+import {TextEditorComponent} from "../../../components/editors/text-editor/text-editor.component";
 import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
@@ -25,7 +25,6 @@ import {
 } from "../../../components/cards/metadata-diff-card/metadata-diff-card.component";
 import {StatCardComponent} from "../../../components/cards/stat-card/stat-card.component";
 import {PlagScore} from "../../../model/plag-score";
-import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
 import {MatChipListbox, MatChipOption} from "@angular/material/chips";
 
 
@@ -40,8 +39,6 @@ import {MatChipListbox, MatChipOption} from "@angular/material/chips";
     MatProgressBar,
     MetadataDiffCardComponent,
     StatCardComponent,
-    MatButtonToggleGroup,
-    MatButtonToggle,
     MatChipOption,
     MatChipListbox
   ],

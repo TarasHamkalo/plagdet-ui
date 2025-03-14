@@ -1,11 +1,11 @@
 import {Component, effect, EventEmitter, Input, OnDestroy, Output, signal} from "@angular/core";
 import {EditorComponent} from "ngx-monaco-editor-v2";
 import {editor, IScrollEvent} from "monaco-editor";
-import {Submission} from "../../model/submission";
+import {Submission} from "../../../model/submission";
 import {FormsModule} from "@angular/forms";
-import {MonacoDecorationService} from "../../services/monaco-decoration.service";
+import {MonacoDecorationService} from "../../../services/monaco-decoration.service";
 import {first, of, switchMap, takeWhile, timer} from "rxjs";
-import {SpecialMarking} from "../../model/positioning/special-marking";
+import {SpecialMarking} from "../../../model/positioning/special-marking";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 import IModelDeltaDecoration = editor.IModelDeltaDecoration;
 import {MatIcon} from "@angular/material/icon";
@@ -75,6 +75,7 @@ export class TextEditorComponent implements OnDestroy {
     this.isScrollSyncEnabled.set(true);
     eventEmitter.pipe(takeWhile(() => this.isScrollSyncEnabled())).subscribe((e) => {
       this.editor()!.setScrollTop(e.scrollTop);
+      this.editor()!.setScrollLeft(e.scrollLeft);
     });
   }
 

@@ -13,7 +13,7 @@ import {MatProgressBar} from "@angular/material/progress-bar";
 import {PairsTableComponent} from "../../../components/tables/pairs-table/pairs-table.component";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {FormsModule} from "@angular/forms";
-import {TextEditorComponent} from "../../../components/text-editor/text-editor.component";
+import {TextEditorComponent} from "../../../components/editors/text-editor/text-editor.component";
 
 @Component({
   selector: "app-submission-view-page",

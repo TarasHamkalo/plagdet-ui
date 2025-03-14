@@ -4,7 +4,6 @@ import {MatIcon} from "@angular/material/icon";
 import {NavigationService} from "../../../services/navigation/navigation.service";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {MatRipple} from "@angular/material/core";
-import {MatListItem, MatListItemLine, MatListItemTitle} from "@angular/material/list";
 
 @Component({
   selector: "app-nav-item-view",
@@ -12,10 +11,7 @@ import {MatListItem, MatListItemLine, MatListItemTitle} from "@angular/material/
     MatIcon,
     RouterLink,
     MatRipple,
-    RouterLinkActive,
-    MatListItem,
-    MatListItemTitle,
-    MatListItemLine
+    RouterLinkActive
   ],
   templateUrl: "./nav-item-view.component.html",
   styleUrl: "./nav-item-view.component.scss"
