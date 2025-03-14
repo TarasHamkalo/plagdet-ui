@@ -39,45 +39,17 @@
                [isContentCentered]="false"
                [isTitleCentered]="true">
 
+
     <div class="editor-container">
-      <div class="editor-wrapper">
-        <div class="editor-header">
-          <div class="header-text-frame">
-            <h3>{{ this.first()?.fileData?.submitter }}</h3>
-            <p>{{ this.first()?.fileData?.filename }}</p>
-          </div>
-          <mat-icon *ngIf="this.first()?.indexed"
-                    svgIcon="file-document-check-outline"
-                    matTooltip="Tento dokument bol získaný z indexu dokumentov."
-          ></mat-icon>
-        </div>
-
-        <app-text-editor [submission]="this.first()!"
-                         [plagCases]="this.plagCases()!"
-                         [markingSide]="0"
-        ></app-text-editor>
-
-      </div>
-      <div class="editor-wrapper">
-        <div class="editor-header">
-          <div class="header-text-frame">
-            <h3>{{ this.second()?.fileData?.submitter }}</h3>
-            <p>{{ this.second()?.fileData?.filename }}</p>
-          </div>
-          <mat-icon *ngIf="this.second()?.indexed"
-                    svgIcon="file-document-check-outline"
-                    matTooltip="Tento dokument bol získaný z indexu dokumentov."
-          ></mat-icon>
-        </div>
-
-        <app-text-editor [submission]="this.second()!"
-                         [plagCases]="this.plagCases()!"
-                         [markingSide]="1"
-        ></app-text-editor>
-      </div>
+      <app-text-editor [submission]="this.first()!"
+                       [plagCases]="this.plagCases()!"
+                       [markingSide]="0"
+      ></app-text-editor>
+      <app-text-editor [submission]="this.second()!"
+                       [plagCases]="this.plagCases()!"
+                       [markingSide]="1"/>
 
     </div>
-
   </app-surface>
 
 </app-content-container>

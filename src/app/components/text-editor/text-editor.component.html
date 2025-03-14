@@ -1,6 +1,19 @@
-<ngx-monaco-editor
-  [options]="editorOptions"
-  [ngModel]="submission.content"
-  class="editor"
-  (onInit)="this.initEditor($event)">
-</ngx-monaco-editor>
+<div class="editor-wrapper">
+  <div class="editor-header">
+    <div class="header-text-frame">
+      <h3>{{ this.submission.fileData.submitter }}</h3>
+      <p>{{ this.submission.fileData.filename }}</p>
+    </div>
+    <mat-icon *ngIf="this.submission.indexed"
+              svgIcon="file-document-check-outline"
+              matTooltip="Tento dokument bol získaný z indexu dokumentov."
+    ></mat-icon>
+  </div>
+
+  <ngx-monaco-editor
+    [options]="editorOptions"
+    [ngModel]="submission.content"
+    class="editor"
+    (onInit)="this.initEditor($event)">
+  </ngx-monaco-editor>
+</div>

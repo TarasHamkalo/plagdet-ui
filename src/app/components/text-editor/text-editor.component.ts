@@ -8,12 +8,18 @@ import {first, of, switchMap, timer} from "rxjs";
 import {SpecialMarking} from "../../model/positioning/special-marking";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 import IModelDeltaDecoration = editor.IModelDeltaDecoration;
+import {MatIcon} from "@angular/material/icon";
+import {NgIf} from "@angular/common";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: "app-text-editor",
   imports: [
     EditorComponent,
-    FormsModule
+    FormsModule,
+    MatIcon,
+    NgIf,
+    MatTooltip
   ],
   templateUrl: "./text-editor.component.html",
   styleUrl: "./text-editor.component.css"

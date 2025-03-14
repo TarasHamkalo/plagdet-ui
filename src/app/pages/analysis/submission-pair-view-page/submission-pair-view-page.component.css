@@ -5,57 +5,9 @@
   gap: 1rem;
 }
 
-.editor-wrapper {
-  display: flex;
-  box-sizing: border-box;
-  flex-direction: column;
-
-  width: 50%;
-  height: 100%;
-
-  gap: 0.5rem;
-  padding: 0.5rem;
-
-  border-radius: var(--mat-sys-corner-small);
-  background-color: var(--mat-sys-surface-container-high);
-}
-
 app-text-editor {
   width: 100%;
   height: 100%;
-}
-
-.editor-header {
-  display: flex;
-  box-sizing: border-box;
-
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-  max-height: fit-content;
-
-  padding-right: 8px;
-}
-
-.header-text-frame {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-height: fit-content;
-}
-
-.header-text-frame > h3 {
-  font: var(--mat-sys-title-small);
-  color: var(--mat-sys-on-surface);
-  margin: 0;
-}
-
-.header-text-frame > p {
-  font: var(--mat-sys-body-medium);
-  color: var(--mat-sys-on-surface-variant);
-  margin: 0;
 }
 
 .stat-flex-column {
