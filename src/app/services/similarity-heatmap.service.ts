@@ -28,11 +28,22 @@ export class SimilarityHeatmapService {
 
   private displayedSubmissions: Submission[] = [];
 
+  private submissionsMap = new Map<number, Submission>();
+
+  private pairsMap = new Map<string, SubmissionPair>();
+
   constructor(
-    private analysisContextService: AnalysisContextService,
     private submissionLabelingService: SubmissionLabelingService,
     private exportService: ExportService
   ) {
+  }
+
+  public setSubmissionsMap(submissionsMap: Map<number, Submission>): void {
+    this.submissionsMap = submissionsMap;
+  }
+
+  public setPairsMap(pairsMap: Map<string, SubmissionPair>): void {
+    this.pairsMap = pairsMap;
   }
 
   private initDocumentSeries(): boolean {
@@ -40,15 +51,15 @@ export class SimilarityHeatmapService {
       return true;
     }
 
-    const report = this.analysisContextService.getReport()();
-    if (!report) {
-      this.documentSeries = null;
-      return false;
-    }
-    const submissions = report.submissions.values();
-    const pairs = report.pairs;
+    // const report = this.analysisContextService.getReport()();
+    // if (!report) {
+    //   this.documentSeries = null;
+    //   return false;
+    // }
+    const submissions = this.submissionsMap.values();
+    const pairs = this.pairsMap;
     this.displayedSubmissions = Array.from(submissions)
-      .filter(s => !s.indexed && this.getTypedSimilarity(s, pairs, report.submissions))
+      .filter(s => !s.indexed && this.getTypedSimilarity(s, pairs, this.submissionsMap))
       .sort((a, b) => a.fileData.submitter.localeCompare(b.fileData.submitter));
 
     const series = [];
@@ -80,10 +91,10 @@ export class SimilarityHeatmapService {
     seriesIndex: number,
     dataPointIndex: number
   ): string | null {
-    const pairs = this.analysisContextService.getReport()()?.pairs;
-    if (!pairs) {
-      return null;
-    }
+    // const pairs = this.analysisContextService.getReport()()?.pairs;
+    // if (!pairs) {
+    //   return null;
+    // }
 
     const dispLength = this.displayedSubmissions.length;
 
@@ -96,7 +107,9 @@ export class SimilarityHeatmapService {
 
     const first = this.displayedSubmissions.at(firstIndex)!;
     const second = this.displayedSubmissions.at(secondIndex)!;
-    const pair = pairs.get(`${first.id}_${second.id}`) || pairs.get(`${second.id}_${first.id}`);
+    const pair = this.pairsMap.get(`${first.id}_${second.id}`) ||
+      this.pairsMap.get(`${second.id}_${first.id}`);
+
     return pair ? pair.id : null;
   }
 

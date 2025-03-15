@@ -27,6 +27,7 @@ import {MatIcon} from "@angular/material/icon";
 import {
   FloatingToolbarComponent
 } from "../../../components/floating-toolbar/floating-toolbar.component";
+import {AnalysisContextService} from "../../../context/analysis-context.service";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -106,11 +107,16 @@ export class SimilarityHeatmapPageComponent implements OnDestroy {
   protected y = 0;
 
   constructor(
+    protected analysisContextService: AnalysisContextService,
     protected similarityHeatmapService: SimilarityHeatmapService,
     protected routeContextService: RouteContextService,
     private router: Router
   ) {
     this.applyContext();
+
+    const report = this.analysisContextService.getReport()()!;
+    this.similarityHeatmapService.setPairsMap(report.pairs);
+    this.similarityHeatmapService.setSubmissionsMap(report.submissions);
     const initialPage = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
     this.x = initialPage.x;
     this.y = initialPage.y;

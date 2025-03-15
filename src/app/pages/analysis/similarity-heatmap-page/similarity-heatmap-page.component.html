@@ -25,9 +25,6 @@
     <p *ngIf="!this.similarityHeatmapService.hasDataToDisplay()">Počet porovnaní s týmto typom
       hodnotenia je príliš malý na zobrazenie.</p>
 
-    <!--    <div>-->
-    <!--      -->
-    <!--    </div>-->
     <div class="container-vertical" *ngIf="this.similarityHeatmapService.hasDataToDisplay()">
 
       <div class="horizontal-slider-wrapper">
@@ -66,17 +63,8 @@
 
     </div>
 
-    <!--    <button mat-button-->
-    <!--            (click)="this.export()"-->
-    <!--            *ngIf="this.similarityHeatmapService.hasDataToDisplay()"-->
-    <!--    >Exportovať-->
-    <!--    </button>-->
   </app-surface>
-  <!--  <app-surface title="Nastavenie miery podobnosti"-->
-  <!--               subtitle="Vyberte mieru podobnosti, ktorá sa zobrazí na teplotnej mape."-->
-  <!--               [isContentCentered]="false">-->
 
-  <!--  <div class="floating-toolbar">-->
   <app-floating-toolbar>
     <mat-form-field appearance="outline">
       <mat-label>Mieru podobnosti</mat-label>
@@ -103,5 +91,4 @@
       </p>
     </button>
   </app-floating-toolbar>
-  <!--  </app-surface>-->
 </app-content-container>
