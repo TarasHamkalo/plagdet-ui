@@ -25,11 +25,13 @@ import {FormsModule} from "@angular/forms";
 import {MatLabel} from "@angular/material/form-field";
 import {DecimalPipe, NgIf} from "@angular/common";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
-import {MetadataDeviationHighlightDirective} from "../../../directives/metadata-deviation-highlight.directive";
+import {
+  MetadataDeviationHighlightDirective
+} from "../../../directives/metadata-deviation-highlight.directive";
 import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
 import {RouteContextService} from "../../../context/route-context.service";
-import { TableContext } from "../../../types/table-context";
+import {TableContext} from "../../../types/table-context";
 
 @Component({
   selector: "app-submissions-table",
@@ -72,9 +74,13 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
 
   @Input() public limit: number | null = 10;
 
+  @Input() public submissionsFilterSet: Set<number> | null = null;
+
   @Input() public enablePagination = false;
 
   @Input() public enableSearch = false;
+
+  @Input() public showNotIndexedOnly = true;
 
   @Input() public pageSize = 5;
 
@@ -99,8 +105,15 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
     effect(() => {
       const submissions = analysisContext.getReport()()?.submissions;
       if (submissions) {
-        this.submissionsDataSource.data = [...submissions!.values()]
-          .filter(a => !a.indexed)
+        let submissionsArray = Array.from(submissions!.values());
+        if (this.showNotIndexedOnly) {
+          submissionsArray = submissionsArray.filter(s => !s.indexed);
+        }
+
+        if (this.submissionsFilterSet != null) {
+          submissionsArray = submissionsArray.filter(s => this.submissionsFilterSet?.has(s.id));
+        }
+        this.submissionsDataSource.data = submissionsArray
           .sort((a, b) => b.maxSimilarity - a.maxSimilarity)
           .slice(0, this.limit ? this.limit : Number.MAX_VALUE);
       }
