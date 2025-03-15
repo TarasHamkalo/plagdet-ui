@@ -32,9 +32,6 @@ import {
   ClusterViewPageComponent
 } from "./pages/analysis/cluster-view-page/cluster-view-page.component";
 import {
-  SubmissionDiffEditorComponent
-} from "./components/editors/submission-diff-editor/submission-diff-editor.component";
-import {
   SubmissionsDiffViewPageComponent
 } from "./pages/analysis/submissions-diff-view-page/submissions-diff-view-page.component";
 
