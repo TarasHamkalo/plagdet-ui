@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, computed, effect, OnInit, signal, ViewChild} from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  effect,
+  OnInit,
+  Signal,
+  signal,
+  ViewChild
+} from "@angular/core";
 import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
@@ -15,6 +24,7 @@ import {
 } from "../../../components/charts/similarity-heat-map/similarity-heatmap.component";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {SubmissionPair} from "../../../model/submission-pair";
+import {PairsTableComponent} from "../../../components/tables/pairs-table/pairs-table.component";
 
 @Component({
   selector: "app-cluster-view-page",
@@ -23,6 +33,7 @@ import {SubmissionPair} from "../../../model/submission-pair";
     SurfaceComponent,
     SubmissionsTableComponent,
     SimilarityHeatmapComponent,
+    PairsTableComponent,
   ],
   templateUrl: "./cluster-view-page.component.html",
   styleUrl: "./cluster-view-page.component.css"
@@ -34,6 +45,35 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
   protected clusterId = signal<string | null>(null);
 
   protected clusterSubmissions: Submission[] = [];
+
+  public submissionsMapSource = computed(() => {
+    const map = new Map<number, Submission>();
+    this.clusterSubmissions.forEach(submission => {
+      map.set(submission.id, submission);
+    });
+
+    return map;
+  });
+
+  public pairsMapSource = computed(() => {
+    const report = this.analysisContextService.getReport()();
+    const map = new Map<string, SubmissionPair>();
+    if (report) {
+      const pairs = report.pairs;
+      this.clusterSubmissions
+        .filter(s => !s.indexed && s.pairIds.length > 0)
+        .flatMap(s => s.pairIds)
+        .forEach(pId => {
+          map.set(pId, pairs.get(pId)!);
+        });
+    }
+
+    return map;
+  });
+
+  protected pairsSource = computed(() => {
+    return Array.from(this.pairsMapSource().values());
+  });
 
   constructor(
     private analysisContextService: AnalysisContextService,
@@ -69,31 +109,6 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
   public getIndexedSubmissionsFilterSet() {
     return new Set(this.clusterSubmissions.filter(s => s.indexed).map(s => s.id));
   }
-
-  public submissionsMapSource = computed(() => {
-    const map = new Map<number, Submission>();
-    this.clusterSubmissions.forEach(submission => {
-      map.set(submission.id, submission);
-    });
-
-    return map;
-  });
-
-  public pairsMapSource = computed(() => {
-    const report = this.analysisContextService.getReport()();
-    const map = new Map<string, SubmissionPair>();
-    if (report) {
-      const pairs = report.pairs;
-      this.clusterSubmissions
-        .filter(s => !s.indexed && s.pairIds.length > 0)
-        .flatMap(s => s.pairIds)
-        .forEach(pId => {
-          map.set(pId, pairs.get(pId)!);
-        });
-    }
-
-    return map;
-  });
 
   private loadPair(pairId: string | null) {
     if (pairId == null) {

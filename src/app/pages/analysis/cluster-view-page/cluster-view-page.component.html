@@ -4,6 +4,15 @@
                subtitle=""
                [isTitleCentered]="true"
                [isContentCentered]="true">
+    <app-pairs-table [pairsSource]="pairsSource"
+                     [contextPrefix]="'cluster-view-page-' + clusterId() || 'none' "
+    ></app-pairs-table>
+
+  </app-surface>
+  <app-surface title="Teplotná mapa podobnosti"
+               subtitle=""
+               [isTitleCentered]="true"
+               [isContentCentered]="true">
 
     <app-similarity-heatmap [pairsMapSource]="pairsMapSource"
                             [submissionsMapSource]="submissionsMapSource"></app-similarity-heatmap>
