@@ -9,7 +9,7 @@ import {
   ViewChild
 } from "@angular/core";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {Submission} from "../../../model/submission";
 import {FormsModule} from "@angular/forms";
@@ -29,6 +29,8 @@ import {MatChipListbox, MatChipOption} from "@angular/material/chips";
 import {
   FloatingToolbarComponent
 } from "../../../components/floating-toolbar/floating-toolbar.component";
+import {MatButton} from "@angular/material/button";
+import {PageRoutes} from "../../../app.routes";
 
 
 @Component({
@@ -44,7 +46,8 @@ import {
     StatCardComponent,
     MatChipOption,
     MatChipListbox,
-    FloatingToolbarComponent
+    FloatingToolbarComponent,
+    MatButton
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.scss"
@@ -70,8 +73,11 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
 
   protected isScrollSyncEnabled = signal<boolean>(true);
 
-  constructor(protected analysisContext: AnalysisContextService,
-              private route: ActivatedRoute) {
+  constructor(
+    protected analysisContext: AnalysisContextService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     effect(() => {
       if (this.pairId() === null) {
         return;
@@ -138,4 +144,7 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
     return "Nevypočítané";
   }
 
+  public loadDiffPage() {
+    this.router.navigate([PageRoutes.DIFF, this.first()!.id, this.second()!.id]);
+  }
 }

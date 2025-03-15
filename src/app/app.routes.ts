@@ -31,6 +31,12 @@ import {
 import {
   ClusterViewPageComponent
 } from "./pages/analysis/cluster-view-page/cluster-view-page.component";
+import {
+  SubmissionDiffEditorComponent
+} from "./components/editors/submission-diff-editor/submission-diff-editor.component";
+import {
+  SubmissionsDiffViewPageComponent
+} from "./pages/analysis/submissions-diff-view-page/submissions-diff-view-page.component";
 
 export enum PageRoutes {
   NONE = "#",
@@ -45,6 +51,7 @@ export enum PageRoutes {
   HEATMAP = "/heatmap",
   GRAPH = "/graph",
   CLUSTERS = "/clusters",
+  DIFF = "/diff",
   HOME = IMPORT,
 }
 export const routes: Routes = [
@@ -59,5 +66,7 @@ export const routes: Routes = [
   {path: `${PageRoutes.SUBMISSIONS.substring(1)}/:id`, component: SubmissionViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: PageRoutes.GRAPH.substring(1), component: SubmissionGraphPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: `${PageRoutes.CLUSTERS.substring(1)}/:id`, component: ClusterViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: `${PageRoutes.DIFF.substring(1)}`, component: SubmissionsDiffViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: `${PageRoutes.DIFF.substring(1)}/:firstId/:secondId`, component: SubmissionsDiffViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: "**", redirectTo: PageRoutes.HOME.substring(1)}
 ];

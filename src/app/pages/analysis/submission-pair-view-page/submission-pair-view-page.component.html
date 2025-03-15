@@ -41,17 +41,16 @@
 
 
     <div class="editor-container">
-      <app-text-editor #firstEditor
-                       [submission]="this.first()!"
-                       [plagCases]="this.plagCases()!"
-                       [markingSide]="0"
-      ></app-text-editor>
+            <app-text-editor #firstEditor
+                             [submission]="this.first()!"
+                             [plagCases]="this.plagCases()!"
+                             [markingSide]="0"
+            ></app-text-editor>
 
-      <app-text-editor #secondEditor
-                       [submission]="this.second()!"
-                       [plagCases]="this.plagCases()!"
-                       [markingSide]="1"/>
-
+            <app-text-editor #secondEditor
+                             [submission]="this.second()!"
+                             [plagCases]="this.plagCases()!"
+                             [markingSide]="1"/>
     </div>
   </app-surface>
 
@@ -59,5 +58,10 @@
     <mat-chip-listbox>
       <mat-chip-option selected (click)="toggleScrollSync()">Posúvať súčasne</mat-chip-option>
     </mat-chip-listbox>
+    <button mat-raised-button
+            (click)="loadDiffPage()"
+    >
+      Zobraziť rozdiel
+    </button>
   </app-floating-toolbar>
 </app-content-container>

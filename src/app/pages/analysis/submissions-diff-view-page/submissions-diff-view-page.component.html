@@ -1,0 +1,64 @@
+<app-content-container>
+
+  <app-surface title="Rozdiel obsahu"
+               subtitle=""
+               [isContentCentered]="false"
+               [isTitleCentered]="true">
+
+    @if (first() && second()) {
+      <div class="editor-container">
+        <app-submission-diff-editor [first]="first()!"
+                                    [second]="second()!">
+        </app-submission-diff-editor>
+      </div>
+    } @else {
+      <p>Vyberte dva dokumenty, ktoré by ste chceli porovnať</p>
+    }
+  </app-surface>
+  <app-floating-toolbar>
+    <form class="documents-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Odovzdanie 1</mat-label>
+        <input type="text"
+
+               placeholder="Pick one"
+               aria-label="Odovzdanie 1"
+               matInput
+               [formControl]="firstDocumentFormControl"
+               [matAutocomplete]="auto1">
+        <mat-autocomplete autoActiveFirstOption
+                          #auto1="matAutocomplete"
+                          [displayWith]="displaySubmission"
+        >
+          @for (option of firstFilteredOptions | async; track option) {
+            <mat-option
+              [value]="option">
+              {{ option.fileData.submitter }} [{{ option.fileData.filename }}]
+            </mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Odovzdanie 2</mat-label>
+        <input type="text"
+               placeholder="Pick one"
+               aria-label="Odovzdanie 2"
+               matInput
+               [formControl]="secondDocumentFormControl"
+               [matAutocomplete]="auto2">
+        <mat-autocomplete autoActiveFirstOption
+                          #auto2="matAutocomplete"
+                          [displayWith]="displaySubmission"
+        >
+          @for (option of secondFilteredOptions | async; track option) {
+            <mat-option
+              [value]="option">
+              {{ option.fileData.submitter }} [{{ option.fileData.filename }}]
+            </mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </app-floating-toolbar>
+</app-content-container>
