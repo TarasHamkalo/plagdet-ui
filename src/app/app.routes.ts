@@ -28,6 +28,9 @@ import {AnalysisPageGuard} from "./guards/analysis-page.guard";
 import {
   SubmissionGraphPageComponent
 } from "./pages/analysis/submission-graph-page/submission-graph-page.component";
+import {
+  ClusterViewPageComponent
+} from "./pages/analysis/cluster-view-page/cluster-view-page.component";
 
 export enum PageRoutes {
   NONE = "#",
@@ -41,6 +44,7 @@ export enum PageRoutes {
   METADATA = "/metadata",
   HEATMAP = "/heatmap",
   GRAPH = "/graph",
+  CLUSTERS = "/clusters",
   HOME = IMPORT,
 }
 export const routes: Routes = [
@@ -54,5 +58,6 @@ export const routes: Routes = [
   {path: PageRoutes.HEATMAP.substring(1), component: SimilarityHeatmapPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: `${PageRoutes.SUBMISSIONS.substring(1)}/:id`, component: SubmissionViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: PageRoutes.GRAPH.substring(1), component: SubmissionGraphPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: `${PageRoutes.CLUSTERS.substring(1)}/:id`, component: ClusterViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: "**", redirectTo: PageRoutes.HOME.substring(1)}
 ];

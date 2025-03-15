@@ -54,7 +54,7 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
 
   private graphSimulation: Simulation<any, undefined> = forceSimulation<any>()
     .force("charge", forceManyBody().strength(-550))
-    .force("collide", forceCollide(155))
+    .force("collide", forceCollide(5))
     .force("link", forceLink<any, any>()
       .id(node => node.id)
       .distance(() => 150)
@@ -67,7 +67,6 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
   };
 
   constructor(
-    private analysisContext: AnalysisContextService,
     private submissionGraphService: SubmissionGraphService,
     private router: Router,
   ) {
@@ -103,12 +102,12 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
       })
     ).subscribe({
       next: (choiceValue) => {
-        console.log("Working with node " + node.label);
         if (choiceValue == 0) {
           this.router.navigate([PageRoutes.SUBMISSIONS, node.submission.id]);
         }
         if (choiceValue == 1) {
-          console.log("Open cluster");
+          const clusterId = this.submissionGraphService.getClusterForSubmission(node)!.id;
+          this.router.navigate([PageRoutes.CLUSTERS, clusterId]);
         }
       },
       error: () => {

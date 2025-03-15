@@ -1,0 +1,34 @@
+<app-content-container>
+
+  <app-surface title="Teplotná mapa podobnosti"
+               subtitle=""
+               [isTitleCentered]="true"
+               [isContentCentered]="true">
+
+    <app-similarity-heatmap [pairsMapSource]="pairsMapSource"
+                            [submissionsMapSource]="submissionsMapSource"></app-similarity-heatmap>
+
+
+  </app-surface>
+
+  <app-surface title="Odovzdania patriace do zhluku"
+               subtitle="Tabuľka obsahuje pravé analyzované odovzdania"
+               [isContentCentered]="false">
+    <app-submissions-table
+      [limit]="null"
+      [submissionsFilterSet]="getNotIndexedSubmissionsFilterSet()"
+      [enablePagination]="true"
+    />
+  </app-surface>
+
+  <app-surface title="Odovzdania patriace do zhluku"
+               subtitle="Tabuľka obsahuje staré odovzdania"
+               [isContentCentered]="false">
+    <app-submissions-table
+      [limit]="null"
+      [showNotIndexedOnly]="false"
+      [submissionsFilterSet]="getIndexedSubmissionsFilterSet()"
+      [enablePagination]="true"
+    />
+  </app-surface>
+</app-content-container>
