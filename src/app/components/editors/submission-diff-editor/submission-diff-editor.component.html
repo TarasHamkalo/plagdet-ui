@@ -1,0 +1,9 @@
+<div class="editor">
+  @if (firstModel() && secondModel()) {
+    <ngx-monaco-diff-editor [options]="editorOptions"
+                            [originalModel]="firstModel()!"
+                            [modifiedModel]="secondModel()!"
+                            (onInit)="initEditor($event)">
+    </ngx-monaco-diff-editor>
+  }
+</div>

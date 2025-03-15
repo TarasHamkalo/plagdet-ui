@@ -1,0 +1,11 @@
+.editor {
+  min-height: 50vh;
+  height: 100%;
+  width: 100%;
+  min-width: 50%;
+}
+
+ngx-monaco-diff-editor {
+  width: 100%;
+  height: 100%;
+}
