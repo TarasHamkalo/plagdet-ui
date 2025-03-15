@@ -7,6 +7,7 @@ import {ApexAxisChartSeries} from "ng-apexcharts";
 import {DocumentSeriesPage} from "../types/document-series-page";
 import {PlagScore} from "../model/plag-score";
 import {ExportService} from "./export.service";
+import {SubmissionLabelingService} from "./submission-labeling.service";
 
 @Injectable({
   providedIn: "root"
@@ -29,6 +30,7 @@ export class SimilarityHeatmapService {
 
   constructor(
     private analysisContextService: AnalysisContextService,
+    private submissionLabelingService: SubmissionLabelingService,
     private exportService: ExportService
   ) {
   }
@@ -149,28 +151,11 @@ export class SimilarityHeatmapService {
     return {x: this.getDataPointCategory(other, this.duplicateCategories), y: score};
   }
 
-  private getDataPointCategory(submission: Submission, frequencyMap: Record<string, number>): string {
-    const maxLabelLength = 20;
-    let label = submission.fileData.submitter;
-    label = this.sanitizeLabel(label, maxLabelLength);
-
-    const duplicateCount = frequencyMap[label];
-    if (duplicateCount) {
-      frequencyMap[label] = duplicateCount + 1;
-      return `${label}_${frequencyMap[label]}`;
-    }
-
-    frequencyMap[label] = 1;
-    return `${label}_1`;
-  }
-
-  private sanitizeLabel(label: string, maxLabelLength: number) {
-    let sanitize = label.split("_").filter(part => part.match("[A-z]+")).join("_");
-    if (sanitize.length > maxLabelLength) {
-      sanitize = `${sanitize.substring(0, maxLabelLength)}`;
-    }
-
-    return sanitize;
+  private getDataPointCategory(
+    submission: Submission,
+    frequencyMap: Record<string, number>
+  ): string {
+    return this.submissionLabelingService.getSubmissionLabel(submission, frequencyMap, 20);
   }
 
   public getDisplayScoreType() {
