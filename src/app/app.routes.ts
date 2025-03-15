@@ -25,6 +25,9 @@ import {
 } from "./pages/analysis/similarity-heatmap-page/similarity-heatmap-page.component";
 import {AnalysisPageComponent} from "./pages/analysis/overview-page/analysis-page.component";
 import {AnalysisPageGuard} from "./guards/analysis-page.guard";
+import {
+  SubmissionGraphPageComponent
+} from "./pages/analysis/submission-graph-page/submission-graph-page.component";
 
 export enum PageRoutes {
   NONE = "#",
@@ -37,6 +40,7 @@ export enum PageRoutes {
   SUBMISSIONS = "/submissions",
   METADATA = "/metadata",
   HEATMAP = "/heatmap",
+  GRAPH = "/graph",
   HOME = IMPORT,
 }
 export const routes: Routes = [
@@ -49,5 +53,6 @@ export const routes: Routes = [
   {path: PageRoutes.SUBMISSIONS.substring(1), component: SubmissionsPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: PageRoutes.HEATMAP.substring(1), component: SimilarityHeatmapPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: `${PageRoutes.SUBMISSIONS.substring(1)}/:id`, component: SubmissionViewPageComponent, canActivate: [AnalysisRelatedContentGuard]},
+  {path: PageRoutes.GRAPH.substring(1), component: SubmissionGraphPageComponent, canActivate: [AnalysisRelatedContentGuard]},
   {path: "**", redirectTo: PageRoutes.HOME.substring(1)}
 ];

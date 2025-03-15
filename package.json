@@ -16,7 +16,6 @@
     "package-linux": "electron-packager . plagdet-linux --overwrite --asar=true --platform=linux --arch=x64 --icon=public/favicon.ico --prune=true --out=dist",
     "package": "electron-forge package",
     "make-win": "electron-forge make --platform win32"
-
   },
   "private": true,
   "dependencies": {
@@ -30,7 +29,10 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "@swimlane/ngx-graph": "^10.0.0-alpha.0",
     "apexcharts": "^4.4.0",
+    "d3": "^7.9.0",
+    "d3-force": "^3.0.0",
     "electron-packager": "^17.1.2",
     "electron-squirrel-startup": "^1.0.1",
     "jszip": "^3.10.1",
@@ -54,6 +56,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.7.0",
     "@electron-forge/plugin-fuses": "^7.7.0",
     "@electron/fuses": "^1.8.0",
+    "@types/d3": "^7.4.3",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "angular-eslint": "19.0.1",
