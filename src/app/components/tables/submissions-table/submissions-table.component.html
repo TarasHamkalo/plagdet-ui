@@ -1,9 +1,7 @@
 <div class="table-container">
 
-  <div class="table-search-row">
-
-    <mat-form-field class="search-bar"
-                    *ngIf="this.enableSearch">
+  <div class="table-search-row" *ngIf="this.enableSearch">
+    <mat-form-field class="search-bar">
       <mat-label>Hľadať</mat-label>
       <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
     </mat-form-field>
