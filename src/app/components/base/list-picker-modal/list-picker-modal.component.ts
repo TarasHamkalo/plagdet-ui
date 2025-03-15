@@ -3,11 +3,12 @@ import {
   MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
-  MatDialogContent, MatDialogRef,
+  MatDialogContent,
+  MatDialogRef,
   MatDialogTitle
 } from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
-import {MatActionList, MatList, MatListItem} from "@angular/material/list";
+import {MatActionList, MatListItem} from "@angular/material/list";
 import {NgForOf} from "@angular/common";
 
 @Component({
@@ -18,7 +19,6 @@ import {NgForOf} from "@angular/common";
     MatButton,
     MatDialogClose,
     MatDialogActions,
-    MatList,
     MatListItem,
     NgForOf,
     MatActionList
