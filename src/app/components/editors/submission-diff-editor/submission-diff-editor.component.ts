@@ -1,10 +1,8 @@
-import {Component, Input, OnDestroy, signal, OnChanges} from "@angular/core";
+import {Component, Input, OnChanges, OnDestroy, signal} from "@angular/core";
 import {editor} from "monaco-editor";
 import {Submission} from "../../../model/submission";
+import {DiffEditorComponent, DiffEditorModel} from "ngx-monaco-editor-v2";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
-import {DiffEditorComponent} from "ngx-monaco-editor-v2";
-import {DiffEditorModel} from 'ngx-monaco-editor-v2';
-import * as monaco from "monaco-editor";
 
 
 @Component({
