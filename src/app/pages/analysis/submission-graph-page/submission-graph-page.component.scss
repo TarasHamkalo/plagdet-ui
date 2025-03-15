@@ -1,0 +1,8 @@
+@use '@angular/material' as mat;
+
+.chart-container {
+
+  @include mat.elevation(4);
+  min-height: 80vh;
+  border-radius: var(--mat-sys-corner-medium);
+}

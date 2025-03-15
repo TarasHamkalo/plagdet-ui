@@ -1,46 +1,26 @@
 <app-content-container>
+  <app-surface title="Graf" subtitle="" [isTitleCentered]="true">
+    <ngx-graph
+      [zoomToFit$]="zoomToFitSubject"
+      class="chart-container"
+      (select)="onNodeSelect($event)"
+      (stateChange)="handleStateChange($event)"
+    >
+      <ng-template #nodeTemplate let-node>
+        <svg>
+          <g
+            class="node">
+            <circle r="10" cx="10" cy="10" [attr.fill]="node.data.color"></circle>
+          </g>
+        </svg>
+      </ng-template>
 
-  <ngx-graph
-    class="chart-container"
-    (select)="onNodeSelect($event)"
-    (stateChange)="handleStateChange($event)"
-    layout="d3ForceDirected"
-  >
-    <ng-template #nodeTemplate let-node>
-      <svg>
-        <g
-          class="node">
-          <circle r="10" cx="10" cy="10" [attr.fill]="node.data.color"></circle>
-        </g>
-        <!--          (mouseenter)="onNodeSelect(node)"-->
-      </svg>
-    </ng-template>
+    </ngx-graph>
 
-  </ngx-graph>
-
+  </app-surface>
+  <app-floating-toolbar>
+    <button mat-raised-button (click)="zoomToFit()">
+      Priblížiť a vycentrovať
+    </button>
+  </app-floating-toolbar>
 </app-content-container>
-<!--[nodes]="[-->
-<!--{-->
-<!--id: 'first',-->
-<!--label: 'A'-->
-<!--}, {-->
-<!--id: 'second',-->
-<!--label: 'B'-->
-<!--}, {-->
-<!--id: 'third',-->
-<!--label: 'C'-->
-<!--}-->
-<!--]"-->
-<!--    [links]="[-->
-<!--    {-->
-<!--      id: 'a',-->
-<!--      source: 'first',-->
-<!--    target: 'second',-->
-<!--      label: 'is parent of'-->
-<!--    }, {-->
-<!--      id: 'b',-->
-<!--      source: 'first',-->
-<!--      target: 'third',-->
-<!--      label: 'custom label'-->
-<!--    }-->
-<!--  ]"-->

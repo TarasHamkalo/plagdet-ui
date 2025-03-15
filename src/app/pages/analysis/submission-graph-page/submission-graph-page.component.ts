@@ -4,8 +4,7 @@ import {
   D3ForceDirectedSettings,
   Edge,
   GraphComponent,
-  NgxGraphModule, NgxGraphStateChangeEvent, NgxGraphStates,
-  NgxGraphZoomOptions,
+  NgxGraphModule, NgxGraphStateChangeEvent, NgxGraphZoomOptions,
   Node,
 } from "@swimlane/ngx-graph";
 import {
@@ -13,39 +12,32 @@ import {
 } from "../../../components/base/content-container/content-container.component";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {SubmissionLabelingService} from "../../../services/submission-labeling.service";
-import {Subject} from "rxjs";
 import {forceCollide, forceLink, forceManyBody, forceSimulation, Simulation} from "d3-force";
-import * as d3 from "d3";
+import * as shape from "d3-shape";
+import {SurfaceComponent} from "../../../components/base/surface/surface.component";
+import {Subject} from "rxjs";
+import {
+  FloatingToolbarComponent
+} from "../../../components/floating-toolbar/floating-toolbar.component";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: "app-submission-graph-page",
   imports: [
     NgxGraphModule,
-    ContentContainerComponent
+    ContentContainerComponent,
+    SurfaceComponent,
+    FloatingToolbarComponent,
+    MatButton
   ],
   templateUrl: "./submission-graph-page.component.html",
-  styleUrl: "./submission-graph-page.component.css"
+  styleUrl: "./submission-graph-page.component.scss"
 })
 export class SubmissionGraphPageComponent implements AfterViewInit {
 
   @ViewChild(GraphComponent) graphComponent!: GraphComponent;
-  protected zoomToFit$: Subject<NgxGraphZoomOptions> = new Subject<NgxGraphZoomOptions>();
 
-  constructor(
-    private analysisContext: AnalysisContextService,
-    private submissionLabelingService: SubmissionLabelingService
-  ) {
-  }
-
-  public onNodeSelect(node: Node) {
-    if (node.data.isNodeSelected) {
-      node.data.isNodeSelected = false;
-    } else {
-      node.data.isNodeSelected = true;
-    }
-    console.log(node);
-    this.zoomToFit$.next({force: true, autoCenter: true});
-  }
+  protected curve = shape.curveBundle.beta(1);
 
   private graphSimulation: Simulation<any, undefined> = forceSimulation<any>()
     .force("charge", forceManyBody().strength(-150))
@@ -61,16 +53,43 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
     forceLink: this.graphSimulation.force("link"),
   };
 
+  protected zoomToFitSubject: Subject<NgxGraphZoomOptions> = new Subject<NgxGraphZoomOptions>();
+
+  constructor(
+    private analysisContext: AnalysisContextService,
+    private submissionLabelingService: SubmissionLabelingService
+  ) {
+  }
+
+  public onNodeSelect(node: Node) {
+    if (node.data.isNodeSelected) {
+      node.data.isNodeSelected = false;
+    } else {
+      node.data.isNodeSelected = true;
+    }
+    console.log(node);
+  }
+
+  public zoomToFit(): void {
+    this.zoomToFitSubject.next({autoCenter: false});
+  }
+
   public ngAfterViewInit(): void {
     console.log(this.graphComponent);
 
     this.graphComponent.nodes = this.createNodes();
     this.graphComponent.links = this.createLinks();
 
+
     const layout = new D3ForceDirectedLayout();
     layout.settings = this.d3Settings;
     this.graphComponent.layout = layout;
+    this.graphComponent.curve = this.curve;
+    this.graphComponent.showMiniMap = true;
 
+    setTimeout(() => {
+      this.zoomToFit();
+    }, 300);
     setTimeout(() => {
       this.graphSimulation.nodes().forEach(node => {
         node.fx = node.x;
@@ -126,4 +145,5 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
   public handleStateChange(event: NgxGraphStateChangeEvent): void {
     console.log(event.state);
   }
+
 }
