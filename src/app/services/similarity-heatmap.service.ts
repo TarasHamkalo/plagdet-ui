@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {AnalysisContextService} from "../context/analysis-context.service";
 import {Submission} from "../model/submission";
 import {SubmissionPair} from "../model/submission-pair";
 import {SubmissionPairUtils} from "../utils/submission-pair-utils";
@@ -40,10 +39,12 @@ export class SimilarityHeatmapService {
 
   public setSubmissionsMap(submissionsMap: Map<number, Submission>): void {
     this.submissionsMap = submissionsMap;
+    this.reset();
   }
 
   public setPairsMap(pairsMap: Map<string, SubmissionPair>): void {
     this.pairsMap = pairsMap;
+    this.reset();
   }
 
   private initDocumentSeries(): boolean {
@@ -52,14 +53,16 @@ export class SimilarityHeatmapService {
     }
 
     // const report = this.analysisContextService.getReport()();
-    // if (!report) {
-    //   this.documentSeries = null;
-    //   return false;
-    // }
+    if (this.submissionsMap.size == 0 || this.pairsMap.size == 0) {
+      this.documentSeries = null;
+      return false;
+    }
+
     const submissions = this.submissionsMap.values();
     const pairs = this.pairsMap;
     this.displayedSubmissions = Array.from(submissions)
-      .filter(s => !s.indexed && this.getTypedSimilarity(s, pairs, this.submissionsMap))
+      // !s.indexed
+      .filter(s => this.getTypedSimilarity(s, pairs, this.submissionsMap))
       .sort((a, b) => a.fileData.submitter.localeCompare(b.fileData.submitter));
 
     const series = [];
@@ -82,7 +85,7 @@ export class SimilarityHeatmapService {
   ): PlagScore | undefined {
     return s.pairIds
       .map(pId => pairs.get(pId))
-      .filter(p => !SubmissionPairUtils.hasIndexedSubmission(p!, submissionsMap))
+      .filter(p => p !== undefined)// was  && !SubmissionPairUtils.hasIndexedSubmission(p!, submissionsMap)
       .map(p => SubmissionPairUtils.getScoreByType(p!, this.displayScoreType))
       .find(p => p !== null);
   }
@@ -92,9 +95,10 @@ export class SimilarityHeatmapService {
     dataPointIndex: number
   ): string | null {
     // const pairs = this.analysisContextService.getReport()()?.pairs;
-    // if (!pairs) {
-    //   return null;
-    // }
+    if (this.pairsMap.size == 0) {
+      return null;
+    }
+
 
     const dispLength = this.displayedSubmissions.length;
 

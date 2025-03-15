@@ -6,7 +6,7 @@ import {
   Output,
   Signal,
   ViewChild,
-  OnInit
+  OnInit, signal
 } from "@angular/core";
 
 import {
@@ -49,9 +49,9 @@ export interface ChartOptions {
 })
 export class SimilarityHeatmapComponent implements OnInit {
 
-  @Input({required: true}) public pairsMapSource!: Map<string, SubmissionPair>;
+  @Input({required: true}) public pairsMapSource: Signal<Map<string, SubmissionPair>> = signal<Map<string, SubmissionPair>>(new Map());
 
-  @Input({required: true}) public submissionsMapSource!: Map<number, Submission>;
+  @Input({required: true}) public submissionsMapSource: Signal<Map<number, Submission>> = signal<Map<number, Submission>>(new Map());
 
   @Output() public selectedPairIdEmitter = new EventEmitter<string>();
 
@@ -128,12 +128,14 @@ export class SimilarityHeatmapComponent implements OnInit {
       },
 
     };
+    effect(() => {
+      this.similarityHeatmapService.setPairsMap(this.pairsMapSource());
+      this.similarityHeatmapService.setSubmissionsMap(this.submissionsMapSource());
+    });
   }
 
   public ngOnInit() {
-    this.similarityHeatmapService.setPairsMap(this.pairsMapSource);
-    this.similarityHeatmapService.setSubmissionsMap(this.submissionsMapSource);
-    setTimeout(() =>{
+    setTimeout(() => {
       const initialPage = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
       this.chartOptions.series = initialPage.series;
       this.x = initialPage.x;

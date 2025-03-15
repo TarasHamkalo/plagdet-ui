@@ -61,5 +61,6 @@
 p {
   font: var(--mat-sys-body-medium);
   color: var(--mat-sys-on-surface);
+  text-align: center;
   margin: 0;
 }
