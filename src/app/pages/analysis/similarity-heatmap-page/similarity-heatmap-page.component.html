@@ -22,46 +22,10 @@
                subtitle=""
                [isTitleCentered]="true"
                [isContentCentered]="true">
-    <p *ngIf="!this.similarityHeatmapService.hasDataToDisplay()">Počet porovnaní s týmto typom
-      hodnotenia je príliš malý na zobrazenie.</p>
 
-    <div class="container-vertical" *ngIf="this.similarityHeatmapService.hasDataToDisplay()">
+    <app-similarity-heatmap [pairsMapSource]="pairsMapSource()"
+                            [submissionsMapSource]="submissionsMapSource()"></app-similarity-heatmap>
 
-      <div class="horizontal-slider-wrapper">
-        <mat-slider
-          [min]="0"
-          [max]="this.similarityHeatmapService.getMaxPosition()"
-          [step]="1"
-          [discrete]="false"
-          [showTickMarks]="true"
-          class="horizontal-slider"
-        >
-          <input matSliderThumb (change)="this.updateSeries()" [(ngModel)]="this.x" #slider>
-        </mat-slider>
-
-      </div>
-      <div class="container-horizontal">
-        <apx-chart class="chart"
-                   [series]="chartOptions.series!"
-                   [chart]="chartOptions.chart!"
-                   [dataLabels]="chartOptions.dataLabels!"
-                   [plotOptions]="chartOptions.plotOptions!"
-                   [title]="chartOptions.title!"
-        ></apx-chart>
-        <div class="vertical-slider-wrapper">
-          <mat-slider
-            [min]="0"
-            [max]="this.similarityHeatmapService.getMaxPosition()"
-            [step]="1"
-            [discrete]="false"
-            [showTickMarks]="true"
-            class="vertical-slider">
-            <input matSliderThumb (change)="this.updateSeries()" [(ngModel)]="this.y" #slider>
-          </mat-slider>
-        </div>
-      </div>
-
-    </div>
 
   </app-surface>
 

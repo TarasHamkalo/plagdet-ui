@@ -1,20 +1,11 @@
-import {Component, OnDestroy, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, computed, OnDestroy, OnInit, ViewChild} from "@angular/core";
 
-import {
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexDataLabels,
-  ApexPlotOptions,
-  ApexTitleSubtitle,
-  ChartComponent,
-  NgApexchartsModule
-} from "ng-apexcharts";
+import {NgApexchartsModule} from "ng-apexcharts";
 import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
 import {SimilarityHeatmapService} from "../../../services/similarity-heatmap.service";
-import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
@@ -22,89 +13,60 @@ import {MatFormField, MatOption, MatSelect} from "@angular/material/select";
 import {MatLabel} from "@angular/material/form-field";
 import {RouteContextService} from "../../../context/route-context.service";
 import {MatButton} from "@angular/material/button";
-import {NgIf} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {
   FloatingToolbarComponent
 } from "../../../components/floating-toolbar/floating-toolbar.component";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
+import {
+  SimilarityHeatmapComponent
+} from "../../../components/charts/similarity-heat-map/similarity-heatmap.component";
+import {SubmissionPair} from "../../../model/submission-pair";
+import {Submission} from "../../../model/submission";
 
-export interface ChartOptions {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  title: ApexTitleSubtitle;
-  plotOptions: ApexPlotOptions;
-}
 
 @Component({
   selector: "app-similarity-heatmap-page",
   imports: [
-    ChartComponent,
     NgApexchartsModule,
     ContentContainerComponent,
     SurfaceComponent,
     MatLabel,
-    MatSlider,
-    MatSliderThumb,
     FormsModule,
     MatSelect,
     MatOption,
     MatFormField,
     MatButton,
-    NgIf,
     MatIcon,
-    FloatingToolbarComponent
+    FloatingToolbarComponent,
+    SimilarityHeatmapComponent
   ],
   templateUrl: "./similarity-heatmap-page.component.html",
   styleUrl: "./similarity-heatmap-page.component.scss"
 })
 
-export class SimilarityHeatmapPageComponent implements OnDestroy {
+export class SimilarityHeatmapPageComponent implements OnDestroy, AfterViewInit {
 
-  @ViewChild(ChartComponent) protected chart!: ChartComponent;
+  @ViewChild(SimilarityHeatmapComponent) protected heatMap!: SimilarityHeatmapComponent;
+
+  protected pairsMapSource = computed<Map<string, SubmissionPair>>(() => {
+    const report = this.analysisContextService.getReport()();
+    if (report) {
+      return report.pairs;
+    }
+    return new Map();
+  });
+
+
+  protected submissionsMapSource = computed<Map<number, Submission>>(() => {
+    const report = this.analysisContextService.getReport()();
+    if (report) {
+      return report.submissions;
+    }
+    return new Map();
+  });
 
   public static readonly CONTEXT_KEY = "similarity-heatmap-page";
-
-  public readonly PLOT_OPTIONS: ApexPlotOptions = {
-    heatmap: {
-      shadeIntensity: 0.5,
-      colorScale: {
-        ranges: [
-          {
-            from: 0,
-            to: 25,
-            name: "nízka",
-            color: "#00A100"
-          },
-          {
-            from: 26,
-            to: 50,
-            name: "stredná",
-            color: "#128FD9"
-          },
-          {
-            from: 51,
-            to: 75,
-            name: "vysoká",
-            color: "#FFB200"
-          },
-          {
-            from: 76,
-            to: 100,
-            name: "extrémna",
-            color: "#FF0000"
-          }
-        ]
-      }
-    }
-  };
-
-  public chartOptions: Partial<ChartOptions>;
-
-  protected x = 0;
-
-  protected y = 0;
 
   constructor(
     protected analysisContextService: AnalysisContextService,
@@ -112,51 +74,6 @@ export class SimilarityHeatmapPageComponent implements OnDestroy {
     protected routeContextService: RouteContextService,
     private router: Router
   ) {
-    this.applyContext();
-
-    const report = this.analysisContextService.getReport()()!;
-    this.similarityHeatmapService.setPairsMap(report.pairs);
-    this.similarityHeatmapService.setSubmissionsMap(report.submissions);
-    const initialPage = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
-    this.x = initialPage.x;
-    this.y = initialPage.y;
-    this.chartOptions = {
-      series: initialPage.series,
-      chart: {
-        toolbar: {
-          show: false,
-        },
-
-        type: "heatmap",
-        events: {
-          dataPointSelection: (event, chartContext, opts) => {
-            const pair = this.similarityHeatmapService
-              .getSubmissionPairIdByDatapoint(opts.seriesIndex, opts.dataPointIndex);
-            this.loadPair(pair);
-          }
-        },
-        zoom: {
-          enabled: false
-        }
-      },
-      plotOptions: this.PLOT_OPTIONS,
-      dataLabels: {
-        enabled: true,
-      },
-      title: {
-        text: ""
-      },
-
-    };
-  }
-
-  protected updateSeries() {
-    const page = this.similarityHeatmapService.getDocumentSeriesPage(this.x, this.y);
-    this.x = page.x;
-    this.y = page.y;
-    if (page.viewUpdate) {
-      this.chartOptions.series = page.series;
-    }
   }
 
   private loadPair(pairId: string | null) {
@@ -167,19 +84,24 @@ export class SimilarityHeatmapPageComponent implements OnDestroy {
     this.router.navigate([PageRoutes.PAIRS, pairId]);
   }
 
+  public ngAfterViewInit() {
+    this.heatMap.selectedPairIdEmitter.subscribe((pId) => this.loadPair(pId));
+    this.applyContext();
+  }
+
   public changeScoreType(type: "META" | "SEMANTIC" | "JACCARD") {
     this.similarityHeatmapService.setDisplayScoreType(type);
-    this.x = 0;
-    this.y = 0;
-    this.updateSeries();
+    this.heatMap.setPageY(0);
+    this.heatMap.setPageX(0);
+    this.heatMap.updateSeries();
   }
 
   public ngOnDestroy(): void {
     this.routeContextService.putProperty(
-      ".x", this.x.toFixed(0), SimilarityHeatmapPageComponent.CONTEXT_KEY
+      ".x", this.heatMap.getPageX().toFixed(0), SimilarityHeatmapPageComponent.CONTEXT_KEY
     );
     this.routeContextService.putProperty(
-      ".y", this.y.toFixed(0), SimilarityHeatmapPageComponent.CONTEXT_KEY
+      ".y", this.heatMap.getPageY().toFixed(0), SimilarityHeatmapPageComponent.CONTEXT_KEY
     );
     this.routeContextService.putProperty(
       ".score-type",
@@ -195,8 +117,8 @@ export class SimilarityHeatmapPageComponent implements OnDestroy {
       ".score-type", SimilarityHeatmapPageComponent.CONTEXT_KEY
     );
     if (x && y && scoreType) {
-      this.x = parseInt(x);
-      this.y = parseInt(y);
+      this.heatMap.setPageX(parseInt(x));
+      this.heatMap.setPageY(parseInt(y));
       this.similarityHeatmapService.setDisplayScoreType(
         scoreType as "META" | "SEMANTIC" | "JACCARD"
       );

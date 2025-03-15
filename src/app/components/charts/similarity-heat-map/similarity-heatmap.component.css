@@ -1,0 +1,65 @@
+.chart {
+  width: 75%;
+}
+
+.container-vertical {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.container-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.horizontal-slider-wrapper {
+  display: flex;
+  position: relative;
+
+  width: 100%;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.horizontal-slider {
+  width: 50%;
+}
+
+.vertical-slider-wrapper {
+  position: relative;
+
+  width: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  align-items: center;
+}
+
+.vertical-slider {
+  position: absolute;
+  width: 16rem;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+@media screen and (max-width: 1600px) {
+  .chart {
+    width: 100%;
+  }
+}
+
+p {
+  font: var(--mat-sys-body-medium);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
