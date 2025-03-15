@@ -29,6 +29,7 @@ import {
 import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
 import {SubmissionNode} from "../../../types/submission-node";
+import {SubmissionGraphService} from "../../../services/submission-graph.service";
 
 @Component({
   selector: "app-submission-graph-page",
@@ -45,13 +46,15 @@ import {SubmissionNode} from "../../../types/submission-node";
 })
 export class SubmissionGraphPageComponent implements AfterViewInit {
 
-  @ViewChild(GraphComponent) graphComponent!: GraphComponent;
+  @ViewChild(GraphComponent) protected graphComponent!: GraphComponent;
+
+  protected zoomToFitSubject: Subject<NgxGraphZoomOptions> = new Subject<NgxGraphZoomOptions>();
 
   private dialog = inject(MatDialog);
 
   private graphSimulation: Simulation<any, undefined> = forceSimulation<any>()
-    .force("charge", forceManyBody().strength(-150))
-    .force("collide", forceCollide(55))
+    .force("charge", forceManyBody().strength(-550))
+    .force("collide", forceCollide(155))
     .force("link", forceLink<any, any>()
       .id(node => node.id)
       .distance(() => 150)
@@ -63,11 +66,9 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
     forceLink: this.graphSimulation.force("link"),
   };
 
-  protected zoomToFitSubject: Subject<NgxGraphZoomOptions> = new Subject<NgxGraphZoomOptions>();
-
   constructor(
     private analysisContext: AnalysisContextService,
-    private submissionLabelingService: SubmissionLabelingService,
+    private submissionGraphService: SubmissionGraphService,
     private router: Router,
   ) {
   }
@@ -123,14 +124,15 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
   public ngAfterViewInit(): void {
     console.log(this.graphComponent);
 
-    this.graphComponent.nodes = this.createNodes();
-    this.graphComponent.links = this.createLinks();
+    this.graphComponent.nodes = this.submissionGraphService.createNodes();
+    this.graphComponent.links = this.submissionGraphService.createLinks();
 
     const layout = new D3ForceDirectedLayout();
     layout.settings = this.d3Settings;
     this.graphComponent.layout = layout;
     this.graphComponent.showMiniMap = true;
 
+    console.log(this.submissionGraphService.clusters());
 
     setTimeout(() => {
       this.graphSimulation.nodes().forEach(node => {
@@ -139,55 +141,6 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
       });
       this.graphSimulation.alpha(0).stop();
     }, 5000);
-  }
-
-  public createLinks(): Edge[] {
-    const report = this.analysisContext.getReport()()!;
-    if (report) {
-      const pairs = report.pairs;
-      return Array.from(pairs.values())
-        .map((pair) => {
-          return {
-            id: this.getLinkId(pair.id),
-            source: this.getNodeIdFromSubmission(pair.firstId),
-            target: this.getNodeIdFromSubmission(pair.secondId),
-          } as Edge;
-        });
-    }
-
-    return [];
-  }
-
-  public createNodes(): Node[] {
-    const report = this.analysisContext.getReport()()!;
-    if (report) {
-      const submissions = report.submissions;
-      const submissionFrequencyMap: Record<string, number> = {};
-
-      return Array.from(submissions.values())
-        .sort((a, b) => a.fileData.submitter.localeCompare(b.fileData.submitter))
-        .map((submission) => {
-          return {
-            id: this.getNodeIdFromSubmission(submission.id),
-            label: this.submissionLabelingService.getSubmissionLabel(submission, submissionFrequencyMap),
-            submission: submission
-          } as SubmissionNode;
-        });
-    }
-
-    return [];
-  }
-
-  public getLinkId(id: string): string {
-    return `link_${id}`;
-  }
-
-  public getNodeIdFromSubmission(id: number): string {
-    return `node_${id.toFixed(0)}`;
-  }
-
-  public handleStateChange(event: NgxGraphStateChangeEvent): void {
-    console.log(event.state);
   }
 
 }

@@ -4,7 +4,6 @@
       [zoomToFit$]="zoomToFitSubject"
       class="chart-container"
       (select)="onNodeSelect($event)"
-      (stateChange)="handleStateChange($event)"
     >
       <ng-template #nodeTemplate let-node>
         <svg>
@@ -12,7 +11,7 @@
             class="node"
             [matTooltip]="node.label"
           >
-            <circle r="10" cx="10" cy="10" [attr.fill]="node.data.color"></circle>
+            <circle r="15" cx="15" cy="15" [attr.fill]="node.data.color"></circle>
           </g>
         </svg>
       </ng-template>
