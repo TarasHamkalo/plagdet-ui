@@ -1,10 +1,12 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, inject, ViewChild} from "@angular/core";
 import {
   D3ForceDirectedLayout,
   D3ForceDirectedSettings,
   Edge,
   GraphComponent,
-  NgxGraphModule, NgxGraphStateChangeEvent, NgxGraphZoomOptions,
+  NgxGraphModule,
+  NgxGraphStateChangeEvent,
+  NgxGraphZoomOptions,
   Node,
 } from "@swimlane/ngx-graph";
 import {
@@ -13,13 +15,20 @@ import {
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {SubmissionLabelingService} from "../../../services/submission-labeling.service";
 import {forceCollide, forceLink, forceManyBody, forceSimulation, Simulation} from "d3-force";
-import * as shape from "d3-shape";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
-import {Subject} from "rxjs";
+import {concatMap, of, Subject, throwError} from "rxjs";
 import {
   FloatingToolbarComponent
 } from "../../../components/floating-toolbar/floating-toolbar.component";
 import {MatButton} from "@angular/material/button";
+import {MatTooltip} from "@angular/material/tooltip";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  ListPickerModalComponent
+} from "../../../components/base/list-picker-modal/list-picker-modal.component";
+import {Router} from "@angular/router";
+import {PageRoutes} from "../../../app.routes";
+import {SubmissionNode} from "../../../types/submission-node";
 
 @Component({
   selector: "app-submission-graph-page",
@@ -28,7 +37,8 @@ import {MatButton} from "@angular/material/button";
     ContentContainerComponent,
     SurfaceComponent,
     FloatingToolbarComponent,
-    MatButton
+    MatButton,
+    MatTooltip
   ],
   templateUrl: "./submission-graph-page.component.html",
   styleUrl: "./submission-graph-page.component.scss"
@@ -37,7 +47,7 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
 
   @ViewChild(GraphComponent) graphComponent!: GraphComponent;
 
-  protected curve = shape.curveBundle.beta(1);
+  private dialog = inject(MatDialog);
 
   private graphSimulation: Simulation<any, undefined> = forceSimulation<any>()
     .force("charge", forceManyBody().strength(-150))
@@ -57,17 +67,53 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
 
   constructor(
     private analysisContext: AnalysisContextService,
-    private submissionLabelingService: SubmissionLabelingService
+    private submissionLabelingService: SubmissionLabelingService,
+    private router: Router,
   ) {
   }
 
   public onNodeSelect(node: Node) {
-    if (node.data.isNodeSelected) {
-      node.data.isNodeSelected = false;
-    } else {
-      node.data.isNodeSelected = true;
-    }
-    console.log(node);
+    this.openNavigationDialog(node as SubmissionNode);
+  }
+
+  protected openNavigationDialog(node: SubmissionNode): void {
+    const dialogRef = this.dialog.open(ListPickerModalComponent, {
+      data: {
+        title: "Zvoľte akciu nad " + node.label,
+        options: [
+          {
+            label: "Otvoriť informácie o odovzdaní",
+            value: 0
+          },
+          {
+            label: "Otvoriť informácie o zhluku",
+            value: 1
+          }
+        ]
+      },
+    });
+    dialogRef.afterClosed().pipe(
+      concatMap(choiceValue => {
+        if (choiceValue !== undefined) {
+          return of(choiceValue);
+        }
+
+        throw throwError(() => new Error("Cancel graph node action"));
+      })
+    ).subscribe({
+      next: (choiceValue) => {
+        console.log("Working with node " + node.label);
+        if (choiceValue == 0) {
+          this.router.navigate([PageRoutes.SUBMISSIONS, node.submission.id]);
+        }
+        if (choiceValue == 1) {
+          console.log("Open cluster");
+        }
+      },
+      error: () => {
+        // ignore
+      }
+    });
   }
 
   public zoomToFit(): void {
@@ -80,16 +126,12 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
     this.graphComponent.nodes = this.createNodes();
     this.graphComponent.links = this.createLinks();
 
-
     const layout = new D3ForceDirectedLayout();
     layout.settings = this.d3Settings;
     this.graphComponent.layout = layout;
-    this.graphComponent.curve = this.curve;
     this.graphComponent.showMiniMap = true;
 
-    setTimeout(() => {
-      this.zoomToFit();
-    }, 300);
+
     setTimeout(() => {
       this.graphSimulation.nodes().forEach(node => {
         node.fx = node.x;
@@ -121,13 +163,15 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
     if (report) {
       const submissions = report.submissions;
       const submissionFrequencyMap: Record<string, number> = {};
+
       return Array.from(submissions.values())
         .sort((a, b) => a.fileData.submitter.localeCompare(b.fileData.submitter))
         .map((submission) => {
           return {
             id: this.getNodeIdFromSubmission(submission.id),
             label: this.submissionLabelingService.getSubmissionLabel(submission, submissionFrequencyMap),
-          } as Node;
+            submission: submission
+          } as SubmissionNode;
         });
     }
 

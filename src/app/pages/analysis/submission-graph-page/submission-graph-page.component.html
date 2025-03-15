@@ -9,7 +9,9 @@
       <ng-template #nodeTemplate let-node>
         <svg>
           <g
-            class="node">
+            class="node"
+            [matTooltip]="node.label"
+          >
             <circle r="10" cx="10" cy="10" [attr.fill]="node.data.color"></circle>
           </g>
         </svg>
