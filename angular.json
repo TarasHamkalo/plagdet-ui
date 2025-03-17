@@ -16,7 +16,7 @@
             "loader": {
               ".ttf": "binary"
             },
-            "outputPath": "dist/ux",
+            "outputPath": "dist/plagdet",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [

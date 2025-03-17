@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
     {provide: MatPaginatorIntl, useClass: SlovakPaginatorService},
-    { provide: RouteReuseStrategy, useClass: PlagdetRouteReuseStrategy},
+    {provide: RouteReuseStrategy, useClass: PlagdetRouteReuseStrategy},
     provideMonacoEditor(),
     provideAnimationsAsync(),
   ]
