@@ -24,7 +24,7 @@ export class MonacoDecorationService {
     },
     [SpecialMarkingType.TEMPLATE]: {
       inlineClassName: "highlight-template",
-      hoverMessage: {value: "Fragment šablóny"},
+      hoverMessage: {value: "Text zadania"},
       zIndex: 2
     },
     [SpecialMarkingType.MISSPELLED]: {

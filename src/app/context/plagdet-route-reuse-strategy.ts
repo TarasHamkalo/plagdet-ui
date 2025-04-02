@@ -1,4 +1,5 @@
 import {RouteReuseStrategy, ActivatedRouteSnapshot, DetachedRouteHandle} from "@angular/router";
+import {PageRoutes} from "../app.routes";
 
 export class PlagdetRouteReuseStrategy implements RouteReuseStrategy {
   protected storedRouteHandles = new Map<string, DetachedRouteHandle>();
@@ -38,6 +39,11 @@ export class PlagdetRouteReuseStrategy implements RouteReuseStrategy {
   public shouldDetach(route: ActivatedRouteSnapshot): boolean {
     const basePath = this.getBaseRoute(route);
     if (basePath) {
+      if (basePath === PageRoutes.HOME) {
+        this.storedRouteHandles.clear();
+        return false;
+      }
+
       const cacheAllowed = this.allowRetrieveCache.get(basePath);
       return cacheAllowed != undefined && cacheAllowed;
     }

@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {
   FileUploadDndComponent
 } from "../../components/files/file-upload-dnd/file-upload-dnd.component";
@@ -18,12 +18,16 @@ import {
   ],
   templateUrl: "./import-analysis-page.component.html",
 })
-export class ImportAnalysisPageComponent extends UploadPageBaseComponent {
+export class ImportAnalysisPageComponent extends UploadPageBaseComponent implements OnInit  {
 
   public supportedExtensions: Set<string> = new Set<string>(["zip"]);
 
   public subtitle = "Povolený formát je ZIP";
-
+  
+  public ngOnInit() {
+    this.analysisContext.clearContext();
+  }
+  
   protected override onFileUploaded(file: File) {
     super.onFileUploaded(
       file,
