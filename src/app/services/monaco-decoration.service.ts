@@ -19,25 +19,30 @@ export class MonacoDecorationService {
     },
     [SpecialMarkingType.CODE]: {
       inlineClassName: "highlight-code",
-      hoverMessage: {value: "Fragment kódu"}
+      hoverMessage: {value: "Fragment kódu"},
+      zIndex: 2
     },
     [SpecialMarkingType.TEMPLATE]: {
       inlineClassName: "highlight-template",
-      hoverMessage: {value: "Fragment šablóny"}
+      hoverMessage: {value: "Fragment šablóny"},
+      zIndex: 2
     },
     [SpecialMarkingType.MISSPELLED]: {
       inlineClassName: "highlight-misspelled",
+      zIndex: 3
     },
     [SpecialMarkingType.SPOOF]: {
       inlineClassName: "highlight-spoof",
-      hoverMessage: {value: "Boli použité iné ako latinské znaky (Unicode Look-Alike)"}
+      hoverMessage: {value: "Boli použité iné ako latinské znaky (Unicode Look-Alike)"},
+      zIndex: 3
     }
   };
 
   public createDecorationsFromMarking(
     editor: IStandaloneCodeEditor,
     markings: SpecialMarking[],
-    markingSide: 0 | 1
+    markingSide: 0 | 1,
+    withId = false
   ): IModelDeltaDecoration[] {
 
     const decorations: IModelDeltaDecoration[] = [];
@@ -46,12 +51,19 @@ export class MonacoDecorationService {
       const markingOffsets = this.getMarkingOffset(specialMarking, markingSide);
       const start = this.getLineColumnFromOffset(editor.getValue(), markingOffsets.start);
       const end = this.getLineColumnFromOffset(editor.getValue(), markingOffsets.end);
-      decorations.push(
-        {
+      if (withId && specialMarking.second) {
+        // const id = `${specialMarking.first.start}:${specialMarking.first.end}-` +
+        //   `${specialMarking.second.start}:${specialMarking.second.end}`;
+        decorations.push({
           range: new Range(start.line, start.column, end.line, end.column),
           options: this.getOptionsForSpecialMarking(specialMarking),
-        }
-      );
+        });
+      } else {
+        decorations.push({
+          range: new Range(start.line, start.column, end.line, end.column),
+          options: this.getOptionsForSpecialMarking(specialMarking),
+        });
+      }
     }
 
     return decorations;
@@ -89,4 +101,19 @@ export class MonacoDecorationService {
     return {line: lines.length, column: lines[lines.length - 1].length + 1};
   }
 
+  public navigateToOffset(
+    editor: editor.IStandaloneCodeEditor | null,
+    marking: SpecialMarking,
+    markingSide: 0 | 1
+  ) {
+    if (editor == null) {
+      return;
+    }
+    const offset = this.getMarkingOffset(marking, markingSide);
+    const position = this.getLineColumnFromOffset(editor.getModel()!.getValue(), offset.start);
+    console.log("Navigating to line: " + position.line);
+    editor.setScrollTop(position.line);
+    editor.revealLineInCenter(position.line);
+    editor.setPosition({ lineNumber: position.line, column: position.column });
+  }
 }

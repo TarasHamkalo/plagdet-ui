@@ -6,11 +6,12 @@ import {FormsModule} from "@angular/forms";
 import {MonacoDecorationService} from "../../../services/monaco-decoration.service";
 import {first, of, switchMap, takeWhile, timer} from "rxjs";
 import {SpecialMarking} from "../../../model/positioning/special-marking";
-import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
-import IModelDeltaDecoration = editor.IModelDeltaDecoration;
 import {MatIcon} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
 import {MatTooltip} from "@angular/material/tooltip";
+import {SpecialMarkingType} from "../../../model/positioning/special-marking-type";
+import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
+import IModelDeltaDecoration = editor.IModelDeltaDecoration;
 
 @Component({
   selector: "app-text-editor",
@@ -47,6 +48,10 @@ export class TextEditorComponent implements OnDestroy {
 
   @Output() public scrollEventEmitter = new EventEmitter<IScrollEvent>();
 
+  @Output() public navigatePlagCaseEventEmitter = new EventEmitter<SpecialMarking>();
+
+  protected decorationIdToMarking = new Map<string, SpecialMarking>();
+
   protected isScrollSyncEnabled = signal<boolean>(true);
 
   constructor(private monacoDecorationService: MonacoDecorationService) {
@@ -62,7 +67,19 @@ export class TextEditorComponent implements OnDestroy {
           switchMap(() => of(decorations))
         )
         .subscribe((decorations) => {
-          this.editor()?.createDecorationsCollection(decorations);
+          const editor = this.editor();
+          if (!editor) {
+            return;
+          }
+
+          const model = editor.getModel();
+          if (!model) {
+            return;
+          }
+
+          const ids = model.deltaDecorations([], decorations);
+          const mergedMarkings = (this.plagCases || []).concat(this.submission.markings);
+          mergedMarkings.forEach((m, i) => this.decorationIdToMarking.set(ids[i], m));
         });
     });
   }
@@ -79,11 +96,20 @@ export class TextEditorComponent implements OnDestroy {
     });
   }
 
+  public subscribeOnNavigationEvent(eventEmitter: EventEmitter<SpecialMarking>): void {
+    eventEmitter.subscribe((e) => {
+        if (e && e.type === SpecialMarkingType.PLAG) {
+          console.log("recieved navigation");
+          this.monacoDecorationService.navigateToOffset(this.editor(), e, this.markingSide);
+        }
+    });
+  }
+
   private createDecorations(): IModelDeltaDecoration[] {
     const decorations: IModelDeltaDecoration[] = [];
     if (this.plagCases) {
       decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
-        this.editor()!, this.plagCases, this.markingSide
+        this.editor()!, this.plagCases, this.markingSide, true
       ));
     }
     decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
@@ -98,6 +124,37 @@ export class TextEditorComponent implements OnDestroy {
     }
 
     editor.onDidScrollChange((e) => this.scrollEventEmitter.emit(e));
+    editor.onMouseDown((e) => {
+      if (e.target.position) {
+        const model = editor.getModel();
+        if (!model) {
+          return;
+        }
+
+        const position = e.target.position;
+        const decorations = model.getDecorationsInRange({
+          startLineNumber: position.lineNumber,
+          startColumn: position.column,
+          endLineNumber: position.lineNumber,
+          endColumn: position.column + 1,
+        });
+
+        if (decorations.length > 0) {
+          // TODO: there could be more than one
+          console.log(decorations);
+          const plagDecoration = decorations.find(
+            d => d.options.inlineClassName === "highlight-plag"
+          );
+          console.log(plagDecoration);
+          if (plagDecoration) {
+            console.log(this.decorationIdToMarking.get(plagDecoration.id));
+            this.navigatePlagCaseEventEmitter.emit(
+              this.decorationIdToMarking.get(plagDecoration.id)
+            );
+          }
+        }
+      }
+    });
   }
 
   public ngOnDestroy(): void {

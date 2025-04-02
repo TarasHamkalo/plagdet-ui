@@ -98,6 +98,8 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
     if (this.firstEditor && this.secondEditor) {
       this.firstEditor.subscribeOnScrolling(this.secondEditor.scrollEventEmitter);
       this.secondEditor.subscribeOnScrolling(this.firstEditor.scrollEventEmitter);
+      this.firstEditor.subscribeOnNavigationEvent(this.secondEditor.navigatePlagCaseEventEmitter);
+      this.secondEditor.subscribeOnNavigationEvent(this.firstEditor.navigatePlagCaseEventEmitter);
     }
   }
 
