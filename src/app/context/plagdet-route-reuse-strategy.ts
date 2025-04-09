@@ -6,7 +6,6 @@ export class PlagdetRouteReuseStrategy implements RouteReuseStrategy {
 
   protected allowRetrieveCache = new Map<string, boolean>([
     ["graph", true],
-    ["diff", true],
     ["pairs", true]
   ]);
 
