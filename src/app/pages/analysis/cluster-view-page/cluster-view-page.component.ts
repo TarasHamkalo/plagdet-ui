@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  computed,
-  effect,
-  OnInit,
-  Signal,
-  signal,
-  ViewChild
-} from "@angular/core";
+import {AfterViewInit, Component, computed, effect, OnInit, signal, ViewChild} from "@angular/core";
 import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
@@ -59,13 +50,19 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
     const report = this.analysisContextService.getReport()();
     const map = new Map<string, SubmissionPair>();
     if (report) {
-      const pairs = report.pairs;
-      this.clusterSubmissions
+      const clusterSubmissionsPairs = this.clusterSubmissions
         .filter(s => !s.indexed && s.pairIds.length > 0)
-        .flatMap(s => s.pairIds)
-        .forEach(pId => {
-          map.set(pId, pairs.get(pId)!);
-        });
+        .flatMap(s => s.pairIds);
+
+      const clusterIds = new Set(this.clusterSubmissions.map(s => s.id));
+      for (const pairId of clusterSubmissionsPairs) {
+        const [idA, idB] = pairId.split("_");
+
+        if (clusterIds.has(Number(idA)) && clusterIds.has(Number(idB))) {
+          map.set(pairId, report.pairs.get(pairId)!);
+        }
+      }
+
     }
 
     return map;
