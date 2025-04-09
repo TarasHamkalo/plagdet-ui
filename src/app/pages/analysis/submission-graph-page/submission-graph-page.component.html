@@ -20,8 +20,48 @@
 
   </app-surface>
   <app-floating-toolbar>
-    <button mat-raised-button (click)="zoomToFit()">
-      Priblížiť a vycentrovať
-    </button>
+    <div class="toolbar-horizontal">
+      <div class="picker-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Mieru podobnosti</mat-label>
+          <mat-select #select [value]="this.submissionGraphService.getDisplayScoreType()"
+                      (selectionChange)="this.changeScoreType(select.value)">
+            <mat-option value="META">
+              Podobnosť autorov (metaúdaje)
+            </mat-option>
+            <mat-option value="JACCARD">
+              Jaccardov koeficient (bi-gramy)
+            </mat-option>
+            <mat-option value="SEMANTIC">
+              Semantická podobnosť
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button (click)="zoomToFit()">
+          Priblížiť a vycentrovať
+        </button>
+      </div>
+      @if (this.submissionGraphService.getDisplayScoreType() !== "META") {
+        <div class="slider-container">
+          <mat-slider
+            [min]="0"
+            [max]="100"
+            [step]="1"
+            [discrete]="true"
+            [showTickMarks]="false"
+          >
+            <input matSliderThumb (change)="this.updateLinks()"
+                   [(ngModel)]="this.minPercentageSimilarityToInclude" #slider>
+          </mat-slider>
+          <p>
+            Minimálna požadovaná podobnosť na pridanie spojenia uzlov
+          </p>
+        </div>
+      } @else {
+        <p style="width: 200px">Pri vybranej miere podobnosti, nie je možné voliť stupeň podobnosti.</p>
+      }
+
+    </div>
   </app-floating-toolbar>
 </app-content-container>

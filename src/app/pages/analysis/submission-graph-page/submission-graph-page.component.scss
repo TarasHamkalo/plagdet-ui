@@ -6,3 +6,32 @@
   min-height: 80vh;
   border-radius: var(--mat-sys-corner-medium);
 }
+
+.toolbar-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.picker-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 300px;
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 300px;
+}
+
+p {
+  font: var(--mat-sys-body-medium);
+  color: var(--mat-sys-on-surface-variant);
+  margin: 0;
+}

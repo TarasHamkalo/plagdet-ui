@@ -1,14 +1,20 @@
-import {computed, Injectable} from "@angular/core";
+import {computed, Injectable, signal} from "@angular/core";
 import {Edge} from "@swimlane/ngx-graph";
 import {AnalysisContextService} from "../context/analysis-context.service";
 import {SubmissionLabelingService} from "./submission-labeling.service";
 import {SubmissionNode} from "../types/submission-node";
 import {Cluster} from "../types/cluster";
+import {SubmissionPairUtils} from "../utils/submission-pair-utils";
+import {SubmissionPair} from "../model/submission-pair";
 
 @Injectable({
   providedIn: "root"
 })
 export class SubmissionGraphService {
+
+  private displayScoreType = signal<"META" | "JACCARD" | "SEMANTIC">("SEMANTIC");
+
+  private minSimilarityToInclude = signal<number>(0.6);
 
   constructor(
     private analysisContextService: AnalysisContextService,
@@ -37,18 +43,23 @@ export class SubmissionGraphService {
     return map;
   });
 
+  public setMinPercentageSimilarityToInclude(minPercentageSimilarityToInclude: number) {
+    this.minSimilarityToInclude.set(minPercentageSimilarityToInclude / 100);
+  }
 
   public getClusterForSubmission(submissionNode: SubmissionNode) {
     const submission = submissionNode.submission;
     const clusterId = this.submissionClusterMap()[submission.id];
-    return this.clusters().find(source => source.id === clusterId);
+    const cluster = this.clusters().find(source => source.id === clusterId);
+    console.log(cluster);
+    return cluster;
   }
 
   private computeConnectedComponents() {
     const report = this.analysisContextService.getReport()()!;
     if (report) {
       const submissions = Array.from(report.submissions.values());
-      const pairs = Array.from(report.pairs.values());
+      const pairs = this.applyPairsFiltering(report.pairs, this.minSimilarityToInclude());
       const adjacencyList: Record<number, Set<number>> = {};
       const visited: Set<number> = new Set<number>();
 
@@ -106,7 +117,7 @@ export class SubmissionGraphService {
     const report = this.analysisContextService.getReport()()!;
     if (report) {
       const pairs = report.pairs;
-      return Array.from(pairs.values())
+      return this.applyPairsFiltering(pairs, this.minSimilarityToInclude())
         .map((pair) => {
           return {
             id: this.getLinkId(pair.id),
@@ -117,6 +128,14 @@ export class SubmissionGraphService {
     }
 
     return [];
+  }
+
+  private applyPairsFiltering(pairs: Map<string, SubmissionPair>, minScoreToInclude: number) {
+    return Array.from(pairs.values())
+      .filter(pair => {
+        const score = SubmissionPairUtils.getScoreByType(pair, this.displayScoreType());
+        return score && score.score >= minScoreToInclude;
+      });
   }
 
   public createNodes(): SubmissionNode[] {
@@ -163,4 +182,13 @@ export class SubmissionGraphService {
     }
     return stringArr.join("-");
   }
+
+  public getDisplayScoreType() {
+    return this.displayScoreType();
+  }
+
+  public setDisplayScoreType(value: "META" | "JACCARD" | "SEMANTIC") {
+    this.displayScoreType.set(value);
+  }
+
 }

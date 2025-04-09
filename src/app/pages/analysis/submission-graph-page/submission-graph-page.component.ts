@@ -2,18 +2,14 @@ import {AfterViewInit, Component, inject, ViewChild} from "@angular/core";
 import {
   D3ForceDirectedLayout,
   D3ForceDirectedSettings,
-  Edge,
   GraphComponent,
   NgxGraphModule,
-  NgxGraphStateChangeEvent,
   NgxGraphZoomOptions,
   Node,
 } from "@swimlane/ngx-graph";
 import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
-import {AnalysisContextService} from "../../../context/analysis-context.service";
-import {SubmissionLabelingService} from "../../../services/submission-labeling.service";
 import {forceCollide, forceLink, forceManyBody, forceSimulation, Simulation} from "d3-force";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
 import {concatMap, of, Subject, throwError} from "rxjs";
@@ -30,6 +26,10 @@ import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
 import {SubmissionNode} from "../../../types/submission-node";
 import {SubmissionGraphService} from "../../../services/submission-graph.service";
+import {MatSlider, MatSliderThumb} from "@angular/material/slider";
+import {FormsModule} from "@angular/forms";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 @Component({
   selector: "app-submission-graph-page",
@@ -39,7 +39,14 @@ import {SubmissionGraphService} from "../../../services/submission-graph.service
     SurfaceComponent,
     FloatingToolbarComponent,
     MatButton,
-    MatTooltip
+    MatTooltip,
+    MatSlider,
+    MatSliderThumb,
+    FormsModule,
+    MatLabel,
+    MatFormField,
+    MatSelect,
+    MatOption
   ],
   templateUrl: "./submission-graph-page.component.html",
   styleUrl: "./submission-graph-page.component.scss"
@@ -66,8 +73,10 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
     forceLink: this.graphSimulation.force("link"),
   };
 
+  protected minPercentageSimilarityToInclude = 60;
+
   constructor(
-    private submissionGraphService: SubmissionGraphService,
+    protected submissionGraphService: SubmissionGraphService,
     private router: Router,
   ) {
   }
@@ -121,17 +130,12 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    
-
     this.graphComponent.nodes = this.submissionGraphService.createNodes();
     this.graphComponent.links = this.submissionGraphService.createLinks();
-
     const layout = new D3ForceDirectedLayout();
     layout.settings = this.d3Settings;
     this.graphComponent.layout = layout;
     this.graphComponent.showMiniMap = true;
-
-    
 
     setTimeout(() => {
       this.graphSimulation.nodes().forEach(node => {
@@ -142,4 +146,19 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
     }, 5000);
   }
 
+  protected updateLinks() {
+    this.submissionGraphService.setMinPercentageSimilarityToInclude(
+      this.minPercentageSimilarityToInclude
+    );
+    this.graphComponent.links = this.submissionGraphService.createLinks();
+    this.graphComponent.nodes = this.submissionGraphService.createNodes();
+    this.graphComponent.update();
+  }
+
+  protected changeScoreType(value: "META" | "JACCARD" | "SEMANTIC") {
+    this.submissionGraphService.setDisplayScoreType(value);
+    this.graphComponent.links = this.submissionGraphService.createLinks();
+    this.graphComponent.nodes = this.submissionGraphService.createNodes();
+    this.graphComponent.update();
+  }
 }
