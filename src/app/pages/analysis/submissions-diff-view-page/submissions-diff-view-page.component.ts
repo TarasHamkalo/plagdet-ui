@@ -1,4 +1,4 @@
-import {Component, computed, effect, OnInit, signal} from "@angular/core";
+import {ChangeDetectorRef, Component, computed, effect, OnInit, signal} from "@angular/core";
 import {SurfaceComponent} from "../../../components/base/surface/surface.component";
 import {
   SubmissionDiffEditorComponent
@@ -66,7 +66,10 @@ export class SubmissionsDiffViewPageComponent implements OnInit {
 
   private updateFormControl = false;
 
+  protected isOldEditor = false;
+
   constructor(
+    private changeDetector: ChangeDetectorRef,
     private analysisContextService: AnalysisContextService,
     private route: ActivatedRoute
   ) {
@@ -75,26 +78,30 @@ export class SubmissionsDiffViewPageComponent implements OnInit {
       if (this.firstId() === null || this.secondId() === null) {
         return;
       }
-      const report = this.analysisContextService.getReport()();
-      if (report) {
-        const firstSubmission = report.submissions.get(this.firstId()!)!;
-        if (!firstSubmission) {
+      this.isOldEditor = true;
+      this.changeDetector.detectChanges();
+      setTimeout(() => {
+        this.isOldEditor = false;
+        const report = this.analysisContextService.getReport()();
+        if (!report) {
+          return;
+        }
+
+        const firstSubmission = report.submissions.get(this.firstId()!);
+        const secondSubmission = report.submissions.get(this.secondId()!);
+        if (!firstSubmission || !secondSubmission) {
           return;
         }
 
         this.first.set(firstSubmission);
-        const secondSubmission = report.submissions.get(this.secondId()!)!;
-        if (!secondSubmission) {
-          return;
-        }
-
         this.second.set(secondSubmission);
+
         if (this.updateFormControl) {
           this.updateFormControl = false;
-          this.firstDocumentFormControl.setValue(this.first());
-          this.secondDocumentFormControl.setValue(this.second());
+          this.firstDocumentFormControl.setValue(firstSubmission);
+          this.secondDocumentFormControl.setValue(secondSubmission);
         }
-      }
+      }, 500);
     });
   }
 
@@ -106,8 +113,12 @@ export class SubmissionsDiffViewPageComponent implements OnInit {
       this.updateFormControl = true;
     });
 
-    this.firstDocumentFormControl.valueChanges.subscribe((s: Submission | null) => this.firstId.set(s !== null ? s.id : null));
-    this.secondDocumentFormControl.valueChanges.subscribe((s: Submission | null) => this.secondId.set(s !== null ? s.id : null));
+    this.firstDocumentFormControl.valueChanges.subscribe(
+      (s: Submission | null) => this.firstId.set(s !== null ? s.id : null)
+    );
+    this.secondDocumentFormControl.valueChanges.subscribe(
+      (s: Submission | null) => this.secondId.set(s !== null ? s.id : null)
+    );
     this.firstFilteredOptions = this.firstDocumentFormControl.valueChanges
       .pipe(startWith(""), map(value => this.filter(value || "")));
 

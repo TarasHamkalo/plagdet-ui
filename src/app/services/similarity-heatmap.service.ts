@@ -61,8 +61,7 @@ export class SimilarityHeatmapService {
     const submissions = this.submissionsMap.values();
     const pairs = this.pairsMap;
     this.displayedSubmissions = Array.from(submissions)
-      // !s.indexed
-      .filter(s => this.getTypedSimilarity(s, pairs, this.submissionsMap))
+      .filter(s => this.getTypedSimilarity(s, pairs))
       .sort((a, b) => a.fileData.submitter.localeCompare(b.fileData.submitter));
 
     const series = [];
@@ -81,7 +80,6 @@ export class SimilarityHeatmapService {
   private getTypedSimilarity(
     s: Submission,
     pairs: Map<string, SubmissionPair>,
-    submissionsMap: Map<number, Submission>
   ): PlagScore | undefined {
     return s.pairIds
       .map(pId => pairs.get(pId))
@@ -98,13 +96,9 @@ export class SimilarityHeatmapService {
     if (this.pairsMap.size == 0) {
       return null;
     }
-
-
     const dispLength = this.displayedSubmissions.length;
-
     const firstIndex = dispLength - 1 - (seriesIndex + this.previousPage!.y);
     const secondIndex = dataPointIndex + this.previousPage!.x;
-
     if (firstIndex == secondIndex) {
       return null;
     }

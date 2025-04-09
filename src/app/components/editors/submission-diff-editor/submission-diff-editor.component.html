@@ -3,7 +3,10 @@
     <ngx-monaco-diff-editor [options]="editorOptions"
                             [originalModel]="firstModel()!"
                             [modifiedModel]="secondModel()!"
-                            (onInit)="initEditor($event)">
+                            (onInit)="initEditor($event)"
+    >
     </ngx-monaco-diff-editor>
   }
+  <app-infinite-load-card *ngIf="this.isLoading()"
+                          header="Dokumenty sa porovnávajú"></app-infinite-load-card>
 </div>

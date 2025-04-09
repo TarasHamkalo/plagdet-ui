@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SubmissionDiffEditorComponent } from './submission-diff-editor.component';
+import { SubmissionDiffEditorComponent } from "./submission-diff-editor.component";
 
-describe('DiffEditorComponent', () => {
+describe("DiffEditorComponent", () => {
   let component: SubmissionDiffEditorComponent;
   let fixture: ComponentFixture<SubmissionDiffEditorComponent>;
 
@@ -17,7 +17,7 @@ describe('DiffEditorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

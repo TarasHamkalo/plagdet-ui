@@ -5,7 +5,7 @@
                [isContentCentered]="false"
                [isTitleCentered]="true">
 
-    @if (first() && second()) {
+    @if (first() && second() && !isOldEditor) {
       <div class="editor-container">
         <app-submission-diff-editor [first]="first()!"
                                     [second]="second()!">
