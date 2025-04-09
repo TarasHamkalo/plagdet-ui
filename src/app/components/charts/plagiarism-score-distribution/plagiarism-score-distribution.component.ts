@@ -2,6 +2,8 @@ import {AfterViewInit, Component, ViewChild} from "@angular/core";
 import {ApexChart, ApexDataLabels, ApexPlotOptions, ChartComponent} from "ng-apexcharts";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
+import {Router} from "@angular/router";
+import {PageRoutes} from "../../../app.routes";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -9,7 +11,6 @@ export interface ChartOptions {
   dataLabels: ApexDataLabels;
   xaxis: ApexXAxis;
   yaxis: ApexYAxis;
-  // title: ApexTitleSubtitle;
   plotOptions: ApexPlotOptions;
   colors: any;
   tooltip: ApexTooltip;
@@ -33,15 +34,30 @@ export class PlagiarismScoreDistributionComponent implements AfterViewInit {
 
   protected categories: number[] = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
 
-  protected categoryFrequencies: Record<number, number> = {};
+  protected categorizedSubmissions: Record<number, number[]> = {};
 
   protected displayedSimilarityType: "JACCARD" | "SEMANTIC" | "META" = "SEMANTIC";
 
-  constructor(private analysisContextService: AnalysisContextService) {
+  constructor(
+    private analysisContextService: AnalysisContextService,
+    private router: Router
+  ) {
     this.chartOptions = {
       chart: {
         type: "bar",
 
+        events: {
+          dataPointSelection: (event, chartContext, opts) => {
+            console.log(opts.dataPointIndex);
+            const category = this.categories[opts.dataPointIndex];
+            if (category != undefined) {
+              const submissions = this.categorizedSubmissions[category];
+              this.router.navigate([PageRoutes.SUBMISSIONS], {
+                queryParams: {"filter-set": submissions.toString()}
+              });
+            }
+          }
+        },
       },
 
       xaxis: {
@@ -123,31 +139,30 @@ export class PlagiarismScoreDistributionComponent implements AfterViewInit {
       const pairs = report.pairs;
       Array.from(submissions.values())
         .filter(s => !s.indexed && s.pairIds.length > 0)
-        .map(s => s.pairIds)
-        .map((pIds) =>
-          Math.max(
-            ...pIds
-              .map(id => pairs.get(id))
-              .map(p => SubmissionPairUtils.getScoreByType(p!, this.displayedSimilarityType))
-              .map(s => s ? s.score : 0)
-          ))
-        .forEach((maxScore: number) => {
-          // console.log("index", index);
-          // console.log("max", maxScore);
-          const category = Math.floor(maxScore * 10) * 10;
-          const freq = this.categoryFrequencies[category];
-          if (freq) {
-            this.categoryFrequencies[category] = freq + 1;
+        .map((s) => {
+          return {
+            id: s.id,
+            maxScore: Math.max(
+              ...s.pairIds
+                .map(id => pairs.get(id))
+                .map(p => SubmissionPairUtils.getScoreByType(p!, this.displayedSimilarityType))
+                .map(s => s ? s.score : 0)
+            )
+          };
+        })
+        .forEach((value: { id: number, maxScore: number }) => {
+          const categoryNo = Math.floor(value.maxScore * 10) * 10;
+          const category = this.categorizedSubmissions[categoryNo];
+          if (category) {
+            category.push(value.id);
           } else {
-            this.categoryFrequencies[category] = 1;
+            this.categorizedSubmissions[categoryNo] = [value.id];
           }
-          // console.log(maxScore, category, this.categoryFrequencies[category]);
         });
-      // console.log(this.categoryFrequencies);
       if (this.chartOptions.series) {
         this.chartOptions.series[0].data = this.categories.map(c => {
-          const freq = this.categoryFrequencies[c];
-          return freq ? freq : 0;
+          const category = this.categorizedSubmissions[c];
+          return category ? category.length : 0;
         });
       }
     }

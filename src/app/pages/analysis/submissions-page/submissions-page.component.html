@@ -5,6 +5,7 @@
                [isTitleCentered]="true"
                [isContentCentered]="true">
     <app-submissions-table [limit]="null"
+                           [submissionsFilterSet]="filterSet()"
                            [enablePagination]="true"
                            [pageSize]="10"
                            [pageSizeOptions]="[10, 20, 30]"
