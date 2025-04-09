@@ -106,7 +106,7 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected rowsFilter(data: SubmissionPair, filter: string): boolean {
-    
+
     const first = this.getSubmissionById(data.firstId);
     const second = this.getSubmissionById(data.secondId);
     return first.fileData.submitter.toLowerCase().includes(filter) ||
@@ -118,7 +118,7 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   public onSorting(sort: Sort) {
-    
+
     const mul = sort.direction === "asc" ? 1 : -1;
     switch (sort.active) {
       case "first": {
@@ -135,6 +135,12 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
         );
         break;
       }
+      case "meta-match": {
+        this.pairsDataSource.filteredData.sort(
+          (a, b) => SubmissionPairUtils.compareByScore(a, b, "META") * mul
+        );
+        break;
+      }
       case "similarity": {
         this.pairsDataSource.filteredData.sort((a, b) =>
           (this.getMaxScore(a) - this.getMaxScore(b)) * mul
@@ -145,7 +151,7 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected onLoadPair(element: SubmissionPair): void {
-    
+
     this.router.navigate([PageRoutes.PAIRS, element.id]);
   }
 

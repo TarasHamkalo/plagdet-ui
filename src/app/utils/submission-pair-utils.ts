@@ -4,6 +4,24 @@ import {Submission} from "../model/submission";
 
 export class SubmissionPairUtils {
 
+  public static compareByScore(
+    a: SubmissionPair,
+    b: SubmissionPair,
+    type: "META" | "JACCARD" | "SEMANTIC"
+  ): number {
+    const firstScore = SubmissionPairUtils.getScoreByType(a, type);
+    const secondScore = SubmissionPairUtils.getScoreByType(b, type);
+    if (!firstScore) {
+      return -1;
+    }
+
+    if (!secondScore) {
+      return 1;
+    }
+
+    return firstScore.score - secondScore.score;
+  }
+
   public static getFormattedScore(
     pair: SubmissionPair,
     type: "META" | "JACCARD" | "SEMANTIC",
