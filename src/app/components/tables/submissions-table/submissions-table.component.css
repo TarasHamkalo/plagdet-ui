@@ -5,9 +5,12 @@
   width: 25%;
 }
 
-.mat-column-totalEditTime,
+.mat-column-totalEditTime {
+  width: 10%;
+}
+
 .mat-column-maxSimilarity {
-  width: 20%;
+  width: 10%;
 }
 
 td.mat-column-maxSimilarity {
@@ -25,3 +28,8 @@ td.mat-column-moreButton {
 th[mat-sort-header="maxSimilarity"] .mat-sort-header-container {
   justify-content: flex-end;
 }
+
+.mat-column-meta-match {
+  width: 15%;
+}
+

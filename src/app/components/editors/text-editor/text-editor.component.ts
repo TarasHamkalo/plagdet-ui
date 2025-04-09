@@ -99,7 +99,7 @@ export class TextEditorComponent implements OnDestroy {
   public subscribeOnNavigationEvent(eventEmitter: EventEmitter<SpecialMarking>): void {
     eventEmitter.subscribe((e) => {
         if (e && e.type === SpecialMarkingType.PLAG) {
-          console.log("recieved navigation");
+          
           this.monacoDecorationService.navigateToOffset(this.editor(), e, this.markingSide);
         }
     });
@@ -141,13 +141,13 @@ export class TextEditorComponent implements OnDestroy {
 
         if (decorations.length > 0) {
           // TODO: there could be more than one
-          console.log(decorations);
+          
           const plagDecoration = decorations.find(
             d => d.options.inlineClassName === "highlight-plag"
           );
-          console.log(plagDecoration);
+          
           if (plagDecoration) {
-            console.log(this.decorationIdToMarking.get(plagDecoration.id));
+            
             this.navigatePlagCaseEventEmitter.emit(
               this.decorationIdToMarking.get(plagDecoration.id)
             );

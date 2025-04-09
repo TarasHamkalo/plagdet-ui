@@ -22,14 +22,14 @@ export class MetadataDeviationHighlightDirective implements OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes["submission"]) {
-      // console.log(this.submission.metadata);
+      // 
       if (this.checkTimeDeviation) {
         this.metaWarning = this.metadataStatisticsService.isBelowAvgEditTime(this.submission);
       } else if (this.dateField !== null) {
         this.metaWarning =
           this.metadataStatisticsService.isDateDeviating(this.submission, this.dateField);
       }
-      // console.log(this.metaWarning);
+      // 
     }
   }
 

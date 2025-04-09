@@ -48,7 +48,7 @@ export class PlagiarismScoreDistributionComponent implements AfterViewInit {
 
         events: {
           dataPointSelection: (event, chartContext, opts) => {
-            console.log(opts.dataPointIndex);
+            
             const category = this.categories[opts.dataPointIndex];
             if (category != undefined) {
               const submissions = this.categorizedSubmissions[category];

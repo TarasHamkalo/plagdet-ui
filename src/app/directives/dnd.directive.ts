@@ -20,7 +20,7 @@ export class DndDirective implements OnInit {
     event.stopPropagation();
 
     this.faintClass = true;
-    console.log(event);
+    
   }
 
   @HostListener("dragleave", ["$event"])
@@ -29,7 +29,7 @@ export class DndDirective implements OnInit {
     event.stopPropagation();
 
     this.faintClass = false;
-    console.log(event);
+    
   }
 
   @HostListener("drop", ["$event"])

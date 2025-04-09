@@ -3,15 +3,21 @@ import {
   Component,
   effect,
   Input,
+  OnDestroy,
   signal,
-  ViewChild, ViewEncapsulation, OnDestroy
+  ViewChild,
+  ViewEncapsulation
 } from "@angular/core";
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef,
-  MatRow, MatRowDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from "@angular/material/table";
@@ -23,7 +29,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatFormField, MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatLabel} from "@angular/material/form-field";
-import {DecimalPipe, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
 import {
   MetadataDeviationHighlightDirective
@@ -32,6 +38,7 @@ import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
 import {RouteContextService} from "../../../context/route-context.service";
 import {TableContext} from "../../../types/table-context";
+import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
 
 @Component({
   selector: "app-submissions-table",
@@ -57,7 +64,7 @@ import {TableContext} from "../../../types/table-context";
     NgIf,
     MinutesTimePipe,
     MetadataDeviationHighlightDirective,
-    DecimalPipe,
+
   ],
   templateUrl: "./submissions-table.component.html",
   styleUrls: ["../shared/base-table.scss", "./submissions-table.component.css"],
@@ -69,7 +76,7 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
   public static readonly CONTEXT_KEY: string = "submissions-table";
 
   protected readonly displayedColumns: string[] = [
-    "submitter", "filename", "totalEditTime", "maxSimilarity", "moreButton"
+    "submitter", "filename", "totalEditTime", "meta-match", "maxSimilarity", "moreButton"
   ];
 
   @Input() public limit: number | null = 10;
@@ -142,7 +149,7 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected getPlagScore(similarity: number) {
-    return Math.round(similarity * 100);
+    return SubmissionPairUtils.formatScore(similarity, 1);
   }
 
   protected loadSubmission(element: Submission) {
@@ -172,5 +179,23 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
       this.searchText.set(context.filter);
       this.applyFilter(this.searchText());
     }
+  }
+
+  protected isMetadataMatched(submission: Submission) {
+    const report = this.analysisContext.getReport()();
+    if (report) {
+      const pairs = report.pairs;
+      const submissionPairs = submission.pairIds.map((pId) => pairs.get(pId));
+      for (const submissionPair of submissionPairs) {
+        if (submissionPair) {
+          const plagscore = SubmissionPairUtils.getScoreByType(submissionPair, "META");
+          if (plagscore && plagscore.score > 0) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
   }
 }

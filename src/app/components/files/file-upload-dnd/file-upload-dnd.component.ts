@@ -41,7 +41,7 @@ export class FileUploadDndComponent {
 
   private processFiles(files: FileList): void {
     if (files.length > 1) {
-      console.log("Error number of files should be equal 1");
+      
       return;
     }
 

@@ -1,5 +1,9 @@
 .mat-column-similarity {
-  width: 20%;
+  width: 15%;
+}
+
+.mat-column-meta-match {
+  width: 15%;
 }
 
 .mat-column-firstDocumentName,

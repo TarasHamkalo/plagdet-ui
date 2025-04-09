@@ -36,7 +36,7 @@ export class SubmissionPairsPageComponent {
       const reportPairs = this.analysisContext.getReport()()!.pairs!.values();
       if (reportPairs) {
         this.pairs.set(Array.from(reportPairs));
-        console.log(this.pairs().length);
+        
         this.isReportLoaded = true;
       }
     });

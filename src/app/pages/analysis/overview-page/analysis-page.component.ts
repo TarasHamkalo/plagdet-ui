@@ -72,7 +72,7 @@ export class AnalysisPageComponent implements OnInit {
   }
 
   protected showMoreAboutSubmission(element: Submission) {
-    console.log(element);
+    
   }
 
   protected navigateSubmissionsPage() {

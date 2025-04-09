@@ -75,6 +75,13 @@ export class MonacoDecorationService {
         ...this.markingTypeToDecorationOptions[specialMarking.type],
         hoverMessage: {value: `Pravdepodobný preklep [${specialMarking.comments || ""}]`}
       };
+    } else if (specialMarking.type === SpecialMarkingType.PLAG) {
+      return {
+        ...this.markingTypeToDecorationOptions[specialMarking.type],
+        hoverMessage: {
+          value: `Spoločný fragment [${specialMarking.first.start}:${specialMarking.first.end}:${specialMarking.second!.start}:${specialMarking.second!.end}]`
+        }
+      };
     }
 
     return this.markingTypeToDecorationOptions[specialMarking.type];
@@ -111,9 +118,20 @@ export class MonacoDecorationService {
     }
     const offset = this.getMarkingOffset(marking, markingSide);
     const position = this.getLineColumnFromOffset(editor.getModel()!.getValue(), offset.start);
-    console.log("Navigating to line: " + position.line);
+    
     editor.setScrollTop(position.line);
     editor.revealLineInCenter(position.line);
-    editor.setPosition({ lineNumber: position.line, column: position.column });
+    editor.setPosition({lineNumber: position.line, column: position.column});
+  }
+
+  public hashCode(str: string): number {
+    const MOD = 728437125089;
+    const RAND_P = 22570092147931;
+    let h = 0;
+    for (let i = 0; i < str.length; i++) {
+      h = (h * RAND_P + str.charCodeAt(i)) % MOD;
+    }
+
+    return h % MOD;
   }
 }

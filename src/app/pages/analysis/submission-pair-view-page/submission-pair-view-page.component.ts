@@ -115,7 +115,7 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
   }
 
   public toggleScrollSync(): void {
-    console.log("toggle called");
+    
     this.isScrollSyncEnabled.update(v => !v);
 
     if (this.isScrollSyncEnabled()) {

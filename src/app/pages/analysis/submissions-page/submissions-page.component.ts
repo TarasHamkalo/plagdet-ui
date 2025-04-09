@@ -31,7 +31,7 @@ export class SubmissionsPageComponent implements OnInit {
       if (filterSetParam) {
         const filterSetNumbers = filterSetParam.split(",").map(id => Number.parseInt(id));
         this.filterSet.set(new Set(filterSetNumbers));
-        console.log(this.filterSet());
+        
       } else {
         this.filterSet.set(null);
       }

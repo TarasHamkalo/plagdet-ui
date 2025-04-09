@@ -58,7 +58,7 @@ export class FileUtilsService {
     return from(JSZip.loadAsync(file)).pipe(
       mergeMap((zip) => {
         const fileNames = Object.keys(zip.files);
-        console.log("Loaded zip ", fileNames);
+        
         const overviewEntry =
           zip.files[this.OVERVIEW_FILEPATH] || zip.files["/" + this.OVERVIEW_FILEPATH];
 
@@ -117,7 +117,7 @@ export class FileUtilsService {
             mergeMap((submissionJson: string) => {
               const paths = path.split("/");
               const fileParent = paths[paths.length - 2]!;
-              // console.log(fileP);
+              // 
               const submission: Submission = JSON.parse(submissionJson);
               const contentPath = `${this.FILES_DIR_PATH}/${fileParent}/${submission.id}_content.txt`;
               const contentEntry = zip.files[contentPath] || zip.files["/" + contentPath];

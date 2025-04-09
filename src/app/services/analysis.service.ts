@@ -24,7 +24,7 @@ export class AnalysisService {
       return this.loadFromUploadedZip();
     }
 
-    console.log("else"); //TODO: implement
+    
     return of(null);
   }
 

@@ -158,7 +158,7 @@ export class NavigationService {
   public updateActive() {
     const url = this.router.url;
     this.activeRoute.set(url as PageRoutes);
-    console.log(this.activeRoute());
+    
   }
 
   public getHome(): NavItem | undefined {

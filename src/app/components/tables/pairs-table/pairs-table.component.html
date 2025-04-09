@@ -40,6 +40,17 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="meta-match">
+
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header="meta-match">
+          Zhoda metaúdajov
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ isMetadataMatched(element) ? 'Prítomná' : 'Nenájdená' }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="similarity">
 
         <th mat-header-cell *matHeaderCellDef
@@ -47,7 +58,7 @@
           Podobnosť %
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ this.getMaxScore(element) | number:'1.0-1' }}
+          {{ this.getSemanticScore(element) }}
         </td>
       </ng-container>
 

@@ -2,10 +2,12 @@ import {
   AfterViewInit,
   Component,
   effect,
-  Input, Signal,
+  Input,
+  OnDestroy,
   signal,
+  Signal,
   ViewChild,
-  ViewEncapsulation, OnDestroy
+  ViewEncapsulation
 } from "@angular/core";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -26,7 +28,6 @@ import {
 import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
 import {MatButton} from "@angular/material/button";
 import {MatPaginator} from "@angular/material/paginator";
-import {DecimalPipe} from "@angular/common";
 import {Router} from "@angular/router";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {Submission} from "../../../model/submission";
@@ -34,6 +35,7 @@ import {PageRoutes} from "../../../app.routes";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {RouteContextService} from "../../../context/route-context.service";
 import {TableContext} from "../../../types/table-context";
+import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
 
 
 @Component({
@@ -53,7 +55,6 @@ import {TableContext} from "../../../types/table-context";
     MatRow,
     MatPaginator,
     MatSortHeader,
-    DecimalPipe,
     MatCellDef,
     MatHeaderCellDef,
     MatHeaderRowDef,
@@ -69,7 +70,7 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   public static readonly CONTEXT_KEY = "pairs-table";
 
   protected readonly pairsDisplayedColumns: string[] = [
-    "firstDocumentName", "secondDocumentName", "similarity", "moreButton"
+    "firstDocumentName", "secondDocumentName", "meta-match", "similarity", "moreButton"
   ];
 
   @Input({required: true}) public pairsSource!: Signal<SubmissionPair[]>;
@@ -105,7 +106,7 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected rowsFilter(data: SubmissionPair, filter: string): boolean {
-    console.log(filter);
+    
     const first = this.getSubmissionById(data.firstId);
     const second = this.getSubmissionById(data.secondId);
     return first.fileData.submitter.toLowerCase().includes(filter) ||
@@ -117,7 +118,7 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   public onSorting(sort: Sort) {
-    console.log(sort);
+    
     const mul = sort.direction === "asc" ? 1 : -1;
     switch (sort.active) {
       case "first": {
@@ -144,12 +145,23 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected onLoadPair(element: SubmissionPair): void {
-    console.log("Load pair:", element);
+    
     this.router.navigate([PageRoutes.PAIRS, element.id]);
   }
 
   protected applyFilter(filter: string) {
     this.pairsDataSource.filter = filter?.toLowerCase();
+  }
+
+  protected isMetadataMatched(pair: SubmissionPair) {
+    const plagscore = SubmissionPairUtils.getScoreByType(pair, "META");
+    return plagscore ? plagscore.score > 0 : 0;
+  }
+
+  protected getSemanticScore(pair: SubmissionPair) {
+    const plagscore = SubmissionPairUtils.getScoreByType(pair, "SEMANTIC");
+    return SubmissionPairUtils.formatScore(plagscore ? plagscore.score : 0, 1);
+    // return plagscore ? plagscore.score * 100 : 0;
   }
 
   protected getMaxScore(pair: SubmissionPair) {
@@ -174,7 +186,7 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
     if (persistedContext) {
       const context = JSON.parse(persistedContext) as TableContext;
       this.searchText.set(context.filter);
-       this.applyFilter(this.searchText());
+      this.applyFilter(this.searchText());
     }
   }
 

@@ -121,7 +121,7 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    console.log(this.graphComponent);
+    
 
     this.graphComponent.nodes = this.submissionGraphService.createNodes();
     this.graphComponent.links = this.submissionGraphService.createLinks();
@@ -131,7 +131,7 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
     this.graphComponent.layout = layout;
     this.graphComponent.showMiniMap = true;
 
-    console.log(this.submissionGraphService.clusters());
+    
 
     setTimeout(() => {
       this.graphSimulation.nodes().forEach(node => {

@@ -51,12 +51,32 @@
         </td>
       </ng-container>
 
+<!--      <ng-container matColumnDef="meta-match">-->
+<!--        <th mat-header-cell *matHeaderCellDef-->
+<!--            mat-sort-header="meta-match">-->
+<!--          Zhoda metaúdajov-->
+<!--        </th>-->
+<!--        <td mat-cell *matCellDef="let element">-->
+<!--          {{ isMetadataMatched(element) ? 'Prítomná' : 'Nenájdená' }}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+
+      <ng-container matColumnDef="meta-match">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Zhoda metaúdajov
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ isMetadataMatched(element) ? 'Prítomná' : 'Nenájdená' }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="maxSimilarity">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="maxSimilarity">
           Maximálna podobnosť %
         </th>
         <td mat-cell
-            *matCellDef="let element"> {{ getPlagScore(element.maxSimilarity) | number:'1.1-1' }}
+            *matCellDef="let element"> {{ getPlagScore(element.maxSimilarity) }}
         </td>
       </ng-container>
 
