@@ -15,12 +15,13 @@ export class MonacoDecorationService {
   public readonly markingTypeToDecorationOptions: Record<SpecialMarkingType, editor.IModelDecorationOptions> = {
     [SpecialMarkingType.PLAG]: {
       inlineClassName: "highlight-plag",
-      hoverMessage: {value: "Spoločný fragment"}
+      hoverMessage: {value: "Spoločný fragment"},
+      zIndex: 1
     },
     [SpecialMarkingType.CODE]: {
       inlineClassName: "highlight-code",
       hoverMessage: {value: "Fragment kódu"},
-      zIndex: 2
+      zIndex: 5
     },
     [SpecialMarkingType.TEMPLATE]: {
       inlineClassName: "highlight-template",
@@ -42,7 +43,6 @@ export class MonacoDecorationService {
     editor: IStandaloneCodeEditor,
     markings: SpecialMarking[],
     markingSide: 0 | 1,
-    withId = false
   ): IModelDeltaDecoration[] {
 
     const decorations: IModelDeltaDecoration[] = [];
@@ -51,19 +51,10 @@ export class MonacoDecorationService {
       const markingOffsets = this.getMarkingOffset(specialMarking, markingSide);
       const start = this.getLineColumnFromOffset(editor.getValue(), markingOffsets.start);
       const end = this.getLineColumnFromOffset(editor.getValue(), markingOffsets.end);
-      if (withId && specialMarking.second) {
-        // const id = `${specialMarking.first.start}:${specialMarking.first.end}-` +
-        //   `${specialMarking.second.start}:${specialMarking.second.end}`;
-        decorations.push({
-          range: new Range(start.line, start.column, end.line, end.column),
-          options: this.getOptionsForSpecialMarking(specialMarking),
-        });
-      } else {
-        decorations.push({
-          range: new Range(start.line, start.column, end.line, end.column),
-          options: this.getOptionsForSpecialMarking(specialMarking),
-        });
-      }
+      decorations.push({
+        range: new Range(start.line, start.column, end.line, end.column),
+        options: this.getOptionsForSpecialMarking(specialMarking),
+      });
     }
 
     return decorations;
@@ -118,7 +109,7 @@ export class MonacoDecorationService {
     }
     const offset = this.getMarkingOffset(marking, markingSide);
     const position = this.getLineColumnFromOffset(editor.getModel()!.getValue(), offset.start);
-    
+    console.log("navigation to line " + position.line);
     editor.setScrollTop(position.line);
     editor.revealLineInCenter(position.line);
     editor.setPosition({lineNumber: position.line, column: position.column});

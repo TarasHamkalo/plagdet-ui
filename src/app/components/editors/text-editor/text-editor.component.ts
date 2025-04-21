@@ -98,10 +98,9 @@ export class TextEditorComponent implements OnDestroy {
 
   public subscribeOnNavigationEvent(eventEmitter: EventEmitter<SpecialMarking>): void {
     eventEmitter.subscribe((e) => {
-        if (e && e.type === SpecialMarkingType.PLAG) {
-          
-          this.monacoDecorationService.navigateToOffset(this.editor(), e, this.markingSide);
-        }
+      if (e && e.type === SpecialMarkingType.PLAG) {
+        this.monacoDecorationService.navigateToOffset(this.editor(), e, this.markingSide);
+      }
     });
   }
 
@@ -109,7 +108,7 @@ export class TextEditorComponent implements OnDestroy {
     const decorations: IModelDeltaDecoration[] = [];
     if (this.plagCases) {
       decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
-        this.editor()!, this.plagCases, this.markingSide, true
+        this.editor()!, this.plagCases, this.markingSide
       ));
     }
     decorations.push(...this.monacoDecorationService.createDecorationsFromMarking(
@@ -141,13 +140,11 @@ export class TextEditorComponent implements OnDestroy {
 
         if (decorations.length > 0) {
           // TODO: there could be more than one
-          
           const plagDecoration = decorations.find(
             d => d.options.inlineClassName === "highlight-plag"
           );
           
           if (plagDecoration) {
-            
             this.navigatePlagCaseEventEmitter.emit(
               this.decorationIdToMarking.get(plagDecoration.id)
             );
