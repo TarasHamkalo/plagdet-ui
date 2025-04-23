@@ -1,6 +1,6 @@
 import {Component, effect, OnInit, signal, ViewEncapsulation} from "@angular/core";
 import {MatCard, MatCardContent, MatCardHeader, MatCardModule} from "@angular/material/card";
-import {MatList, MatListItem} from "@angular/material/list";
+import {MatList, MatListItem, MatListItemTitle} from "@angular/material/list";
 import {Overview} from "../../../model/overview";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {KeyValuePipe, NgIf} from "@angular/common";
@@ -19,7 +19,8 @@ import {MatDivider} from "@angular/material/divider";
     MatCardModule,
     KeyValuePipe,
     NgIf,
-    MatDivider
+    MatDivider,
+    MatListItemTitle
   ],
   templateUrl: "./configuration-info-card.component.html",
   styleUrls: ["../shared/card-base.scss", "./configuration-info-card.component.css"],
@@ -28,9 +29,9 @@ import {MatDivider} from "@angular/material/divider";
 export class ConfigurationInfoCardComponent implements OnInit {
 
   public overview = signal<Overview | undefined>(undefined);
-  
+
   protected configurationDescription = signal<ConfigurationDescription[]>([]);
-  
+
   constructor(
     private analysisContext: AnalysisContextService,
     private assetsLoaderService: AssetsLoaderService
@@ -42,15 +43,11 @@ export class ConfigurationInfoCardComponent implements OnInit {
       }
     });
   }
-  
+
   public ngOnInit() {
     this.assetsLoaderService.loadConfigurationDescription().subscribe((arr) => {
       this.configurationDescription.set(arr);
     });
-  }
-
-  public getSentenceComparatorParams() {
-    return this.overview()?.configuration.sentenceComparatorParameters as Record<string, any>;
   }
 
   public getDescription(key: string, suffix = ""): string | undefined {
@@ -59,5 +56,13 @@ export class ConfigurationInfoCardComponent implements OnInit {
 
   public getFlag(key: string, suffix = ""): string | undefined {
     return this.configurationDescription().find(v => v.name === key + suffix)?.flag;
+  }
+
+  protected getExtensionStrategyParams() {
+    return this.overview()?.configuration.extensionStrategyParameters as Record<string, any>;
+  }
+
+  protected getSeedingStrategyParams() {
+    return this.overview()?.configuration.seedingStrategyParameters as Record<string, any>;
   }
 }

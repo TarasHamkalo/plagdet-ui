@@ -21,6 +21,9 @@ import {
   PlagiarismScoreDistributionComponent
 } from "../../../components/charts/plagiarism-score-distribution/plagiarism-score-distribution.component";
 import {NavigationService} from "../../../services/navigation/navigation.service";
+import {
+  ConfigurationInfoCardComponent
+} from "../../../components/cards/configuration-info-card/configuration-info-card.component";
 
 @Component({
   selector: "app-analysis-page",
@@ -34,6 +37,7 @@ import {NavigationService} from "../../../services/navigation/navigation.service
     SurfaceComponent,
     ContentContainerComponent,
     PlagiarismScoreDistributionComponent,
+    ConfigurationInfoCardComponent,
   ],
   templateUrl: "./analysis-page.component.html",
   styleUrl: "./analysis-page.component.css"
