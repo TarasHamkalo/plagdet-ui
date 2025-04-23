@@ -39,6 +39,7 @@ import {PageRoutes} from "../../../app.routes";
 import {RouteContextService} from "../../../context/route-context.service";
 import {TableContext} from "../../../types/table-context";
 import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
+import {TextOverflowScrollDirective} from "../../../directives/text-overflow-scroll.directive";
 
 @Component({
   selector: "app-submissions-table",
@@ -64,6 +65,7 @@ import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
     NgIf,
     MinutesTimePipe,
     MetadataDeviationHighlightDirective,
+    TextOverflowScrollDirective,
 
   ],
   templateUrl: "./submissions-table.component.html",

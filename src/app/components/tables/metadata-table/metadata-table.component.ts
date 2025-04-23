@@ -34,6 +34,7 @@ import {
 import {MatIcon} from "@angular/material/icon";
 import {MatButton} from "@angular/material/button";
 import {ExportService} from "../../../services/export.service";
+import {TextOverflowScrollDirective} from "../../../directives/text-overflow-scroll.directive";
 
 
 @Component({
@@ -60,7 +61,8 @@ import {ExportService} from "../../../services/export.service";
     MinutesTimePipe,
     MetadataDeviationHighlightDirective,
     MatIcon,
-    MatButton
+    MatButton,
+    TextOverflowScrollDirective
   ],
   templateUrl: "./metadata-table.component.html",
   styleUrls: ["./metadata-table.component.css", "../shared/base-table.scss"],

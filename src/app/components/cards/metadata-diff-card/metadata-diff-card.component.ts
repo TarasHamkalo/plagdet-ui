@@ -13,6 +13,7 @@ import {
 } from "../../../directives/metadata-equality-highlight.directive";
 import {MatDivider} from "@angular/material/divider";
 import {NgIf} from "@angular/common";
+import {TextOverflowScrollDirective} from "../../../directives/text-overflow-scroll.directive";
 
 @Component({
   selector: "app-metadata-diff-card",
@@ -24,7 +25,8 @@ import {NgIf} from "@angular/common";
     MetadataDeviationHighlightDirective,
     MetadataEqualityHighlightDirective,
     MatDivider,
-    NgIf
+    NgIf,
+    TextOverflowScrollDirective
   ],
   templateUrl: "./metadata-diff-card.component.html",
   styleUrls: ["../shared/card-base.scss", "./metadata-diff-card.component.css"],
@@ -43,7 +45,7 @@ export class MetadataDiffCardComponent {
   }
 
   protected getSource(): Submission {
-    if (this.submissionPair.source === "FIRST") {
+    if (this.submissionPair.plagSource === "FIRST") {
       return this.first;
     }
 

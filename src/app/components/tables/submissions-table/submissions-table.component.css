@@ -10,7 +10,7 @@
 }
 
 .mat-column-maxSimilarity {
-  width: 10%;
+  width: 15%;
 }
 
 td.mat-column-maxSimilarity {
@@ -30,6 +30,6 @@ th[mat-sort-header="maxSimilarity"] .mat-sort-header-container {
 }
 
 .mat-column-meta-match {
-  width: 15%;
+  width: 10%;
 }
 

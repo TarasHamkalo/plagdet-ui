@@ -34,7 +34,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
 
-          <div class="scrollable-text cell-width-12">
+          <div appTextOverflowScroll class="scrollable-text cell-width-12">
             {{ element.fileData.filename }}
           </div>
 
@@ -46,7 +46,7 @@
           Odosielateľ
         </th>
         <td mat-cell *matCellDef="let element">
-          <div class="scrollable-text cell-width-12">
+          <div appTextOverflowScroll class="scrollable-text cell-width-12">
             {{ element.fileData.submitter }}
           </div>
         </td>
@@ -57,7 +57,7 @@
           Autor
         </th>
         <td mat-cell *matCellDef="let element">
-          <div class="scrollable-text cell-width-12">
+          <div appTextOverflowScroll class="scrollable-text cell-width-12">
             {{ element.fileData.metadata.creator ? element.fileData.metadata.creator : 'Neznámy' }}
           </div>
         </td>
@@ -68,7 +68,7 @@
           Naposledy upravil
         </th>
         <td mat-cell *matCellDef="let element">
-          <div class="scrollable-text cell-width-12">
+          <div appTextOverflowScroll class="scrollable-text cell-width-12">
             {{ element.fileData.metadata.modifier ? element.fileData.metadata.modifier : 'Neznámy' }}
           </div>
         </td>

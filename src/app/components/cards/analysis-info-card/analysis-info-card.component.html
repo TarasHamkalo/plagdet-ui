@@ -1,10 +1,13 @@
 <div class="info-card">
   <div class="header">
     <div class="text-frame">
-      <h1 aria-label="Názov analýzy">{{ analysis()?.name }}</h1>
+      <h1 appTextOverflowScroll class="scrollable-text"
+          aria-label="Názov analýzy">{{ analysis()?.name }}</h1>
       <p>Informácie o analýze</p>
     </div>
-    <mat-icon [matTooltip]="supportiveText" aria-label="Viac informacií">info_outlined</mat-icon>
+    <div style="display: flex">
+      <mat-icon [matTooltip]="supportiveText" aria-label="Viac informacií">info_outlined</mat-icon>
+    </div>
   </div>
   <mat-list class="info-groups">
     <mat-divider></mat-divider>
@@ -16,7 +19,8 @@
                   aria-label="Názov analyzovaného súboru"
                   svgIcon="file-search-outline"
                   matListItemIcon></mat-icon>
-        <p matListItemTitle>{{ analysis()?.analyzedFileName }}</p>
+        <p appTextOverflowScroll class="scrollable-text"
+           matListItemTitle>{{ analysis()?.analyzedFileName }}</p>
       </mat-list-item>
 
       <mat-list-item>

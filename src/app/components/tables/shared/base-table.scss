@@ -39,6 +39,7 @@
   .mat-mdc-cell,
   .mat-mdc-header-cell {
     word-wrap: initial;
+
     display: table-cell;
     padding: 0 8px;
     line-break: unset;
@@ -62,9 +63,8 @@
   flex-direction: column;
   box-sizing: border-box;
 
-  overflow:hidden;
+  overflow: hidden;
   //padding: 16px;
-
 
   border-radius: var(--mat-sys-corner-extra-large);
   background-color: var(--mat-sys-surface-container-high);

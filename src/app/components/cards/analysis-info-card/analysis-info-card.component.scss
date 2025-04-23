@@ -17,9 +17,13 @@
 
 .header {
   display: flex;
+  flex-direction: row;
+  max-width: 100%;
+
+  box-sizing: border-box;
+
   justify-content: space-between;
   align-items: center;
-  align-self: stretch;
 
   padding: 16px 12px 12px 24px;
   gap: 8px;

@@ -36,6 +36,7 @@ import {AnalysisContextService} from "../../../context/analysis-context.service"
 import {RouteContextService} from "../../../context/route-context.service";
 import {TableContext} from "../../../types/table-context";
 import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
+import {TextOverflowScrollDirective} from "../../../directives/text-overflow-scroll.directive";
 
 
 @Component({
@@ -59,6 +60,7 @@ import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
     MatHeaderCellDef,
     MatHeaderRowDef,
     MatRowDef,
+    TextOverflowScrollDirective,
 
   ],
   templateUrl: "./pairs-table.component.html",

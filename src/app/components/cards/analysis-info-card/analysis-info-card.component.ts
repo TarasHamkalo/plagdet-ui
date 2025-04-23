@@ -6,6 +6,7 @@ import {DatePipe, DecimalPipe} from "@angular/common";
 import {MatChip} from "@angular/material/chips";
 import {MatTooltip} from "@angular/material/tooltip";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
+import {TextOverflowScrollDirective} from "../../../directives/text-overflow-scroll.directive";
 
 @Component({
   selector: "app-analysis-info-card",
@@ -20,6 +21,7 @@ import {AnalysisContextService} from "../../../context/analysis-context.service"
     DecimalPipe,
     MatChip,
     MatTooltip,
+    TextOverflowScrollDirective,
   ],
   templateUrl: "./analysis-info-card.component.html",
   styleUrls: ["../shared/card-base.scss", "./analysis-info-card.component.scss"]

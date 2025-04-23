@@ -21,7 +21,7 @@
           Odosielateľ dokumentu
         </th>
         <td mat-cell *matCellDef="let element">
-          <div class="scrollable-text">
+          <div appTextOverflowScroll class="scrollable-text">
             {{ this.getSubmissionById(element.firstId).fileData.submitter }}
           </div>
         </td>
@@ -34,7 +34,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
 
-          <div class="scrollable-text">
+          <div appTextOverflowScroll class="scrollable-text">
             {{ this.getSubmissionById(element.secondId).fileData.submitter }}
           </div>
         </td>
