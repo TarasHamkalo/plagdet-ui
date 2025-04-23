@@ -115,9 +115,9 @@ export class NavigationService {
   ];
 
   private readonly supportRoutes: NavItem[] = [
-    {route: PageRoutes.NONE, isFullWidthOnly: true, fullWidthName: "Dokumentácia", iconPath: "file-document-outline", isIconSvg: true},
-    {route: PageRoutes.NONE, isFullWidthOnly: true, fullWidthName: "Kontakt", iconPath: "email-outline", isIconSvg: true},
-    {route: PageRoutes.NONE, isFullWidthOnly: true, fullWidthName: "Často kladené otázky", iconPath: "frequently-asked-questions", isIconSvg: true},
+    // {route: PageRoutes.NONE, isFullWidthOnly: true, fullWidthName: "Dokumentácia", iconPath: "file-document-outline", isIconSvg: true},
+    // {route: PageRoutes.NONE, isFullWidthOnly: true, fullWidthName: "Kontakt", iconPath: "email-outline", isIconSvg: true},
+    // {route: PageRoutes.NONE, isFullWidthOnly: true, fullWidthName: "Často kladené otázky", iconPath: "frequently-asked-questions", isIconSvg: true},
   ];
 
   private readonly homeRoute: NavItem = {
