@@ -7,5 +7,5 @@ export interface SubmissionPair {
   secondId: number;
   plagScores: PlagScore[];
   plagCases: SpecialMarking[];
-  source: "FIRST" | "SECOND" | "UNCERTAIN";
+  plagSource: "FIRST" | "SECOND" | "UNCERTAIN";
 }
