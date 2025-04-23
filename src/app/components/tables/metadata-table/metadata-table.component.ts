@@ -99,10 +99,19 @@ export class MetadataTableComponent implements AfterViewInit {
   }
 
   protected rowsFilter(data: Submission, filter: string): boolean {
-    const hasSubmitter = data.fileData.submitter.toLowerCase().includes(filter);
-    const hasCreator = data.fileData.metadata.creator?.toLowerCase().includes(filter);
-    const hasModifier = data.fileData.metadata.modifier?.toLowerCase().includes(filter);
-    return hasCreator || hasModifier || hasSubmitter;
+    const rowText =
+      data.fileData.submitter.toLowerCase() + " " +
+      data.fileData.metadata.creator?.toLowerCase() + " " +
+      data.fileData.metadata.modifier?.toLowerCase();
+
+    const splits = filter.trim().split(/\s+/);
+    for (const split of splits) {
+      if (!rowText.includes(split)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   protected onSorting(sort: Sort) {
@@ -113,7 +122,7 @@ export class MetadataTableComponent implements AfterViewInit {
   }
 
   protected applyFilter(filter: string) {
-    this.submissionsDataSource.filter = filter?.toLowerCase();
+    this.submissionsDataSource.filter = filter?.trim().toLowerCase();
   }
 
   private getSortValue(submission: Submission, field: string) {

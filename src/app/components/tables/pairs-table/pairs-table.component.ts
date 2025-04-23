@@ -109,11 +109,17 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected rowsFilter(data: SubmissionPair, filter: string): boolean {
-
     const first = this.getSubmissionById(data.firstId);
     const second = this.getSubmissionById(data.secondId);
-    return first.fileData.submitter.toLowerCase().includes(filter) ||
-      second.fileData.submitter.toLowerCase().includes(filter);
+    const rowText =
+      `${first.fileData.submitter.toLowerCase()} ${second.fileData.submitter.toLowerCase()}`;
+    const splits = filter.split(/\s+/);
+    for (const split of splits) {
+      if (!rowText.includes(split)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   protected getSubmissionById(id: number): Submission {
@@ -164,7 +170,7 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected applyFilter(filter: string) {
-    this.pairsDataSource.filter = filter?.toLowerCase();
+    this.pairsDataSource.filter = filter.trim()?.toLowerCase();
   }
 
   protected isMetadataMatched(pair: SubmissionPair) {

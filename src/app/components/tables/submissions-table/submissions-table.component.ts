@@ -133,9 +133,7 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
   public ngAfterViewInit() {
     this.submissionsDataSource.sort = this.sort;
     this.submissionsDataSource.paginator = this.matPaginator;
-    this.submissionsDataSource.filterPredicate = (data: Submission, filter: string) => {
-      return data!.fileData.submitter.toLowerCase().includes(filter);
-    };
+    this.submissionsDataSource.filterPredicate = this.rowsFilter.bind(this);
 
     this.applyContext();
   }
@@ -200,4 +198,16 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
 
     return false;
   }
+
+  private rowsFilter(data: Submission, filter: string): boolean {
+    const rowText = data!.fileData.submitter.toLowerCase();
+    const splits = filter.trim().split(/\s+/);
+    for (const split of splits) {
+      if (!rowText.includes(split)) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
+
