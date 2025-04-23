@@ -122,8 +122,9 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
         if (this.submissionsFilterSet != null) {
           submissionsArray = submissionsArray.filter(s => this.submissionsFilterSet?.has(s.id));
         }
+
         this.submissionsDataSource.data = submissionsArray
-          .sort((a, b) => b.maxSimilarity - a.maxSimilarity)
+          .sort((a, b) => b.maxSimilarity! - a.maxSimilarity!)
           .slice(0, this.limit ? this.limit : Number.MAX_VALUE);
       }
     });
@@ -188,8 +189,8 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
       const submissionPairs = submission.pairIds.map((pId) => pairs.get(pId));
       for (const submissionPair of submissionPairs) {
         if (submissionPair) {
-          const plagscore = SubmissionPairUtils.getScoreByType(submissionPair, "META");
-          if (plagscore && plagscore.score > 0) {
+          const plagScore = SubmissionPairUtils.getScoreByType(submissionPair, "META");
+          if (plagScore && plagScore.score > 0) {
             return true;
           }
         }

@@ -1,5 +1,4 @@
 import {Component, OnInit} from "@angular/core";
-import {Submission} from "../../../model/submission";
 import {MatTableModule} from "@angular/material/table";
 import {MatButton} from "@angular/material/button";
 import {
@@ -19,9 +18,6 @@ import {
   ContentContainerComponent
 } from "../../../components/base/content-container/content-container.component";
 import {
-  ConfigurationInfoCardComponent
-} from "../../../components/cards/configuration-info-card/configuration-info-card.component";
-import {
   PlagiarismScoreDistributionComponent
 } from "../../../components/charts/plagiarism-score-distribution/plagiarism-score-distribution.component";
 import {NavigationService} from "../../../services/navigation/navigation.service";
@@ -37,7 +33,6 @@ import {NavigationService} from "../../../services/navigation/navigation.service
     SubmissionsTableComponent,
     SurfaceComponent,
     ContentContainerComponent,
-    ConfigurationInfoCardComponent,
     PlagiarismScoreDistributionComponent,
   ],
   templateUrl: "./analysis-page.component.html",
@@ -61,8 +56,8 @@ export class AnalysisPageComponent implements OnInit {
       next: (report) => {
         if (report) {
           this.analysisContext.setReport(report);
+          this.analysisService.calculateMaxSimilarities();
           this.loading = false;
-          // console.log("toggle");
           this.navigationService.toggleNavigationLock(false);
         } else {
           this.router.navigate([PageRoutes.HOME]);

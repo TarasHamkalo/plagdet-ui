@@ -40,10 +40,10 @@ export class SubmissionPairUtils {
   }
 
   public static getScoreByType(
-    pair: SubmissionPair,
+    pair: SubmissionPair | undefined | null,
     type: "META" | "JACCARD" | "SEMANTIC"
   ): PlagScore | null {
-    if (pair !== null) {
+    if (pair) {
       const score = pair.plagScores.find(p => p.type === type);
       return score ? score : null;
     }

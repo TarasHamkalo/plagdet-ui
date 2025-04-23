@@ -3,6 +3,7 @@ import {AnalysisContextService} from "../context/analysis-context.service";
 import {FileUtilsService} from "./file-utils.service";
 import {Observable, of} from "rxjs";
 import {Report} from "../model/report";
+import {SubmissionPairUtils} from "../utils/submission-pair-utils";
 
 @Injectable({
   providedIn: "root"
@@ -24,7 +25,6 @@ export class AnalysisService {
       return this.loadFromUploadedZip();
     }
 
-    
     return of(null);
   }
 
@@ -32,6 +32,27 @@ export class AnalysisService {
     return this.fileUtils.readReportFromZip(
       this.analysisContext.getSubmittedFile()()!.file
     );
+  }
+
+  public calculateMaxSimilarities() {
+    const report = this.analysisContext.getReport()();
+    if (report != null) {
+      const submissions = Array.from(report.submissions.values());
+      const pairs = report.pairs;
+      submissions
+        .filter(s => !s.indexed)
+        .forEach(s => {
+          s.maxSimilarity = Math.max(
+            ...s.pairIds
+              .map((pId) => pairs.get(pId))
+              .map(p => {
+                const jaccardScore = SubmissionPairUtils.getScoreByType(p, "JACCARD");
+                const semScore = SubmissionPairUtils.getScoreByType(p, "SEMANTIC");
+                return Math.max(jaccardScore?.score ?? 0, semScore?.score ?? 0);
+              })
+          );
+        });
+    }
   }
 
 }

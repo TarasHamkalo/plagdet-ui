@@ -109,7 +109,8 @@
 
 
           <mat-list-item>
-            <h3 matListItemTitle>{{ this.submission.fileData.metadata.totalEditTime | minutesTime }}</h3>
+            <h3
+              matListItemTitle>{{ this.submission.fileData.metadata.totalEditTime | minutesTime }}</h3>
             <p matListItemLine>Celkový čas úprav</p>
             <div matListItemMeta>
               <mat-icon>timer</mat-icon>
@@ -128,7 +129,7 @@
       </mat-card-content>
     </mat-card>
     <app-stat-card name="Najvyššia podobnosť"
-                   [value]="(this.submission.maxSimilarity * 100).toFixed(2)  + ' %'"></app-stat-card>
+                   [value]="(this.submission.maxSimilarity! * 100).toFixed(2)  + ' %'"></app-stat-card>
   </div>
 
 </div>
