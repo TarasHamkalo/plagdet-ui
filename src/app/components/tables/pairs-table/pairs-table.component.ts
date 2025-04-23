@@ -72,7 +72,8 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   public static readonly CONTEXT_KEY = "pairs-table";
 
   protected readonly pairsDisplayedColumns: string[] = [
-    "firstDocumentName", "secondDocumentName", "meta-match", "similarity", "moreButton"
+    "firstDocumentName", "secondDocumentName", "meta-match",
+    "jaccard-sim", "sem-sim", "moreButton"
   ];
 
   @Input({required: true}) public pairsSource!: Signal<SubmissionPair[]>;
@@ -143,9 +144,15 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
         );
         break;
       }
-      case "similarity": {
-        this.pairsDataSource.filteredData.sort((a, b) =>
-          (this.getMaxScore(a) - this.getMaxScore(b)) * mul
+      case "jaccard-sim": {
+        this.pairsDataSource.filteredData.sort(
+          (a, b) => SubmissionPairUtils.compareByScore(a, b, "JACCARD") * mul
+        );
+        break;
+      }
+      case "sem-sim": {
+        this.pairsDataSource.filteredData.sort(
+          (a, b) => SubmissionPairUtils.compareByScore(a, b, "SEMANTIC") * mul
         );
         break;
       }
@@ -153,7 +160,6 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected onLoadPair(element: SubmissionPair): void {
-
     this.router.navigate([PageRoutes.PAIRS, element.id]);
   }
 
@@ -162,14 +168,16 @@ export class PairsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected isMetadataMatched(pair: SubmissionPair) {
-    const plagscore = SubmissionPairUtils.getScoreByType(pair, "META");
-    return plagscore ? plagscore.score > 0 : 0;
+    const plagScore = SubmissionPairUtils.getScoreByType(pair, "META");
+    return plagScore ? plagScore.score > 0 : 0;
   }
 
-  protected getSemanticScore(pair: SubmissionPair) {
-    const plagscore = SubmissionPairUtils.getScoreByType(pair, "SEMANTIC");
-    return SubmissionPairUtils.formatScore(plagscore ? plagscore.score : 0, 1);
-    // return plagscore ? plagscore.score * 100 : 0;
+  protected getScoreByType(
+    pair: SubmissionPair,
+    type: "META" | "JACCARD" | "SEMANTIC"
+  ) {
+    const plagScore = SubmissionPairUtils.getScoreByType(pair, type);
+    return SubmissionPairUtils.formatScore(plagScore ? plagScore.score : 0, 1);
   }
 
   protected getMaxScore(pair: SubmissionPair) {

@@ -2,23 +2,27 @@
 .mat-column-submitter {
   box-sizing: content-box;
   /*width: 50px;*/
-  width: 25%;
+  min-width: 25%;
 }
 
 .mat-column-totalEditTime {
-  width: 10%;
+  min-width: 10%;
 }
 
 .mat-column-maxSimilarity {
-  width: 15%;
+  min-width: 15%;
+}
+
+.mat-column-moreButton {
+  min-width: 10%;
+}
+
+.mat-column-meta-match {
+  min-width: 10%;
 }
 
 td.mat-column-maxSimilarity {
   text-align: end;
-}
-
-.mat-column-moreButton {
-  width: 10%;
 }
 
 td.mat-column-moreButton {
@@ -27,9 +31,5 @@ td.mat-column-moreButton {
 
 th[mat-sort-header="maxSimilarity"] .mat-sort-header-container {
   justify-content: flex-end;
-}
-
-.mat-column-meta-match {
-  width: 10%;
 }
 

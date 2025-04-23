@@ -51,14 +51,24 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="similarity">
+      <ng-container matColumnDef="jaccard-sim">
 
         <th mat-header-cell *matHeaderCellDef
-            mat-sort-header="similarity">
-          Podobnosť %
+            mat-sort-header="jaccard-sim">
+          Jaccardov koeficient (bi-gramy)
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ this.getSemanticScore(element) }}
+          {{ getScoreByType(element, 'JACCARD') }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="sem-sim">
+        <th mat-header-cell *matHeaderCellDef
+            mat-sort-header="sem-sim">
+          Semantická podobnosť
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ getScoreByType(element, 'SEMANTIC') }}
         </td>
       </ng-container>
 
