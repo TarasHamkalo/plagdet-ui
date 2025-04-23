@@ -134,6 +134,8 @@ export class NavigationService {
 
   private activeRoute = signal(PageRoutes.HOME);
 
+  private isNavigationLocked = signal(false);
+
   constructor(private router: Router) {}
 
   public getRoutes(): NavItem[] {
@@ -158,11 +160,19 @@ export class NavigationService {
   public updateActive() {
     const url = this.router.url;
     this.activeRoute.set(url as PageRoutes);
-    
   }
 
   public getHome(): NavItem | undefined {
     return this.homeRoute;
+  }
+
+
+  public toggleNavigationLock(isLocked: boolean) {
+    this.isNavigationLocked.set(isLocked);
+  }
+
+  public getNavigationLock() {
+    return this.isNavigationLocked;
   }
 
   private getBaseUrl(url: string) {

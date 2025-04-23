@@ -24,9 +24,10 @@ import {
 import {
   PlagiarismScoreDistributionComponent
 } from "../../../components/charts/plagiarism-score-distribution/plagiarism-score-distribution.component";
+import {NavigationService} from "../../../services/navigation/navigation.service";
 
 @Component({
-  selector: "app-overview-page",
+  selector: "app-analysis-page",
   imports: [
     MatTableModule,
     MatButton,
@@ -48,6 +49,7 @@ export class AnalysisPageComponent implements OnInit {
 
   constructor(
     protected analysisContext: AnalysisContextService,
+    private navigationService: NavigationService,
     private analysisService: AnalysisService,
     private router: Router
   ) {
@@ -60,6 +62,8 @@ export class AnalysisPageComponent implements OnInit {
         if (report) {
           this.analysisContext.setReport(report);
           this.loading = false;
+          // console.log("toggle");
+          this.navigationService.toggleNavigationLock(false);
         } else {
           this.router.navigate([PageRoutes.HOME]);
         }
@@ -69,10 +73,6 @@ export class AnalysisPageComponent implements OnInit {
       }
     });
 
-  }
-
-  protected showMoreAboutSubmission(element: Submission) {
-    
   }
 
   protected navigateSubmissionsPage() {

@@ -23,8 +23,10 @@ export class LayoutComponent {
 
   protected isSidenavOpen = signal(false);
 
-  constructor(protected navigationService: NavigationService,
-              private router: Router) {
+  constructor(
+    protected navigationService: NavigationService,
+    private router: Router
+  ) {
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd)
@@ -38,4 +40,7 @@ export class LayoutComponent {
     this.isSidenavOpen.update(b => !b);
   }
 
+  public showNavigation(): boolean {
+    return !this.navigationService.getNavigationLock()();
+  }
 }

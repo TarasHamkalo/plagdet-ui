@@ -2,7 +2,7 @@ import {Routes} from "@angular/router";
 // import {
 //   UploadDatasetPageComponent
 // } from "./pages/upload-dataset-page/upload-dataset-page.component";
-// import {AnalysisPageComponent} from "./pages/analysis/overview-page/analysis-page.component";
+// import {AnalysisPageComponent} from "./pages/analysis/analysis-page/analysis-page.component";
 import {
   ImportAnalysisPageComponent
 } from "./pages/import-analysis-page/import-analysis-page.component";
@@ -23,7 +23,7 @@ import {
 import {
   SimilarityHeatmapPageComponent
 } from "./pages/analysis/similarity-heatmap-page/similarity-heatmap-page.component";
-import {AnalysisPageComponent} from "./pages/analysis/overview-page/analysis-page.component";
+import {AnalysisPageComponent} from "./pages/analysis/analysis-page/analysis-page.component";
 import {AnalysisPageGuard} from "./guards/analysis-page.guard";
 import {
   SubmissionGraphPageComponent

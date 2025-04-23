@@ -13,7 +13,8 @@
                    [opened]="true"
                    mode="side">
 
-        <app-nav-list [isFullWidth]="isSidenavOpen"/>
+          <app-nav-list [hidden]="!showNavigation()" [isFullWidth]="isSidenavOpen"/>
+
       </mat-sidenav>
 
       <mat-sidenav-content>
