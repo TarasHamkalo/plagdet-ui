@@ -5,7 +5,7 @@ export interface Submission {
   id: number;
   indexed: boolean;
   fileData: FileData;
-  maxSimilarity: number;
+  maxSimilarity?: number;
   pairIds: string[];
   markings: SpecialMarking[];
   content: string;

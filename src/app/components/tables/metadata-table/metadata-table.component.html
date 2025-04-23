@@ -5,17 +5,10 @@
       <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilter($event)"/>
     </mat-form-field>
 
-    <!--    <button mat-icon-button-->
-    <!--            >-->
-    <!--      <mat-icon>download</mat-icon>-->
-    <!--    </button>-->
-
     <button mat-raised-button
             (click)="this.downloadMetadataCsv()">
       <mat-icon>download</mat-icon>
-      <p>
-        Stiahnuť ako csv
-      </p>
+      <p>Stiahnuť ako csv</p>
     </button>
 
   </div>

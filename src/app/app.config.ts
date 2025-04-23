@@ -9,16 +9,6 @@ import {SlovakPaginatorService} from "./services/localization/slovak-paginator.s
 import {provideMonacoEditor} from "ngx-monaco-editor-v2";
 import {PlagdetRouteReuseStrategy} from "./context/plagdet-route-reuse-strategy";
 
-// const monacoConfig: NgxMonacoEditorConfig = {
-//   // baseUrl: "/assets/monaco/min",
-//   defaultOptions: { scrollBeyondLastLine: false },
-//   onMonacoLoad: () => {
-//     console.log("Monaco editor loaded");
-//   },
-//   requireConfig: {preferScriptTags: true},
-//   monacoRequire: (<any>window).monacoRequire,
-// };
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({eventCoalescing: true}),
