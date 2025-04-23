@@ -41,6 +41,10 @@ export class SubmissionDiffEditorComponent implements OnDestroy, OnChanges {
 
   protected isLoading = signal<boolean>(false);
 
+  protected firstModel = signal<DiffEditorModel | undefined>(undefined);
+
+  protected secondModel = signal<DiffEditorModel | undefined>(undefined);
+
   protected initEditor(editor: IStandaloneCodeEditor) {
     console.log(editor);
     if (!this.editor()) {
@@ -60,10 +64,6 @@ export class SubmissionDiffEditorComponent implements OnDestroy, OnChanges {
       editor.dispose();
     }
   }
-
-  protected firstModel = signal<DiffEditorModel | undefined>(undefined);
-
-  protected secondModel = signal<DiffEditorModel | undefined>(undefined);
 
   public ngOnChanges() {
     if (this.first?.content && this.second?.content) {
