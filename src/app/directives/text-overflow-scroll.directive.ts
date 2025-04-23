@@ -1,4 +1,4 @@
-import {Directive, HostBinding, HostListener, Renderer2} from "@angular/core";
+import {Directive, HostBinding, HostListener} from "@angular/core";
 import {Clipboard} from "@angular/cdk/clipboard";
 
 @Directive({
@@ -19,7 +19,6 @@ export class TextOverflowScrollDirective {
 
   @HostListener("scroll", ["$event.target"])
   public onScroll(target: HTMLElement): void {
-    console.log("scroll", target);
     this.isScrolled = target.scrollLeft > 0;
   }
 
