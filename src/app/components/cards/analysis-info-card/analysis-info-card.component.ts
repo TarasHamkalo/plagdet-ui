@@ -52,6 +52,14 @@ export class AnalysisInfoCardComponent {
     return new Map<string, number>();
   });
 
+  protected comparisonsCount = computed(() => {
+    const report = this.analysisContext.getReport()();
+    if (report) {
+      return report!.pairs.size;
+    }
+    return null;
+  });
+
   constructor(private analysisContext: AnalysisContextService) {
   }
 
