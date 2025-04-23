@@ -15,8 +15,8 @@ export abstract class UploadPageBaseComponent {
 
   constructor(
     protected analysisContext: AnalysisContextService,
-    private fileUtils: FileUtilsService,
-    private router: Router
+    protected fileUtils: FileUtilsService,
+    protected router: Router
   ) {
   }
 
