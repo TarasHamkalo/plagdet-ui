@@ -133,16 +133,18 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
     this.graphComponent.nodes = this.submissionGraphService.createNodes();
     this.graphComponent.links = this.submissionGraphService.createLinks();
     const layout = new D3ForceDirectedLayout();
+
     layout.settings = this.d3Settings;
     this.graphComponent.layout = layout;
     this.graphComponent.showMiniMap = true;
-
+    this.graphComponent.draggingEnabled = false;
     setTimeout(() => {
       this.graphSimulation.nodes().forEach(node => {
         node.fx = node.x;
         node.fy = node.y;
       });
       this.graphSimulation.alpha(0).stop();
+      this.graphSimulation.stop();
     }, 5000);
   }
 

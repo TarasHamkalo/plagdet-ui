@@ -50,9 +50,7 @@ export class SubmissionGraphService {
   public getClusterForSubmission(submissionNode: SubmissionNode) {
     const submission = submissionNode.submission;
     const clusterId = this.submissionClusterMap()[submission.id];
-    const cluster = this.clusters().find(source => source.id === clusterId);
-    console.log(cluster);
-    return cluster;
+    return this.clusters().find(source => source.id === clusterId);
   }
 
   private computeConnectedComponents() {
