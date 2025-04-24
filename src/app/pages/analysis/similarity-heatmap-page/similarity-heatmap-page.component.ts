@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, computed, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, computed, OnDestroy, ViewChild} from "@angular/core";
 
 import {NgApexchartsModule} from "ng-apexcharts";
 import {
@@ -47,6 +47,8 @@ import {Submission} from "../../../model/submission";
 
 export class SimilarityHeatmapPageComponent implements OnDestroy, AfterViewInit {
 
+  public static readonly CONTEXT_KEY = "similarity-heatmap-page";
+
   @ViewChild(SimilarityHeatmapComponent) protected heatMap!: SimilarityHeatmapComponent;
 
   protected pairsMapSource = computed<Map<string, SubmissionPair>>(() => {
@@ -66,8 +68,6 @@ export class SimilarityHeatmapPageComponent implements OnDestroy, AfterViewInit 
     return new Map();
   });
 
-  public static readonly CONTEXT_KEY = "similarity-heatmap-page";
-
   constructor(
     protected analysisContextService: AnalysisContextService,
     protected similarityHeatmapService: SimilarityHeatmapService,
@@ -86,7 +86,7 @@ export class SimilarityHeatmapPageComponent implements OnDestroy, AfterViewInit 
 
   public ngAfterViewInit() {
     this.heatMap.selectedPairIdEmitter.subscribe((pId) => this.loadPair(pId));
-    this.applyContext();
+    setTimeout(() => this.applyContext());
   }
 
   public changeScoreType(type: "META" | "SEMANTIC" | "JACCARD") {
