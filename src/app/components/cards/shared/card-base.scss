@@ -65,8 +65,8 @@ h1 {
   display: flex;
   width: 100%;
   flex-direction: row;
-  align-items: center; /* Vertically center */
-  justify-content: space-between; /* Push items apart */
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header-with-actions button {
@@ -92,5 +92,31 @@ h1 {
 .info-list > mat-list-item {
   padding-left: 0;
   padding-right: 0;
+  gap: 16px;
+}
+
+.card-group {
+  display: flex;
+
+  max-width: calc(2 * 350px);
+  min-width: calc(2 * 150px);
+
+  flex-direction: column;
+  padding: 16px;
+  gap: 24px;
+
+  border-radius: var(--mat-sys-corner-extra-large);
+  background-color: var(--mat-sys-surface-container-high);
+}
+
+.card-flex-box {
+  display: flex;
+  max-width: calc(2 * 350px);
+  min-width: calc(2 * 150px);
+
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+
   gap: 16px;
 }

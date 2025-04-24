@@ -5,7 +5,6 @@ import {UnixDatePipe} from "../../../pipes/unix-date.pipe";
 import {MinutesTimePipe} from "../../../pipes/minutes-time.pipe";
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
-import {StatCardComponent} from "../stat-card/stat-card.component";
 import {MatIconButton} from "@angular/material/button";
 import {ExportService} from "../../../services/export.service";
 
@@ -18,7 +17,6 @@ import {ExportService} from "../../../services/export.service";
     MatList,
     MatListItem,
     MatIcon,
-    StatCardComponent,
     MatIconButton
   ],
   templateUrl: "./submission-info-card.component.html",
