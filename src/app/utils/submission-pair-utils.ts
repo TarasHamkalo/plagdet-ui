@@ -13,7 +13,12 @@ export class SubmissionPairUtils {
     if (submissionPairs && submissionPairs.length > 0) {
       const sorted = submissionPairs
         .sort((a, b) => SubmissionPairUtils.compareByScore(a, b, type) * -1);
-      return sorted[0];
+      const plagScore = this.getScoreByType(sorted[0], type);
+      if (plagScore != null && plagScore.score > 0) {
+        return sorted[0];
+      }
+
+      return null;
     }
 
     return null;
