@@ -3,18 +3,24 @@
     Rozdelenie podobnosti
   </h3>
   <div class="chart-wrapper mat-elevation-z8">
-    <div id="chart">
-      <apx-chart
-        [series]="chartOptions.series!"
-        [chart]="chartOptions.chart!"
-        [xaxis]="chartOptions.xaxis!"
-        [yaxis]="chartOptions.yaxis!"
-        [plotOptions]="chartOptions.plotOptions!"
-        [colors]="chartOptions.colors!"
-        [grid]="chartOptions.grid!"
-        [legend]="chartOptions.legend!"
-        [dataLabels]="chartOptions.dataLabels!">
-      </apx-chart>
-    </div>
+    @if (ready) {
+      <ng-container>
+        <div id="chart">
+          <apx-chart
+            [series]="chartOptions.series!"
+            [chart]="chartOptions.chart!"
+            [xaxis]="chartOptions.xaxis!"
+            [yaxis]="chartOptions.yaxis!"
+            [plotOptions]="chartOptions.plotOptions!"
+            [colors]="chartOptions.colors!"
+            [grid]="chartOptions.grid!"
+            [legend]="chartOptions.legend!"
+            [dataLabels]="chartOptions.dataLabels!">
+          </apx-chart>
+        </div>
+      </ng-container>
+    } @else {
+        <mat-progress-spinner diameter="220" class="loader" mode="indeterminate"></mat-progress-spinner>
+    }
   </div>
 </div>

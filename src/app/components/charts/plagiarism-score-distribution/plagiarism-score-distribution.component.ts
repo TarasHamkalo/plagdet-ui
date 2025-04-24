@@ -4,6 +4,7 @@ import {AnalysisContextService} from "../../../context/analysis-context.service"
 import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
 import {Router} from "@angular/router";
 import {PageRoutes} from "../../../app.routes";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -21,7 +22,8 @@ export interface ChartOptions {
 @Component({
   selector: "app-plagiarism-score-distribution",
   imports: [
-    ChartComponent
+    ChartComponent,
+    MatProgressSpinner
   ],
   templateUrl: "./plagiarism-score-distribution.component.html",
   styleUrl: "./plagiarism-score-distribution.component.css"
@@ -29,6 +31,8 @@ export interface ChartOptions {
 export class PlagiarismScoreDistributionComponent implements AfterViewInit {
 
   @ViewChild(ChartComponent) protected chart!: ChartComponent;
+
+  protected ready = false;
 
   protected chartOptions: Partial<ChartOptions>;
 
@@ -133,6 +137,10 @@ export class PlagiarismScoreDistributionComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
+    setTimeout(() => this.computeDistribution(), 500);
+  }
+
+  private computeDistribution() {
     const report = this.analysisContextService.getReport()();
     if (report) {
       const submissions = report.submissions;
@@ -165,6 +173,9 @@ export class PlagiarismScoreDistributionComponent implements AfterViewInit {
           return category ? category.length : 0;
         });
       }
+
+      this.ready = true;
     }
+
   }
 }
