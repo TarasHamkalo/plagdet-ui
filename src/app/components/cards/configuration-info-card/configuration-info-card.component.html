@@ -66,14 +66,13 @@
         <mat-card-subtitle>
           <p *ngIf="overview()?.configuration!.lengthComparisonFilterParameters.canBypassFiltering">
             Filtrovanie dokumentových dvojíc <strong>nebolo použité</strong>.
+            Pomer veľkostí dokumentov sa počíta ako
+            <strong style="white-space: nowrap">min(|s₁| / |s₂|, |s₂| / |s₁|)</strong>.
+            Ak je tento pomer nižší ako hodnota uvedená v konfigurácii, porovnanie bude zastavené
           </p>
           <p
             *ngIf="!overview()?.configuration!.lengthComparisonFilterParameters.canBypassFiltering">
-            <strong>Bolo použité</strong> filtrovanie dokumentových dvojíc.
-          </p>
-          <br>
-          <p>
-            Pomer veľkostí dokumentov sa počíta ako
+            <strong>Bolo použité</strong> filtrovanie dokumentových dvojíc. Pomer veľkostí dokumentov sa počíta ako
             <strong style="white-space: nowrap">min(|s₁| / |s₂|, |s₂| / |s₁|)</strong>.
             Ak je tento pomer nižší ako hodnota uvedená v konfigurácii, porovnanie bude zastavené
           </p>

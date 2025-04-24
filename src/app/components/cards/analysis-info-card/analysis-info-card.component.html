@@ -35,8 +35,8 @@
 
       <mat-list-item>
         <mat-icon matTooltipPosition="right"
-                  matTooltip="Počet vykonaných porovnaní"
-                  aria-label="Počet vykonaných porovnaní"
+                  matTooltip="Počet načítaných porovnaní"
+                  aria-label="Počet načítaných porovnaní"
                   svgIcon="compare-horizontal"
                   matListItemIcon></mat-icon>
         <p matListItemTitle>{{ comparisonsCount() | number }}</p>
@@ -50,8 +50,8 @@
       <mat-list-item>
         <div class="item-with-chip">
           <mat-chip matTooltipPosition="right"
-                    matTooltip="Zobraziť súbory formatu docx"
-                    aria-label="Zobraziť súbory formatu docx">
+                    matTooltip="Počet súborov formatu docx"
+                    aria-label="Počet súborov formatu docx">
             DOCX
           </mat-chip>
           <p>{{ extensionToCount().get('docx') || 0 }} súborov</p>
@@ -61,8 +61,8 @@
       <mat-list-item>
         <div class="item-with-chip" matListItemTitle>
           <mat-chip matTooltipPosition="right"
-                    matTooltip="Zobraziť súbory formatu doc"
-                    aria-label="Zobraziť súbory formatu doc">
+                    matTooltip="Počet súborov formatu doc"
+                    aria-label="Počet súborov formatu doc">
             DOC
           </mat-chip>
           <p>{{ extensionToCount().get('doc') || 0 }} súborov</p>
@@ -72,8 +72,8 @@
       <mat-list-item>
         <div class="item-with-chip" matListItemTitle>
           <mat-chip matTooltipPosition="right"
-                    matTooltip="Zobraziť súbory formatu pdf"
-                    aria-label="Zobraziť súbory formatu pdf">
+                    matTooltip="Počet súborov formatu pdf"
+                    aria-label="Počet súborov formatu pdf">
             PDF
           </mat-chip>
           <p>{{ extensionToCount().get('pdf') || 0 }} súborov</p>
