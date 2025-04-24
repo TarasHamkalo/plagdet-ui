@@ -3,7 +3,7 @@
   <!-- METADATA AND SHINGLE  -->
   <div style="display: flex; flex-direction: column; gap: 32px;">
 
-    <mat-card class="extra-large-card"
+    <mat-card class="medium-card"
               style="gap: 16px;"
               *ngIf="configurationDescription().length !== 0">
       <mat-card-header>
@@ -60,7 +60,7 @@
     </mat-card>
 
     <!--  LENGTH -->
-    <mat-card class="large-card" *ngIf="configurationDescription().length !== 0">
+    <mat-card class="medium-card" *ngIf="configurationDescription().length !== 0">
       <mat-card-header>
         <mat-card-title>Filtrovanie podľa pomeru veľkostí</mat-card-title>
         <mat-card-subtitle>
@@ -109,119 +109,6 @@
     </mat-card>
   </div>
 
-  <!--   PIPELINE AND RESULTS -->
-  <div style="display: flex; flex-direction: column; gap: 32px;">
-    <!-- RESULTS   -->
-    <mat-card class="extra-large-card" *ngIf="configurationDescription().length !== 0">
-      <mat-card-header>
-        <mat-card-title>Filtrovanie výsledkov</mat-card-title>
-        <mat-card-subtitle>
-          <p *ngIf="overview()?.configuration!.comparisonsStoreParameters.canBypassFiltering">
-            Filtrovanie výsledkov <strong>nebolo použite</strong>
-          </p>
-
-          <p *ngIf="!overview()?.configuration!.comparisonsStoreParameters.canBypassFiltering">
-            <strong>Bolo použite</strong> filtrovanie výsledkov, odovzdania bez výsledných porovnaní
-            sú považované za bezplagiatorské
-          </p>
-
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content>
-        <mat-list class="info-list">
-          <mat-list-item [lines]="3" class="configuration-item">
-            <h3
-              matListItemTitle>{{ overview()?.configuration!.comparisonsStoreParameters.maxResultsPerDocument }}</h3>
-            <span>{{ getDescription('maxResultsPerDocument') }}</span>
-          </mat-list-item>
-
-
-          <mat-list-item [lines]="3"
-                         class="configuration-item">
-            <h3
-              matListItemTitle>{{ overview()?.configuration!.comparisonsStoreParameters.minSimilarityToRecord }}</h3>
-            <span>{{ getDescription('minSimilarityToRecord') }}</span>
-          </mat-list-item>
-
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="extra-large-card">
-      <mat-card-header>
-        <mat-card-title>
-          Porovnávanie so šablónou
-        </mat-card-title>
-        <mat-card-subtitle>
-          <p *ngIf="overview()?.configuration!.pipelineParameters.canBypassTemplateRemoval">
-            Odstránenie šablóny <strong>nebolo použite</strong>
-          </p>
-
-          <p *ngIf="!overview()?.configuration!.pipelineParameters.canBypassTemplateRemoval">
-            <strong>Bolo použite</strong> odstránenie šablóny
-          </p>
-
-          <br>
-          <p>
-            Každý súbor sa predbežne porovná s daným súborom. Všetky nájdené zhody sa budú ignorovať
-            a zobrazia sa pri otvorení obsahu dokumentu
-          </p>
-
-        </mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-divider></mat-divider>
-
-      <mat-card-content>
-        <mat-list class="info-list"
-                  *ngIf="!overview()?.configuration!.pipelineParameters.canBypassTemplateRemoval">
-          <mat-list-item [lines]="4"
-                         class="configuration-item">
-                <h3
-                  matListItemTitle>{{ overview()?.configuration!.templateDocumentPath ?? 'IPC.pdf'}}</h3>
-                <span>{{ overview()?.configuration!.templateDocumentPath ? getDescription('templateDocumentPath') : 'Text zadania IPC bol použitý, ako "šablóna".'}}</span>
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
-
-    <!--  LUCENE  -->
-    <mat-card class="large-card">
-      <mat-card-header>
-        <mat-card-title>
-          Indexovanie
-        </mat-card-title>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content>
-        <mat-list class="info-list">
-          <mat-list-item [lines]="3"
-                         class="configuration-item">
-            <h3
-              matListItemTitle>{{ overview()?.configuration!.luceneIndexDirectoryPath || 'Prázdná' }}</h3>
-            <span>{{ getDescription('luceneIndexDirectoryPath') }}</span>
-          </mat-list-item>
-
-          <mat-list-item [lines]="3"
-                         class="configuration-item">
-            <h3
-              matListItemTitle>{{ overview()?.configuration!.luceneFileDataSourceParameters.similarDocumentsLimit }}</h3>
-            <span>{{ getDescription('similarDocumentsLimit') }}</span>
-          </mat-list-item>
-
-          <mat-list-item [lines]="3"
-                         class="configuration-item">
-            <h3
-              matListItemTitle>{{ overview()?.configuration!.luceneFileDataSourceParameters.maxMetadataSimilarDoc }}</h3>
-            <span>{{ getDescription('maxMetadataSimilarDoc') }}</span>
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
-
-
-  </div>
   <div style="display: flex; flex-direction: column; flex-wrap: wrap; gap: 32px;">
     <mat-card class="large-card" *ngIf="configurationDescription().length !== 0">
       <mat-card-header>
@@ -275,6 +162,119 @@
         </mat-list>
       </mat-card-content>
     </mat-card>
+  </div>
+  <!--   PIPELINE AND RESULTS -->
+  <div style="display: flex; flex-direction: column; gap: 32px;">
+    <!-- RESULTS   -->
+    <mat-card class="medium-card" *ngIf="configurationDescription().length !== 0">
+      <mat-card-header>
+        <mat-card-title>Filtrovanie výsledkov</mat-card-title>
+        <mat-card-subtitle>
+          <p *ngIf="overview()?.configuration!.comparisonsStoreParameters.canBypassFiltering">
+            Filtrovanie výsledkov <strong>nebolo použite</strong>
+          </p>
+
+          <p *ngIf="!overview()?.configuration!.comparisonsStoreParameters.canBypassFiltering">
+            <strong>Bolo použite</strong> filtrovanie výsledkov, odovzdania bez výsledných porovnaní
+            sú považované za bezplagiatorské
+          </p>
+
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <mat-list class="info-list">
+          <mat-list-item [lines]="3" class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.comparisonsStoreParameters.maxResultsPerDocument }}</h3>
+            <span>{{ getDescription('maxResultsPerDocument') }}</span>
+          </mat-list-item>
+
+
+          <mat-list-item [lines]="3"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.comparisonsStoreParameters.minSimilarityToRecord }}</h3>
+            <span>{{ getDescription('minSimilarityToRecord') }}</span>
+          </mat-list-item>
+
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="medium-card">
+      <mat-card-header>
+        <mat-card-title>
+          Porovnávanie so šablónou
+        </mat-card-title>
+        <mat-card-subtitle>
+          <p *ngIf="overview()?.configuration!.pipelineParameters.canBypassTemplateRemoval">
+            Odstránenie šablóny <strong>nebolo použite</strong>
+          </p>
+
+          <p *ngIf="!overview()?.configuration!.pipelineParameters.canBypassTemplateRemoval">
+            <strong>Bolo použite</strong> odstránenie šablóny
+          </p>
+
+          <br>
+          <p>
+            Každý súbor sa predbežne porovná s daným súborom. Všetky nájdené zhody sa budú ignorovať
+            a zobrazia sa pri otvorení obsahu dokumentu
+          </p>
+
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <mat-list class="info-list"
+                  *ngIf="!overview()?.configuration!.pipelineParameters.canBypassTemplateRemoval">
+          <mat-list-item [lines]="4"
+                         class="configuration-item">
+                <h3
+                  matListItemTitle>{{ overview()?.configuration!.templateDocumentPath ?? 'IPC.pdf'}}</h3>
+                <span>{{ overview()?.configuration!.templateDocumentPath ? getDescription('templateDocumentPath') : 'Text zadania IPC bol použitý, ako "šablóna".'}}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <!--  LUCENE  -->
+    <mat-card class="medium-card">
+      <mat-card-header>
+        <mat-card-title>
+          Indexovanie
+        </mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <mat-list class="info-list">
+          <mat-list-item [lines]="3"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.luceneIndexDirectoryPath || 'Prázdná' }}</h3>
+            <span>{{ getDescription('luceneIndexDirectoryPath') }}</span>
+          </mat-list-item>
+
+          <mat-list-item [lines]="3"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.luceneFileDataSourceParameters.similarDocumentsLimit }}</h3>
+            <span>{{ getDescription('similarDocumentsLimit') }}</span>
+          </mat-list-item>
+
+          <mat-list-item [lines]="3"
+                         class="configuration-item">
+            <h3
+              matListItemTitle>{{ overview()?.configuration!.luceneFileDataSourceParameters.maxMetadataSimilarDoc }}</h3>
+            <span>{{ getDescription('maxMetadataSimilarDoc') }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+
   </div>
 
 </div>
