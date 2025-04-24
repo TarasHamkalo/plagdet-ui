@@ -4,6 +4,21 @@ import {Submission} from "../model/submission";
 
 export class SubmissionPairUtils {
 
+
+  public static findByPairWithMaxScore(
+    submissionPairs: SubmissionPair[] | undefined,
+    type: "META" | "JACCARD" | "SEMANTIC"
+  ): SubmissionPair | null {
+
+    if (submissionPairs && submissionPairs.length > 0) {
+      const sorted = submissionPairs
+        .sort((a, b) => SubmissionPairUtils.compareByScore(a, b, type) * -1);
+      return sorted[0];
+    }
+
+    return null;
+  }
+
   public static compareByScore(
     a: SubmissionPair,
     b: SubmissionPair,

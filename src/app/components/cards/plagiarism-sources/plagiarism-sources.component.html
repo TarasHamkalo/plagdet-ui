@@ -1,0 +1,25 @@
+<div class="card-group">
+  <div class="header-with-actions">
+    <h1>
+      Najpravdepodobnejšie zdroje plagiátorstva
+    </h1>
+  </div>
+
+  <div class="cards-stretch">
+
+    <app-comparison-fast-nav similarityType="SEMANTIC"
+                             [submission]="submission"
+                             [submissionPairSignal]="semanticSubmissionPairSignal">
+    </app-comparison-fast-nav>
+    <app-comparison-fast-nav similarityType="JACCARD"
+                             [submission]="submission"
+                             [submissionPairSignal]="jaccardSubmissionPairSignal">
+    </app-comparison-fast-nav>
+    <app-comparison-fast-nav similarityType="META"
+                             [submission]="submission"
+                             [submissionPairSignal]="metaSubmissionPairSignal">
+    </app-comparison-fast-nav>
+
+  </div>
+
+</div>

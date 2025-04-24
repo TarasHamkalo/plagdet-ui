@@ -5,8 +5,15 @@
                  [isTitleCentered]="true"
                  [isContentCentered]="false"
                  [isHorizontal]="true"
-                 [wrapBreakpoint]="1600">
+                 [wrapBreakpoint]="1200">
       <app-submission-info-card [submission]="this.submission()!"></app-submission-info-card>
+      <app-plagiarism-sources [submission]="this.submission()!"></app-plagiarism-sources>
+    </app-surface>
+
+    <app-surface title="Dvojice odovzdaní"
+                 subtitle=""
+                 [isTitleCentered]="true"
+                 [isContentCentered]="false">
       <app-pairs-table [pairsSource]="this.pairsSource"
                        [isHalfPage]="true"
                        [contextPrefix]="'submission-view-page-' + this.submission()!.id"

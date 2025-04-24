@@ -14,6 +14,9 @@ import {PairsTableComponent} from "../../../components/tables/pairs-table/pairs-
 import {SubmissionPair} from "../../../model/submission-pair";
 import {FormsModule} from "@angular/forms";
 import {TextEditorComponent} from "../../../components/editors/text-editor/text-editor.component";
+import {
+  PlagiarismSourcesComponent
+} from "../../../components/cards/plagiarism-sources/plagiarism-sources.component";
 
 @Component({
   selector: "app-submission-view-page",
@@ -25,6 +28,7 @@ import {TextEditorComponent} from "../../../components/editors/text-editor/text-
     PairsTableComponent,
     FormsModule,
     TextEditorComponent,
+    PlagiarismSourcesComponent,
 
   ],
   templateUrl: "./submission-view-page.component.html",
