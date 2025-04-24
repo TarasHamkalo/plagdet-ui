@@ -75,7 +75,7 @@ export class ComparisonFastNavComponent {
       return SubmissionPairUtils.formatScore(plagScore.score, 0);
     }
 
-    return "Nevypočítané";
+    return "Nevypočítaná";
   }
 
   protected onLoadPair(): void {
