@@ -20,4 +20,7 @@ export class RouteContextService {
     return property;
   }
 
+  public clear(): void {
+    this.propertyMap = {};
+  }
 }

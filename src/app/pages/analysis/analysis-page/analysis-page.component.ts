@@ -60,7 +60,6 @@ export class AnalysisPageComponent implements OnInit {
       next: (report) => {
         if (report) {
           this.analysisContext.setReport(report);
-          this.analysisService.calculateMaxSimilarities();
           this.loading = false;
           this.navigationService.toggleNavigationLock(false);
         } else {

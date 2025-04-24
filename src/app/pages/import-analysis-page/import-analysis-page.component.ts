@@ -12,6 +12,7 @@ import {AnalysisContextService} from "../../context/analysis-context.service";
 import {FileUtilsService} from "../../services/file-utils.service";
 import {Router} from "@angular/router";
 import {NavigationService} from "../../services/navigation/navigation.service";
+import {RouteContextService} from "../../context/route-context.service";
 
 @Component({
   selector: "app-import-analysis-page",
@@ -30,6 +31,7 @@ export class ImportAnalysisPageComponent extends UploadPageBaseComponent impleme
 
   constructor(
     private navigationService: NavigationService,
+    private routeContextService: RouteContextService,
     protected override analysisContext: AnalysisContextService,
     protected override fileUtils: FileUtilsService,
     protected override router: Router
@@ -39,6 +41,7 @@ export class ImportAnalysisPageComponent extends UploadPageBaseComponent impleme
 
   public ngOnInit() {
     this.analysisContext.clearContext();
+    this.routeContextService.clear();
   }
 
   protected override onFileUploaded(file: File) {

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {AnalysisContextService} from "../context/analysis-context.service";
 import {FileUtilsService} from "./file-utils.service";
-import {Observable, of} from "rxjs";
+import {Observable, of, tap} from "rxjs";
 import {Report} from "../model/report";
 import {SubmissionPairUtils} from "../utils/submission-pair-utils";
 
@@ -19,10 +19,19 @@ export class AnalysisService {
   public loadReport(): Observable<Report | null> {
     if (this.analysisContext.getReport()() != null) {
       return of(this.analysisContext.getReport()());
+
     }
 
     if (this.analysisContext.getAnalysisImported()) {
-      return this.loadFromUploadedZip();
+      return this.loadFromUploadedZip()
+        .pipe(
+          tap((report: Report | null) => {
+            if (report) {
+              this.assignComparisonsToIndexedSubmissions(report);
+              this.calculateMaxSimilarities(report);
+            }
+          })
+        );
     }
 
     return of(null);
@@ -34,8 +43,19 @@ export class AnalysisService {
     );
   }
 
-  public calculateMaxSimilarities() {
-    const report = this.analysisContext.getReport()();
+  public assignComparisonsToIndexedSubmissions(report: Report) {
+    if (report) {
+      const pairs = Array.from(report.pairs.values());
+      pairs.forEach(p => {
+        const submission = report.submissions.get(p.secondId);
+        if (submission && submission.indexed) {
+          submission.pairIds.push(p.id);
+        }
+      });
+    }
+  }
+
+  public calculateMaxSimilarities(report: Report) {
     if (report != null) {
       const submissions = Array.from(report.submissions.values());
       const pairs = report.pairs;

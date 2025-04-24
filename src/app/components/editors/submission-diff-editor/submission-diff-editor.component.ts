@@ -46,7 +46,6 @@ export class SubmissionDiffEditorComponent implements OnDestroy, OnChanges {
   protected secondModel = signal<DiffEditorModel | undefined>(undefined);
 
   protected initEditor(editor: IStandaloneCodeEditor) {
-    console.log(editor);
     if (!this.editor()) {
       this.editor.set(editor);
 
