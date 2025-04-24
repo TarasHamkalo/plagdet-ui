@@ -1,6 +1,6 @@
 <mat-card class="comparison-fast-nav large-card-card base-card">
   <div class="text-frame">
-    <h1>{{ displayedSubmitter() ?? 'Nenájdený'}}</h1>
+    <h1>{{ displayedSubmitter() ?? 'Nenájdený' }}</h1>
     @switch (similarityType) {
       @case ('META') {
         <p>{{ 'Zadanie s rovnakým autorstvom podľa metaúdajov' }}</p>
@@ -15,12 +15,15 @@
   </div>
 
   @if (similarityType === 'META') {
-    <h1>{{hasMetaScore() ? 'Prítomná' : 'Nenájdená'}}</h1>
+    <h1>{{ hasMetaScore() ? 'Prítomná' : 'Nenájdená' }}</h1>
   } @else {
-    <h1 style="text-wrap: nowrap;">{{getFormattedScore()}}</h1>
+    <h1 style="text-wrap: nowrap;">{{ getFormattedScore() }}</h1>
   }
 
-  <button mat-button>
+  <button mat-button
+          [disabled]="this.submissionPairSignal() === null"
+          (click)="onLoadPair()"
+  >
     Načitať
   </button>
 </mat-card>

@@ -1,4 +1,4 @@
-import {Component, effect, Input, OnInit, signal} from "@angular/core";
+import {Component, effect, Input, signal} from "@angular/core";
 import {MatCard, MatCardModule} from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
 import {SubmissionPair} from "../../../model/submission-pair";
@@ -6,6 +6,8 @@ import {Submission} from "../../../model/submission";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
 import {PlagScore} from "../../../model/plag-score";
+import {Router} from "@angular/router";
+import {PageRoutes} from "../../../app.routes";
 
 @Component({
   selector: "app-comparison-fast-nav",
@@ -33,7 +35,8 @@ export class ComparisonFastNavComponent {
   protected plagScore = signal<PlagScore | null>(null);
 
   constructor(
-    private analysisContextService: AnalysisContextService
+    private analysisContextService: AnalysisContextService,
+    private router: Router
   ) {
     effect(() => {
         const submissionPair = this.submissionPairSignal();
@@ -73,6 +76,10 @@ export class ComparisonFastNavComponent {
     }
 
     return "Nevypočítané";
+  }
+
+  protected onLoadPair(): void {
+    this.router.navigate([PageRoutes.PAIRS, this.submissionPairSignal()!.id]);
   }
 
 }
