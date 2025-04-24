@@ -24,6 +24,7 @@ import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {Submission} from "../../../model/submission";
+import {HeatmapPairPoint} from "../../../types/heatmap-pair-point";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -54,6 +55,8 @@ export class SimilarityHeatmapComponent implements OnInit {
   @Input({required: true}) public submissionsMapSource: Signal<Map<number, Submission>> = signal<Map<number, Submission>>(new Map());
 
   @Output() public selectedPairIdEmitter = new EventEmitter<string>();
+
+  @Output() public unknownPairEmitter = new EventEmitter<string>();
 
   @ViewChild(ChartComponent) protected chart!: ChartComponent;
 
@@ -110,9 +113,9 @@ export class SimilarityHeatmapComponent implements OnInit {
         type: "heatmap",
         events: {
           dataPointSelection: (event, chartContext, opts) => {
-            const pair = this.similarityHeatmapService
+            const pairPoint = this.similarityHeatmapService
               .getSubmissionPairIdByDatapoint(opts.seriesIndex, opts.dataPointIndex);
-            this.onPairSelection(pair);
+            this.onPairSelection(pairPoint);
           }
         },
         zoom: {
@@ -152,12 +155,16 @@ export class SimilarityHeatmapComponent implements OnInit {
     }
   }
 
-  private onPairSelection(pairId: string | null) {
-    if (pairId == null) {
+  private onPairSelection(pairPoint: HeatmapPairPoint | null) {
+    if (pairPoint == null) {
       return;
     }
 
-    this.selectedPairIdEmitter.emit(pairId);
+    if (pairPoint.isKnownPair) {
+      this.selectedPairIdEmitter.emit(`${pairPoint.firstId}_${pairPoint.secondId}`);
+    } else {
+      this.unknownPairEmitter.emit(`${pairPoint.firstId}_${pairPoint.secondId}`);
+    }
   }
 
   public getPageX(): number {

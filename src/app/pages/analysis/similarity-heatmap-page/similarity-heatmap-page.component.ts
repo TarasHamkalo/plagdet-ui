@@ -76,16 +76,18 @@ export class SimilarityHeatmapPageComponent implements OnDestroy, AfterViewInit 
   ) {
   }
 
-  private loadPair(pairId: string | null) {
-    if (pairId == null) {
-      return;
-    }
+  private loadDiff(pId: string) {
+    const splits = pId.split("_");
+    this.router.navigate([PageRoutes.DIFF, splits[0], splits[1]]);
+  }
 
+  private loadPair(pairId: string) {
     this.router.navigate([PageRoutes.PAIRS, pairId]);
   }
 
   public ngAfterViewInit() {
     this.heatMap.selectedPairIdEmitter.subscribe((pId) => this.loadPair(pId));
+    this.heatMap.unknownPairEmitter.subscribe((pId) => this.loadDiff(pId));
     setTimeout(() => this.applyContext());
   }
 
@@ -122,6 +124,8 @@ export class SimilarityHeatmapPageComponent implements OnDestroy, AfterViewInit 
       this.similarityHeatmapService.setDisplayScoreType(
         scoreType as "META" | "SEMANTIC" | "JACCARD"
       );
+
+      this.heatMap.updateSeries();
     }
   }
 

@@ -91,6 +91,7 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit() {
     this.heatMap.selectedPairIdEmitter.subscribe((pId) => this.loadPair(pId));
+    this.heatMap.unknownPairEmitter.subscribe((pId) => this.loadDiff(pId));
   }
 
   public ngOnInit() {
@@ -107,12 +108,12 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
     return new Set(this.clusterSubmissions.filter(s => s.indexed).map(s => s.id));
   }
 
-  private loadPair(pairId: string | null) {
-    if (pairId == null) {
-      return;
-    }
-
+  private loadPair(pairId: string) {
     this.router.navigate([PageRoutes.PAIRS, pairId]);
   }
 
+  private loadDiff(pId: string) {
+    const splits = pId.split("_");
+    this.router.navigate([PageRoutes.DIFF, splits[0], splits[1]]);
+  }
 }

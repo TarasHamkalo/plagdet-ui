@@ -7,6 +7,7 @@ import {DocumentSeriesPage} from "../types/document-series-page";
 import {PlagScore} from "../model/plag-score";
 import {ExportService} from "./export.service";
 import {SubmissionLabelingService} from "./submission-labeling.service";
+import {HeatmapPairPoint} from "../types/heatmap-pair-point";
 
 @Injectable({
   providedIn: "root"
@@ -90,24 +91,35 @@ export class SimilarityHeatmapService {
   public getSubmissionPairIdByDatapoint(
     seriesIndex: number,
     dataPointIndex: number
-  ): string | null {
+  ): HeatmapPairPoint | null {
     // const pairs = this.analysisContextService.getReport()()?.pairs;
     if (this.pairsMap.size == 0) {
       return null;
     }
     const dispLength = this.displayedSubmissions.length;
-    const firstIndex = dispLength - 1 - (seriesIndex + this.previousPage!.y);
-    const secondIndex = dataPointIndex + this.previousPage!.x;
+    const firstIndex = dispLength - 1 - (seriesIndex + (this.previousPage ? this.previousPage.y : 0));
+    const secondIndex = dataPointIndex + (this.previousPage ? this.previousPage.x : 0);
     if (firstIndex == secondIndex) {
       return null;
     }
 
     const first = this.displayedSubmissions.at(firstIndex)!;
     const second = this.displayedSubmissions.at(secondIndex)!;
-    const pair = this.pairsMap.get(`${first.id}_${second.id}`) ||
-      this.pairsMap.get(`${second.id}_${first.id}`);
+    const isFirstKnown = this.pairsMap.has(`${first.id}_${second.id}`);
+    const isSecondKnown = this.pairsMap.get(`${second.id}_${first.id}`);
+    if (isFirstKnown || isSecondKnown) {
+      return {
+        firstId: isFirstKnown ? first.id : second.id,
+        secondId: isFirstKnown ? second.id : first.id,
+        isKnownPair: true
+      };
+    }
 
-    return pair ? pair.id : null;
+    return {
+      firstId: first.id,
+      secondId: second.id,
+      isKnownPair: false
+    };
   }
 
   public getDocumentSeriesPage(x: number, y: number): DocumentSeriesPage {
