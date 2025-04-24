@@ -35,7 +35,7 @@ export class TextOverflowScrollDirective {
     this.isCopied = true;
     setTimeout(() => {
       this.isCopied = false;
-    }, 1500);
+    }, 500);
   }
 }
 
