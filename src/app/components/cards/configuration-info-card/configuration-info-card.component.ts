@@ -7,6 +7,8 @@ import {KeyValuePipe, NgIf} from "@angular/common";
 import {AssetsLoaderService} from "../../../services/assets-loader.service";
 import {ConfigurationDescription} from "../../../types/configuration-description";
 import {MatDivider} from "@angular/material/divider";
+import {TextOverflowScrollDirective} from "../../../directives/text-overflow-scroll.directive";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: "app-configuration-info-card",
@@ -20,7 +22,8 @@ import {MatDivider} from "@angular/material/divider";
     KeyValuePipe,
     NgIf,
     MatDivider,
-    MatListItemTitle
+    MatListItemTitle,
+    TextOverflowScrollDirective
   ],
   templateUrl: "./configuration-info-card.component.html",
   styleUrls: ["../shared/card-base.scss", "./configuration-info-card.component.css"],
@@ -34,7 +37,8 @@ export class ConfigurationInfoCardComponent implements OnInit {
 
   constructor(
     private analysisContext: AnalysisContextService,
-    private assetsLoaderService: AssetsLoaderService
+    private assetsLoaderService: AssetsLoaderService,
+    private sanitizer: DomSanitizer
   ) {
     effect(() => {
       const report = this.analysisContext.getReport()();

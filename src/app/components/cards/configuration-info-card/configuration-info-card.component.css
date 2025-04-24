@@ -17,3 +17,15 @@
   margin-bottom: auto;
   gap: 16px;
 }
+
+.large-text-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px !important;
+}
+
+.large-text-configuration-item > h3 {
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}

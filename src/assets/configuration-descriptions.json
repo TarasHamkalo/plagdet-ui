@@ -26,7 +26,7 @@
   },
   {
     "flag": "--bypass-template-removal",
-    "description": "Prepínač na vypnutie odstránenia zhôd s dokumentom šablóny",
+    "description": "Prepínač na vypnutVeľkosť shinglovie odstránenia zhôd s dokumentom šablóny",
     "name": "bypassTemplateRemoval"
   },
   {
@@ -36,12 +36,12 @@
   },
   {
     "flag": "--min-fragment-size <arg>",
-    "description": "Minimálny počet viet, ktoré sa môžu považovať za plagiát",
+    "description": "Minimálny počet viet na vytvorenie fragmentu",
     "name": "minClusterSize"
   },
   {
     "flag": "--min-fragment-sim <arg>",
-    "description": "Minimálna podobnosť skupiny viet, inak sa skupina rozdelí",
+    "description": "Minimálna podobnosť skupiny viet, v inom prípade skupina bude prerozdelená so snahou zachovať najväčšiu podobnosť",
     "name": "minFragmentSideSim"
   },
   {
@@ -56,32 +56,32 @@
   },
   {
     "flag": "--vector-sim-th <arg>",
-    "description": "Prahová hôdnota podobnosti na získanie vety z indexu viet",
+    "description": "Prahová hodnota podobnosti na získanie vety z indexu viet",
     "name": "vectorSimilarityThreshold"
   },
   {
     "flag": "--min-sentences-th <arg>",
-    "description": "Minimálny počet viet na zváženie pri dotazovaní indexu",
+    "description": "Hodnota, ktorá určuje minimálny počet viet, ktoré sa majú zvážiť pri hľadaní podobných v indexe viet jedného dokumentu",
     "name": "minSentencesToConsider"
   },
   {
     "flag": "--sentences-percentage-th <arg>",
-    "description": "Percento viet dokumentu na zváženie pri dotazovaní indexu",
+    "description": "Daná hôdnota určuje počet viet, ktoré budú získané z indexu viet vytvoreného na základe <strong>jedného dokumentu</strong>. Počet sa vypočíta podľa vzorca: <strong>(počet viet v indexe) * th</strong>",
     "name": "portionOfSentencesToConsider"
   },
   {
     "flag": "--sentences-percentage-multi-th <arg>",
-    "description": "Maximálne percento top viet na dotazovanie pri hľadaní zhôd voči viacerým dokumentom",
+    "description": "Daná hodnota určuje maximálny počet viet, ktoré budú získané z indexu viet, vytvoreného na základe viacerých dokumentov. Maximálny počet sa vypočíta podľa vzorca: <br><strong>(počet viet v indexe) * th</strong>",
     "name": "maxPortionOfSentencesToConsiderMultiSearch"
   },
   {
     "flag": "--sentences-per-document-th <arg>",
-    "description": "Počet top viet na indexovaný dokument, pri dotazovaní indexu",
+    "description": "Pri hľadaní podobných viet v indexe viet z viacerých dokumentov sa počet viet, ktoré budú zvážené pri jednom dopyte, určuje podľa vzorca: <br> <strong>(počet dokumentov v indexe) * mul</strong>",
     "name": "sentencesPerDocumentToConsiderMultiSearch"
   },
   {
     "flag": "--shingle-size <arg>",
-    "description": "Veľkosť shinglov.",
+    "description": "Veľkosť shinglov",
     "name": "size"
   },
   {
@@ -111,17 +111,17 @@
   },
   {
     "flag": "--max-meta-docs <arg>",
-    "description": "Limit počtu indexovaných dokumentov nájdených podľa metaúdajov pre každý odovzdaný dokument",
+    "description": "Limit počtu indexovaných dokumentov nájdených podľa metaúdajov, pre každý odovzdaný dokument",
     "name": "maxMetadataSimilarDoc"
   },
   {
     "flag": "--max-sim-docs <arg>",
-    "description": "Limit počtu indexovaných dokumentov nájdených podľa obsahu pre každý odovzdaný dokument",
+    "description": "Limit počtu indexovaných dokumentov nájdených podľa obsahu, pre každý odovzdaný dokument",
     "name": "similarDocumentsLimit"
   },
   {
     "flag": "--document-size-ratio-th",
-    "description": "Páry dokumentov pod týmto pomerom veľkosti sa neporovnávajú",
+    "description": "Páry dokumentov s pomerom veľkosti nižším za danú hodnôtu sa neporovnávajú",
     "name": "sentenceSizeRatioThreshold"
   }
 ]
