@@ -61,9 +61,8 @@ export class SimilarityHeatmapService {
     const submissions = this.submissionsMap.values();
     const pairs = this.pairsMap;
     this.displayedSubmissions = Array.from(submissions)
-      .filter(s => this.getTypedSimilarity(s, pairs))
+      .filter(s => this.getTypedSimilarity(s, pairs) != null)
       .sort((a, b) => a.fileData.submitter.localeCompare(b.fileData.submitter));
-
     const series = [];
     for (const submission of this.displayedSubmissions) {
       this.duplicateCategories = {};
