@@ -60,9 +60,9 @@ export class AnalysisService {
       const submissions = Array.from(report.submissions.values());
       const pairs = report.pairs;
       submissions
-        .filter(s => !s.indexed)
         .forEach(s => {
           s.maxSimilarity = Math.max(
+            0,
             ...s.pairIds
               .map((pId) => pairs.get(pId))
               .map(p => {
