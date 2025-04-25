@@ -129,7 +129,7 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
     this.router.navigate([PageRoutes.DIFF, splits[0], splits[1]]);
   }
 
-  protected changeScoreType(type: "META" | "JACCARD" | "SEMANTIC") {
+  protected changeScoreType(type: "META" | "JACCARD" | "SEMANTIC" | "SEM&JAC") {
     this.similarityHeatmapComponent.setDisplayScoreType(type);
     this.heatMap.setPageY(0);
     this.heatMap.setPageX(0);

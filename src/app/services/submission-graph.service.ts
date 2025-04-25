@@ -6,13 +6,14 @@ import {SubmissionNode} from "../types/submission-node";
 import {Cluster} from "../types/cluster";
 import {SubmissionPairUtils} from "../utils/submission-pair-utils";
 import {SubmissionPair} from "../model/submission-pair";
+import {PlagScore} from "../model/plag-score";
 
 @Injectable({
   providedIn: "root"
 })
 export class SubmissionGraphService {
 
-  private displayScoreType = signal<"META" | "JACCARD" | "SEMANTIC">("SEMANTIC");
+  private displayScoreType = signal<"META" | "JACCARD" | "SEMANTIC" | "SEM&JAC">("SEMANTIC");
 
   private minSimilarityToInclude = signal<number>(0.6);
 
@@ -131,7 +132,15 @@ export class SubmissionGraphService {
   private applyPairsFiltering(pairs: Map<string, SubmissionPair>, minScoreToInclude: number) {
     return Array.from(pairs.values())
       .filter(pair => {
-        const score = SubmissionPairUtils.getScoreByType(pair, this.displayScoreType());
+        const displayScoreType = this.displayScoreType();
+        let score: PlagScore | null = null;
+        if (displayScoreType === "SEM&JAC") {
+          const semScore = SubmissionPairUtils.getScoreByType(pair, "SEMANTIC");
+          const jaccardScore = SubmissionPairUtils.getScoreByType(pair, "JACCARD");
+          score = semScore != null  ? semScore : jaccardScore;
+        } else {
+          score = SubmissionPairUtils.getScoreByType(pair, displayScoreType);
+        }
         return score && score.score >= minScoreToInclude;
       });
   }
@@ -185,7 +194,7 @@ export class SubmissionGraphService {
     return this.displayScoreType();
   }
 
-  public setDisplayScoreType(value: "META" | "JACCARD" | "SEMANTIC") {
+  public setDisplayScoreType(value: "META" | "JACCARD" | "SEMANTIC" | "SEM&JAC") {
     this.displayScoreType.set(value);
   }
 

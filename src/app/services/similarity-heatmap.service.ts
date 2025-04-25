@@ -14,7 +14,7 @@ import {HeatmapPairPoint} from "../types/heatmap-pair-point";
 })
 export class SimilarityHeatmapService {
 
-  private displayScoreType: "META" | "JACCARD" | "SEMANTIC" = "SEMANTIC";
+  private displayScoreType: "META" | "JACCARD" | "SEMANTIC" | "SEM&JAC" = "SEMANTIC";
 
   private documentsLimit = 25;
 
@@ -84,7 +84,13 @@ export class SimilarityHeatmapService {
     return s.pairIds
       .map(pId => pairs.get(pId))
       .filter(p => p !== undefined)// was  && !SubmissionPairUtils.hasIndexedSubmission(p!, submissionsMap)
-      .map(p => SubmissionPairUtils.getScoreByType(p!, this.displayScoreType))
+      .map(p => {
+        if (this.displayScoreType === "SEM&JAC") {
+          return SubmissionPairUtils.getScoreByType(p!, "SEMANTIC") ||
+            SubmissionPairUtils.getScoreByType(p!, "JACCARD");
+        }
+        return SubmissionPairUtils.getScoreByType(p!, this.displayScoreType);
+      })
       .find(p => p !== null);
   }
 
@@ -166,9 +172,24 @@ export class SimilarityHeatmapService {
     const key1 = `${target.id}_${other.id}`;
     const key2 = `${other.id}_${target.id}`;
     const pair = pairs.get(key1) || pairs.get(key2);
-    const score = pair ?
-      SubmissionPairUtils.getFormattedScore(pair, this.displayScoreType, 1) :
-      SubmissionPairUtils.formatScore(0, 1);
+    let score = SubmissionPairUtils.formatScore(0, 1);
+    if (pair) {
+      if (this.displayScoreType === "SEM&JAC") {
+        const semanticScore = SubmissionPairUtils.getScoreByType(pair, "SEMANTIC");
+        const jaccardScore = SubmissionPairUtils.getScoreByType(pair, "JACCARD");
+        if (semanticScore) {
+          score = SubmissionPairUtils.formatScore(semanticScore.score, 1);
+        } else if (jaccardScore) {
+          score = SubmissionPairUtils.formatScore(jaccardScore.score, 1);
+        }
+
+      } else {
+        const targetScore = SubmissionPairUtils.getScoreByType(pair, this.displayScoreType);
+        if (targetScore) {
+          score = SubmissionPairUtils.formatScore(targetScore!.score, 1);
+        }
+      }
+    }
 
     return {x: this.getDataPointCategory(other, this.duplicateCategories), y: score};
   }
@@ -184,7 +205,7 @@ export class SimilarityHeatmapService {
     return this.displayScoreType;
   }
 
-  public setDisplayScoreType(type: "META" | "JACCARD" | "SEMANTIC") {
+  public setDisplayScoreType(type: "META" | "JACCARD" | "SEMANTIC" | "SEM&JAC") {
     this.displayScoreType = type;
     this.reset();
   }

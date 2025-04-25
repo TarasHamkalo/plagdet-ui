@@ -91,7 +91,7 @@ export class SimilarityHeatmapPageComponent implements OnDestroy, AfterViewInit 
     setTimeout(() => this.applyContext());
   }
 
-  public changeScoreType(type: "META" | "SEMANTIC" | "JACCARD") {
+  public changeScoreType(type: "META" | "SEMANTIC" | "JACCARD" | "SEM&JAC") {
     this.similarityHeatmapService.setDisplayScoreType(type);
     this.heatMap.setPageY(0);
     this.heatMap.setPageX(0);
