@@ -40,8 +40,6 @@ export class PlagiarismScoreDistributionComponent implements AfterViewInit {
 
   protected categorizedSubmissions: Record<number, number[]> = {};
 
-  protected displayedSimilarityType: "JACCARD" | "SEMANTIC" | "META" = "SEMANTIC";
-
   constructor(
     private analysisContextService: AnalysisContextService,
     private router: Router
@@ -52,7 +50,7 @@ export class PlagiarismScoreDistributionComponent implements AfterViewInit {
 
         events: {
           dataPointSelection: (event, chartContext, opts) => {
-            
+
             const category = this.categories[opts.dataPointIndex];
             if (category != undefined) {
               const submissions = this.categorizedSubmissions[category];
@@ -151,9 +149,14 @@ export class PlagiarismScoreDistributionComponent implements AfterViewInit {
           return {
             id: s.id,
             maxScore: Math.max(
+              0,
               ...s.pairIds
                 .map(id => pairs.get(id))
-                .map(p => SubmissionPairUtils.getScoreByType(p!, this.displayedSimilarityType))
+                .map(p => {
+                  const semScore = SubmissionPairUtils.getScoreByType(p!, "SEMANTIC");
+                  const jaccardScore = SubmissionPairUtils.getScoreByType(p!, "JACCARD");
+                  return semScore ? semScore : jaccardScore;
+                })
                 .map(s => s ? s.score : 0)
             )
           };
