@@ -12,7 +12,6 @@ import {
   MetadataEqualityHighlightDirective
 } from "../../../directives/metadata-equality-highlight.directive";
 import {MatDivider} from "@angular/material/divider";
-import {NgIf} from "@angular/common";
 import {TextOverflowScrollDirective} from "../../../directives/text-overflow-scroll.directive";
 
 @Component({
@@ -25,7 +24,6 @@ import {TextOverflowScrollDirective} from "../../../directives/text-overflow-scr
     MetadataDeviationHighlightDirective,
     MetadataEqualityHighlightDirective,
     MatDivider,
-    NgIf,
     TextOverflowScrollDirective
   ],
   templateUrl: "./metadata-diff-card.component.html",
