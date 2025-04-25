@@ -40,4 +40,22 @@
       [enablePagination]="true"
     />
   </app-surface>
+
+  <app-floating-toolbar>
+    <mat-form-field style="width: 320px" appearance="outline">
+      <mat-label>Mieru podobnosti na zobrazenie v HeatMap</mat-label>
+      <mat-select #select [value]="this.similarityHeatmapComponent.getDisplayScoreType()"
+                  (selectionChange)="this.changeScoreType(select.value)">
+        <mat-option value="META">
+          Podobnosť autorov (metaúdaje)
+        </mat-option>
+        <mat-option value="JACCARD">
+          Jaccardov koeficient (slovné n-gramy)
+        </mat-option>
+        <mat-option value="SEMANTIC">
+          Semantická podobnosť
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </app-floating-toolbar>
 </app-content-container>

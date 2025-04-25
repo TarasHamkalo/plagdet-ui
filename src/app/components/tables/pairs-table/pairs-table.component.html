@@ -55,7 +55,7 @@
 
         <th mat-header-cell *matHeaderCellDef
             mat-sort-header="jaccard-sim">
-          Jaccardov koeficient (bi-gramy)
+          Jaccardov koeficient (slovné n-gramy)
         </th>
         <td mat-cell *matCellDef="let element">
           {{ getScoreByType(element, 'JACCARD') }}

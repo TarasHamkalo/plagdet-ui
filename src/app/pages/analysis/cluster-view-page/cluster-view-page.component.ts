@@ -16,6 +16,12 @@ import {
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {PairsTableComponent} from "../../../components/tables/pairs-table/pairs-table.component";
+import {MatOption} from "@angular/material/core";
+import {MatFormField, MatLabel, MatSelect} from "@angular/material/select";
+import {
+  FloatingToolbarComponent
+} from "../../../components/floating-toolbar/floating-toolbar.component";
+import {SimilarityHeatmapService} from "../../../services/similarity-heatmap.service";
 
 @Component({
   selector: "app-cluster-view-page",
@@ -25,6 +31,11 @@ import {PairsTableComponent} from "../../../components/tables/pairs-table/pairs-
     SubmissionsTableComponent,
     SimilarityHeatmapComponent,
     PairsTableComponent,
+    MatOption,
+    MatSelect,
+    MatLabel,
+    MatFormField,
+    FloatingToolbarComponent,
   ],
   templateUrl: "./cluster-view-page.component.html",
   styleUrl: "./cluster-view-page.component.css"
@@ -73,6 +84,7 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
   });
 
   constructor(
+    protected similarityHeatmapComponent: SimilarityHeatmapService,
     private analysisContextService: AnalysisContextService,
     private submissionsGraphService: SubmissionGraphService,
     private router: Router,
@@ -115,5 +127,12 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
   private loadDiff(pId: string) {
     const splits = pId.split("_");
     this.router.navigate([PageRoutes.DIFF, splits[0], splits[1]]);
+  }
+
+  protected changeScoreType(type: "META" | "JACCARD" | "SEMANTIC") {
+    this.similarityHeatmapComponent.setDisplayScoreType(type);
+    this.heatMap.setPageY(0);
+    this.heatMap.setPageX(0);
+    this.heatMap.updateSeries();
   }
 }
