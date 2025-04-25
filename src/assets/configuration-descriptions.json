@@ -123,5 +123,10 @@
     "flag": "--document-size-ratio-th",
     "description": "Páry dokumentov s pomerom veľkosti nižším za danú hodnôtu sa neporovnávajú",
     "name": "sentenceSizeRatioThreshold"
+  },
+  {
+    "flag": "--min-char-len",
+    "description": "Minimálny počet znakov pre fragment, aby ho uložiť ako prípad plagiátorstva. Dĺžka by mala byť dodržaná v oboch dokumentoch",
+    "name": "minCharacterLength"
   }
 ]

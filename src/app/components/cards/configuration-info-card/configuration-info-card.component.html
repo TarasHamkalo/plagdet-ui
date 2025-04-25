@@ -229,7 +229,7 @@
       <mat-card-content>
         <mat-list class="info-list"
                   *ngIf="!overview()?.configuration!.pipelineParameters.canBypassTemplateRemoval">
-          <mat-list-item [lines]="4"
+          <mat-list-item [lines]="3"
           >
             <h3 appTextOverflowScroll class="scrollable-text"
                 matListItemTitle>{{ overview()?.configuration!.templateDocumentPath ?? 'IPC.pdf' }}</h3>
@@ -250,25 +250,50 @@
       <mat-card-content>
         <mat-list class="large-text-list info-list">
           <div class="large-text-configuration-item">
-            <h3  appTextOverflowScroll
+            <h3 appTextOverflowScroll
                 class="scrollable-text">{{ overview()?.configuration!.luceneIndexDirectoryPath || 'Prázdná' }}</h3>
             <p>{{ getDescription('luceneIndexDirectoryPath') }}</p>
           </div>
 
           <div class="large-text-configuration-item">
             <h3
-              >{{ overview()?.configuration!.luceneFileDataSourceParameters.similarDocumentsLimit }}</h3>
+            >{{ overview()?.configuration!.luceneFileDataSourceParameters.similarDocumentsLimit }}</h3>
             <p>{{ getDescription('similarDocumentsLimit') }}</p>
           </div>
           <div class="large-text-configuration-item">
             <h3
-              >{{ overview()?.configuration!.luceneFileDataSourceParameters.maxMetadataSimilarDoc }}</h3>
+            >{{ overview()?.configuration!.luceneFileDataSourceParameters.maxMetadataSimilarDoc }}</h3>
             <p>{{ getDescription('maxMetadataSimilarDoc') }}</p>
           </div>
         </mat-list>
       </mat-card-content>
     </mat-card>
 
+    <mat-card class="medium-card">
+      <mat-card-header>
+        <mat-card-title>
+          Filtrovanie zhodných fragmentov
+        </mat-card-title>
+        <mat-card-subtitle>
+          <p>
+            Po rozšírení zhody na dlhšie fragmenty, sa výkona ich filtrovanie podľa dĺžky
+          </p>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+          <mat-list class="large-text-list info-list" style="gap: 0">
+            @for (param of getFilteringStrategyParams() | keyvalue; track param) {
+              <div class="large-text-configuration-item">
+                <h3>{{ param.value }}</h3>
+                <p [innerHTML]="getDescription(param.key)"></p>
+              </div>
+            }
+          </mat-list>
+      </mat-card-content>
+    </mat-card>
 
   </div>
 

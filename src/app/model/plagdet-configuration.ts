@@ -41,4 +41,7 @@ export interface PlagdetConfiguration {
     minClusterSize: number;
     sentMaxGap: number;
   };
+  filteringStrategyParameters: {
+    minCharacterLength: number;
+  }
 }

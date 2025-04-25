@@ -69,4 +69,7 @@ export class ConfigurationInfoCardComponent implements OnInit {
   protected getSeedingStrategyParams() {
     return this.overview()?.configuration.seedingStrategyParameters as Record<string, any>;
   }
+  protected getFilteringStrategyParams() {
+    return this.overview()?.configuration.filteringStrategyParameters as Record<string, any>;
+  }
 }
