@@ -46,8 +46,8 @@ body {
 }
 
 .text-copy {
-  background-color: rgba(73, 181, 104, 0.2);
-  border-bottom: 2px solid rgba(4, 249, 69, 0.31);
+  background-color: rgba(121, 125, 132, 0.3);
+  border-bottom: 2px solid rgba(121, 125, 132, 0.4);
   transition: background-color 0.1s ease, border-color 0.2s ease;
 }
 
