@@ -22,15 +22,19 @@
   <div class="case-editor">
     @if (this.selectedPlagCase()) {
       <div class="input-row">
-        <mat-form-field appearance="outline" floatLabel="always">
+        <mat-form-field appearance="outline" #form floatLabel="always">
           <mat-label>First Start</mat-label>
-          <input matInput type="number" [(ngModel)]="selectedPlagCase()!.first.start"
+          <input matInput type="number"
+                 [(ngModel)]="selectedPlagCase()!.first.start"
+                 (focus)="onFocusFirstStartField()"
                  placeholder="0"/>
         </mat-form-field>
         <div><h3>Starts</h3></div>
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>Second Start</mat-label>
-          <input matInput type="number" [(ngModel)]="selectedPlagCase()!.second!.start"
+          <input matInput type="number"
+                 [(ngModel)]="selectedPlagCase()!.second!.start"
+                 (focus)="onFocusSecondStartField()"
                  placeholder="0"/>
         </mat-form-field>
       </div>
@@ -38,12 +42,16 @@
       <div class="input-row">
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>First End</mat-label>
-          <input matInput type="number" [(ngModel)]="selectedPlagCase()!.first.end" placeholder="0"/>
+          <input matInput type="number"
+                 [(ngModel)]="selectedPlagCase()!.first.end"
+                 (focus)="onFocusFirstEndField()"
+                 placeholder="0"/>
         </mat-form-field>
         <div><h3>Ends</h3></div>
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>Second End</mat-label>
           <input matInput type="number" [(ngModel)]="selectedPlagCase()!.second!.end"
+                 (focus)="onFocusSecondEndField()"
                  placeholder="0"/>
         </mat-form-field>
       </div>

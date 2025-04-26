@@ -27,7 +27,9 @@ export class PlagCaseEditorCardComponent {
 
   public selectedPlagCase = signal<SpecialMarking | null>(null);
 
-  private plagCaseCounter = 0;
+  public focusedFieldUpdater = signal<((value: number) => void) | null>(null);
+
+  public plagCaseCounter = 0;
 
   public onPlagCaseDelete(plagCase: SpecialMarking) {
     console.log("Deleting Plag Case ", plagCase);
@@ -78,5 +80,30 @@ export class PlagCaseEditorCardComponent {
 
   public onExport() {
     console.log(this.plagCases());
+    this.updateFocusedField(this.plagCaseCounter * 5);
+  }
+
+  public updateFocusedField(value: number) {
+    const updater = this.focusedFieldUpdater();
+    if (updater) {
+      updater(value);
+      this.focusedFieldUpdater.set(null);
+    }
+  }
+
+  public onFocusFirstStartField() {
+    this.focusedFieldUpdater.set(val => this.selectedPlagCase()!.first.start = val);
+  }
+
+  public onFocusSecondStartField() {
+    this.focusedFieldUpdater.set(val => this.selectedPlagCase()!.second!.start = val);
+  }
+
+  public onFocusFirstEndField() {
+    this.focusedFieldUpdater.set(val => this.selectedPlagCase()!.first.end = val);
+  }
+
+  public onFocusSecondEndField() {
+    this.focusedFieldUpdater.set(val => this.selectedPlagCase()!.second!.end = val);
   }
 }
