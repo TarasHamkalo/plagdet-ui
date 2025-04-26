@@ -140,10 +140,14 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
   }
 
   protected onSorting(sort: Sort) {
+    const mul = (sort.direction === "asc") ? 1 : -1;
     if (sort.active === "totalEditTime") {
-      const mul = (sort.direction === "asc") ? 1 : -1;
       this.submissionsDataSource.filteredData.sort(
         (a, b) => mul * (a.fileData.metadata.totalEditTime - b.fileData.metadata.totalEditTime)
+      );
+    } else if (sort.active === "meta-match") {
+      this.submissionsDataSource.filteredData.sort(
+        (a, b) => this.isMetadataMatched(a) ? 1 * mul : -1 * mul
       );
     }
 
