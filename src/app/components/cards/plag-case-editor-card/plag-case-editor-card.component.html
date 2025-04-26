@@ -22,7 +22,7 @@
   </div>
   <div class="case-editor">
     @if (this.selectedPlagCase()) {
-      <div class="input-row">
+      <mat-card class="input-row">
         <mat-form-field appearance="outline" #form floatLabel="always">
           <mat-label>First Start</mat-label>
           <input matInput type="number"
@@ -40,9 +40,9 @@
                  (focus)="onFocusSecondStartField()"
                  placeholder="0"/>
         </mat-form-field>
-      </div>
+      </mat-card>
 
-      <div class="input-row">
+      <mat-card class="input-row">
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>First End</mat-label>
           <input matInput type="number"
@@ -59,7 +59,7 @@
                  (focus)="onFocusSecondEndField()"
                  placeholder="0"/>
         </mat-form-field>
-      </div>
+      </mat-card>
 
     } @else {
       <p>Selected plagiarism case will be displayed here</p>

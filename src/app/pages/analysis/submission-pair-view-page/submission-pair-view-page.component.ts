@@ -32,6 +32,7 @@ import {PageRoutes} from "../../../app.routes";
 import {
   PlagCaseEditorCardComponent
 } from "../../../components/cards/plag-case-editor-card/plag-case-editor-card.component";
+import {SpecialMarking} from "../../../model/positioning/special-marking";
 
 
 @Component({
@@ -97,8 +98,8 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
     if (this.firstEditor && this.secondEditor) {
       this.firstEditor.subscribeOnScrolling(this.secondEditor.scrollEventEmitter);
       this.secondEditor.subscribeOnScrolling(this.firstEditor.scrollEventEmitter);
-      this.firstEditor.subscribeOnNavigationEvent(this.secondEditor.navigatePlagCaseEventEmitter);
-      this.secondEditor.subscribeOnNavigationEvent(this.firstEditor.navigatePlagCaseEventEmitter);
+      // this.firstEditor.subscribeOnNavigationEvent(this.secondEditor.navigatePlagCaseEventEmitter);
+      // this.secondEditor.subscribeOnNavigationEvent(this.firstEditor.navigatePlagCaseEventEmitter);
     }
   }
 
@@ -114,9 +115,7 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
   }
 
   public toggleScrollSync(): void {
-    
     this.isScrollSyncEnabled.update(v => !v);
-
     if (this.isScrollSyncEnabled()) {
       this.firstEditor.subscribeOnScrolling(this.secondEditor.scrollEventEmitter);
       this.secondEditor.subscribeOnScrolling(this.firstEditor.scrollEventEmitter);
@@ -147,5 +146,30 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
 
   public loadDiffPage() {
     this.router.navigate([PageRoutes.DIFF, this.first()!.id, this.second()!.id]);
+  }
+
+  public onExport(event: SpecialMarking[]) {
+    const submissionPair = this.submissionPair();
+    if (submissionPair) {
+      const json = JSON.stringify({
+          id: submissionPair.id,
+          firstId: submissionPair.firstId,
+          secondId: submissionPair.secondId,
+          plagSource: submissionPair.plagSource,
+          plagScores: submissionPair.plagScores,
+          plagCases: event
+        } as SubmissionPair
+      );
+
+      this.createFile(json, `${submissionPair.id}.json`);
+    }
+  }
+
+  private createFile(comparisonContent: string, filename: string): void {
+    const blob = new Blob([comparisonContent], {type: "text/json"});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
   }
 }

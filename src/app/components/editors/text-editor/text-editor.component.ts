@@ -90,9 +90,9 @@ export class TextEditorComponent implements OnDestroy {
       return;
     }
 
-    // const ids = model.deltaDecorations([], decorations);
-    // const mergedMarkings = (this.plagCases || []).concat(this.submission.markings);
-    // mergedMarkings.forEach((m, i) => this.decorationIdToMarking.set(ids[i], m));
+    const ids = model.deltaDecorations([], decorations);
+    const mergedMarkings = (this.plagCases || []).concat(this.submission.markings);
+    mergedMarkings.forEach((m, i) => this.decorationIdToMarking.set(ids[i], m));
   }
 
   public unsubscribeFromScrolling(): void {

@@ -8,6 +8,7 @@ import {PlagCaseItemComponent} from "../../plag-case-item/plag-case-item.compone
 import {FormsModule} from "@angular/forms";
 import {MarkingOffsets} from "../../../model/positioning/marking-offsets";
 import {NgIf} from "@angular/common";
+import {MatCard} from "@angular/material/card";
 
 @Component({
   selector: "app-plag-case-editor-card",
@@ -18,11 +19,12 @@ import {NgIf} from "@angular/common";
     MatLabel,
     PlagCaseItemComponent,
     FormsModule,
-    NgIf
+    NgIf,
+    MatCard
 
   ],
   templateUrl: "./plag-case-editor-card.component.html",
-  styleUrl: "./plag-case-editor-card.component.css"
+  styleUrl: "./plag-case-editor-card.component.scss"
 })
 export class PlagCaseEditorCardComponent {
 
