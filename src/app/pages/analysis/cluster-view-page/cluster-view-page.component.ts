@@ -22,6 +22,8 @@ import {
   FloatingToolbarComponent
 } from "../../../components/floating-toolbar/floating-toolbar.component";
 import {SimilarityHeatmapService} from "../../../services/similarity-heatmap.service";
+import {MatButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: "app-cluster-view-page",
@@ -36,6 +38,8 @@ import {SimilarityHeatmapService} from "../../../services/similarity-heatmap.ser
     MatLabel,
     MatFormField,
     FloatingToolbarComponent,
+    MatButton,
+    MatIcon
   ],
   templateUrl: "./cluster-view-page.component.html",
   styleUrl: "./cluster-view-page.component.css"
@@ -84,7 +88,7 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
   });
 
   constructor(
-    protected similarityHeatmapComponent: SimilarityHeatmapService,
+    protected similarityHeatmapService: SimilarityHeatmapService,
     private analysisContextService: AnalysisContextService,
     private submissionsGraphService: SubmissionGraphService,
     private router: Router,
@@ -130,9 +134,13 @@ export class ClusterViewPageComponent implements OnInit, AfterViewInit {
   }
 
   protected changeScoreType(type: "META" | "JACCARD" | "SEMANTIC" | "SEM&JAC") {
-    this.similarityHeatmapComponent.setDisplayScoreType(type);
+    this.similarityHeatmapService.setDisplayScoreType(type);
     this.heatMap.setPageY(0);
     this.heatMap.setPageX(0);
     this.heatMap.updateSeries();
+  }
+
+  protected export() {
+    this.similarityHeatmapService.export();
   }
 }

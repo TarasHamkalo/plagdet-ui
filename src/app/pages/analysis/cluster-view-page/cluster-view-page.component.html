@@ -43,8 +43,8 @@
 
   <app-floating-toolbar>
     <mat-form-field style="width: 320px" appearance="outline">
-      <mat-label>Mieru podobnosti na zobrazenie v HeatMap</mat-label>
-      <mat-select #select [value]="this.similarityHeatmapComponent.getDisplayScoreType()"
+      <mat-label>Miera podobnosti pre zobrazenie na teplotnej mape</mat-label>
+      <mat-select #select [value]="this.similarityHeatmapService.getDisplayScoreType()"
                   (selectionChange)="this.changeScoreType(select.value)">
         <mat-option value="META">
           Podobnosť autorov (metaúdaje)
@@ -60,5 +60,14 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+    <button mat-raised-button
+            (click)="this.export()"
+            style="max-width: 250px;">
+      <mat-icon>download</mat-icon>
+      <p>
+        Stiahnuť ako csv
+      </p>
+    </button>
   </app-floating-toolbar>
 </app-content-container>

@@ -222,7 +222,7 @@ export class SimilarityHeatmapService {
 
   public export() {
     if (this.documentSeries != null) {
-      this.exportService.exportHeatmapToCsv(this.documentSeries, Date.now().toFixed(0));
+      this.exportService.exportHeatmapToCsv(this.documentSeries.reverse(), Date.now().toFixed(0));
     }
   }
 

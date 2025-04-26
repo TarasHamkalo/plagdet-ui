@@ -4,11 +4,16 @@ import {Submission} from "../../../model/submission";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {AnalysisContextService} from "../../../context/analysis-context.service";
 import {SubmissionPairUtils} from "../../../utils/submission-pair-utils";
+import {ExportService} from "../../../services/export.service";
+import {MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: "app-plagiarism-sources",
   imports: [
-    ComparisonFastNavComponent
+    ComparisonFastNavComponent,
+    MatIconButton,
+    MatIcon
   ],
   templateUrl: "./plagiarism-sources.component.html",
   styleUrls: [
@@ -26,10 +31,12 @@ export class PlagiarismSourcesComponent implements OnInit {
 
   public jaccardSubmissionPairSignal = signal<SubmissionPair | null>(null);
 
-  constructor(private analysisContextService: AnalysisContextService) {
+  constructor(
+    private exportService: ExportService,
+    private analysisContextService: AnalysisContextService
+  ) {
   }
 
-  // find comparison with max score by type
   public ngOnInit() {
     const report = this.analysisContextService.getReport()();
     if (report) {
@@ -60,5 +67,9 @@ export class PlagiarismSourcesComponent implements OnInit {
         SubmissionPairUtils.findByPairWithMaxScore(typedPairsMap["META"], "META")
       );
     }
+  }
+
+  public onExport() {
+    this.exportService.exportPlagSources(this.submission, this.semanticSubmissionPairSignal(), this.jaccardSubmissionPairSignal(),  this.metaSubmissionPairSignal(), Date.now().toFixed(0));
   }
 }
