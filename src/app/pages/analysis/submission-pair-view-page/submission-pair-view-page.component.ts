@@ -25,11 +25,9 @@ import {
 } from "../../../components/cards/metadata-diff-card/metadata-diff-card.component";
 import {StatCardComponent} from "../../../components/cards/stat-card/stat-card.component";
 import {PlagScore} from "../../../model/plag-score";
-import {MatChipListbox, MatChipOption} from "@angular/material/chips";
 import {
   FloatingToolbarComponent
 } from "../../../components/floating-toolbar/floating-toolbar.component";
-import {MatButton} from "@angular/material/button";
 import {PageRoutes} from "../../../app.routes";
 import {
   PlagCaseEditorCardComponent
@@ -47,10 +45,7 @@ import {
     MatProgressBar,
     MetadataDiffCardComponent,
     StatCardComponent,
-    MatChipOption,
-    MatChipListbox,
     FloatingToolbarComponent,
-    MatButton,
     PlagCaseEditorCardComponent
   ],
   templateUrl: "./submission-pair-view-page.component.html",

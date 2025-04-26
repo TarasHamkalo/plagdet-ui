@@ -10,6 +10,7 @@ import {MatIcon} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
 import {MatTooltip} from "@angular/material/tooltip";
 import {SpecialMarkingType} from "../../../model/positioning/special-marking-type";
+import {MarkingOffsets} from "../../../model/positioning/marking-offsets";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 import IModelDeltaDecoration = editor.IModelDeltaDecoration;
 
@@ -56,6 +57,10 @@ export class TextEditorComponent implements OnDestroy {
 
   protected isScrollSyncEnabled = signal<boolean>(true);
 
+  private previousMarkingOffsets: string[] = [];
+
+  private plagCaseOffsets: MarkingOffsets[] = [];
+
   constructor(private monacoDecorationService: MonacoDecorationService) {
     effect(() => {
       if (!this.editor() || !this.submission) {
@@ -69,21 +74,25 @@ export class TextEditorComponent implements OnDestroy {
           switchMap(() => of(decorations))
         )
         .subscribe((decorations) => {
-          const editor = this.editor();
-          if (!editor) {
-            return;
-          }
-
-          const model = editor.getModel();
-          if (!model) {
-            return;
-          }
-
-          const ids = model.deltaDecorations([], decorations);
-          const mergedMarkings = (this.plagCases || []).concat(this.submission.markings);
-          mergedMarkings.forEach((m, i) => this.decorationIdToMarking.set(ids[i], m));
+          this.addDecorations(decorations);
         });
     });
+  }
+
+  private addDecorations(decorations: editor.IModelDeltaDecoration[]) {
+    const editor = this.editor();
+    if (!editor) {
+      return;
+    }
+
+    const model = editor.getModel();
+    if (!model) {
+      return;
+    }
+
+    // const ids = model.deltaDecorations([], decorations);
+    // const mergedMarkings = (this.plagCases || []).concat(this.submission.markings);
+    // mergedMarkings.forEach((m, i) => this.decorationIdToMarking.set(ids[i], m));
   }
 
   public unsubscribeFromScrolling(): void {
@@ -104,6 +113,60 @@ export class TextEditorComponent implements OnDestroy {
         this.monacoDecorationService.navigateToOffset(this.editor(), e, this.markingSide);
       }
     });
+  }
+
+  public addPlagCaseDecoration(target: MarkingOffsets) {
+    console.log("addPlagCaseDecoration", target);
+    const editor = this.editor();
+    if (editor) {
+      const source = this.plagCaseOffsets
+        .find(m => m.start == target.start && m.end == target.end);
+      if (source) {
+        console.log("Source has been found ");
+        return;
+      }
+
+      this.plagCaseOffsets.push({
+        start: target.start,
+        end: target.end,
+        length: target.length
+      });
+      // this.plagCaseOffsets.push();
+      console.log("Pushed new offset ", this.plagCaseOffsets);
+      this.setDecorationsFromMarkings(this.plagCaseOffsets);
+    }
+  }
+
+  public removePlagCaseDecoration(target: MarkingOffsets) {
+    this.plagCaseOffsets = this.plagCaseOffsets
+      .filter(m => m.start != target.start && m.end != target.end);
+    this.setDecorationsFromMarkings(this.plagCaseOffsets);
+  }
+
+  private setDecorationsFromMarkings(markingOffsets: MarkingOffsets[]) {
+    const editor = this.editor();
+    if (!editor) {
+      return;
+    }
+
+    const model = editor.getModel();
+    if (!model) {
+      return;
+    }
+    const specialMarkings = markingOffsets.map(m => {
+      return {
+        type: SpecialMarkingType.CODE,
+        first: m,
+        comments: []
+      };
+    });
+
+    const decorations = this.monacoDecorationService.createDecorationsFromMarking(
+      editor, specialMarkings, 0
+    );
+
+    const ids = model.deltaDecorations(this.previousMarkingOffsets, decorations);
+    this.previousMarkingOffsets = ids;
   }
 
   private createDecorations(): IModelDeltaDecoration[] {
@@ -149,7 +212,7 @@ export class TextEditorComponent implements OnDestroy {
           const plagDecoration = decorations.find(
             d => d.options.inlineClassName === "highlight-plag"
           );
-          
+
           if (plagDecoration) {
             this.navigatePlagCaseEventEmitter.emit(
               this.decorationIdToMarking.get(plagDecoration.id)

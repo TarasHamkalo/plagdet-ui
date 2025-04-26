@@ -57,7 +57,13 @@
   </app-surface>
 
   <app-floating-toolbar>
-    <app-plag-case-editor-card #plagCaseEditorCardComponent></app-plag-case-editor-card>
+    <app-plag-case-editor-card #plagCaseEditorCardComponent
+                               (firstEditorSelectionEventEmitter)="firstEditor.addPlagCaseDecoration($event)"
+                               (secondEditorSelectionEventEmitter)="secondEditor.addPlagCaseDecoration($event)"
+                               (firstEditorRemoveSelectionEvent)="firstEditor.removePlagCaseDecoration($event)"
+                               (secondEditorRemoveSelectionEvent)="secondEditor.removePlagCaseDecoration($event)"
+
+    ></app-plag-case-editor-card>
 <!--    <mat-chip-listbox>-->
 <!--      <mat-chip-option selected (click)="toggleScrollSync()">Posúvať súčasne</mat-chip-option>-->
 <!--    </mat-chip-listbox>-->

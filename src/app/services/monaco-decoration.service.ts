@@ -127,11 +127,18 @@ export class MonacoDecorationService {
   }
 
   public getOffsetFromPosition(model: editor.ITextModel, position: Position) {
+    console.log(position);
+    if (position.lineNumber <= 1) {
+      console.log(position.column - 1);
+      return position.column - 1;
+    }
     const lines = model.getLinesContent();
-    const targetLineOffset = lines.slice(0, position.lineNumber)
-      .map(l => l.length)
+    console.log(lines);
+    const targetLineOffset = lines.slice(0, position.lineNumber - 1)
+      .map(l => l.length + 1)
       .reduce((previousValue, currentValue) => previousValue + currentValue);
-
-    return targetLineOffset + position.column;
+    console.log("Line offset  ", targetLineOffset);
+    console.log("Full offset  ", targetLineOffset + position.column - 1);
+    return targetLineOffset + position.column - 1;
   }
 }
