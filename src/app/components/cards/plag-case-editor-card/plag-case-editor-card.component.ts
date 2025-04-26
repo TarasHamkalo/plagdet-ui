@@ -1,22 +1,21 @@
 import {Component, signal} from "@angular/core";
-import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatIcon} from "@angular/material/icon";
+import {MatButton} from "@angular/material/button";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {SpecialMarking} from "../../../model/positioning/special-marking";
 import {SpecialMarkingType} from "../../../model/positioning/special-marking-type";
 import {PlagCaseItemComponent} from "../../plag-case-item/plag-case-item.component";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: "app-plag-case-editor-card",
   imports: [
-    MatIconButton,
-    MatIcon,
     MatButton,
     MatFormField,
     MatInput,
     MatLabel,
-    PlagCaseItemComponent
+    PlagCaseItemComponent,
+    FormsModule
 
   ],
   templateUrl: "./plag-case-editor-card.component.html",
@@ -26,11 +25,15 @@ export class PlagCaseEditorCardComponent {
 
   public plagCases = signal<SpecialMarking[]>([]);
 
+  public selectedPlagCase = signal<SpecialMarking | null>(null);
+
   private plagCaseCounter = 0;
 
   public onPlagCaseDelete(plagCase: SpecialMarking) {
+    console.log("Deleting Plag Case ", plagCase);
     const targetId = this.plagCaseId(plagCase);
-    this.plagCases.update(p => p.filter(p => this.plagCaseId(p) !== targetId));
+    this.plagCases.update(a => a.filter(p => this.plagCaseId(p) !== targetId));
+    this.plagCases.update(a => a.sort((a, b) => this.plagCaseToString(a).localeCompare(this.plagCaseToString(b))));
   }
 
   public plagCaseId(plagCase: SpecialMarking) {
@@ -39,10 +42,13 @@ export class PlagCaseEditorCardComponent {
     // return `${plagCase.first.start}:${plagCase.first.end}-${plagCase.second!.start}:${plagCase.second!.end}`;
   }
 
+  public plagCaseToString(plagCase: SpecialMarking) {
+    return `${plagCase.first.start}:${plagCase.first.end}-${plagCase.second!.start}:${plagCase.second!.end}`;
+  }
 
   public addPlagCase() {
-    const plagCase: SpecialMarking & {_id: number} = {
-       _id: this.plagCaseCounter++,
+    const plagCase: SpecialMarking & { _id: number } = {
+      _id: this.plagCaseCounter++,
       type: SpecialMarkingType.PLAG,
       first: {
         start: 0,
@@ -59,12 +65,15 @@ export class PlagCaseEditorCardComponent {
 
     const newId = this.plagCaseId(plagCase);
     if (!this.plagCases().find(p => this.plagCaseId(p) == newId)) {
-      this.plagCases.update(a => [...a, plagCase]);
+      this.plagCases.update(a =>
+        ([...a, plagCase]).sort(
+          (a, b) => this.plagCaseToString(a).localeCompare(this.plagCaseToString(b)))
+      );
     }
   }
 
   public onPlagCaseEdit(plagCase: SpecialMarking) {
-    console.log(plagCase);
+    this.selectedPlagCase.set(plagCase);
   }
 
   public onExport() {

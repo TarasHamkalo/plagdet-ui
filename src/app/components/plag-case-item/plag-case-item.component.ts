@@ -21,6 +21,7 @@ export class PlagCaseItemComponent {
   @Output() public editEventEmitter = new EventEmitter<SpecialMarking>();
 
   public onDelete() {
+    console.log("clicking");
     this.deleteEventEmitter.emit(this.plagCaseMarking!);
   }
 

@@ -1,8 +1,8 @@
 <div class="plag-case">
-  <button mat-icon-button>
-    <mat-icon style="color: indianred" (click)="onDelete()">delete</mat-icon>
+  <button mat-icon-button (click)="onDelete()">
+    <mat-icon style="color: indianred">delete</mat-icon>
   </button>
-  <p>{{ plagCaseMarking.first.start + ':' + plagCaseMarking.first.end + '-' +  plagCaseMarking.second!.start + ':' + plagCaseMarking.second!.end }}</p>
+  <p>{{ plagCaseMarking.first.start + ':' + plagCaseMarking.first.end + '-' + plagCaseMarking.second!.start + ':' + plagCaseMarking.second!.end }}</p>
   <button mat-icon-button (click)="onEdit()">
     <mat-icon>edit</mat-icon>
   </button>
