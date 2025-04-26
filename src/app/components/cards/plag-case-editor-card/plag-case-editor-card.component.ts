@@ -111,7 +111,16 @@ export class PlagCaseEditorCardComponent {
 
   public onExport() {
     console.log(this.plagCases());
-    this.exportEventEmitter.emit(this.plagCases());
+    this.exportEventEmitter.emit(
+      this.plagCases().map(p => {
+        return {
+          type: "PLAG",
+          first: p.first,
+          second: p.second,
+          comments: p.comments
+        } as SpecialMarking;
+      })
+    );
     this.plagCases().sort(
       (a, b) => this.plagCaseToString(a).localeCompare(this.plagCaseToString(b))
     );
