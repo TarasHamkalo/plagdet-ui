@@ -1,9 +1,10 @@
 <div class="base">
   <div class="cases-control">
     <div class="header">
-      <button mat-button (click)="onExport()">
+      <button mat-button (click)="onExport()" [disabled]="!canExport()">
         Export
       </button>
+      <p *ngIf="!canExport()"><strong>Some offsets are invalid</strong></p>
     </div>
     <div class="cases-listing">
       @for (plagCase of plagCases(); track this.plagCaseId(plagCase)) {
@@ -26,6 +27,7 @@
           <mat-label>First Start</mat-label>
           <input matInput type="number"
                  [(ngModel)]="selectedPlagCase()!.first.start"
+                 (ngModelChange)="collectChanges()"
                  (focus)="onFocusFirstStartField()"
                  placeholder="0"/>
         </mat-form-field>
@@ -34,6 +36,7 @@
           <mat-label>Second Start</mat-label>
           <input matInput type="number"
                  [(ngModel)]="selectedPlagCase()!.second!.start"
+                 (ngModelChange)="collectChanges()"
                  (focus)="onFocusSecondStartField()"
                  placeholder="0"/>
         </mat-form-field>
@@ -44,6 +47,7 @@
           <mat-label>First End</mat-label>
           <input matInput type="number"
                  [(ngModel)]="selectedPlagCase()!.first.end"
+                 (ngModelChange)="collectChanges()"
                  (focus)="onFocusFirstEndField()"
                  placeholder="0"/>
         </mat-form-field>
@@ -51,6 +55,7 @@
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>Second End</mat-label>
           <input matInput type="number" [(ngModel)]="selectedPlagCase()!.second!.end"
+                 (ngModelChange)="collectChanges()"
                  (focus)="onFocusSecondEndField()"
                  placeholder="0"/>
         </mat-form-field>

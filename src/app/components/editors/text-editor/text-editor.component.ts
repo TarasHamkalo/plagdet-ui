@@ -50,6 +50,8 @@ export class TextEditorComponent implements OnDestroy {
 
   @Output() public navigatePlagCaseEventEmitter = new EventEmitter<SpecialMarking>();
 
+  @Output() public offsetClickEventEmitter = new EventEmitter<number>();
+
   protected decorationIdToMarking = new Map<string, SpecialMarking>();
 
   protected isScrollSyncEnabled = signal<boolean>(true);
@@ -131,6 +133,10 @@ export class TextEditorComponent implements OnDestroy {
         }
 
         const position = e.target.position;
+        this.offsetClickEventEmitter.emit(
+          this.monacoDecorationService.getOffsetFromPosition(model, position)
+        );
+
         const decorations = model.getDecorationsInRange({
           startLineNumber: position.lineNumber,
           startColumn: position.column,

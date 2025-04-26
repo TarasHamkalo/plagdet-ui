@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {SpecialMarking} from "../model/positioning/special-marking";
 import {MarkingOffsets} from "../model/positioning/marking-offsets";
 import {MonacoPosition} from "../types/monaco-position";
-import {editor, Range} from "monaco-editor";
+import {editor, Position, Range} from "monaco-editor";
 import {SpecialMarkingType} from "../model/positioning/special-marking-type";
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 import IModelDeltaDecoration = editor.IModelDeltaDecoration;
@@ -94,7 +94,7 @@ export class MonacoDecorationService {
       if (remainingOffset <= lines[i].length) {
         return {line: i + 1, column: remainingOffset + 1};
       }
-      remainingOffset -= lines[i].length + 1; // Account for the newline character
+      remainingOffset -= lines[i].length + 1;
     }
     return {line: lines.length, column: lines[lines.length - 1].length + 1};
   }
@@ -124,5 +124,14 @@ export class MonacoDecorationService {
     }
 
     return h % MOD;
+  }
+
+  public getOffsetFromPosition(model: editor.ITextModel, position: Position) {
+    const lines = model.getLinesContent();
+    const targetLineOffset = lines.slice(0, position.lineNumber)
+      .map(l => l.length)
+      .reduce((previousValue, currentValue) => previousValue + currentValue);
+
+    return targetLineOffset + position.column;
   }
 }

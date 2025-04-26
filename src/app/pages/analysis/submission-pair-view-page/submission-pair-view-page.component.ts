@@ -31,6 +31,9 @@ import {
 } from "../../../components/floating-toolbar/floating-toolbar.component";
 import {MatButton} from "@angular/material/button";
 import {PageRoutes} from "../../../app.routes";
+import {
+  PlagCaseEditorCardComponent
+} from "../../../components/cards/plag-case-editor-card/plag-case-editor-card.component";
 
 
 @Component({
@@ -47,7 +50,8 @@ import {PageRoutes} from "../../../app.routes";
     MatChipOption,
     MatChipListbox,
     FloatingToolbarComponent,
-    MatButton
+    MatButton,
+    PlagCaseEditorCardComponent
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.scss"

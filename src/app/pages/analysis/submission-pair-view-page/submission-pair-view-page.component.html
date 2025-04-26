@@ -45,23 +45,26 @@
                              [submission]="this.first()!"
                              [plagCases]="this.plagCases()!"
                              [markingSide]="0"
+                             (offsetClickEventEmitter)="plagCaseEditorCardComponent.updateFocusedField($event)"
             ></app-text-editor>
 
             <app-text-editor #secondEditor
                              [submission]="this.second()!"
                              [plagCases]="this.plagCases()!"
+                             (offsetClickEventEmitter)="plagCaseEditorCardComponent.updateFocusedField($event)"
                              [markingSide]="1"/>
     </div>
   </app-surface>
 
   <app-floating-toolbar>
-    <mat-chip-listbox>
-      <mat-chip-option selected (click)="toggleScrollSync()">Posúvať súčasne</mat-chip-option>
-    </mat-chip-listbox>
-    <button mat-raised-button
-            (click)="loadDiffPage()"
-    >
-      Zobraziť rozdiel
-    </button>
+    <app-plag-case-editor-card #plagCaseEditorCardComponent></app-plag-case-editor-card>
+<!--    <mat-chip-listbox>-->
+<!--      <mat-chip-option selected (click)="toggleScrollSync()">Posúvať súčasne</mat-chip-option>-->
+<!--    </mat-chip-listbox>-->
+<!--    <button mat-raised-button-->
+<!--            (click)="loadDiffPage()"-->
+<!--    >-->
+<!--      Zobraziť rozdiel-->
+<!--    </button>-->
   </app-floating-toolbar>
 </app-content-container>
