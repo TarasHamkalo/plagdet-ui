@@ -51,6 +51,12 @@ body {
   transition: background-color 0.1s ease, border-color 0.2s ease;
 }
 
+.highlight-export {
+  background-color: rgba(20, 241, 228, 0.3) !important;
+  border-bottom: 2px solid rgba(20, 241, 228, 0.8) !important;
+  z-index: 20;
+}
+
 .highlight-code {
   background-color: rgba(121, 125, 132, 0.3);
   border-bottom: 2px solid rgba(121, 125, 132, 0.4);
@@ -58,8 +64,8 @@ body {
 }
 
 .highlight-plag {
-  background-color: rgba(255, 200, 0, 0.5);
-  border-bottom: 2px solid rgba(255, 200, 0, 1);
+  background-color: rgba(255, 200, 0, 0.16);
+  border-bottom: 2px solid rgba(255, 200, 0, 0.3);
   z-index: 1;
 }
 

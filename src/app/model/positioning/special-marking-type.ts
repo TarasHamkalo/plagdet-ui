@@ -3,5 +3,6 @@ export enum SpecialMarkingType {
   CODE = "CODE",
   TEMPLATE = "TEMPLATE",
   MISSPELLED = "MISSPELLED",
-  SPOOF = "SPOOF"
+  SPOOF = "SPOOF",
+  EXPORT = "EXPORT"
 }

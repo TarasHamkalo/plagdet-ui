@@ -155,7 +155,7 @@ export class TextEditorComponent implements OnDestroy {
     }
     const specialMarkings = markingOffsets.map(m => {
       return {
-        type: SpecialMarkingType.CODE,
+        type: SpecialMarkingType.EXPORT,
         first: m,
         comments: []
       };

@@ -36,6 +36,11 @@ export class MonacoDecorationService {
       inlineClassName: "highlight-spoof",
       hoverMessage: {value: "Boli použité iné ako latinské znaky (Unicode Look-Alike)"},
       zIndex: 3
+    },
+    [SpecialMarkingType.EXPORT]: {
+      inlineClassName: "highlight-export",
+      hoverMessage: {value: ""},
+      zIndex: 100
     }
   };
 
@@ -71,6 +76,13 @@ export class MonacoDecorationService {
         ...this.markingTypeToDecorationOptions[specialMarking.type],
         hoverMessage: {
           value: `Spoločný fragment [${specialMarking.first.start}:${specialMarking.first.end}:${specialMarking.second!.start}:${specialMarking.second!.end}]`
+        }
+      };
+    } else if (specialMarking.type === SpecialMarkingType.EXPORT) {
+      return {
+        ...this.markingTypeToDecorationOptions[specialMarking.type],
+        hoverMessage: {
+          value: `EXPORT [${specialMarking.first.start}:${specialMarking.first.end}]`
         }
       };
     }
