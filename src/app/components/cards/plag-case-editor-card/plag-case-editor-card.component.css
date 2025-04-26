@@ -1,0 +1,77 @@
+.base {
+  display: flex;
+  width: 900px;
+  height: 400px;
+
+  gap: 32px;
+  padding: 16px;
+
+  flex-direction: row;
+}
+
+.cases-listing {
+  display: flex;
+
+  height: 100%;
+
+  gap: 16px;
+  padding: 16px;
+
+  flex-direction: column;
+
+  overflow-y: scroll;
+
+  box-sizing: border-box;
+}
+
+.case-editor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  background-color: aliceblue;
+}
+
+.cases-control {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  width: 70%;
+
+  gap: 16px;
+  padding: 8px;
+
+  overflow: hidden;
+  box-sizing: content-box;
+
+  background-color: grey;
+}
+
+.header {
+  padding: 8px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.input-row {
+  display: flex;
+
+  flex-direction: row;
+  justify-content: space-between;
+
+  align-content: center;
+  max-height: fit-content;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+mat-form-field {
+  max-height: 80px;
+  max-width: 120px;
+}

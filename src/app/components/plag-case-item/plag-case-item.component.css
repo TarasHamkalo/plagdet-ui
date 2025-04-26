@@ -1,0 +1,15 @@
+.plag-case {
+  display: flex;
+
+  height: 50px;
+  width: 100%;
+
+  gap: 16px;
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: white;
+}
+
