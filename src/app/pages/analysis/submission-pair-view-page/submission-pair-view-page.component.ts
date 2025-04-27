@@ -33,6 +33,7 @@ import {
   PlagCaseEditorCardComponent
 } from "../../../components/cards/plag-case-editor-card/plag-case-editor-card.component";
 import {SpecialMarking} from "../../../model/positioning/special-marking";
+import {MatChipListbox, MatChipOption} from "@angular/material/chips";
 
 
 @Component({
@@ -47,7 +48,9 @@ import {SpecialMarking} from "../../../model/positioning/special-marking";
     MetadataDiffCardComponent,
     StatCardComponent,
     FloatingToolbarComponent,
-    PlagCaseEditorCardComponent
+    PlagCaseEditorCardComponent,
+    MatChipListbox,
+    MatChipOption
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.scss"

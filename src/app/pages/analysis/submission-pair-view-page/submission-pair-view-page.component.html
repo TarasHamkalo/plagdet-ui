@@ -41,37 +41,42 @@
 
 
     <div class="editor-container">
-            <app-text-editor #firstEditor
-                             [submission]="this.first()!"
-                             [plagCases]="this.plagCases()!"
-                             [markingSide]="0"
-                             (offsetClickEventEmitter)="plagCaseEditorCardComponent.updateFocusedField($event)"
-            ></app-text-editor>
+      <app-text-editor #firstEditor
+                       [submission]="this.first()!"
+                       [plagCases]="this.plagCases()!"
+                       [markingSide]="0"
+                       (offsetClickEventEmitter)="plagCaseEditorCardComponent.updateFocusedField($event)"
+      ></app-text-editor>
 
-            <app-text-editor #secondEditor
-                             [submission]="this.second()!"
-                             [plagCases]="this.plagCases()!"
-                             (offsetClickEventEmitter)="plagCaseEditorCardComponent.updateFocusedField($event)"
-                             [markingSide]="1"/>
+      <app-text-editor #secondEditor
+                       [submission]="this.second()!"
+                       [plagCases]="this.plagCases()!"
+                       (offsetClickEventEmitter)="plagCaseEditorCardComponent.updateFocusedField($event)"
+                       [markingSide]="1"/>
     </div>
   </app-surface>
 
   <app-floating-toolbar>
-    <app-plag-case-editor-card #plagCaseEditorCardComponent
-                               (firstEditorSelectionEventEmitter)="firstEditor.addPlagCaseDecoration($event)"
-                               (secondEditorSelectionEventEmitter)="secondEditor.addPlagCaseDecoration($event)"
-                               (firstEditorRemoveSelectionEvent)="firstEditor.removePlagCaseDecoration($event)"
-                               (secondEditorRemoveSelectionEvent)="secondEditor.removePlagCaseDecoration($event)"
-                               (exportEventEmitter)="onExport($event)"
+    <div style="display: flex; flex-direction: column; gap: 16px">
 
-    ></app-plag-case-editor-card>
-<!--    <mat-chip-listbox>-->
-<!--      <mat-chip-option selected (click)="toggleScrollSync()">Posúvať súčasne</mat-chip-option>-->
-<!--    </mat-chip-listbox>-->
-<!--    <button mat-raised-button-->
-<!--            (click)="loadDiffPage()"-->
-<!--    >-->
-<!--      Zobraziť rozdiel-->
-<!--    </button>-->
+      <div style="display: flex; flex-direction: row; justify-content: center">
+        <mat-chip-listbox>
+          <mat-chip-option selected (click)="toggleScrollSync()">Posúvať súčasne</mat-chip-option>
+        </mat-chip-listbox>
+      </div>
+      <app-plag-case-editor-card #plagCaseEditorCardComponent
+                                 (firstEditorSelectionEventEmitter)="firstEditor.addPlagCaseDecoration($event)"
+                                 (secondEditorSelectionEventEmitter)="secondEditor.addPlagCaseDecoration($event)"
+                                 (firstEditorRemoveSelectionEvent)="firstEditor.removePlagCaseDecoration($event)"
+                                 (secondEditorRemoveSelectionEvent)="secondEditor.removePlagCaseDecoration($event)"
+                                 (exportEventEmitter)="onExport($event)"
+
+      ></app-plag-case-editor-card>
+    </div>
+    <!--    <button mat-raised-button-->
+    <!--            (click)="loadDiffPage()"-->
+    <!--    >-->
+    <!--      Zobraziť rozdiel-->
+    <!--    </button>-->
   </app-floating-toolbar>
 </app-content-container>
