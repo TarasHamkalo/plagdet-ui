@@ -1,0 +1,132 @@
+[
+  {
+    "flag": "-l, --lucene-path <arg>",
+    "description": "Cesta k Lucene indexovému adresáru, ak je prázdna, bol vytvorený dočasný adresár",
+    "name": "luceneIndexDirectoryPath"
+  },
+  {
+    "flag": "-t, --template-path <arg>",
+    "description": "Cesta k súboru so šablónou",
+    "name": "templateDocumentPath"
+  },
+  {
+    "flag": "--enable-metadata-filter",
+    "description": "Prepínač na pokračovanie v porovnávaní po zhode autorov/upravovateľov",
+    "name": "enableMetadataFiltering"
+  },
+  {
+    "flag": "--bypass-shingle-filter",
+    "description": "Prepínač na pokračovanie v porovnávaní po dosiahnutí prahovej hodnoty prekrytia shingle",
+    "name": "bypassShingleFiltering"
+  },
+  {
+    "flag": "--bypass-length-filter",
+    "description": "Prepínač na pokračovanie v porovnávaní po tom ako pomer viet nebol doržaný",
+    "name": "bypassLengthFiltering"
+  },
+  {
+    "flag": "--bypass-template-removal",
+    "description": "Prepínač na vypnutVeľkosť shinglovie odstránenia zhôd s dokumentom šablóny",
+    "name": "bypassTemplateRemoval"
+  },
+  {
+    "flag": "--max-gap <arg>",
+    "description": "Maximálna vzdialenosť medzi dvoma zhodami, ktorá sa považuje za akceptovateľnú pri ich zlúčení",
+    "name": "sentMaxGap"
+  },
+  {
+    "flag": "--min-fragment-size <arg>",
+    "description": "Minimálny počet viet na vytvorenie fragmentu",
+    "name": "minClusterSize"
+  },
+  {
+    "flag": "--min-fragment-sim <arg>",
+    "description": "Minimálna podobnosť skupiny viet, v inom prípade skupina bude prerozdelená so snahou zachovať najväčšiu podobnosť",
+    "name": "minFragmentSideSim"
+  },
+  {
+    "flag": "--sentence-size-ratio-th <arg>",
+    "description": "Zahodí každú zhodu viet s pomerom veľkosti menším ako tento prah",
+    "name": "sizeRatioThreshold"
+  },
+  {
+    "flag": "--alignment-th <arg>",
+    "description": "Zahodí každú zhodu viet s podobnosťou podľa zarovnania slov pod týmto prahom",
+    "name": "alignmentSimilarityThreshold"
+  },
+  {
+    "flag": "--vector-sim-th <arg>",
+    "description": "Prahová hodnota podobnosti na získanie vety z indexu viet",
+    "name": "vectorSimilarityThreshold"
+  },
+  {
+    "flag": "--min-sentences-th <arg>",
+    "description": "Hodnota, ktorá určuje minimálny počet viet, ktoré sa majú zvážiť pri hľadaní podobných v indexe viet jedného dokumentu",
+    "name": "minSentencesToConsider"
+  },
+  {
+    "flag": "--sentences-percentage-th <arg>",
+    "description": "Daná hôdnota určuje počet viet, ktoré budú získané z indexu viet vytvoreného na základe <strong>jedného dokumentu</strong>. Počet sa vypočíta podľa vzorca: <strong>(počet viet v indexe) * th</strong>",
+    "name": "portionOfSentencesToConsider"
+  },
+  {
+    "flag": "--sentences-percentage-multi-th <arg>",
+    "description": "Daná hodnota určuje maximálny počet viet, ktoré budú získané z indexu viet, vytvoreného na základe viacerých dokumentov. Maximálny počet sa vypočíta podľa vzorca: <br><strong>(počet viet v indexe) * th</strong>",
+    "name": "maxPortionOfSentencesToConsiderMultiSearch"
+  },
+  {
+    "flag": "--sentences-per-document-th <arg>",
+    "description": "Pri hľadaní podobných viet v indexe viet z viacerých dokumentov sa počet viet, ktoré budú zvážené pri jednom dopyte, určuje podľa vzorca: <br> <strong>(počet dokumentov v indexe) * mul</strong>",
+    "name": "sentencesPerDocumentToConsiderMultiSearch"
+  },
+  {
+    "flag": "--shingle-size <arg>",
+    "description": "Veľkosť shinglov",
+    "name": "size"
+  },
+  {
+    "flag": "--shingle-overlap <arg>",
+    "description": "Prekrytie shingles",
+    "name": "overlap"
+  },
+  {
+    "flag": "--plagiarized-level <arg>",
+    "description": "Prah Jaccardovej podobnosti, nad ktorým sú dva dokumenty považované za plagiát",
+    "name": "plagiarizedLevel"
+  },
+  {
+    "flag": "--discard-level <arg>",
+    "description": "Prah Jaccardovej podobnosti, pod ktorým budú dokumentové páry odstránené",
+    "name": "discardLevel"
+  },
+  {
+    "flag": "--max-results <arg>",
+    "description": "Maximálny počet párov na dokument, ktoré budú uložené do výsledkov",
+    "name": "maxResultsPerDocument"
+  },
+  {
+    "flag": "--min-result-sim <arg>",
+    "description": "Minimálna podobnosť na zaradenie porovnania do výsledkov",
+    "name": "minSimilarityToRecord"
+  },
+  {
+    "flag": "--max-meta-docs <arg>",
+    "description": "Limit počtu indexovaných dokumentov nájdených podľa metaúdajov, pre každý odovzdaný dokument",
+    "name": "maxMetadataSimilarDoc"
+  },
+  {
+    "flag": "--max-sim-docs <arg>",
+    "description": "Limit počtu indexovaných dokumentov nájdených podľa obsahu, pre každý odovzdaný dokument",
+    "name": "similarDocumentsLimit"
+  },
+  {
+    "flag": "--document-size-ratio-th",
+    "description": "Páry dokumentov s pomerom veľkosti nižším za danú hodnôtu sa neporovnávajú",
+    "name": "sentenceSizeRatioThreshold"
+  },
+  {
+    "flag": "--min-char-len",
+    "description": "Minimálny počet znakov pre fragment, aby ho uložiť ako prípad plagiátorstva. Dĺžka by mala byť dodržaná v oboch dokumentoch",
+    "name": "minCharacterLength"
+  }
+]
