@@ -107,7 +107,7 @@ export class SubmissionGraphPageComponent implements AfterViewInit {
           return of(choiceValue);
         }
 
-        throw throwError(() => new Error("Cancel graph node action"));
+        return throwError(() => new Error("Cancel graph node action"));
       })
     ).subscribe({
       next: (choiceValue) => {
