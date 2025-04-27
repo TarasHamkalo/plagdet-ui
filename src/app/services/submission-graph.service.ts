@@ -141,6 +141,11 @@ export class SubmissionGraphService {
         } else {
           score = SubmissionPairUtils.getScoreByType(pair, displayScoreType);
         }
+
+        if (this.displayScoreType() === "META") {
+          return score && score.score === 1;
+        }
+
         return score && score.score >= minScoreToInclude;
       });
   }
