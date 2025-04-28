@@ -21,6 +21,7 @@
   @include mat.elevation(8);
 }
 
+
 .toolbar-header {
   display: flex;
   flex-direction: row;
@@ -36,6 +37,11 @@
   align-items: center;
   width: fit-content;
   gap: 16px;
+}
+
+.toolbar-body-horizontal {
+  flex-direction: column !important;
+  gap: 32px;
 }
 
 .floating-toolbar.collapsed {

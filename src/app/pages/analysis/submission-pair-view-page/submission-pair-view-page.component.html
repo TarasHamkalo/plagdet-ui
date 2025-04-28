@@ -57,12 +57,19 @@
     </div>
   </app-surface>
 
-  <app-floating-toolbar>
-    <mat-chip-listbox>
-      <mat-chip-option [selected]="this.isScrollSyncEnabled()"
-                       (click)="toggleScrollSync()">
-        Posúvať súčasne
-      </mat-chip-option>
+  <app-floating-toolbar [isHorizontal]="true">
+    <mat-chip-listbox multiple>
+      <div class="options-menu">
+
+        <mat-chip-option [selected]="this.isScrollSyncEnabled()"
+                         (click)="toggleScrollSync()">
+          Posúvať súčasne
+        </mat-chip-option>
+        <mat-chip-option [selected]="this.isMarkingNavigationEnabled()"
+                         (click)="toggleMarkingNavigation()">
+          Povoliť navigáciu
+        </mat-chip-option>
+      </div>
     </mat-chip-listbox>
     <button mat-raised-button
             (click)="loadDiffPage()"

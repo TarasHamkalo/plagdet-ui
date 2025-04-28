@@ -68,6 +68,8 @@ export class TextEditorComponent implements OnDestroy {
 
   protected isScrollSyncEnabled = signal<boolean>(true);
 
+  protected isMarkingNavigationEnabled = signal<boolean>(false);
+
   private dialog = inject(MatDialog);
 
   protected isModalOpened = false;
@@ -109,19 +111,24 @@ export class TextEditorComponent implements OnDestroy {
   public subscribeOnScrolling(eventEmitter: EventEmitter<EditorScrollEvent>): void {
     this.isScrollSyncEnabled.set(true);
     eventEmitter.pipe(takeWhile(() => this.isScrollSyncEnabled())).subscribe((e) => {
-     this.editor()!.setScrollTop(e.scrollEvent.scrollTop);
+      this.editor()!.setScrollTop(e.scrollEvent.scrollTop);
       this.editor()!.setScrollLeft(e.scrollEvent.scrollLeft);
     });
   }
 
   public subscribeOnNavigationEvent(eventEmitter: EventEmitter<SpecialMarking>): void {
+    this.isMarkingNavigationEnabled.set(true);
     eventEmitter.subscribe((e) => {
-      if (e && e.type === SpecialMarkingType.PLAG) {
+      if (this.isMarkingNavigationEnabled() && e && e.type === SpecialMarkingType.PLAG) {
         this.unsubscribeFromScrolling();
         this.forceUnsubscribeFromScrollEventEmitter.emit();
         this.monacoDecorationService.navigateToOffset(this.editor(), e, this.markingSide);
       }
     });
+  }
+
+  public toggleMarkingNavigation(isMarkingNavigationEnabled: boolean): void {
+    this.isMarkingNavigationEnabled.set(isMarkingNavigationEnabled);
   }
 
   private createDecorations(): IModelDeltaDecoration[] {
@@ -149,6 +156,10 @@ export class TextEditorComponent implements OnDestroy {
 
     editor.onMouseUp((e) => {
       e.event.stopPropagation();
+      if (!this.isMarkingNavigationEnabled()) {
+        return;
+      }
+
       if (e.target.position) {
         const model = editor.getModel();
         if (!model) {

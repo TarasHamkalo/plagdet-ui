@@ -21,3 +21,9 @@ app-text-editor {
   gap: 16px;
   /*max-width: min-content;*/
 }
+
+.options-menu {
+  display: flex;
+  flex-direction: row !important;
+  gap: 16px;
+}

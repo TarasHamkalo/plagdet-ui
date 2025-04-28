@@ -73,6 +73,8 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
 
   protected isScrollSyncEnabled = signal<boolean>(true);
 
+  protected isMarkingNavigationEnabled = signal<boolean>(true);
+
   constructor(
     protected analysisContext: AnalysisContextService,
     private router: Router,
@@ -115,9 +117,7 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
   }
 
   public toggleScrollSync(): void {
-    
     this.isScrollSyncEnabled.update(v => !v);
-
     if (this.isScrollSyncEnabled()) {
       this.firstEditor.subscribeOnScrolling(this.secondEditor.scrollEventEmitter);
       this.secondEditor.subscribeOnScrolling(this.firstEditor.scrollEventEmitter);
@@ -148,5 +148,11 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
 
   public loadDiffPage() {
     this.router.navigate([PageRoutes.DIFF, this.first()!.id, this.second()!.id]);
+  }
+
+  protected toggleMarkingNavigation() {
+    this.isMarkingNavigationEnabled.update(v => !v);
+    this.firstEditor.toggleMarkingNavigation(this.isMarkingNavigationEnabled());
+    this.secondEditor.toggleMarkingNavigation(this.isMarkingNavigationEnabled());
   }
 }

@@ -6,7 +6,7 @@
       </mat-icon>
     </button>
   </div>
-  <div class="toolbar-body" *ngIf="!isCollapsed()">
+  <div class="toolbar-body" *ngIf="!isCollapsed()" [class.toolbar-body-horizontal]="isHorizontal">
     <ng-content></ng-content>
   </div>
 </div>
