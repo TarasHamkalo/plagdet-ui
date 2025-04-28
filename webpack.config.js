@@ -1,3 +1,26 @@
+const MonacoEditorWebpackPlugin = require('monaco-editor-webpack-plugin');
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/, // For CSS files
+        use: ['style-loader', 'css-loader'],
+        include: [
+          /node_modules\/monaco-editor/ // Only apply this loader to monaco-editor
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new MonacoEditorWebpackPlugin({
+      languages: ['plaintext'],
+      features: ['!gotoSymbol'],
+      publicPath: '/plagdet-ui/assets/monaco/'
+    })
+  ]
+};
+
 // const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 //
 // module.exports = {
