@@ -30,8 +30,7 @@ export class SubmissionDiffEditorComponent implements OnDestroy, OnChanges {
     wordWrapBreakBeforeCharacters: "{([",
     wordWrapBreakAfterCharacters: " \t})",
     originalEditable: false,
-    modifiedEditable: false,
-    baseUrl: "/plagdet-ui/"
+    modifiedEditable: false
   };
 
   @Input({required: true}) public first!: Submission;
