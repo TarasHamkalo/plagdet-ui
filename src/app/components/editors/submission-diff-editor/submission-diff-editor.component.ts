@@ -31,7 +31,6 @@ export class SubmissionDiffEditorComponent implements OnDestroy, OnChanges {
     wordWrapBreakAfterCharacters: " \t})",
     originalEditable: false,
     modifiedEditable: false,
-    baseUrl: "/plagdet-ui/assets/monaco/"
   };
 
   @Input({required: true}) public first!: Submission;
