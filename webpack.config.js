@@ -4,8 +4,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/, // For CSS files
+        test: /\.css$/,
         use: ['style-loader', 'css-loader'],
+        include: [
+          /node_modules\/monaco-editor/ // Only apply this loader to monaco-editor
+        ]
+      },
+
+      {
+        test: /\.ttf$/,
+        type: 'asset/resource',
         include: [
           /node_modules\/monaco-editor/ // Only apply this loader to monaco-editor
         ]
