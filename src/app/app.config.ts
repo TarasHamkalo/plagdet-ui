@@ -6,8 +6,12 @@ import {provideAnimationsAsync} from "@angular/platform-browser/animations/async
 import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {MatPaginatorIntl} from "@angular/material/paginator";
 import {SlovakPaginatorService} from "./services/localization/slovak-paginator.service";
-import {provideMonacoEditor} from "ngx-monaco-editor-v2";
+import {NgxMonacoEditorConfig, provideMonacoEditor} from "ngx-monaco-editor-v2";
 import {PlagdetRouteReuseStrategy} from "./context/plagdet-route-reuse-strategy";
+
+const monacoConfig: NgxMonacoEditorConfig = {
+  baseUrl: "/plagdet-ui/assets",
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     {provide: MatPaginatorIntl, useClass: SlovakPaginatorService},
     {provide: RouteReuseStrategy, useClass: PlagdetRouteReuseStrategy},
-    provideMonacoEditor(),
+    provideMonacoEditor(monacoConfig),
     provideAnimationsAsync(),
   ]
 };
