@@ -9,6 +9,12 @@ import {SlovakPaginatorService} from "./services/localization/slovak-paginator.s
 import {provideMonacoEditor} from "ngx-monaco-editor-v2";
 import {PlagdetRouteReuseStrategy} from "./context/plagdet-route-reuse-strategy";
 
+(self as any).MonacoEnvironment = {
+  getWorkerUrl: function (moduleId: string, label: string) {
+    return `/plagdet-ui/assets/monaco/min/vs/base/worker/workerMain.js`;
+  }
+};
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({eventCoalescing: true}),
