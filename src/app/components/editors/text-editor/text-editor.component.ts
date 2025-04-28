@@ -47,7 +47,8 @@ export class TextEditorComponent implements OnDestroy {
     wordWrap: "on",
     wrappingIndent: "same",
     wordWrapBreakBeforeCharacters: "{([",
-    wordWrapBreakAfterCharacters: " \t})"
+    wordWrapBreakAfterCharacters: " \t})",
+    baseUrl: "/plagdet-ui/assets/monaco/"
   };
 
   protected editor = signal<IStandaloneCodeEditor | null>(null);
