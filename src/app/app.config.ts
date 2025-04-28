@@ -9,10 +9,6 @@ import {SlovakPaginatorService} from "./services/localization/slovak-paginator.s
 import {NgxMonacoEditorConfig, provideMonacoEditor} from "ngx-monaco-editor-v2";
 import {PlagdetRouteReuseStrategy} from "./context/plagdet-route-reuse-strategy";
 
-const monacoConfig: NgxMonacoEditorConfig = {
-  baseUrl: "plagdet-ui/assets",
-};
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({eventCoalescing: true}),
@@ -21,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     {provide: MatPaginatorIntl, useClass: SlovakPaginatorService},
     {provide: RouteReuseStrategy, useClass: PlagdetRouteReuseStrategy},
-    provideMonacoEditor(monacoConfig),
+    provideMonacoEditor(),
     provideAnimationsAsync(),
   ]
 };
