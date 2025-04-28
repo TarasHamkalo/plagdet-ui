@@ -10,7 +10,7 @@ import {NgxMonacoEditorConfig, provideMonacoEditor} from "ngx-monaco-editor-v2";
 import {PlagdetRouteReuseStrategy} from "./context/plagdet-route-reuse-strategy";
 
 const monacoConfig: NgxMonacoEditorConfig = {
-  baseUrl: "/plagdet-ui/assets",
+  baseUrl: "plagdet-ui/assets",
 };
 
 export const appConfig: ApplicationConfig = {
