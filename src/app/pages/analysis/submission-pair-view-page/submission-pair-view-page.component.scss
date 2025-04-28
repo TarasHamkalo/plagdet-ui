@@ -13,13 +13,14 @@ app-text-editor {
 }
 
 .stat-flex-column {
+  height: min-content;
   display: flex;
 
   flex-direction: row;
   flex-wrap: wrap;
+
   padding: 16px;
   gap: 16px;
-  /*max-width: min-content;*/
 }
 
 .options-menu {

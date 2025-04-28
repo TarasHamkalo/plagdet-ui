@@ -169,4 +169,27 @@ export class ExportService {
     const otherId = submission.id === pair.firstId ? pair.secondId : pair.firstId;
     return submissions.get(otherId) || null;
   }
+
+  public exportPair(submissionPair: SubmissionPair, filename: string) {
+    const report = this.analysisContextService.getReport()();
+    if (!report) {
+      return;
+    }
+
+    const submissions = report.submissions;
+    const rows: (string | number)[][] = [];
+    rows.push(this.typeToHeader["plagSource"]);
+
+    const firstSubmission = submissions.get(submissionPair.firstId);
+    const secondSubmission = submissions.get(submissionPair.secondId);
+    rows.push(
+      firstSubmission ? this.getPlagSourceRow(firstSubmission, submissionPair) : ["Nenájdený"]
+    );
+    rows.push(
+      secondSubmission ? this.getPlagSourceRow(secondSubmission, submissionPair) : ["Nenájdený"]
+    );
+
+    const csv = rows.map(row => row.join(", ")).join("\n");
+    this.createFile(csv, filename);
+  }
 }

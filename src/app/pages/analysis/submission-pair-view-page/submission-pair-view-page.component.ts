@@ -29,8 +29,10 @@ import {MatChipListbox, MatChipOption} from "@angular/material/chips";
 import {
   FloatingToolbarComponent
 } from "../../../components/floating-toolbar/floating-toolbar.component";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {PageRoutes} from "../../../app.routes";
+import {MatIcon} from "@angular/material/icon";
+import {ExportService} from "../../../services/export.service";
 
 
 @Component({
@@ -47,7 +49,9 @@ import {PageRoutes} from "../../../app.routes";
     MatChipOption,
     MatChipListbox,
     FloatingToolbarComponent,
-    MatButton
+    MatButton,
+    MatIcon,
+    MatIconButton
   ],
   templateUrl: "./submission-pair-view-page.component.html",
   styleUrl: "./submission-pair-view-page.component.scss"
@@ -77,6 +81,7 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
 
   constructor(
     protected analysisContext: AnalysisContextService,
+    private exportService: ExportService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -154,5 +159,12 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
     this.isMarkingNavigationEnabled.update(v => !v);
     this.firstEditor.toggleMarkingNavigation(this.isMarkingNavigationEnabled());
     this.secondEditor.toggleMarkingNavigation(this.isMarkingNavigationEnabled());
+  }
+
+  protected onExport() {
+    const submissionPair = this.submissionPair();
+    if (submissionPair) {
+      this.exportService.exportPair(submissionPair, Date.now().toFixed());
+    }
   }
 }

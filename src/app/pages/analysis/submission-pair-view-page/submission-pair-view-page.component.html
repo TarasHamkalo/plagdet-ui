@@ -11,26 +11,36 @@
                [wrapBreakpoint]="1300"
                [isContentCentered]="false"
                [isHorizontal]="true">
-    <app-metadata-diff-card [first]="this.first()!"
-                            [second]="this.second()!"
-                            [submissionPair]="this.submissionPair()!">
+    <div class="horizontal-card-group-wrapper">
+      <div class="header-with-actions">
+        <button mat-icon-button (click)="onExport()">
+            <mat-icon>download</mat-icon>
+        </button>
+      </div>
+      <div class="horizontal-card-group">
 
-    </app-metadata-diff-card>
+        <app-metadata-diff-card [first]="this.first()!"
+                                [second]="this.second()!"
+                                [submissionPair]="this.submissionPair()!">
 
-    <div class="stat-flex-column">
+        </app-metadata-diff-card>
 
-      <app-stat-card name="Jaccardov koeficient (bi-gramy)"
-                     [value]="this.getFormattedScore('JACCARD')">
-      </app-stat-card>
+        <div class="stat-flex-column">
 
-      <app-stat-card name="Podobnosť autorov (metaúdaje)"
-                     [value]="this.getFormattedScore('META')">
-      </app-stat-card>
+          <app-stat-card name="Jaccardov koeficient (bi-gramy)"
+                         [value]="this.getFormattedScore('JACCARD')">
+          </app-stat-card>
 
-      <app-stat-card name="Semantická podobnosť"
-                     [value]="this.getFormattedScore('SEMANTIC')">
-      </app-stat-card>
+          <app-stat-card name="Podobnosť autorov (metaúdaje)"
+                         [value]="this.getFormattedScore('META')">
+          </app-stat-card>
 
+          <app-stat-card name="Semantická podobnosť"
+                         [value]="this.getFormattedScore('SEMANTIC')">
+          </app-stat-card>
+
+        </div>
+      </div>
     </div>
   </app-surface>
 
