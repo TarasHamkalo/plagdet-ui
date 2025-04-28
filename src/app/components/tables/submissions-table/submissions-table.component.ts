@@ -149,8 +149,15 @@ export class SubmissionsTableComponent implements AfterViewInit, OnDestroy {
       this.submissionsDataSource.filteredData.sort(
         (a, b) => this.isMetadataMatched(a) ? 1 * mul : -1 * mul
       );
+    } else if (sort.active === "submitter") {
+      this.submissionsDataSource.filteredData.sort(
+        (a, b) => a.fileData.submitter.localeCompare(b.fileData.submitter) * mul
+      );
+    } else if (sort.active === "filename") {
+      this.submissionsDataSource.filteredData.sort(
+        (a, b) => a.fileData.filename.localeCompare(b.fileData.filename) * mul
+      );
     }
-
   }
 
   protected getPlagScore(similarity: number) {

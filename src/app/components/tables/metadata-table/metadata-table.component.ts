@@ -115,10 +115,18 @@ export class MetadataTableComponent implements AfterViewInit {
   }
 
   protected onSorting(sort: Sort) {
-    if (sort.active in ["filename", "submitter"]) {
-      return;
+    const mul = (sort.direction === "asc") ? 1 : -1;
+    if (sort.active === "submitter") {
+      this.submissionsDataSource.filteredData.sort(
+        (a, b) => a.fileData.submitter.localeCompare(b.fileData.submitter) * mul
+      );
+    } else if (sort.active === "filename") {
+      this.submissionsDataSource.filteredData.sort(
+        (a, b) => a.fileData.filename.localeCompare(b.fileData.filename) * mul
+      );
+    } else {
+      this.submissionsDataSource.filteredData.sort((a, b) => this.compareSubmissions(a, b, sort));
     }
-    this.submissionsDataSource.filteredData.sort((a, b) => this.compareSubmissions(a, b, sort));
   }
 
   protected applyFilter(filter: string) {
