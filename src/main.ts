@@ -5,7 +5,7 @@ import { AppComponent } from "./app/app.component";
 
 (self as any).MonacoEnvironment = {
   getWorkerUrl: function (moduleId: string, label: string) {
-    return `/plagdet-ui/assets/monaco/min/vs/base/worker/workerMain.js`;
+    return `/~th776no/plagdet/assets/monaco/min/vs/base/worker/workerMain.js`;
   }
 };
 bootstrapApplication(AppComponent, appConfig)

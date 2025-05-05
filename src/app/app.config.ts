@@ -16,7 +16,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
   requireConfig: {
     preferScriptTags: true,
     paths: {
-      "vs": "/plagdet-ui/assets/monaco/min/vs"
+      "vs": "/~th776no/plagdet/assets/monaco/min/vs"
     }
   }, // allows to oweride configuration passed to monacos loader
   monacoRequire: (window as any).monacoRequire // pass here monacos require function if you loaded monacos loader (loader.js) yourself
