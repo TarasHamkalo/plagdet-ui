@@ -61,6 +61,8 @@ export class SimilarityHeatmapComponent implements OnInit {
 
   @Output() public unknownPairEmitter = new EventEmitter<string>();
 
+  @Output() public selectedSubmissionEmitter = new EventEmitter<number>();
+
   @ViewChild(ChartComponent) protected chart!: ChartComponent;
 
   public readonly PLOT_OPTIONS: ApexPlotOptions = {
@@ -165,6 +167,8 @@ export class SimilarityHeatmapComponent implements OnInit {
 
     if (pairPoint.isKnownPair) {
       this.selectedPairIdEmitter.emit(`${pairPoint.firstId}_${pairPoint.secondId}`);
+    } else if (pairPoint.firstId == pairPoint.secondId) {
+      this.selectedSubmissionEmitter.emit(pairPoint.firstId);
     } else {
       this.unknownPairEmitter.emit(`${pairPoint.firstId}_${pairPoint.secondId}`);
     }

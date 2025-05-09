@@ -85,9 +85,14 @@ export class SimilarityHeatmapPageComponent implements OnDestroy, AfterViewInit 
     this.router.navigate([PageRoutes.PAIRS, pairId]);
   }
 
+  private loadSubmission(id: number) {
+    this.router.navigate([PageRoutes.SUBMISSIONS, id]);
+  }
+
   public ngAfterViewInit() {
     this.heatMap.selectedPairIdEmitter.subscribe((pId) => this.loadPair(pId));
     this.heatMap.unknownPairEmitter.subscribe((pId) => this.loadDiff(pId));
+    this.heatMap.selectedSubmissionEmitter.subscribe((id) => this.loadSubmission(id));
     setTimeout(() => this.applyContext());
   }
 

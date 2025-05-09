@@ -53,7 +53,6 @@ export class SimilarityHeatmapService {
       return true;
     }
 
-    // const report = this.analysisContextService.getReport()();
     if (this.submissionsMap.size == 0 || this.pairsMap.size == 0) {
       this.documentSeries = null;
       return false;
@@ -98,19 +97,21 @@ export class SimilarityHeatmapService {
     seriesIndex: number,
     dataPointIndex: number
   ): HeatmapPairPoint | null {
-    // const pairs = this.analysisContextService.getReport()()?.pairs;
     if (this.pairsMap.size == 0) {
       return null;
     }
     const dispLength = this.displayedSubmissions.length;
     const firstIndex = dispLength - 1 - (seriesIndex + (this.previousPage ? this.previousPage.y : 0));
     const secondIndex = dataPointIndex + (this.previousPage ? this.previousPage.x : 0);
-    if (firstIndex == secondIndex) {
-      return null;
-    }
-
     const first = this.displayedSubmissions.at(firstIndex)!;
     const second = this.displayedSubmissions.at(secondIndex)!;
+    if (first.id == second.id) {
+      return {
+        firstId: first.id,
+        secondId: second.id,
+        isKnownPair: false
+      };
+    }
     const isFirstKnown = this.pairsMap.has(`${first.id}_${second.id}`);
     const isSecondKnown = this.pairsMap.get(`${second.id}_${first.id}`);
     if (isFirstKnown || isSecondKnown) {

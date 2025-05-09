@@ -24,6 +24,10 @@
   }
 }
 
+::ng-deep .apexcharts-heatmap-rect {
+  cursor: pointer;
+}
+
 .chart {
   width: 75%;
 
