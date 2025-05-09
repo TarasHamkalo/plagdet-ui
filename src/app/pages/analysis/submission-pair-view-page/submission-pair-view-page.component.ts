@@ -2,9 +2,9 @@ import {
   AfterViewInit,
   Component,
   computed,
-  effect,
+  effect, ElementRef,
   OnDestroy,
-  OnInit,
+  OnInit, Renderer2,
   signal,
   ViewChild
 } from "@angular/core";
@@ -68,7 +68,6 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
 
   protected plagCases = computed(() => this.submissionPair()?.plagCases ?? []);
 
-
   @ViewChild("firstEditor")
   protected firstEditor!: TextEditorComponent;
 
@@ -79,11 +78,17 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
 
   protected isMarkingNavigationEnabled = signal<boolean>(true);
 
+  protected plagiarizedTextSelector = ".highlight-plag";
+
+  protected nonNavigableMarkingClass = "non-navigable";
+
   constructor(
     protected analysisContext: AnalysisContextService,
     private exportService: ExportService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private elRef: ElementRef,
+    private renderer: Renderer2
   ) {
     effect(() => {
       if (this.pairId() === null) {
@@ -157,6 +162,15 @@ export class SubmissionPairViewPageComponent implements OnInit, OnDestroy, After
 
   protected toggleMarkingNavigation() {
     this.isMarkingNavigationEnabled.update(v => !v);
+    const elements = this.elRef.nativeElement.querySelectorAll(this.plagiarizedTextSelector);
+    elements.forEach((elem: HTMLElement) => {
+      if (this.isMarkingNavigationEnabled()) {
+        this.renderer.removeClass(elem, this.nonNavigableMarkingClass);
+      } else {
+        this.renderer.addClass(elem, this.nonNavigableMarkingClass);
+      }
+    });
+
     this.firstEditor.toggleMarkingNavigation(this.isMarkingNavigationEnabled());
     this.secondEditor.toggleMarkingNavigation(this.isMarkingNavigationEnabled());
   }
