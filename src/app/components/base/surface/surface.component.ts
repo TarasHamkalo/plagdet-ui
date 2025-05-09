@@ -4,7 +4,10 @@ import {Component, HostListener, Input, signal, OnInit} from "@angular/core";
   selector: "app-surface",
   imports: [],
   templateUrl: "./surface.component.html",
-  styleUrl: "./surface.component.css"
+  styleUrl: "./surface.component.css",
+  host: {
+    "[attr.title]": "null"
+  }
 })
 export class SurfaceComponent implements OnInit {
 

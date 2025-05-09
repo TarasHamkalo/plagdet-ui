@@ -1,7 +1,6 @@
 @use '@angular/material' as mat;
 
 .chart-container {
-
   @include mat.elevation(4);
   min-height: 80vh;
   border-radius: var(--mat-sys-corner-medium);
@@ -34,4 +33,9 @@ p {
   font: var(--mat-sys-body-medium);
   color: var(--mat-sys-on-surface-variant);
   margin: 0;
+}
+
+
+.node {
+  cursor: pointer;
 }
