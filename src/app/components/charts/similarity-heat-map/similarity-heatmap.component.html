@@ -3,12 +3,15 @@
 <div class="container-vertical" *ngIf="this.similarityHeatmapService.hasDataToDisplay()">
 
 
-  <div class="horizontal-slider-wrapper">
+  <div class="horizontal-slider-wrapper" *ngIf="this.similarityHeatmapService.getMaxPosition() > 0">
     <mat-slider
+      matTooltip="Pomocou posuvníka môžete meniť zobrazené údaje, daný posuvník zobrazí nové stĺpce matice"
+      [matTooltipShowDelay]="1000"
+      [matTooltipHideDelay]="200"
       [min]="0"
       [max]="this.similarityHeatmapService.getMaxPosition()"
       [step]="1"
-      [discrete]="false"
+      [discrete]="true"
       [showTickMarks]="true"
       class="horizontal-slider"
     >
@@ -24,12 +27,15 @@
                [plotOptions]="chartOptions.plotOptions!"
                [title]="chartOptions.title!"
     ></apx-chart>
-    <div class="vertical-slider-wrapper">
+    <div class="vertical-slider-wrapper" *ngIf="this.similarityHeatmapService.getMaxPosition() > 0">
       <mat-slider
+        matTooltip="Pomocou posuvníka môžete meniť zobrazené údaje, daný posuvník zobrazí nové riadky matice"
+        [matTooltipShowDelay]="1000"
+        [matTooltipHideDelay]="200"
         [min]="0"
         [max]="this.similarityHeatmapService.getMaxPosition()"
         [step]="1"
-        [discrete]="false"
+        [discrete]="true"
         [showTickMarks]="true"
         class="vertical-slider">
         <input matSliderThumb (change)="this.updateSeries()" [(ngModel)]="this.y" #slider>

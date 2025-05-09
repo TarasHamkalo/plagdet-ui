@@ -1,5 +1,32 @@
+@use '@angular/material' as mat;
+
+.container-vertical {
+  @include mat.slider-overrides((
+          inactive-track-color: rgba(0, 0, 0, 0.6),
+          with-tick-marks-inactive-container-color: rgba(0, 0, 0, 1),
+  ));
+}
+
+::ng-deep mat-slider {
+  .mdc-slider__tick-mark--inactive {
+    background-color: rgba(0, 0, 0, 1);
+    transform: scale(3.5);
+    width: 4px;
+    height: 4px;
+    //height: 8px;
+    border-radius: 3px;
+  }
+}
+
+::ng-deep .vertical-slider {
+  .mdc-slider__value-indicator-text {
+    transform: rotate(-225deg);
+  }
+}
+
 .chart {
   width: 75%;
+
 }
 
 .container-vertical {
@@ -27,7 +54,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .horizontal-slider {
@@ -36,7 +62,6 @@
 
 .vertical-slider-wrapper {
   position: relative;
-
   width: 24px;
   display: flex;
   flex-direction: row;
@@ -64,3 +89,5 @@ p {
   text-align: center;
   margin: 0;
 }
+
+//

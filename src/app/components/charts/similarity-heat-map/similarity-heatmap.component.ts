@@ -3,10 +3,11 @@ import {
   effect,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   Signal,
-  ViewChild,
-  OnInit, signal
+  signal,
+  ViewChild
 } from "@angular/core";
 
 import {
@@ -25,6 +26,7 @@ import {NgIf} from "@angular/common";
 import {SubmissionPair} from "../../../model/submission-pair";
 import {Submission} from "../../../model/submission";
 import {HeatmapPairPoint} from "../../../types/heatmap-pair-point";
+import {MatTooltip} from "@angular/material/tooltip";
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -43,10 +45,11 @@ export interface ChartOptions {
     MatSlider,
     MatSliderThumb,
     FormsModule,
+    MatTooltip,
     NgIf
   ],
   templateUrl: "./similarity-heatmap.component.html",
-  styleUrl: "./similarity-heatmap.component.css"
+  styleUrl: "./similarity-heatmap.component.scss"
 })
 export class SimilarityHeatmapComponent implements OnInit {
 
