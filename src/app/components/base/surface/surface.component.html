@@ -4,7 +4,7 @@
        [class.title-centered]="isTitleCentered">
 
     <h1 class="title-text">{{ title }}</h1>
-    <p class="subtitle-text">{{ subtitle }}</p>
+    <p class="subtitle-text" [innerHTML]="subtitle"></p>
   </div>
 
   <div class="content"

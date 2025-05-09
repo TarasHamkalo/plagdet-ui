@@ -45,9 +45,11 @@
   </app-surface>
 
   <app-surface title="Porovnanie obsahu"
-               subtitle=""
+               [subtitle]="this.submissionPair()!.plagCases.length > 0 ? '' :
+                'Pre túto dvojicu <strong>neboli vypočítané podobné fragmenty</strong>, dané dva dokumenty sú buď veľmi odlišné, alebo veľmi podobné. ' +
+                'Ak chcete vidieť rozdiely medzi dokumentmi, môžete prejsť na záložku <strong>Rozdiel obsahu</strong> kliknutím na tlačidlo v dolnom paneli'"
                [isContentCentered]="false"
-               [isTitleCentered]="true">
+               [isTitleCentered]="false">
 
 
     <div class="editor-container">
