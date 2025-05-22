@@ -13,7 +13,7 @@
 
   <app-floating-toolbar>
     <mat-form-field appearance="outline">
-      <mat-label>Mieru podobnosti</mat-label>
+      <mat-label>Vyberte typ podobnosti</mat-label>
       <mat-select #select [value]="this.similarityHeatmapService.getDisplayScoreType()"
                   (selectionChange)="this.changeScoreType(select.value)">
         <mat-option value="META">

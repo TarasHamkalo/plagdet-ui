@@ -42,8 +42,8 @@
   </app-surface>
 
   <app-floating-toolbar>
-    <mat-form-field style="width: 320px" appearance="outline">
-      <mat-label>Miera podobnosti pre zobrazenie na teplotnej mape</mat-label>
+    <mat-form-field style="width: 350px" appearance="outline">
+      <mat-label>Typ podobnosti pre zobrazenie na teplotnej mape</mat-label>
       <mat-select #select [value]="this.similarityHeatmapService.getDisplayScoreType()"
                   (selectionChange)="this.changeScoreType(select.value)">
         <mat-option value="META">
