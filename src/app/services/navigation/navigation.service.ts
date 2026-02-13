@@ -20,7 +20,7 @@ export class NavigationService {
         {route: PageRoutes.GRAPH, isFullWidthOnly: false, fullWidthName: "Graf", iconPath: "apache-kafka", isIconSvg: true},
         {route: PageRoutes.DIFF, isFullWidthOnly: false, fullWidthName: "Rozdiel obsahu", iconPath: "difference_outlined", isIconSvg: false}
       ],
-    ],
+    ]kkk,
     [
       PageRoutes.PAIRS,
       [
