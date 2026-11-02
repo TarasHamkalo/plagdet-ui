@@ -1,6 +1,6 @@
 <mat-card class="comparison-fast-nav large-card-card base-card">
   <div class="text-frame">
-    <h1>{{ displayedSubmitter() ?? 'Nenájdený' }}</h1>
+    <h1 class="scrollable-text">{{ displayedSubmitter() ?? 'Nenájdený' }}</h1>
     @switch (similarityType) {
       @case ('META') {
         <p>{{ 'Zadanie s rovnakým autorstvom podľa metaúdajov' }}</p>

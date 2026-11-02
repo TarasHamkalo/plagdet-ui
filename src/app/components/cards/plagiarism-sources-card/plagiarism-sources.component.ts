@@ -9,7 +9,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 
 @Component({
-  selector: "app-plagiarism-sources",
+  selector: "app-plagiarism-sources-card",
   imports: [
     ComparisonFastNavComponent,
     MatIconButton,

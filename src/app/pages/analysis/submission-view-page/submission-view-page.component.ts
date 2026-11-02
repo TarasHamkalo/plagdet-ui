@@ -16,7 +16,7 @@ import {FormsModule} from "@angular/forms";
 import {TextEditorComponent} from "../../../components/editors/text-editor/text-editor.component";
 import {
   PlagiarismSourcesComponent
-} from "../../../components/cards/plagiarism-sources/plagiarism-sources.component";
+} from "../../../components/cards/plagiarism-sources-card/plagiarism-sources.component";
 
 @Component({
   selector: "app-submission-view-page",
