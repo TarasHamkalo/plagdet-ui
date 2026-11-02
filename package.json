@@ -10,6 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
+
     "electron": "electron .",
     "electron-build": "ng build && electron .",
     "package-win": "electron-packager . plagdet-win --icon=public/favicon.ico --overwrite --asar --platform=win32 --arch=ia32  --prune=true --out=dist --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Plagdet\"",
@@ -38,7 +39,7 @@
     "jszip": "^3.10.1",
     "monaco-editor": "^0.52.2",
     "monaco-editor-webpack-plugin": "^7.1.0",
-    "ng-apexcharts": "^1.15.0",
+    "ng-apexcharts": "1.15.0",
     "ngx-monaco-editor-v2": "^19.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
